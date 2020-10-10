@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="实验进度   序号 是否已完成    必做任务1 √   必做任务2 √   必做任务3 √   必做任务4 √   必做任务5 √   必做任务6 √   必做任务7 √   选做任务1 √   选做任务2 √   实验前的准备【2020.9.25】 完成了PA0实验指导书的内容，熟悉了  在Linux 环境下进行实验的基本流程 【2020.9.26】  发现实验平台有点卡顿，所以自己尝试着配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PA0实验报告">
+<meta property="og:url" content="https://hasuer.github.io/pa0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="实验进度   序号 是否已完成    必做任务1 √   必做任务2 √   必做任务3 √   必做任务4 √   必做任务5 √   必做任务6 √   必做任务7 √   选做任务1 √   选做任务2 √   实验前的准备【2020.9.25】 完成了PA0实验指导书的内容，熟悉了  在Linux 环境下进行实验的基本流程 【2020.9.26】  发现实验平台有点卡顿，所以自己尝试着配置">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="g:/Blog/source/_posts/1.4.png">
+<meta property="og:image" content="g:/Blog/source/_posts/1.5.png">
+<meta property="og:image" content="g:/Blog/source/_posts/1.6.png">
+<meta property="og:image" content="g:/Blog/source/_posts/1.1.png">
+<meta property="og:image" content="g:/Blog/source/_posts/1.2.png">
+<meta property="og:image" content="g:/Blog/source/_posts/1.3.png">
+<meta property="article:published_time" content="2020-10-02T14:45:57.000Z">
+<meta property="article:modified_time" content="2020-10-10T13:17:56.516Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="NEMU实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="g:/Blog/source/_posts/1.4.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>PA0实验报告 · Hasuer&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/profile.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">PA0实验报告</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Hasuer's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            PA0实验报告
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "NEMU实验">NEMU实验</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.3k</span>Reading time: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/10/02</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="实验进度"><a href="#实验进度" class="headerlink" title="实验进度"></a>实验进度</h2><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">是否已完成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">必做任务1</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务2</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务3</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务4</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务5</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务6</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务7</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">选做任务1</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">选做任务2</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+<h3 id="实验前的准备"><a href="#实验前的准备" class="headerlink" title="实验前的准备"></a>实验前的准备</h3><p>【<strong>2020.9.25</strong>】</p>
+<p>完成了<strong>PA0</strong>实验指导书的内容，熟悉了  在<code>Linux</code> 环境下进行实验的基本流程</p>
+<p>【<strong>2020.9.26</strong>】</p>
+<ul>
+<li><p>发现实验平台有点卡顿，所以<strong>自己尝试着配置</strong>了与实验环境一样的虚拟机实验环境来完成实验。</p>
+</li>
+<li><p>由于使用到<code>GitHub</code>的仓库操作，所以查看的相关资料和网站<strong>学习了远程和本地仓库之间的连接</strong>。</p>
+</li>
+</ul>
+<p>【<strong>2020.9.28</strong>】</p>
+<ul>
+<li>跟着<strong>PA0</strong>实验指导书，熟悉了<code>vim</code>的基本使用。</li>
+<li>跟着B站视频，学习了<code>tmux</code>和<code>ctags</code>的基本使用方法。</li>
+</ul>
+<hr>
+<h3 id="实验开始"><a href="#实验开始" class="headerlink" title="实验开始"></a>实验开始</h3><p>【<strong>2020.9.29</strong>】</p>
+<p>跟着<strong>PA1</strong>实验指导书完成了源代码的阅读，配合<code>tmux</code>的快捷键<code>ctrl + ]</code>, <code>ctrl + t</code>大致了解了<code>nemu/src/main.c</code>的代码框架。</p>
+<p>【<strong>2020.9.30</strong>】</p>
+<ul>
+<li><p><strong>实现正确的寄存器存储结构</strong></p>
+<p>寄存器在物理结构是不是相互独立的，而是互用部分内存。</p>
+<ul>
+<li><p><code>union</code>和<code>struct</code>的区别</p>
+<p><code>struct</code>会对其中定义的所有变量都分配内存空间，而是用<code>union</code>只会分配一块内存空间，大小是变量中所需空间的最大空间。和寄存器的结构十分符合。</p>
+</li>
+<li><p>将原来的<code>struct</code>改成<code>union</code>。</p>
+</li>
+<li><p>由于<code>uint32_t</code>,<code>uint16_t</code>,<code>uint8_t</code>是同一个寄存器的不同部分，所以采用<code>unioin</code>将他们定义。</p>
+</li>
+<li><p>考虑到要公用同一块空间的8个寄存器要和空间一一对应，所以采用<code>struct</code>将他们定义。</p>
+</li>
+</ul>
+</li>
+<li><p>考虑到之后的实验的不确定性，学习了<code>git</code>的分支管理操作（点击<a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-branch.html">这里</a>查看<code>git</code>相关操作）。</p>
+</li>
+</ul>
+<p>【<strong>2020.10.2</strong>】</p>
+<ul>
+<li><p>重置了工程文件，新建了分支<code>PA1</code>。</p>
+</li>
+<li><p><strong>单步执行</strong></p>
+<ul>
+<li><p>核心就是将输入的指令字符串做分割。将命令在<code>cmd_table[]</code>中做查找，然后执行相应次数的<code>cpu_exec()</code>。</p>
+</li>
+<li><p>熟悉<code>sscanf()</code>,<code>strtok()</code>函数的使用。</p>
+</li>
+<li><p>要求是当没有输入步数是，缺省值是1，所以要先使用<code>strtok()</code>看看是否有步数的输入，做<code>if</code>判断。之后再使用<code>sscanf()</code>从字符串读入格式化的内容。</p>
+</li>
+<li><p><strong>注意：</strong></p>
+<ul>
+<li><p>要在<code>cmd_table</code>中加入相关的命令。</p>
+</li>
+<li><p><strong>加入<code>if</code>语句对于输入指令格式的判定。</strong></p>
+<ul>
+<li><p>比正确格式多了，少了，配对不匹配</p>
+<img src="G:\Blog\source\_posts\1.4.png" style="zoom:50%;" />
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>【<strong>2020.10.3</strong>】</p>
+<ul>
+<li><p><strong>打印寄存器</strong></p>
+<ul>
+<li><p>这个和单步执行差不多，不在赘述。</p>
+</li>
+<li><p><strong>要注意的是</strong></p>
+<ul>
+<li><p>键入的是<code>info r</code>所以还是要对它做字符串的拆分，和<code>r</code>配对了执行。</p>
+</li>
+<li><p>还有一个<code>eip</code>寄存器。</p>
+</li>
+<li><p><strong>加入<code>if</code>语句对于输入指令格式的判定。</strong></p>
+<ul>
+<li><p>比正确格式多了，少了，配对不匹配</p>
+<img src="G:\Blog\source\_posts\1.5.png" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>扫描内存</strong></p>
+<ul>
+<li><p>传入的参数格式是<code>[x N EXPR]</code></p>
+<ul>
+<li><p>注意结合使用<code>if</code>语句和<code>strtok()</code>函数来判断输入的格式是否正确。</p>
+<img src="G:\Blog\source\_posts\1.6.png" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+<li><p>使用<code>strtok()</code>和<code>sscanf()</code>函数得到对应的<code>N</code>和<code>EXPR</code>的值，使用<code>swaddr_read()</code>函数一次读取4个字节的内存，将其打印出来。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>【<strong>2020.10.4</strong>】</p>
+<ul>
+<li>学习正则表达式</li>
+<li>读懂任务指导书求表达式这一部分</li>
+</ul>
+<p>【<strong>2020.10.5</strong>】</p>
+<ul>
+<li><strong>表达式求值</strong><ul>
+<li>使用正则表达式添加词法分析的规则</li>
+<li>对输入的表达式进行遍历，根据自己定义的词法分析规则去分析表达式中的<code>tokens</code>，再使用<code>strncpy()</code>函数将<code>tokens</code>存入对应的数组中。</li>
+<li>实现<code>check_parentheses()</code>,<code>dominant_operator()</code>函数的实现。</li>
+<li>实现单目运算符<code>!</code>,<code>-</code>,<code>*</code>的计算<ul>
+<li>对于<code>!</code> ：由于<code>!</code>是在规则中指定的，并且没有可能被区别为其他的运算符，所以对于<code>!</code>来说，只要使用<code>dominant_operator()</code>是，只要返回的操作符的索引是表示左边界的形参，说明是单目运算符。</li>
+<li>对于<code>-</code>和<code>*</code>：由于，这两个符号还有其他的含义 ：乘以及减。所以需要在<code>eval()</code>中识别出来，改变他们的<code>priority</code>,<code>token_type</code>。接下来思路和<code>!</code>是一样的。</li>
+</ul>
+</li>
+<li>寄存器的计算<ul>
+<li>要区别32位，16位和8位的寄存器，分别计算。</li>
+<li>寄存器在存储进<code>token，str[]</code>中，要注意移除<code>$</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>【<strong>2020.10.7</strong>】</p>
+<ul>
+<li>实现<code>free_wp()</code>和<code>new_wp()</code>两个函数。</li>
+</ul>
+<p>【<strong>2020.10.8</strong>】</p>
+<ul>
+<li>完成了监视点的操作。</li>
+</ul>
+<hr>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a><font color=#ff0000 size=3>思考题1</font></h3><p><strong>问：</strong> <code>opcode_table</code>到底是一个什么类型的数组？</p>
+<p><strong>答：</strong>是一个opcode_entry结构体类型的数组</p>
+<h3 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a><font color=#ff0000 size=3>思考题2</font></h3><p><strong>问：</strong>在<code>cmd_c()</code>函数中，调用<code>cpu_exec()</code>的时候传入了参数**-1**，你知道这是为什么吗？</p>
+<p><strong>答：</strong></p>
+<img src="G:\Blog\source\_posts\1.1.png" style="zoom:50%;" />
+
+<p>上图中，函数<code>cpu_exec()</code>的参数是<code>uint32_t</code>类型，也就是32位的<strong>无符号</strong>整型，当参数是**-1<strong>的时候，由于</strong>-1<strong>的二进制编码是<code>0xffff</code>，</strong>-1**会被函数认为是32位中的最大整数，所以会一直循环下取，指导完成所有指令。</p>
+<h3 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a><font color=#ff0000 size=3>思考题3</font></h3><p><strong>问：</strong>框架代码中定义<code>wp_pool</code>等变量的时候使用了关键字<code>static</code>, <code>static</code>在此处的含义是什么? 为什么要在此处使用它?</p>
+<p><strong>答：</strong><code>static</code>是静态的意思，用在函数上，是指编译过程中进行链接时由<code>static</code>修饰的变量不参与与外部文件的链接。只有在这个文件中的函数才能够调用函数，保证了数据的安全和稳定，有点类似于面向对象的思想。</p>
+<h3 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a><font color=#ff0000 size=3>思考题4</font></h3><p><font color=#00ff6f size=3>查阅i386手册</font></p>
+<p><strong>问：</strong><code>EFLAGS</code> 寄存器中的 <code>CF </code>位是什么意思 ?</p>
+<p><strong>答：</strong>查阅i386手册P33-P34，2.3.4节有关<code>EFLAGS</code>寄存器的部分。</p>
+<p><strong>问：</strong><code>ModR/M </code>字节是什么 ?</p>
+<p><strong>答：</strong>P241，<code>17.2.1</code>小节。P40，<code>2.5.3.2</code>小节。</p>
+<p><strong>问：</strong><code>mov</code> 指令的 具体格式是怎么样?</p>
+<p><strong>答：</strong>P45， <code>3.1</code>小节。</p>
+<p><font color=#00ff6f size=3>Shell文件</font></p>
+<p><strong>问：</strong>如何查看命令行数？</p>
+<p><strong>答：</strong></p>
+<p><code>find . -name &quot;*[.h|.cpp]&quot; | xargs wc -l </code> 可用于计算.c .h文件有多少行。<strong>一共128886行。</strong></p>
+<p><code>find . -name &quot;*[.cpp| .h]&quot; | xargs grep &quot;^.&quot;| wc -l </code>用于计算.c .h文件除去空格有多少行。<strong>一共114922行。</strong></p>
+<p><font color=#00ff6f size=3>Makefile</font></p>
+<p><strong>答：</strong></p>
+<ol>
+<li><code>-Wal</code>l选项意思是编译后显示所有警告。</li>
+<li><code>-Werror</code>，它要求<code>gcc</code>将所有的警告当成错误进行处理。</li>
+</ol>
+<h3 id="思考题1-1"><a href="#思考题1-1" class="headerlink" title="思考题1"></a><font color=#ff0000 size=3>思考题1</font></h3><h3 id="思考题1-2"><a href="#思考题1-2" class="headerlink" title="思考题1"></a><font color=#ff0000 size=3>思考题1</font></h3><h3 id="思考题1-3"><a href="#思考题1-3" class="headerlink" title="思考题1"></a><font color=#ff0000 size=3>思考题1</font></h3><h2 id="实验遇到的问题，思考和解决方法"><a href="#实验遇到的问题，思考和解决方法" class="headerlink" title="实验遇到的问题，思考和解决方法"></a>实验遇到的问题，思考和解决方法</h2><p><font color=#ff0000 size=3> 【<strong>问题1</strong>】</font></p>
+<p><strong>问题：</strong>在回答思考题2的时候，不知道为什么传入的参数 <strong>-1</strong>就是最大值，放入循环中可以执行所有的指令。</p>
+<p><strong>答：</strong>之前在改完代码以后，没有重新<code>make run</code>导致一直看不到效果。之后通过调试发现当执行<code>cpu_exec(-1)</code>的能够完成所有指令，也就是键入<code>c</code>后的步骤。但是不知道<code>uint32_t</code>是什么类型的数据，查了资料在知道是<strong>无符号整数</strong>，那答案也就知道了。</p>
+<p><font color=#ff0000 size=3> 【<strong>问题2</strong>】</font></p>
+<p><strong>问题：</strong>在实现单步打印的时候，总是和预期不一样</p>
+<p><strong>答：</strong>对于<code>strtok()</code>的理解不到位，点击<a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-strtok.html">这里</a>查看使用方法。经过反复的debug发现使用<code>strtok(str, &quot; &quot;)</code>之后，<code>str</code>就已经和原来不一样了。所以在单步打印中，组合使用<code>strtok()</code>,<code>sscanf()</code>时候要注意。</p>
+<p><font color=#ff0000 size=3> 【<strong>问题3</strong>】</font></p>
+<p><strong>问题：</strong>在实现单步打印的时候，当输入的步数时个位数的时候，能够打印输出每一步，当是两位数的时候，就不再打印输出了。</p>
+<p><strong>答：</strong>事实就是这样，我也不知道为什么。当步数是两位数的时候，参数会传递到<code>cpu_exec()</code>函数中，但是不会打印出每一步。所以我才用了<code>for</code>循环来解决传入参数是两位数时无法打印的问题。</p>
+<img src="G:\Blog\source\_posts\1.2.png" style="zoom:50%;" />
+
+<img src="G:\Blog\source\_posts\1.3.png" style="zoom:50%;" />
+
+<p><font color=#ff0000 size=3> 【<strong>问题4</strong>】</font></p>
+<p><strong>问题：</strong>在使用正则表达式制定词法分析规则的时候，不知道为什么<code>\\+</code>,<code>\\b</code>等需要两个<code>\</code>?</p>
+<p><strong>答：</strong>以<code>+</code>举例，<code>+</code>在正则表达式中是一个特殊字符，要使用<code>\</code>将<code>+</code>转义，又由于<code>\</code>在正则表达式中也有特殊含义，所以第一个<code>\</code>是用来转义第二个<code>\</code>的，第二个<code>\</code>是用来转义<code>+</code>的。</p>
+<p><font color=#ff0000 size=3> 【<strong>问题5</strong>】</font></p>
+<p><strong>问题：</strong>在实现指针解引用和区别负号的时候，按照老师给的思路写代码却出现错误。</p>
+<p><strong>答：</strong>原因在于，在进入函数<code>eval()</code>中时，要对分析出来的<code>tokens</code>进行分析，查看是否符合是<code>-</code>（负号）和<code>*</code>（指针），是的话修改优先级和名称，但是由于指针和符号不是要实现的基本法则，所以在<code>rules[]</code>中定义，所以报错了，加上之后就没有问题了。</p>
+<h2 id="实验心得"><a href="#实验心得" class="headerlink" title="实验心得"></a>实验心得</h2><ol>
+<li>一定要仔细阅读实验指导书和源代码，会有意想不到的收获。</li>
+<li>发现自己原来C++的很多知识点也有了不同程度的遗忘，做完了PA1，也巩固了不少。</li>
+<li>牢记<code>KISS</code>原则，永远不要一下子追求完美，渐渐的就好。</li>
+<li><code>Vim</code>作为编辑器之神果然名不虚传。</li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/hello-world/index.html" title= "Hello World">
+                    <div class="prevTitle">Hello World</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linhao_yu@foxmail@mail" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Hasuer" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">实验进度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">实验前的准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BC%80%E5%A7%8B"><span class="toc-number">1.2.</span> <span class="toc-text">实验开始</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981"><span class="toc-number">2.1.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%982"><span class="toc-number">2.2.</span> <span class="toc-text">思考题2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%983"><span class="toc-number">2.3.</span> <span class="toc-text">思考题3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%984"><span class="toc-number">2.4.</span> <span class="toc-text">思考题4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981-1"><span class="toc-number">2.5.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981-2"><span class="toc-number">2.6.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981-3"><span class="toc-number">2.7.</span> <span class="toc-text">思考题1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E6%80%9D%E8%80%83%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">实验遇到的问题，思考和解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BF%83%E5%BE%97"><span class="toc-number">4.</span> <span class="toc-text">实验心得</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 2
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/02</span><a class="archive-post-title" href= "/pa0%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA0实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/hello-world/index.html" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="NEMU实验"><span class="iconfont-archer">&#xe606;</span>NEMU实验</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理"><span class="iconfont-archer">&#xe60a;</span>计算机组成原理</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
