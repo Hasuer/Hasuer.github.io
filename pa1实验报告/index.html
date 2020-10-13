@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://hasuer.github.io/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/1.2.png">
 <meta property="og:image" content="https://hasuer.github.io/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/1.3.png">
 <meta property="article:published_time" content="2020-10-10T14:48:27.000Z">
-<meta property="article:modified_time" content="2020-10-10T15:56:15.627Z">
+<meta property="article:modified_time" content="2020-10-11T14:41:55.271Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="NEMU实验">
 <meta name="twitter:card" content="summary">
@@ -292,7 +292,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">2.2k</span>Reading time: <span class="post-count reading-time">8 min</span></span>
+                        <span>Word count: <span class="post-count word-count">2.7k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -593,7 +593,10 @@ height:50vh;
 </ul>
 <p>【<strong>2020.10.7</strong>】</p>
 <ul>
-<li>实现<code>free_wp()</code>和<code>new_wp()</code>两个函数。</li>
+<li>实现<code>free_wp()</code>和<code>new_wp()</code>两个函数。<ul>
+<li>这两个函数就是简单的链表操作。加上对于传入参数是否非法的判断。</li>
+</ul>
+</li>
 </ul>
 <p>【<strong>2020.10.8</strong>】</p>
 <ul>
@@ -601,27 +604,27 @@ height:50vh;
 </ul>
 <hr>
 <h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a><font color="#ff0000" size="3">思考题1</font></h3><p><strong>问：</strong> <code>opcode_table</code>到底是一个什么类型的数组？</p>
-<p><strong>答：</strong>是一个opcode_entry结构体类型的数组</p>
-<h3 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a><font color="#ff0000" size="3">思考题2</font></h3><p><strong>问：</strong>在<code>cmd_c()</code>函数中，调用<code>cpu_exec()</code>的时候传入了参数**-1**，你知道这是为什么吗？</p>
+<p><strong>答：</strong><code>opcode_table</code>是一个函数指针数组，其中包含多条指令和它们对应的某种形式。</p>
+<h3 id="思考题2-1"><a href="#思考题2-1" class="headerlink" title="思考题2.1"></a><font color="#ff0000" size="3">思考题2.1</font></h3><p><strong>问：</strong>在<code>cmd_c()</code>函数中，调用<code>cpu_exec()</code>的时候传入了参数**-1**，你知道这是为什么吗？</p>
 <p><strong>答：</strong></p>
 <img src="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/1.1.png">
 
 <p>上图中，函数<code>cpu_exec()</code>的参数是<code>uint32_t</code>类型，也就是32位的<strong>无符号</strong>整型，当参数是**-1<strong>的时候，由于</strong>-1<strong>的二进制编码是<code>0xffff</code>，</strong>-1**会被函数认为是32位中的最大整数，所以会一直循环下取，指导完成所有指令。</p>
-<h3 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a><font color="#ff0000" size="3">思考题3</font></h3><p><strong>问：</strong>框架代码中定义<code>wp_pool</code>等变量的时候使用了关键字<code>static</code>, <code>static</code>在此处的含义是什么? 为什么要在此处使用它?</p>
+<h3 id="思考题2-2"><a href="#思考题2-2" class="headerlink" title="思考题2.2"></a><font color="#ff0000" size="3">思考题2.2</font></h3><p><strong>问：</strong>框架代码中定义<code>wp_pool</code>等变量的时候使用了关键字<code>static</code>, <code>static</code>在此处的含义是什么? 为什么要在此处使用它?</p>
 <p><strong>答：</strong><code>static</code>是静态的意思，用在函数上，是指编译过程中进行链接时由<code>static</code>修饰的变量不参与与外部文件的链接。只有在这个文件中的函数才能够调用函数，保证了数据的安全和稳定，有点类似于面向对象的思想。</p>
-<h3 id="思考题4"><a href="#思考题4" class="headerlink" title="思考题4"></a><font color="#ff0000" size="3">思考题4</font></h3><p><font color="#00ff6f" size="3">查阅i386手册</font></p>
+<h3 id="思考题3"><a href="#思考题3" class="headerlink" title="思考题3"></a><font color="#ff0000" size="3">思考题3</font></h3><p><font color="#00ff6f" size="3">3.1 查阅i386手册</font></p>
 <p><strong>问：</strong><code>EFLAGS</code> 寄存器中的 <code>CF </code>位是什么意思 ?</p>
-<p><strong>答：</strong>查阅i386手册P33-P34，2.3.4节有关<code>EFLAGS</code>寄存器的部分。</p>
+<p><strong>答：</strong>查阅i386手册P33-P34，2.3.4节有关<code>EFLAGS</code>寄存器的部分。EFLAGS中的CF位是carry flag的意思，在最高位发生进位或者借位时置为1，否则置为0。</p>
 <p><strong>问：</strong><code>ModR/M </code>字节是什么 ?</p>
-<p><strong>答：</strong>P241，<code>17.2.1</code>小节。P40，<code>2.5.3.2</code>小节。</p>
+<p><strong>答：</strong>P241，<code>17.2.1</code>小节。P40，<code>2.5.3.2</code>小节。<code>ModR/M</code>由<code>mod</code>，<code>reg/opcode</code>，<code>r/m</code>组成。<code>mod</code>字段占字节的两个最高有效位。<code>reg</code>字段占字节的3至5位，它指定一个寄存器的编号或者三位操作码。<code>r/m</code>占字节的后三位，可以与<code>mod</code>结合起来得到32个可能值，8个寄存器和24个内存寻址。这在PA2中有涉及到。</p>
 <p><strong>问：</strong><code>mov</code> 指令的 具体格式是怎么样?</p>
 <p><strong>答：</strong>P45， <code>3.1</code>小节。</p>
-<p><font color="#00ff6f" size="3">Shell文件</font></p>
+<p><font color="#00ff6f" size="3">3.2 Shell文件</font></p>
 <p><strong>问：</strong>如何查看命令行数？</p>
 <p><strong>答：</strong></p>
 <p><code>find . -name &quot;*[.h|.cpp]&quot; | xargs wc -l </code> 可用于计算.c .h文件有多少行。<strong>一共128886行。</strong></p>
 <p><code>find . -name &quot;*[.cpp| .h]&quot; | xargs grep &quot;^.&quot;| wc -l </code>用于计算.c .h文件除去空格有多少行。<strong>一共114922行。</strong></p>
-<p><font color="#00ff6f" size="3">Makefile</font></p>
+<p><font color="#00ff6f" size="3">3.3 Makefile</font></p>
 <p><strong>答：</strong></p>
 <ol>
 <li><code>-Wal</code>l选项意思是编译后显示所有警告。</li>
@@ -647,10 +650,20 @@ height:50vh;
 <p><strong>问题：</strong>在实现指针解引用和区别负号的时候，按照老师给的思路写代码却出现错误。</p>
 <p><strong>答：</strong>原因在于，在进入函数<code>eval()</code>中时，要对分析出来的<code>tokens</code>进行分析，查看是否符合是<code>-</code>（负号）和<code>*</code>（指针），是的话修改优先级和名称，但是由于指针和符号不是要实现的基本法则，所以在<code>rules[]</code>中定义，所以报错了，加上之后就没有问题了。</p>
 <h2 id="实验心得"><a href="#实验心得" class="headerlink" title="实验心得"></a>实验心得</h2><ol>
-<li>一定要仔细阅读实验指导书和源代码，会有意想不到的收获。</li>
-<li>发现自己原来C++的很多知识点也有了不同程度的遗忘，做完了PA1，也巩固了不少。</li>
-<li>牢记<code>KISS</code>原则，永远不要一下子追求完美，渐渐的就好。</li>
-<li><code>Vim</code>作为编辑器之神果然名不虚传。</li>
+<li><p>一定要仔细阅读实验指导书和源代码，会有意想不到的收获。</p>
+<p>在这一过程中，你会发现在这个项目中，很多<code>.cpp</code>文件会包含不同的<code>.h</code>文件，这就使得在<code>.h</code>文件中一定要有函数的声明。比如<code>watchpoint.h</code>。</p>
+</li>
+<li><p>发现自己原来C++的很多知识点也有了不同程度的遗忘，做完了PA1，也巩固了不少。</p>
+<p>在PA1中，巩固的知识点有链表的删除插入，结构体和匿名体的区别，寄存器的结构等等。</p>
+</li>
+<li><p>牢记<code>KISS</code>原则，永远不要一下子追求完美，渐渐的就好。</p>
+<p>在刚刚开始编写函数的时候，我总是希望完善，但是事实上这是不太现实的，因为，一开始不可能就想到所有的可能性。所以开始的时候就先假设输入的参数是符合规范的。做到之后在回过头去看看有什么会限制自己想要的答案。</p>
+</li>
+<li><p><code>Vim</code>作为编辑器之神果然名不虚传。</p>
+<p>刚刚开始使用<code>Vim</code>的时候，十分的不习惯。高效地使用<code>Vim</code>要求熟练的使用各种对应的快捷键，我一开始肯定达不到要求，希望在之后的实验中，加强这种训练，体会<code>Vim</code>的魅力所在。</p>
+</li>
+<li><p>要熟悉使用英文文献和网页。在必应搜索的时候，可以看看<code>stackoverflow</code>的著名网址，这里的解答或许会让你豁然开朗。</p>
+</li>
 </ol>
 
     </article>
@@ -659,6 +672,11 @@ height:50vh;
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/index.html" title= "">
+                    <div class="nextTitle">[Untitled Post]</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -796,7 +814,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">实验进度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">实验前的准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BC%80%E5%A7%8B"><span class="toc-number">1.2.</span> <span class="toc-text">实验开始</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981"><span class="toc-number">2.1.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%982"><span class="toc-number">2.2.</span> <span class="toc-text">思考题2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%983"><span class="toc-number">2.3.</span> <span class="toc-text">思考题3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%984"><span class="toc-number">2.4.</span> <span class="toc-text">思考题4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E6%80%9D%E8%80%83%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">实验遇到的问题，思考和解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BF%83%E5%BE%97"><span class="toc-number">4.</span> <span class="toc-text">实验心得</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">实验进度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">实验前的准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BC%80%E5%A7%8B"><span class="toc-number">1.2.</span> <span class="toc-text">实验开始</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981"><span class="toc-number">2.1.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%982-1"><span class="toc-number">2.2.</span> <span class="toc-text">思考题2.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%982-2"><span class="toc-number">2.3.</span> <span class="toc-text">思考题2.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%983"><span class="toc-number">2.4.</span> <span class="toc-text">思考题3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E6%80%9D%E8%80%83%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">实验遇到的问题，思考和解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%BF%83%E5%BE%97"><span class="toc-number">4.</span> <span class="toc-text">实验心得</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -827,9 +845,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -851,6 +876,20 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/hello-world/index.html" >Hello World</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/index.html" >[Untitled Post]</a>
         </li>
     
     </div>
