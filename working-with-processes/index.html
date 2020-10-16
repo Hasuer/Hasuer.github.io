@@ -20,15 +20,15 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西 $$表示查看当前进程的PID Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）  Startin">
+    <meta name="description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi） ![](.&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Working with processes">
 <meta property="og:url" content="https://hasuer.github.io/working-with-processes/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西 $$表示查看当前进程的PID Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）  Startin">
+<meta property="og:description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi） ![](.&#x2F;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-15T08:10:05.000Z">
-<meta property="article:modified_time" content="2020-10-15T09:38:40.771Z">
+<meta property="article:modified_time" content="2020-10-16T13:10:43.031Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Linux 基础">
 <meta name="twitter:card" content="summary">
@@ -285,7 +285,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">275</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">589</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -423,9 +423,13 @@ height:50vh;
 
 <p>其中：</p>
 <ul>
-<li><code>echo</code>表示在屏幕上显示东西</li>
-<li><code>$$</code>表示查看当前进程的PID</li>
-<li>Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如<code>Vi</code>）</li>
+<li><p><code>echo</code>表示在屏幕上显示东西</p>
+</li>
+<li><p><code>$$</code>表示查看当前进程的PID</p>
+</li>
+<li><p>Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如<code>Vi</code>）</p>
+<p>![](./Unit 9. Working with processes/1.1.png)</p>
+</li>
 </ul>
 <h2 id="Starting-and-stopping-a-process"><a href="#Starting-and-stopping-a-process" class="headerlink" title="Starting and stopping a process"></a>Starting and stopping a process</h2><ul>
 <li>所有的进程都是由其他进程发起的</li>
@@ -445,10 +449,105 @@ height:50vh;
 <p>- <strong>a:</strong> All processes sttached to a terminal</p>
 <p>- <strong>x:</strong> All other processes</p>
 <p>- <strong>u:</strong> Provide more columns</p>
+<p>![](./Unit 9. Working with processes/1.2.png)</p>
 <h2 id="Viewing-processes-hierarchy"><a href="#Viewing-processes-hierarchy" class="headerlink" title="Viewing processes hierarchy"></a>Viewing processes hierarchy</h2><p>输入:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pstree</span><br></pre></td></tr></table></figure>
 
 <p>来显示进程层次。</p>
+<p>![](./Unit 9. Working with processes/1.3.png)</p>
+<h2 id="Starting-processes"><a href="#Starting-processes" class="headerlink" title="Starting processes"></a>Starting processes</h2><ul>
+<li><p>Foreround processes</p>
+<ul>
+<li>they are invoked by typing a command at the command line:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find / -name README </span><br></pre></td></tr></table></figure>
+
+<p>![](./Unit 9. Working with processes/1.4.png)</p>
+</li>
+<li><p>Background processes</p>
+<ul>
+<li>they are invoked by putting an ampersand(&amp;) at the end of the command line:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find / -name README &amp;</span><br></pre></td></tr></table></figure>
+
+<p>![](./Unit 9. Working with processes/1.5.png)</p>
+</li>
+</ul>
+<p>![](./Unit 9. Working with processes/1.6.png)</p>
+<p>创建完后台进程以后会有：</p>
+<p>[1] 2320</p>
+<p>- [1]: 这是在后台运行的第一个进程</p>
+<p>- 2320: 这个进程的ID</p>
+<h2 id="Job-control-in-the-bash-shell"><a href="#Job-control-in-the-bash-shell" class="headerlink" title="Job control in the bash shell"></a>Job control in the bash shell</h2><p>- <strong>&lt;Ctrl - z&gt;:</strong> Suspend the foreground task</p>
+<p>​        does not kill a process but suspend it , so you can subsequently restart it.</p>
+<p>- <strong>jobs:</strong> Lists background or suspended jobs</p>
+<p>- <strong>fg:</strong> Resume suspended task in the foreground</p>
+<p>- <strong>bg:</strong> Resume suspended task in the background</p>
+<p>- Specify a job number for bg, fg, and kill using <code>%job</code></p>
+<p>​        kill job number 3 : <code>kill %3</code></p>
+<p>【<strong>EXAMPLE</strong>】</p>
+<p>![](./Unit 9. Working with processes/1.7.png)</p>
+<h2 id="Kill-signals"><a href="#Kill-signals" class="headerlink" title="Kill signals"></a>Kill signals</h2><ul>
+<li>Using the kill command:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">kill</span> -signal PID</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Using the killall command to kill all named apps:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ killall -signal application</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">Signal</th>
+<th align="center">Keyboard</th>
+<th align="center">Meaning</th>
+<th align="center">Default action</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">01</td>
+<td align="center"></td>
+<td align="center">Hangup</td>
+<td align="center">End process</td>
+<td align="center">send to a process when its parent die(log off acciddently)</td>
+</tr>
+<tr>
+<td align="center">02</td>
+<td align="center">Ctrl - C</td>
+<td align="center">Interrupted</td>
+<td align="center">End process</td>
+<td align="center">user presses the interrup key “Ctrl -C”</td>
+</tr>
+<tr>
+<td align="center">03</td>
+<td align="center">Ctrl - \</td>
+<td align="center">Quit</td>
+<td align="center">End process and core dump</td>
+<td align="center">Nope</td>
+</tr>
+<tr>
+<td align="center">09</td>
+<td align="center"></td>
+<td align="center">Kill</td>
+<td align="center">End process - cannot be redifined - handled by kernal</td>
+<td align="center">die immediately</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="center"></td>
+<td align="center">Terminate</td>
+<td align="center">End process</td>
+<td align="center">the most used</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>difference between singal 02 and 03:</p>
+<p>signal 03 by default generate a ‘core dump’(A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Core_dump">core dump</a> is a file containing a process’s address space (memory) when the process terminates unexpectedly. )</p>
+</li>
+</ul>
 
     </article>
     <!-- license  -->
@@ -593,7 +692,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-process"><span class="toc-number">1.</span> <span class="toc-text">What is a process?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-and-stopping-a-process"><span class="toc-number">2.</span> <span class="toc-text">Starting and stopping a process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#login-process-environment"><span class="toc-number">3.</span> <span class="toc-text">login process environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitoring-the-processes"><span class="toc-number">4.</span> <span class="toc-text">Monitoring the processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-processes-hierarchy"><span class="toc-number">5.</span> <span class="toc-text">Viewing processes hierarchy</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-process"><span class="toc-number">1.</span> <span class="toc-text">What is a process?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-and-stopping-a-process"><span class="toc-number">2.</span> <span class="toc-text">Starting and stopping a process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#login-process-environment"><span class="toc-number">3.</span> <span class="toc-text">login process environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitoring-the-processes"><span class="toc-number">4.</span> <span class="toc-text">Monitoring the processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-processes-hierarchy"><span class="toc-number">5.</span> <span class="toc-text">Viewing processes hierarchy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-processes"><span class="toc-number">6.</span> <span class="toc-text">Starting processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Job-control-in-the-bash-shell"><span class="toc-number">7.</span> <span class="toc-text">Job control in the bash shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kill-signals"><span class="toc-number">8.</span> <span class="toc-text">Kill signals</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -606,8 +705,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
