@@ -28,7 +28,7 @@
 <meta property="og:description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi） ![](.&#x2F;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-15T08:10:05.000Z">
-<meta property="article:modified_time" content="2020-10-16T13:10:43.031Z">
+<meta property="article:modified_time" content="2020-10-16T16:58:03.167Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Linux 基础">
 <meta name="twitter:card" content="summary">
@@ -285,7 +285,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">589</span>Reading time: <span class="post-count reading-time">2 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -548,6 +548,62 @@ height:50vh;
 <p>signal 03 by default generate a ‘core dump’(A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Core_dump">core dump</a> is a file containing a process’s address space (memory) when the process terminates unexpectedly. )</p>
 </li>
 </ul>
+<h2 id="Running-long-processes"><a href="#Running-long-processes" class="headerlink" title="Running long processes"></a>Running long processes</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup find / -name README &amp;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>告诉进程忽略01和03信号的中断。即使你登出了系统也能够让程序继续运行</li>
+<li>由于所有的进程都要和他的父进程有所联系，所以使用这个以后，该进程会以<code>init</code>作为他的父进程</li>
+</ul>
+<h2 id="The-nice-command"><a href="#The-nice-command" class="headerlink" title="The nice command"></a>The nice command</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nice [-n &lt;value&gt;] &lt;original <span class="built_in">command</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>used to start a process with a user-defined priority</li>
+</ul>
+<p>![](./Unit 9. Working with processes/1.8.png)</p>
+<ul>
+<li>Only root can set negative number</li>
+</ul>
+<h2 id="The-renice-command"><a href="#The-renice-command" class="headerlink" title="The renice command"></a>The renice command</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ renice &lt;new_priority&gt; &lt;PID&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>used to change the priority of a <strong>running</strong> process</li>
+</ul>
+<p>![](./Unit 9. Working with processes/1.9.png)</p>
+<h2 id="Daemons-后台驻留进程"><a href="#Daemons-后台驻留进程" class="headerlink" title="Daemons(后台驻留进程)"></a>Daemons(后台驻留进程)</h2><ul>
+<li>这是一个不会停止的进程，从开机开始运行，一直到关机为止</li>
+<li>用来控制计算机系统资源，比如打印机队列</li>
+</ul>
+<h2 id="Unit-Review"><a href="#Unit-Review" class="headerlink" title="Unit Review"></a>Unit Review</h2><ul>
+<li>All processes are started by a parent process (except for init, which is started by the kernel).</li>
+<li>Every process is identified with a process identifier (PID).</li>
+<li>A special process is the shell, which can interpret user commands.</li>
+<li>Processes can terminate by themselves or upon reception of a signal.</li>
+<li>Signals can be sent by the shell, using a keyboard sequence, or by the <strong>kill</strong> and <strong>killall</strong> commands.</li>
+<li>Processes are started with equal priority, but this can be changed using the <strong>nice</strong> and <strong>renice</strong> commands.</li>
+<li>A daemon is a background process that typically controls a system resource or offers a network service.</li>
+</ul>
+<h2 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h2><ol>
+<li>True or False: Any user can send a signal to a process of another user and cause that process to halt.</li>
+</ol>
+<p>   <font color="#0000ff" size="3">The answer is false. A normal user will not have the appropriate permission to send signals to another user’s processes. The rootuser does have permission to do this.</font></p>
+<ol start="2">
+<li><p>If a process is hanging, the proper order of trying to terminateit with the lowest chance of data corruption is:</p>
+<ul>
+<li><p>a.kill -1, <Ctrl-C>, kill, &lt;Ctrl-&gt;</Ctrl-C></p>
+</li>
+<li><p>b.<Ctrl-Z>, kill, kill -9, kill -15, <Ctrl-C></Ctrl-C></Ctrl-Z></p>
+</li>
+<li><p>c.kill -9, kill -15, <Ctrl-C>, <Ctrl-Z></Ctrl-Z></Ctrl-C></p>
+</li>
+<li><p>d.<Ctrl-C>, &lt;Ctrl-&gt;, kill, kill -9</Ctrl-C></p>
+<p><font color="#0000ff" size="3">The answer is <Ctrl-C>, &lt;Ctrl-&gt;, kill, kill -9. kill -9 is always the last resort.</Ctrl-C></font></p>
+</li>
+</ul>
+</li>
+<li><p>What is a daemon?</p>
+<p><font color="#0000ff" size="3">The answer is a daemon is a never-ending process which provides a system service.</font></p>
+</li>
+</ol>
 
     </article>
     <!-- license  -->
@@ -692,7 +748,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-process"><span class="toc-number">1.</span> <span class="toc-text">What is a process?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-and-stopping-a-process"><span class="toc-number">2.</span> <span class="toc-text">Starting and stopping a process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#login-process-environment"><span class="toc-number">3.</span> <span class="toc-text">login process environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitoring-the-processes"><span class="toc-number">4.</span> <span class="toc-text">Monitoring the processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-processes-hierarchy"><span class="toc-number">5.</span> <span class="toc-text">Viewing processes hierarchy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-processes"><span class="toc-number">6.</span> <span class="toc-text">Starting processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Job-control-in-the-bash-shell"><span class="toc-number">7.</span> <span class="toc-text">Job control in the bash shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kill-signals"><span class="toc-number">8.</span> <span class="toc-text">Kill signals</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-process"><span class="toc-number">1.</span> <span class="toc-text">What is a process?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-and-stopping-a-process"><span class="toc-number">2.</span> <span class="toc-text">Starting and stopping a process</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#login-process-environment"><span class="toc-number">3.</span> <span class="toc-text">login process environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monitoring-the-processes"><span class="toc-number">4.</span> <span class="toc-text">Monitoring the processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-processes-hierarchy"><span class="toc-number">5.</span> <span class="toc-text">Viewing processes hierarchy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Starting-processes"><span class="toc-number">6.</span> <span class="toc-text">Starting processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Job-control-in-the-bash-shell"><span class="toc-number">7.</span> <span class="toc-text">Job control in the bash shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kill-signals"><span class="toc-number">8.</span> <span class="toc-text">Kill signals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Running-long-processes"><span class="toc-number">9.</span> <span class="toc-text">Running long processes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-nice-command"><span class="toc-number">10.</span> <span class="toc-text">The nice command</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-renice-command"><span class="toc-number">11.</span> <span class="toc-text">The renice command</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Daemons-%E5%90%8E%E5%8F%B0%E9%A9%BB%E7%95%99%E8%BF%9B%E7%A8%8B"><span class="toc-number">12.</span> <span class="toc-text">Daemons(后台驻留进程)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unit-Review"><span class="toc-number">13.</span> <span class="toc-text">Unit Review</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Checkpoint"><span class="toc-number">14.</span> <span class="toc-text">Checkpoint</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
