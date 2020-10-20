@@ -20,14 +20,17 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="article">
+    <meta name="description" content="【转载自：】  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;jxhd1&#x2F;p&#x2F;6706701.html https:&#x2F;&#x2F;www.cnblogs.com&#x2F;fengbohello&#x2F;p&#x2F;4262961.html  fork 和 exec在父进程中fork一个子进程，在子进程中调用exec函数启动新的程序。exec函数一共有六个，其中execve为内核级系统调用，其他（execl，execle，exec">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Shell实验">
 <meta property="og:url" content="https://hasuer.github.io/shell%E5%AE%9E%E9%AA%8C/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="【转载自：】  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;jxhd1&#x2F;p&#x2F;6706701.html https:&#x2F;&#x2F;www.cnblogs.com&#x2F;fengbohello&#x2F;p&#x2F;4262961.html  fork 和 exec在父进程中fork一个子进程，在子进程中调用exec函数启动新的程序。exec函数一共有六个，其中execve为内核级系统调用，其他（execl，execle，exec">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-20T15:44:53.000Z">
-<meta property="article:modified_time" content="2020-10-20T15:44:53.991Z">
+<meta property="article:modified_time" content="2020-10-20T17:06:13.663Z">
 <meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -274,9 +277,15 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">0</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.2k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -405,13 +414,61 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <p>【转载自：】</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jxhd1/p/6706701.html">https://www.cnblogs.com/jxhd1/p/6706701.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fengbohello/p/4262961.html">https://www.cnblogs.com/fengbohello/p/4262961.html</a></li>
+</ol>
+<h2 id="fork-和-exec"><a href="#fork-和-exec" class="headerlink" title="fork 和 exec"></a>fork 和 exec</h2><p>在父进程中fork一个子进程，在子进程中调用<code>exec</code>函数启动新的程序。<code>exec</code>函数一共有六个，其中<code>execve</code>为内核级系统调用，其他（<code>execl</code>，<code>execle</code>，<code>execlp</code>，<code>execv</code>，<code>execvp</code>）都是调用<code>execve</code>的库函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>函数定义</strong> :</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">char</span> *<span class="keyword">const</span> argv[ ], <span class="keyword">char</span> *<span class="keyword">const</span> envp[ ])</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回值</strong>: 函数执行成功时没有返回值，执行失败时的返回值为-1.</p>
+<p><strong>函数说明</strong> :<code>execve()</code>用来执行参数filename字符串所代表的文件路径，第二个参数是利用数组指针来传递给执行文件，并且需要以空指针(NULL)结束，最后一个参数则为传递给执行文件的新环境变量数组。</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="number">2.</span> main()  </span><br><span class="line"><span class="number">3.</span> &#123;  </span><br><span class="line"><span class="number">4.</span> <span class="keyword">char</span> *argv[ ]=&#123;<span class="string">&quot;ls&quot;</span>, <span class="string">&quot;-al&quot;</span>, <span class="string">&quot;/etc/passwd&quot;</span>, <span class="literal">NULL</span>&#125;;  </span><br><span class="line"><span class="number">5.</span> <span class="keyword">char</span> *envp[ ]=&#123;<span class="string">&quot;PATH=/bin&quot;</span>, <span class="literal">NULL</span>&#125;  </span><br><span class="line"><span class="number">6.</span> execve(<span class="string">&quot;/bin/ls&quot;</span>, argv, envp);  </span><br><span class="line"><span class="number">7.</span> &#125; </span><br></pre></td></tr></table></figure>
+
+<p>运行结果为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- <span class="number">1</span> root root <span class="number">1659</span> Feb <span class="number">27</span> <span class="number">20</span>:<span class="number">13</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>这与在bin目录下执行 <code>ls -al /etc/passwd </code>所得到的结果是一样的。</p>
+<p><code>fork</code>是分身，<code>execve</code>是变身。</p>
+<p><code> exec</code>系列的系统调用是把当前程序替换成要执行的程序，而fork用来产生一个和当前进程一样的进程（虽然通常执行不同的代码流）。通常运行另一个程序，而同时保留原程序运行的方法是，fork+exec。</p>
+<p>看看手册里面的例子就知道怎么用了。</p>
+<p><code>exec</code>系列的系统调用已经是变成别的程序了，已经和本程序无关了</p>
+<p><strong>重点讨论<code>execv</code>函数</strong>(因为题目中用到了^_^)</p>
+<blockquote>
+<p>The  <code>char *const argv[] </code>argument is an array of pointers to null-terminated strings that represent the argument list  available  to  the  new program.   The first argument, by convention, should point to the file‐name associated with the file being executed.  The  array  of  pointers must be terminated by a null pointer</p>
+</blockquote>
+<h2 id="open-和-close"><a href="#open-和-close" class="headerlink" title="open() 和 close()"></a>open() 和 close()</h2><p><code>open</code> 函数用于打开和创建文件。以下是 <code>open</code> 函数的简单描述</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> oflag, ... )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="function"><span class="params">                       <span class="comment">/* (char  *) NULL */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execlp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="comment">/* (char  *) NULL */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execle</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="comment">/*, (char *) NULL, char *const envp[] */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execvp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execvpe</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">char</span> *<span class="keyword">const</span> argv[],</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">char</span> *<span class="keyword">const</span> envp[])</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>返回值：成功则返回文件描述符，否则返回 -1</p>
+<p>对于<code>open</code>函数来说，第三个参数（…）仅当创建新文件时才使用，用于指定文件的访问权限位（access permission bits）。pathname 是待打开/创建文件的路径名（如 C:/cpp/a.cpp）；<code>oflag</code> 用于指定文件的打开/创建模式，这个参数可由以下常量（定义于 <code>fcntl.h</code>）通过逻辑或构成。<br>O_RDONLY　　只读模式<br>O_WRONLY　　只写模式<br>O_RDWR　　读写模式</p>
+<p>打开/创建文件时，至少得使用上述三个常量中的一个。以下常量是选用的：</p>
+<p>O_APPEND　　每次写操作都写入文件的末尾<br>O_CREAT　　如果指定文件不存在，则创建这个文件<br>O_EXCL　　如果要创建的文件已存在，则返回 -1，并且修改 <code>errno</code> 的值<br>O_TRUNC　　如果文件存在，并且以只写/读写方式打开，则清空文件全部内容<br>O_NOCTTY　　如果路径名指向终端设备，不要把这个设备用作控制终端。<br>O_NONBLOCK　　如果路径名指向 FIFO/块文件/字符文件，则把文件的打开和后继 I/O设置为非阻塞模式（nonblocking mode）</p>
+<p>以下三个常量同样是选用的，它们用于同步输入输出<br>O_DSYNC　　等待物理 I/O 结束后再 write。在不影响读取新写入的数据的前提下，不等待文件属性更新。<br>O_RSYNC　　read 等待所有写入同一区域的写操作完成后再进行<br>O_SYNC　　等待物理 I/O 结束后再 write，包括更新文件属性的 I/O</p>
+<p>open 返回的文件描述符一定是最小的未被使用的描述符。</p>
+<p>如果 NAME_MAX（文件名最大长度，不包括’\0’）是 14，而我们想在当前目录下创建文件名长度超过 14 字节的文件，早期的 System V 系统（如 SVR2）会截断超出部分，只保留前 14 个字节；而由 BSD 衍生的（BSD-derived）系统会返回错误信息，并且把 <code>errno</code> 置为 ENAMETOOLONG。<br>POSIX.1 引入常量 _POSIX_NO_TRUNC 用于决定是否截断长文件名/长路径名。如果_POSIX_NO_TRUNC 设定为禁止截断，并且路径名长度超过 PATH_MAX（包括 ‘\0’），或者组成路径名的任意文件名长度超过 NAME_MAX，则返回错误信息，并且把 <code>errno</code> 置为 ENAMETOOLONG。</p>
+
     </article>
     <!-- license  -->
     
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog%E7%9B%AE%E5%BD%95/index.html" title= "Blog目录">
+                    <div class="nextTitle">Blog目录</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -549,7 +606,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fork-%E5%92%8C-exec"><span class="toc-number">1.</span> <span class="toc-text">fork 和 exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#open-%E5%92%8C-close"><span class="toc-number">2.</span> <span class="toc-text">open() 和 close()</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -620,9 +677,20 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -635,6 +703,11 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/blog%E7%9B%AE%E5%BD%95/index.html" >Blog目录</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -678,6 +751,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
     
         <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

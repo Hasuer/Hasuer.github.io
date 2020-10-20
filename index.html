@@ -367,9 +367,11 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/shell%E5%AE%9E%E9%AA%8C/index.html" >
+        <a class="abstract-title" href = "/blog%E7%9B%AE%E5%BD%95/index.html" >
             
-                <span>Shell实验</span>
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>Blog目录</span>
         </a>
         <div class="abstract-content">
             
@@ -377,9 +379,49 @@ height:50vh;
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/shell%E5%AE%9E%E9%AA%8C/index.html" >
+            
+                <span>Shell实验</span>
+        </a>
+        <div class="abstract-content">
+            【转载自：】
+
+https://www.cnblogs.com/jxhd1/p/6706701.html
+https://www.cnblogs.com/fengbohello/p/4262961.html
+
+fork 和 exec在父进程中fork一个子进程，在子进程中调用exec函数启动新的程序。exec函数一共有六个，其中execve为内核级系统调用，其他（execl，execle，execlp，execv，execvp）都是调用execve的库函数。
+1#include &lt;unistd.h&gt;
+
+
+
+函数定义 :
+1int execve(const char *file...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/20</span>
             </div>
             <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
             
         </div>
     </article>
@@ -862,9 +904,20 @@ Mor...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -877,6 +930,11 @@ Mor...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/blog%E7%9B%AE%E5%BD%95/index.html" >Blog目录</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -920,6 +978,8 @@ Mor...
         <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
     
         <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
