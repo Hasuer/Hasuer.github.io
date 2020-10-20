@@ -20,18 +20,28 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi） ![](.&#x2F;">
+    <meta name="description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）     St">
 <meta property="og:type" content="article">
 <meta property="og:title" content="09 Working with processes">
 <meta property="og:url" content="https://hasuer.github.io/09-working-with-processes/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi） ![](.&#x2F;">
+<meta property="og:description" content="What is a process? 进程是一个正在执行的程序。 每一个程序都有自己的运行环境  To see the PID of your current shell process, type: 1echo $$  其中：  echo表示在屏幕上显示东西  $$表示查看当前进程的PID  Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）     St">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.1.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.2.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.3.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.4.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.5.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.6.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.7.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.8.png">
+<meta property="og:image" content="https://hasuer.github.io/09-working-with-processes/index/1.9.png">
 <meta property="article:published_time" content="2020-10-15T08:10:05.000Z">
-<meta property="article:modified_time" content="2020-10-16T17:05:00.339Z">
+<meta property="article:modified_time" content="2020-10-18T10:56:24.904Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Linux 基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/09-working-with-processes/index/1.1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
@@ -285,7 +295,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                        <span>Word count: <span class="post-count word-count">942</span>Reading time: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -428,7 +438,8 @@ height:50vh;
 <li><p><code>$$</code>表示查看当前进程的PID</p>
 </li>
 <li><p>Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如<code>Vi</code>）</p>
-<p>![](./Unit 9. Working with processes/1.1.png)</p>
+<img src="/09-working-with-processes/index/1.1.png">
+
 </li>
 </ul>
 <h2 id="Starting-and-stopping-a-process"><a href="#Starting-and-stopping-a-process" class="headerlink" title="Starting and stopping a process"></a>Starting and stopping a process</h2><ul>
@@ -449,12 +460,14 @@ height:50vh;
 <p>- <strong>a:</strong> All processes sttached to a terminal</p>
 <p>- <strong>x:</strong> All other processes</p>
 <p>- <strong>u:</strong> Provide more columns</p>
-<p>![](./Unit 9. Working with processes/1.2.png)</p>
+<img src="/09-working-with-processes/index/1.2.png">
+
 <h2 id="Viewing-processes-hierarchy"><a href="#Viewing-processes-hierarchy" class="headerlink" title="Viewing processes hierarchy"></a>Viewing processes hierarchy</h2><p>输入:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pstree</span><br></pre></td></tr></table></figure>
 
 <p>来显示进程层次。</p>
-<p>![](./Unit 9. Working with processes/1.3.png)</p>
+<img src="/09-working-with-processes/index/1.3.png">
+
 <h2 id="Starting-processes"><a href="#Starting-processes" class="headerlink" title="Starting processes"></a>Starting processes</h2><ul>
 <li><p>Foreround processes</p>
 <ul>
@@ -462,7 +475,7 @@ height:50vh;
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find / -name README </span><br></pre></td></tr></table></figure>
 
-<p>![](./Unit 9. Working with processes/1.4.png)</p>
+<img src="/09-working-with-processes/index/1.4.png">
 </li>
 <li><p>Background processes</p>
 <ul>
@@ -470,10 +483,12 @@ height:50vh;
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ find / -name README &amp;</span><br></pre></td></tr></table></figure>
 
-<p>![](./Unit 9. Working with processes/1.5.png)</p>
+<img src="/09-working-with-processes/index/1.5.png">
+
 </li>
 </ul>
-<p>![](./Unit 9. Working with processes/1.6.png)</p>
+<img src="/09-working-with-processes/index/1.6.png">
+
 <p>创建完后台进程以后会有：</p>
 <p>[1] 2320</p>
 <p>- [1]: 这是在后台运行的第一个进程</p>
@@ -486,7 +501,8 @@ height:50vh;
 <p>- Specify a job number for bg, fg, and kill using <code>%job</code></p>
 <p>​        kill job number 3 : <code>kill %3</code></p>
 <p>【<strong>EXAMPLE</strong>】</p>
-<p>![](./Unit 9. Working with processes/1.7.png)</p>
+<img src="/09-working-with-processes/index/1.7.png">
+
 <h2 id="Kill-signals"><a href="#Kill-signals" class="headerlink" title="Kill signals"></a>Kill signals</h2><ul>
 <li>Using the kill command:</li>
 </ul>
@@ -559,7 +575,8 @@ height:50vh;
 <ul>
 <li>used to start a process with a user-defined priority</li>
 </ul>
-<p>![](./Unit 9. Working with processes/1.8.png)</p>
+<img src="/09-working-with-processes/index/1.8.png">
+
 <ul>
 <li>Only root can set negative number</li>
 </ul>
@@ -568,7 +585,8 @@ height:50vh;
 <ul>
 <li>used to change the priority of a <strong>running</strong> process</li>
 </ul>
-<p>![](./Unit 9. Working with processes/1.9.png)</p>
+<img src="/09-working-with-processes/index/1.9.png">
+
 <h2 id="Daemons-后台驻留进程"><a href="#Daemons-后台驻留进程" class="headerlink" title="Daemons(后台驻留进程)"></a>Daemons(后台驻留进程)</h2><ul>
 <li>这是一个不会停止的进程，从开机开始运行，一直到关机为止</li>
 <li>用来控制计算机系统资源，比如打印机队列</li>
@@ -813,9 +831,20 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 5
+        Total : 6
         </div>
         <!-- search  -->
         
@@ -828,6 +857,11 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span><a class="archive-post-title" href= "/shell%E5%AE%9E%E9%AA%8C/index.html" >Shell实验</a>
+        </li>
     
     
         <li class="archive-post-item">
