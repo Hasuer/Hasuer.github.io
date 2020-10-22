@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
 <meta property="og:description" content="【转载自：】  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;jxhd1&#x2F;p&#x2F;6706701.html https:&#x2F;&#x2F;www.cnblogs.com&#x2F;fengbohello&#x2F;p&#x2F;4262961.html https:&#x2F;&#x2F;123xzy.github.io&#x2F;2019&#x2F;03&#x2F;08&#x2F;MIT-6-828-Assignment-Shell&#x2F;   实验指导书  MIT 6.828 Operating Sys">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-shell/index/1.1.png">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-shell/index/1.2.png">
 <meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-shell/index/1.1.png">
 <meta property="og:image" content="https://123xzy.github.io/2019/03/08/MIT-6-828-Assignment-Shell/3.JPG">
 <meta property="article:published_time" content="2020-10-20T15:44:53.000Z">
-<meta property="article:modified_time" content="2020-10-21T17:18:26.449Z">
+<meta property="article:modified_time" content="2020-10-22T11:36:09.870Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="MIT OS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-assignment-shell/index/1.1.png">
+<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-assignment-shell/index/1.2.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
@@ -289,7 +289,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">2.8k</span>Reading time: <span class="post-count reading-time">12 min</span></span>
+                        <span>Word count: <span class="post-count word-count">3k</span>Reading time: <span class="post-count reading-time">13 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -507,8 +507,14 @@ height:50vh;
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//另一个例子</span></span><br><span class="line"><span class="number">1.</span> <span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="number">2.</span> main()  </span><br><span class="line"><span class="number">3.</span> &#123;  </span><br><span class="line"><span class="number">4.</span> <span class="keyword">char</span> *argv[ ]=&#123;<span class="string">&quot;ls&quot;</span>, <span class="string">&quot;-al&quot;</span>, <span class="string">&quot;/etc/passwd&quot;</span>, <span class="literal">NULL</span>&#125;;  </span><br><span class="line"><span class="number">6.</span> execvp(<span class="string">&quot;/bin/echo&quot;</span>, argv);  </span><br><span class="line"><span class="number">7.</span> &#125; </span><br></pre></td></tr></table></figure>
 
 <p>这与在bin目录下执行 <code>echo -al /etc/passwd </code>所得到的结果是一样的。会在控制台输出<code>-al /etc/passwd </code>。</p>
-<p>编译运行截图:</p>
-<p><img src="/mit-6-828-assignment-shell/index/1.1.png">[</p>
+<p>对于这个问题，老师是这样回答的：</p>
+<blockquote>
+<p><code>argv[]</code>的第一个元素的意义何在<br>一个程序，无论是C语言编写的<code>int main(int argc,char** argv[])</code>，还是shell脚本，都可以从命令行得到运行参数，例如：<br><code>./myprogram ant bee cat dog</code><br>那么，<code>argv[1]</code>就是<code>ant</code>，<code>argv[2]</code>就是<code>bee</code>……<strong>注意，<code>argv[0]</code>是<code>myprogram</code>，也就是说，有的程序希望在运行的时候知道自己的名字，它就会从<code>argv[0]</code>里找到自己的名字。</strong><br>这就是你设<code>argv[0]</code>的意义。</p>
+</blockquote>
+<p>这样上面的答案就能说通了。先检查文件是否存在，如果不存在就去<code>/bin/</code>下去找这个文件，如果还没有，就说明命令错误了。</p>
+<p>此外：</p>
+<img src="/mit-6-828-assignment-shell/index/1.2.png">
+
 <h2 id="I-O重定向"><a href="#I-O重定向" class="headerlink" title="I/O重定向"></a>I/O重定向</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">The parser already recognizes <span class="string">&quot;&gt;&quot;</span> <span class="keyword">and</span> <span class="string">&quot;&lt;&quot;</span>, <span class="keyword">and</span> builds a redircmd <span class="keyword">for</span> you, so your job is just filling out the missing code in runcmd <span class="keyword">for</span> those symbols. You might find the man pages <span class="keyword">for</span> open <span class="keyword">and</span> close useful</span><br><span class="line"><span class="keyword">case</span> <span class="string">&#x27;&gt;&#x27;</span>:</span><br><span class="line"><span class="keyword">case</span> <span class="string">&#x27;&lt;&#x27;</span>:</span><br><span class="line">  rcmd = (struct redircmd*)cmd;</span><br><span class="line">  <span class="comment">// fprintf(stderr, &quot;redir not implemented\n&quot;);</span></span><br><span class="line">  <span class="comment">// Your code here ...</span></span><br><span class="line">  close(rcmd-&gt;fd);</span><br><span class="line">  <span class="keyword">if</span> (open(rcmd-&gt;file, rcmd-&gt;mode, <span class="number">0644</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;Unable to open file: %s\n&quot;</span>, rcmd-&gt;file);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  runcmd(rcmd-&gt;cmd);</span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
 
 <p>思路就是先关闭程序原先的标准输入/输出，打开指定文件作为新的标准输入/输出。非常容易漏掉权限位，即open的第三个参数</p>
