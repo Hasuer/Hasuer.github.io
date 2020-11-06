@@ -20,21 +20,27 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="MIT 6.828 Operating System Engineering">
+    <meta name="description" content="实验指导书  MIT 6.828 Operating System Engineering  【思路】 代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。 put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。 g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Blog目录">
-<meta property="og:url" content="https://hasuer.github.io/blog%E7%9B%AE%E5%BD%95/index.html">
+<meta property="og:title" content="MIT 6.828 Assignment_ThreadsandLocks">
+<meta property="og:url" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="MIT 6.828 Operating System Engineering">
+<meta property="og:description" content="实验指导书  MIT 6.828 Operating System Engineering  【思路】 代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。 put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。 g">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-20T17:13:54.000Z">
-<meta property="article:modified_time" content="2020-10-21T10:20:09.873Z">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index/1.1.png">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index/1.3.png">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index/1.2.png">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index/1.4.png">
+<meta property="article:published_time" content="2020-11-06T14:37:38.000Z">
+<meta property="article:modified_time" content="2020-11-06T15:04:32.831Z">
 <meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="MIT OS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-assignment-threadsandlocks/index/1.1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>Blog目录 · Hasuer&#39;s Studio</title>
+    <title>MIT 6.828 Assignment_ThreadsandLocks · Hasuer&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -229,7 +235,7 @@
                 <a href="/" >Hasuer&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Blog目录</a>
+                <a href="#" class="post-name">MIT 6.828 Assignment_ThreadsandLocks</a>
             </div>
     </div>
     
@@ -259,7 +265,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Blog目录
+            MIT 6.828 Assignment_ThreadsandLocks
             <!-- 404 -->
             
         </h1>
@@ -276,14 +282,20 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
+    
+</div>
+                
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">6</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">279</span>Reading time: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/10/21</span>
+                    <span class="post-intro-time">2020/11/06</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -407,7 +419,34 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="https://hasuer.github.io/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a></p>
+        <hr>
+<p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/homework/lock.html">实验指导书</a></p>
+<hr>
+<p><a href="https://hasuer.github.io/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a></p>
+<hr>
+<p>【思路】</p>
+<p>代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。</p>
+<p>put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。</p>
+<p>get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。</p>
+<p>这样不断通过put 和get来实现并行程序。</p>
+<p>产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同时插入链表时（也就是同时使用内存），我们的哈希表只能记录下其中的一个表头，而失去了另外一个node的表头，所以造成了get的时候丢失了node。</p>
+<p>【步骤】</p>
+<ol>
+<li><p>声明锁变量数组</p>
+<img src="/mit-6-828-assignment-threadsandlocks/index/1.1.png">
+</li>
+<li><p>在main()函数中初始化锁变量数组</p>
+<img src="/mit-6-828-assignment-threadsandlocks/index/1.3.png">
+</li>
+<li><p>当进行insert操作是加锁保护，修改put()函数如下</p>
+</li>
+</ol>
+<img src="/mit-6-828-assignment-threadsandlocks/index/1.2.png">
+
+<ol start="4">
+<li><p>再次运行</p>
+<img src="/mit-6-828-assignment-threadsandlocks/index/1.4.png"></li>
+</ol>
 
     </article>
     <!-- license  -->
@@ -416,17 +455,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/book-xv6-chapter-0/index.html" title= "book_xv6:Chapter_0">
-                    <div class="nextTitle">book_xv6:Chapter_0</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/mit-6-828-operating-system-engineering/index.html" title= "MIT 6.828 Operating System Engineering">
-                    <div class="prevTitle">MIT 6.828 Operating System Engineering</div>
+                <a href= "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" title= "打印多个hello">
+                    <div class="prevTitle">打印多个hello</div>
                 </a>
             
         </li>
