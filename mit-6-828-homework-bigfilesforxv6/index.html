@@ -20,21 +20,23 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="1.  Hexo的搭建2. 主题的选择 ils  archer   Quick StartWelcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troub">
+    <meta name="description" content="实验指导书  MIT 6.828 Operating System Engineering  Big Files实验目的在这个作业中，您将增加xv6文件的最大大小。目前，xv6文件被限制为140个扇区，或71680个字节。这个限制来自于这样一个事实:xv6 inode包含12个“直接”块号和一个“单间接”块号，即一个块最多可以包含128个块号，总共是12+128&#x3D;140。您将修改xv6文件系统代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://hasuer.github.io/hello-world/index.html">
+<meta property="og:title" content="MIT 6.828 Homework_BigFilesForXV6">
+<meta property="og:url" content="https://hasuer.github.io/mit-6-828-homework-bigfilesforxv6/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="1.  Hexo的搭建2. 主题的选择 ils  archer   Quick StartWelcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troub">
+<meta property="og:description" content="实验指导书  MIT 6.828 Operating System Engineering  Big Files实验目的在这个作业中，您将增加xv6文件的最大大小。目前，xv6文件被限制为140个扇区，或71680个字节。这个限制来自于这样一个事实:xv6 inode包含12个“直接”块号和一个“单间接”块号，即一个块最多可以包含128个块号，总共是12+128&#x3D;140。您将修改xv6文件系统代码">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-30T15:51:32.598Z">
-<meta property="article:modified_time" content="2020-09-30T17:19:39.843Z">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-homework-bigfilesforxv6/index/1.png">
+<meta property="article:published_time" content="2020-12-29T03:12:06.000Z">
+<meta property="article:modified_time" content="2020-12-29T11:20:23.661Z">
 <meta property="article:author" content="Hasuer">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-homework-bigfilesforxv6/index/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>Hello World · Hasuer&#39;s Studio</title>
+    <title>MIT 6.828 Homework_BigFilesForXV6 · Hasuer&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -229,7 +231,7 @@
                 <a href="/" >Hasuer&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello World</a>
+                <a href="#" class="post-name">MIT 6.828 Homework_BigFilesForXV6</a>
             </div>
     </div>
     
@@ -259,7 +261,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello World
+            MIT 6.828 Homework_BigFilesForXV6
             <!-- 404 -->
             
         </h1>
@@ -278,12 +280,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">108</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">829</span>Reading time: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/09/30</span>
+                    <span class="post-intro-time">2020/12/29</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -407,31 +409,41 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="1-Hexo的搭建"><a href="#1-Hexo的搭建" class="headerlink" title="1.  Hexo的搭建"></a>1.  <a target="_blank" rel="noopener" href="https://easyhexo.com/1-Hexo-install-and-config/">Hexo的搭建</a></h3><h3 id="2-主题的选择"><a href="#2-主题的选择" class="headerlink" title="2. 主题的选择"></a>2. 主题的选择</h3><ul>
-<li><p><a target="_blank" rel="noopener" href="https://xpoet.cn/2020/04/%E5%8D%83%E5%91%BC%E4%B8%87%E5%94%A4%E5%A7%8B%E5%87%BA%E6%9D%A5%EF%BC%8CHexo%E4%B8%BB%E9%A2%98ILS%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">ils</a></p>
+        <p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/homework/xv6-zero-fill.html">实验指导书</a></p>
+<hr>
+<p><a href="https://hasuer.github.io/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a></p>
+<hr>
+<h1 id="Big-Files"><a href="#Big-Files" class="headerlink" title="Big Files"></a>Big Files</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><p>在这个作业中，您将增加xv6文件的最大大小。目前，xv6文件被限制为140个扇区，或71680个字节。这个限制来自于这样一个事实:xv6 inode包含12个“直接”块号和一个“单间接”块号，即一个块最多可以包含128个块号，总共是12+128=140。您将修改xv6文件系统代码，以支持每个inode中的“双间接”块，它包含128个单间接块的地址，每个块最多可以包含128个数据块的地址。结果是，一个文件将能够包含16523个扇区(或大约8.5兆字节)。</p>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><p>修改你的Makefile中的cpu定义，使其如下:</p>
+<p>cpu: = 1</p>
+<p>add</p>
+<p>QEMUEXTRA = -snapshot</p>
+<p>right before QEMUOPTS</p>
+<p>当xv6创建大文件时，以上两个步骤极大地加快了qemu的速度。</p>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><ol>
+<li><h5 id="修改-param-h"><a href="#修改-param-h" class="headerlink" title="修改 param.h"></a>修改 param.h</h5><p>将<code>#define FSSIZE 1000 // size of file system in blocks</code></p>
+<p>修改为<code>#define FSSIZE 20000 // size of file system in blocks</code></p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/fi3ework/hexo-theme-archer">archer</a></p>
+<li><h5 id="添加-big-c"><a href="#添加-big-c" class="headerlink" title="添加 big.c"></a>添加 big.c</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;user.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;fcntl.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">512</span>];</span><br><span class="line">  <span class="keyword">int</span> fd, i, sectors;</span><br><span class="line"></span><br><span class="line">  fd = open(<span class="string">&quot;big.file&quot;</span>, O_CREATE | O_WRONLY);</span><br><span class="line">  <span class="keyword">if</span>(fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;big: cannot open big.file for writing\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  sectors = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    *(<span class="keyword">int</span>*)buf = sectors;</span><br><span class="line">    <span class="keyword">int</span> cc = write(fd, buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">    <span class="keyword">if</span>(cc &lt;= <span class="number">0</span>)</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    sectors++;</span><br><span class="line">	<span class="keyword">if</span> (sectors % <span class="number">100</span> == <span class="number">0</span>)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="number">1</span>, <span class="string">&quot;\nwrote %d sectors\n&quot;</span>, sectors);</span><br><span class="line"></span><br><span class="line">  close(fd);</span><br><span class="line">  fd = open(<span class="string">&quot;big.file&quot;</span>, O_RDONLY);</span><br><span class="line">  <span class="keyword">if</span>(fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;big: cannot re-open big.file for reading\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; sectors; i++)&#123;</span><br><span class="line">    <span class="keyword">int</span> cc = read(fd, buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">    <span class="keyword">if</span>(cc &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;big: read error at sector %d\n&quot;</span>, i);</span><br><span class="line">      <span class="built_in">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(*(<span class="keyword">int</span>*)buf != i)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;big: read the wrong data (%d) for sector %d\n&quot;</span>,</span><br><span class="line">             *(<span class="keyword">int</span>*)buf, i);</span><br><span class="line">      <span class="built_in">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="number">1</span>, <span class="string">&quot;done; ok\n&quot;</span>); </span><br><span class="line"></span><br><span class="line">  <span class="built_in">exit</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h3 id="自己总结的"><a href="#自己总结的" class="headerlink" title="自己总结的"></a>自己总结的</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo d -g</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建新的Post"><a href="#创建新的Post" class="headerlink" title="创建新的Post"></a>创建新的Post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;Postname&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<li><h5 id="修改-Makefile"><a href="#修改-Makefile" class="headerlink" title="修改 Makefile"></a>修改 Makefile</h5><p>在<code>UPROGS</code>中添加一行<code>_big\</code></p>
+</li>
+<li><h5 id="inode-数据结构"><a href="#inode-数据结构" class="headerlink" title="inode 数据结构"></a>inode 数据结构</h5><p>在Xv6系统中，每一个文件都有一个对应的inode。</p>
+<p>可以看出，一个inode有12个direct指针，它们指向磁盘中的数据块，还有一个indirect指针指向另一个indirect block，这个indirect有<code>BSIZE / sizeof(uint)</code> = 128个指针指向数据块。因此，一个inode可以指向12+128 = 140个数据块。也就是运行了<code>big</code>命令后输出的<code>140 sectors</code>。</p>
+</li>
+<li><h5 id="修改-fs-c"><a href="#修改-fs-c" class="headerlink" title="修改 fs.c"></a>修改 fs.c</h5><p>修改<code>bmap()</code>函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> uint</span><br><span class="line">bmap(struct inode *ip, uint bn)</span><br><span class="line">&#123;</span><br><span class="line">  uint addr, *a, *indirect, *double_indirect,indirect_idx, double_indirect_idx;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">buf</span> *<span class="title">bp</span>, *<span class="title">bp2</span>;</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span>(bn &lt; NDIRECT)&#123;</span><br><span class="line">    <span class="keyword">if</span>((addr = ip-&gt;addrs[bn]) == <span class="number">0</span>)</span><br><span class="line">      ip-&gt;addrs[bn] = addr =balloc(ip-&gt;dev);</span><br><span class="line">    <span class="keyword">return</span> addr;</span><br><span class="line">  &#125;</span><br><span class="line">  bn -= NDIRECT;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span>(bn &lt; NINDIRECT)&#123;</span><br><span class="line">    <span class="comment">// Load indirect block, allocating ifnecessary.</span></span><br><span class="line">    <span class="keyword">if</span>((addr = ip-&gt;addrs[NDIRECT]) == <span class="number">0</span>)</span><br><span class="line">      ip-&gt;addrs[NDIRECT] = addr =balloc(ip-&gt;dev);</span><br><span class="line">    bp = bread(ip-&gt;dev, addr);</span><br><span class="line">    a = (uint*)bp-&gt;data;</span><br><span class="line">    <span class="keyword">if</span>((addr = a[bn]) == <span class="number">0</span>)&#123;</span><br><span class="line">      a[bn] = addr = balloc(ip-&gt;dev);</span><br><span class="line">      log_write(bp);</span><br><span class="line">    &#125;</span><br><span class="line">    brelse(bp);</span><br><span class="line">    <span class="keyword">return</span> addr;</span><br><span class="line">  &#125;</span><br><span class="line">  bn -= NINDIRECT;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> (bn &lt; NINDIRECT*NINDIRECT) &#123;</span><br><span class="line">    <span class="comment">// Load first indirect block, allocating ifnecessary.</span></span><br><span class="line">    <span class="keyword">if</span>((addr = ip-&gt;addrs[NDIRECT + <span class="number">1</span>]) == <span class="number">0</span>)</span><br><span class="line">      ip-&gt;addrs[NDIRECT + <span class="number">1</span>] = addr =balloc(ip-&gt;dev);</span><br><span class="line"> </span><br><span class="line">    bp = bread(ip-&gt;dev, addr);</span><br><span class="line">    indirect = (uint *) bp-&gt;data;</span><br><span class="line">    indirect_idx = bn / NINDIRECT;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> ((addr = indirect[indirect_idx]) == <span class="number">0</span>) &#123;</span><br><span class="line">      addr = indirect[indirect_idx] =balloc(ip-&gt;dev);</span><br><span class="line">      log_write(bp);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    bp2 = bread(ip-&gt;dev, addr);</span><br><span class="line">    double_indirect = (uint *) bp2-&gt;data;</span><br><span class="line">    double_indirect_idx = bn % NINDIRECT;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>((addr = double_indirect[double_indirect_idx]) == <span class="number">0</span>) &#123;</span><br><span class="line">      addr =double_indirect[double_indirect_idx] = balloc(ip-&gt;dev);</span><br><span class="line">      log_write(bp2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    brelse(bp2);</span><br><span class="line">    brelse(bp);</span><br><span class="line">    <span class="keyword">return</span> addr;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  panic(<span class="string">&quot;bmap: out of range&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="修改-fs-h"><a href="#修改-fs-h" class="headerlink" title="修改 fs.h"></a>修改 fs.h</h5><p>将<code>#define NDIRECT 12</code></p>
+<p>修改为<code>#define NDIRECT 11</code></p>
+<p>将<code>uint addrs[NDIRECT+1]; // Data block addresses</code></p>
+<p>修改为<code>uint addrs[NDIRECT+2]; // Data block addresses</code></p>
+<p>将<code>#define MAXFILE (NDIRECT + NINDIRECT)</code></p>
+<p>修改为<code>#define MAXFILE (NDIRECT + NINDIRECT + NINDIRECT * NINDIRECT)</code></p>
+</li>
+<li><p><strong>结果</strong></p>
+<img src="/mit-6-828-homework-bigfilesforxv6/index/1.png" alt="在这里插入图片描述" style="zoom:50%;"></li>
+</ol>
 
     </article>
     <!-- license  -->
@@ -440,13 +452,13 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" title= "PA1实验报告">
-                    <div class="nextTitle">PA1实验报告</div>
-                </a>
-            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/mit-6-828-homework-locking/index.html" title= "MIT 6.828 Homework_Locking">
+                    <div class="prevTitle">MIT 6.828 Homework_Locking</div>
+                </a>
             
         </li>
     </ul>
@@ -576,7 +588,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Hexo%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">1.  Hexo的搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BB%E9%A2%98%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">2.</span> <span class="toc-text">2. 主题的选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number"></span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">4.</span> <span class="toc-text">Deploy to remote sites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%B7%B1%E6%80%BB%E7%BB%93%E7%9A%84"><span class="toc-number">5.</span> <span class="toc-text">自己总结的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84Post"><span class="toc-number">6.</span> <span class="toc-text">创建新的Post</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Big-Files"><span class="toc-number">1.</span> <span class="toc-text">Big Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">实验内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.</span> <span class="toc-text">实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-param-h"><span class="toc-number">1.3.0.0.1.</span> <span class="toc-text">修改 param.h</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-big-c"><span class="toc-number">1.3.0.0.2.</span> <span class="toc-text">添加 big.c</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Makefile"><span class="toc-number">1.3.0.0.3.</span> <span class="toc-text">修改 Makefile</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#inode-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.0.0.4.</span> <span class="toc-text">inode 数据结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-fs-c"><span class="toc-number">1.3.0.0.5.</span> <span class="toc-text">修改 fs.c</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-fs-h"><span class="toc-number">1.3.0.0.6.</span> <span class="toc-text">修改 fs.h</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
