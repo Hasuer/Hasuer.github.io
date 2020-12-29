@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="实验指导书  MIT 6.828 Operating System Engineering  xv6 System Call实验目的 理解系统调用的工作流程和实现系统调用 修改xv6内核从而打印出每一个系统调用，只需打印出系统调用和他的返回值，不需要打印出参数。 在已有的基础上增加上一个系统调用，当用户键入date的时候能够打印出当前的时间。  实验内容Part One: System call">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT 6.828 Homework_SystemCall">
+<meta property="og:url" content="https://hasuer.github.io/mit-6-828-homework-systemcall/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="实验指导书  MIT 6.828 Operating System Engineering  xv6 System Call实验目的 理解系统调用的工作流程和实现系统调用 修改xv6内核从而打印出每一个系统调用，只需打印出系统调用和他的返回值，不需要打印出参数。 在已有的基础上增加上一个系统调用，当用户键入date的时候能够打印出当前的时间。  实验内容Part One: System call">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-homework-systemcall/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/mit-6-828-homework-systemcall/index/2.png">
+<meta property="article:published_time" content="2020-12-28T12:46:23.000Z">
+<meta property="article:modified_time" content="2020-12-28T17:10:59.242Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="MIT OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-homework-systemcall/index/1.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>MIT 6.828 Homework_SystemCall · Hasuer&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/profile.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">MIT 6.828 Homework_SystemCall</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Hasuer's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            MIT 6.828 Homework_SystemCall
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.6k</span>Reading time: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/12/28</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/homework/xv6-syscall.html">实验指导书</a></p>
+<hr>
+<p><a href="https://hasuer.github.io/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a></p>
+<hr>
+<h1 id="xv6-System-Call"><a href="#xv6-System-Call" class="headerlink" title="xv6 System Call"></a>xv6 System Call</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ol>
+<li>理解系统调用的工作流程和实现系统调用</li>
+<li>修改xv6内核从而打印出每一个系统调用，只需打印出系统调用和他的返回值，不需要打印出参数。</li>
+<li>在已有的基础上增加上一个系统调用，当用户键入<code>date</code>的时候能够打印出当前的时间。</li>
+</ol>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="Part-One-System-call-tracing"><a href="#Part-One-System-call-tracing" class="headerlink" title="Part One: System call tracing"></a>Part One: System call tracing</h3><p>Your first task is to modify the xv6 kernel to print out a line for each system call invocation. It is enough to print the name of the system call and the return value; you don’t need to print the system call arguments.</p>
+<p>When you’re done, you should see output like this when booting xv6:</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="title">fork</span> -&gt;</span> <span class="number">2</span></span><br><span class="line"><span class="function"><span class="title">exec</span> -&gt;</span> <span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">open</span> -&gt;</span> <span class="number">3</span></span><br><span class="line"><span class="function"><span class="title">close</span> -&gt;</span> <span class="number">0</span></span><br><span class="line">$<span class="function"><span class="title">write</span> -&gt;</span> <span class="number">1</span></span><br><span class="line"> <span class="function"><span class="title">write</span> -&gt;</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>That’s init forking and execing sh, sh making sure only two file descriptors are open, and sh writing the $ prompt. (Note: the output of the shell and the system call trace are intermixed, because the shell uses the write syscall to print its output.)</p>
+<p><strong>Hint:</strong> modify the syscall() function in syscall.c.</p>
+<p><strong>Optional challenge:</strong> print the system call arguments.</p>
+<h3 id="Part-Two-Date-system-call"><a href="#Part-Two-Date-system-call" class="headerlink" title="Part Two: Date system call"></a>Part Two: Date system call</h3><p>Your second task is to add a new system call to xv6. The main point of the exercise is for you to see some of the different pieces of the system call machinery. Your new system call will get the current UTC time and return it to the user program. You may want to use the helper function, <code>cmostime()</code> (defined in <code>lapic.c</code>), to read the real time clock. <code>date.h</code> contains the definition of the <code>struct rtcdate</code> struct, which you will provide as an argument to <code>cmostime()</code> as a pointer.</p>
+<p>You should create a user-level program that calls your new date system call; here’s some source you should put in <code>date.c</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;user.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;date.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">rtcdate</span> <span class="title">r</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (date(&amp;r)) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;date failed\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// your code to print the time in any format you like...</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">exit</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In order to make your new <code>date</code> program available to run from the xv6 shell, add <code>_date</code> to the <code>UPROGS</code> definition in <code>Makefile</code>.</p>
+<p>Your strategy for making a date system call should be to clone all of the pieces of code that are specific to some existing system call, for example the “uptime” system call. You should grep for uptime in all the source files, using <code>grep -n uptime *.[chS]</code>.</p>
+<p>When you’re done, typing <code>date</code> to an xv6 shell prompt should print the current UTC time.</p>
+<p>Write down a few words of explanation for each of the files you had to modify in the process of creating your date system call.</p>
+<p><strong>Optional challenge:</strong> add a dup2() system call and modify the shell to use it.</p>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="Part-One-System-call-tracing-1"><a href="#Part-One-System-call-tracing-1" class="headerlink" title="Part One: System call tracing"></a>Part One: System call tracing</h3><p>打开文件：<code>syscall.c</code></p>
+<p>在文件前面添加编号和系统调用名称相互对应的数组：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> SYS_call_names[][<span class="number">6</span>] = &#123;</span><br><span class="line">        [SYS_fork] <span class="string">&quot;fork&quot;</span>,</span><br><span class="line">        [SYS_exit] <span class="string">&quot;exit&quot;</span>,</span><br><span class="line">        [SYS_wait] <span class="string">&quot;wait&quot;</span>,</span><br><span class="line">        [SYS_pipe] <span class="string">&quot;pipe&quot;</span>,</span><br><span class="line">        [SYS_read] <span class="string">&quot;read&quot;</span>,</span><br><span class="line">        [SYS_kill] <span class="string">&quot;kill&quot;</span>,</span><br><span class="line">        [SYS_exec] <span class="string">&quot;exec&quot;</span>,</span><br><span class="line">        [SYS_fstat] <span class="string">&quot;fstat&quot;</span>,</span><br><span class="line">        [SYS_chdir] <span class="string">&quot;chdir&quot;</span>,</span><br><span class="line">        [SYS_dup] <span class="string">&quot;dup&quot;</span>,</span><br><span class="line">        [SYS_getpid] <span class="string">&quot;getpid&quot;</span>,</span><br><span class="line">        [SYS_sbrk] <span class="string">&quot;sbrk&quot;</span>,</span><br><span class="line">        [SYS_sleep] <span class="string">&quot;sleep&quot;</span>,</span><br><span class="line">        [SYS_uptime] <span class="string">&quot;uptime&quot;</span>,</span><br><span class="line">        [SYS_open] <span class="string">&quot;open&quot;</span>,</span><br><span class="line">        [SYS_write] <span class="string">&quot;write&quot;</span>,</span><br><span class="line">        [SYS_mknod] <span class="string">&quot;mknod&quot;</span>,</span><br><span class="line">        [SYS_unlink] <span class="string">&quot;unlink&quot;</span>,</span><br><span class="line">        [SYS_link] <span class="string">&quot;link&quot;</span>,</span><br><span class="line">        [SYS_mkdir] <span class="string">&quot;mkdir&quot;</span>,</span><br><span class="line">        [SYS_close] <span class="string">&quot;close&quot;</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后在函数：<code>syscall</code> 中添加对应的输出命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">syscall</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">curproc</span> = <span class="title">myproc</span>();</span></span><br><span class="line"></span><br><span class="line">    num = curproc-&gt;tf-&gt;eax;</span><br><span class="line">    <span class="keyword">if</span> (num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num])</span><br><span class="line">    &#123;</span><br><span class="line">        curproc-&gt;tf-&gt;eax = syscalls[num]();</span><br><span class="line">        <span class="comment">// add begin</span></span><br><span class="line">        cprintf(<span class="string">&quot;%s\t -&gt; %d\n&quot;</span>, SYS_call_names[num], num);</span><br><span class="line">        <span class="comment">//add end</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        cprintf(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>,</span><br><span class="line">                curproc-&gt;pid, curproc-&gt;name, num);</span><br><span class="line">        curproc-&gt;tf-&gt;eax = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改完成，测试结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make qemu</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<img src="/mit-6-828-homework-systemcall/index/1.png" style="zoom:50%;">
+
+<h3 id="Part-Two-Date-system-call-1"><a href="#Part-Two-Date-system-call-1" class="headerlink" title="Part Two: Date system call"></a>Part Two: Date system call</h3><p>第二步，我们要添加一个系统调用函数，使其可以返回当前系统时间。</p>
+<ol>
+<li><p>在 <code>syscall.h</code> 中最后一行添加系统调用编号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_date   22</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>syscall.c</code> 中添加系统调用函数的外部声明</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">        [SYS_mkdir] <span class="string">&quot;mkdir&quot;</span>,</span><br><span class="line">        [SYS_close] <span class="string">&quot;close&quot;</span>,</span><br><span class="line"><span class="comment">// 以下为添加内容</span></span><br><span class="line">        [SYS_date] <span class="string">&quot;date&quot;</span>&#125;;</span><br><span class="line"><span class="comment">// 以上为添加内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// User code makes a system call with INT T_SYSCALL.</span></span><br><span class="line"><span class="comment">// System call number in %eax.</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">sys_write</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">sys_uptime</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">// 以下为添加内容</span></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">sys_date</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">// 以上为添加内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">int</span> <span class="params">(*syscalls[])</span><span class="params">(<span class="keyword">void</span>)</span> </span>= &#123;</span><br><span class="line">        [SYS_fork] sys_fork,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">           [SYS_mkdir] sys_mkdir,</span><br><span class="line">           [SYS_close] sys_close,</span><br><span class="line">   <span class="comment">// 以下为添加内容</span></span><br><span class="line">           [SYS_date] sys_date,</span><br><span class="line">   <span class="comment">// 以上为添加内容</span></span><br><span class="line">   &#125;;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">syscall</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> num;</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>在 <code>user.h</code> 中添加用户态函数的定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sleep</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uptime</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">// 以下为添加内容</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">date</span><span class="params">(struct rtcdate*)</span></span>;</span><br><span class="line"><span class="comment">// 以上为添加内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ulib.c</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stat</span><span class="params">(<span class="keyword">char</span>*, struct stat*)</span></span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>usys.S</code> 中最后一行添加用户态函数的实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL(date)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>sysproc.c</code> 中最后一行添加系统调用函数的实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// return current date</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">sys_date(struct rtcdate *r)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> (argptr(<span class="number">0</span>, (<span class="keyword">void</span> *)&amp;r, <span class="keyword">sizeof</span>(*r)) &lt; <span class="number">0</span>)</span><br><span class="line">          <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  cmostime(r);  <span class="comment">//从cmos中获取时间</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>至此，就完成了添加系统调用函数 <code>date()</code></p>
+<p>最后，我们需要添加使用这个系统调用函数的方法</p>
+<p>新建文件 <code>date.c</code> ，并添加一下内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;user.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;date.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rtcdate</span> <span class="title">r</span>;</span></span><br><span class="line">    <span class="keyword">if</span> (date(&amp;r))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="number">2</span>, <span class="string">&quot;date failed\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// your code to print the time in any format you like...</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="number">1</span>, <span class="string">&quot;%d-%d %d %d:%d:%d\n&quot;</span>, r.month, r.day, r.year, r.hour, r.minute, r.second);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在 <code>Makefile</code> 中添加 <code>UPROGS</code> 对应命令的定义：</li>
+</ol>
+<p>至此，所有文件就修改完成了。</p>
+<p>为了防止第一部分的输出影响我们时间的显示格式，可以先将 <code>syscall.c</code> 中的<code>static char SYS_call_names[][6]</code>注释掉.</p>
+<p>编译运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make qemu</span></span><br></pre></td></tr></table></figure>
+
+<p>然后输入命令 <code>date</code>：</p>
+<img src="/mit-6-828-homework-systemcall/index/2.png" style="zoom:50%;">
+
+<h2 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h2><h3 id="Part-One"><a href="#Part-One" class="headerlink" title="Part One"></a>Part One</h3><p>所有的系统调用的编号都在 <code>syscall.h</code>文件中，所以如果我们要增加一个系统调用，我们也需要在这个文件及其对应的<code>.c</code>文件中做修改。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System call numbers</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_fork    1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_exit    2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_wait    3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_pipe    4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_read    5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_kill    6</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_exec    7</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_fstat   8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_chdir   9</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_dup    10</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_getpid 11</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_sbrk   12</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_sleep  13</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_uptime 14</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_open   15</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_write  16</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_mknod  17</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_unlink 18</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_link   19</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_mkdir  20</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYS_close  21</span></span><br></pre></td></tr></table></figure>
+
+<p>这里面定义了系统调用的名称和对应的序号，我们要在终端上显示的就是上面这些对应的名字和编号。</p>
+<h3 id="Part-Two"><a href="#Part-Two" class="headerlink" title="Part Two"></a>Part Two</h3><p>在说明中已经给出了大致要完成的步骤。</p>
+<p><code>lapic.c</code> 中定义了函数 <code>cmostime()</code> 来读取时钟时间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cmostime</span><span class="params">(struct rtcdate *r)</span> </span>&#123;&#125;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><code>date.h</code> 中定义了 <code>rtcdate</code> 结构体，作为参数提供给函数 <code>cmostime()</code> 。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rtcdate</span> &#123;</span></span><br><span class="line">  uint second;</span><br><span class="line">  uint minute;</span><br><span class="line">  uint hour;</span><br><span class="line">  uint day;</span><br><span class="line">  uint month;</span><br><span class="line">  uint year;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实验结论及心得体会"><a href="#实验结论及心得体会" class="headerlink" title="实验结论及心得体会"></a>实验结论及心得体会</h2><ol>
+<li>理解系统调用的工作流程和实现系统调用</li>
+<li>修改xv6内核从而打印出每一个系统调用，只需打印出系统调用和他的返回值，不需要打印出参数。</li>
+<li>在已有的基础上增加上一个系统调用，当用户键入<code>date</code>的时候能够打印出当前的时间。</li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/mit-6-828-homework-lazypageallocation/index.html" title= "MIT 6.828 Homework_LazyPageAllocation">
+                    <div class="nextTitle">MIT 6.828 Homework_LazyPageAllocation</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/patterns-for-coding-questions/index.html" title= "Patterns for Coding Questions">
+                    <div class="prevTitle">Patterns for Coding Questions</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= https://livere.com>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linhao_yu@foxmail@mail" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Hasuer" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#xv6-System-Call"><span class="toc-number">1.</span> <span class="toc-text">xv6 System Call</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">实验内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-One-System-call-tracing"><span class="toc-number">1.2.1.</span> <span class="toc-text">Part One: System call tracing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-Two-Date-system-call"><span class="toc-number">1.2.2.</span> <span class="toc-text">Part Two: Date system call</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.</span> <span class="toc-text">实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-One-System-call-tracing-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Part One: System call tracing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-Two-Date-system-call-1"><span class="toc-number">1.3.2.</span> <span class="toc-text">Part Two: Date system call</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text">实验分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-One"><span class="toc-number">1.4.1.</span> <span class="toc-text">Part One</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-Two"><span class="toc-number">1.4.2.</span> <span class="toc-text">Part Two</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA%E5%8F%8A%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="toc-number">1.5.</span> <span class="toc-text">实验结论及心得体会</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 21
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit/index.html" >mit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit/index.html" >mit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit/index.html" >mit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-lazypageallocation/index.html" >MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/mit-6-828-homework-systemcall/index.html" >MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/patterns-for-coding-questions/index.html" >Patterns for Coding Questions</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/mit-6-828-assignment-barriers/index.html" >MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/mit-6-828-assignment-threadsandlocks/index.html" >MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >打印多个hello</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/pv%E9%A2%98/index.html" >PV题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/132-pattern/index.html" >132 Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html" >外刊句子</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/book-xv6-chapter-0/index.html" >book_xv6:Chapter_0</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/blog%E7%9B%AE%E5%BD%95/index.html" >Blog目录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/mit-6-828-operating-system-engineering/index.html" >MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span><a class="archive-post-title" href= "/mit-6-828-assignment-shell/index.html" >MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span><a class="archive-post-title" href= "/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html" >归并排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href= "/09-working-with-processes/index.html" >09 Working with processes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html" >【哈佛公开课】Justice</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA1实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/hello-world/index.html" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="stack"><span class="iconfont-archer">&#xe606;</span>stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="MIT OS"><span class="iconfont-archer">&#xe606;</span>MIT OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="NEMU实验"><span class="iconfont-archer">&#xe606;</span>NEMU实验</span>
+    
+        <span class="sidebar-tag-name" data-tags="进程管理"><span class="iconfont-archer">&#xe606;</span>进程管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux 基础"><span class="iconfont-archer">&#xe606;</span>Linux 基础</span>
+    
+        <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
+    
+        <span class="sidebar-tag-name" data-tags="新英文杂志"><span class="iconfont-archer">&#xe606;</span>新英文杂志</span>
+    
+        <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Interview"><span class="iconfont-archer">&#xe606;</span>Interview</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="LeetCode"><span class="iconfont-archer">&#xe60a;</span>LeetCode</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理"><span class="iconfont-archer">&#xe60a;</span>操作系统原理</span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理"><span class="iconfont-archer">&#xe60a;</span>计算机组成原理</span>
+    
+        <span class="sidebar-category-name" data-categories="公开课"><span class="iconfont-archer">&#xe60a;</span>公开课</span>
+    
+        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验"><span class="iconfont-archer">&#xe60a;</span>操作系统实验</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
