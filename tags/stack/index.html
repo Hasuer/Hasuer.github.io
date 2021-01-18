@@ -20,25 +20,17 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="实验指导书  MIT 6.828 Operating System Engineering  Lazy Page Allocation实验目的O&#x2F;S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用sbrk()系统调用向内核请求堆内存。在我们提供的内核中，sbrk()分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MIT 6.828 Homework_LazyPageAllocation">
-<meta property="og:url" content="https://hasuer.github.io/mit-6-828-homework-lazypageallocation/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hasuer&#39;s Studio.">
+<meta property="og:url" content="https://hasuer.github.io/tags/stack/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="实验指导书  MIT 6.828 Operating System Engineering  Lazy Page Allocation实验目的O&#x2F;S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用sbrk()系统调用向内核请求堆内存。在我们提供的内核中，sbrk()分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hasuer.github.io/mit-6-828-homework-lazypageallocation/index/1.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190717151016657.png">
-<meta property="article:published_time" content="2020-12-28T17:09:18.000Z">
-<meta property="article:modified_time" content="2020-12-29T02:23:56.674Z">
 <meta property="article:author" content="Hasuer">
-<meta property="article:tag" content="MIT OS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hasuer.github.io/mit-6-828-homework-lazypageallocation/index/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>MIT 6.828 Homework_LazyPageAllocation · Hasuer&#39;s Studio</title>
+    <title>Hasuer&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -219,23 +211,12 @@
 <meta name="generator" content="Hexo 5.2.0"></head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >Hasuer&#39;s Studio.</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">MIT 6.828 Homework_LazyPageAllocation</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>Hasuer's Studio.</a>
 </header>
@@ -247,74 +228,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            MIT 6.828 Homework_LazyPageAllocation
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">6 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/12/29</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -415,94 +346,41 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2018/homework/xv6-zero-fill.html">实验指导书</a></p>
-<hr>
-<p><a href="https://hasuer.github.io/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a></p>
-<hr>
-<h1 id="Lazy-Page-Allocation"><a href="#Lazy-Page-Allocation" class="headerlink" title="Lazy Page Allocation"></a>Lazy Page Allocation</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><p>O/S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用<code>sbrk()</code>系统调用向内核请求堆内存。在我们提供的内核中，<code>sbrk()</code>分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核延迟每个内存页的分配，直到应用程序尝试使用该页——这是由页面错误发出的信号。也就是说，<code>sbrk()</code>不分配物理内存，只是记住分配了哪些地址。当进程第一次尝试使用任何给定的内存页时，CPU会生成一个页错误，内核通过分配物理内存、将其归零并映射它来处理该错误。在本练习中，您将向xv6添加这种延迟分配特性。</p>
-<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="Part-One"><a href="#Part-One" class="headerlink" title="Part One"></a>Part One</h3><p>您的第一个任务是从sbrk(n)系统调用实现(即sysproc.c中的sys_sbrk()函数)中删除页面分配。sbrk(n)系统调用将进程的内存大小增加n个字节，然后返回新分配的区域的开始部分(即旧的大小)。新的sbrk(n)应该只将进程的大小(myproc()-&gt;sz)增加n，并返回原来的大小。它不应该分配内存——因此您应该删除对growproc()的调用(但您仍然需要增加进程的大小!)</p>
-<h3 id="Part-Two"><a href="#Part-Two" class="headerlink" title="Part Two"></a>Part Two</h3><p>修改<code>trap.c</code>中的代码，通过在错误地址映射新分配的物理内存页，然后返回到用户空间，让进程继续执行，从而响应用户空间中的页面错误。您应该在生成“pid 3 sh: trap 14”消息的cprintf调用之前添加代码。你的代码不需要覆盖所有的极端情况和错误情况;它只需要足够好，让sh运行简单的命令，如echo和ls。</p>
-<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><ol>
-<li>修改sbrk(n)，本来是将进程的内存大小增加n个字节，然后返回新分配区域的开始；改成只需将进程的大小(myproc()-&gt;sz)增加n不分配区域，并返回原来的大小。</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将进程的大小(myproc()-&gt;sz)增加n不分配区域，其中n为用户传入的参数</span></span><br><span class="line"><span class="keyword">int</span></span><br><span class="line">sys_sbrk(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> addr;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(argint(<span class="number">0</span>, &amp;n) &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  addr = myproc()-&gt;sz;</span><br><span class="line">  <span class="comment">/*if(growproc(n) &lt; 0)</span></span><br><span class="line"><span class="comment">    return -1;*/</span></span><br><span class="line">  myproc()-&gt;sz += n;</span><br><span class="line">  <span class="keyword">return</span> addr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>改之前</p>
-<img src="/mit-6-828-homework-lazypageallocation/index/1.png" style="zoom:50%; ">
-
-<p>改之后</p>
-<p>![在这里插入图片描述](./MIT 6.828 Homework_LazyPageAllocation/2.png)</p>
-<p>“addr 0x4004”表示导致页面错误的虚拟地址是0x4004。“pid 3 sh: trap…”消息来自trap.c中的内核陷阱处理程序。它捕获了一个页面错误(trap 14，或T_PGFLT)，所以为什么发生这个错误？</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//traps.h中</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> T_PGFLT         14      <span class="comment">// page fault</span></span></span><br></pre></td></tr></table></figure>
-
-<p>这个错误肯定是因为代码改成了只增加大小，不分配物理区域导致找不到虚拟地址对应的物理页引发报错。<br>但我有个疑问，echo hi只是把hi输出而已，需要用到物理页吗？还是说hi作为参数存在argv[1]中，也就是需要物理页保存。</p>
-<h3 id="Part-Two-1"><a href="#Part-Two-1" class="headerlink" title="Part Two"></a>Part Two</h3><p>将新分配的物理内存页映射到故障地址然后返回到用户空间，让进程继续执行。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Hint: look at the cprintf arguments to see how to find the <span class="keyword">virtual</span> address that caused the page fault.</span><br><span class="line">(找到引起错误的虚拟地址)</span><br><span class="line"></span><br><span class="line">Hint: steal code from allocuvm() in vm.c, which is what sbrk() calls (via growproc()).</span><br><span class="line"></span><br><span class="line">Hint: use PGROUNDDOWN(va) to round the faulting virtual address down to a page boundary.</span><br><span class="line">(<span class="number">4</span>k对齐)</span><br><span class="line"></span><br><span class="line">Hint: break or return in order to avoid the cprintf and the myproc()-&gt;killed = 1.</span><br><span class="line">(及时返回防止再次输出那段提示)</span><br><span class="line"></span><br><span class="line">Hint: you&#x27;ll need to call mappages(). </span><br><span class="line">In order to do this you&#x27;ll need to delete the static in the declaration of mappages() in vm.c, and you will need to declare mappages() in trap.c. </span><br><span class="line">Add <span class="keyword">this</span> declaration to trap.<span class="function">c before any call to <span class="title">mappages</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function">      <span class="keyword">int</span> <span class="title">mappages</span><span class="params">(<span class="keyword">pde_t</span> *pgdir, <span class="keyword">void</span> *va, uint size, uint pa, <span class="keyword">int</span> perm)</span></span>;</span><br><span class="line"></span><br><span class="line">Hint: you can check whether a fault is a page fault by checking if tf-&gt;trapno is equal to T_PGFLT in trap(). </span><br><span class="line"><span class="comment">//#define T_PGFLT         14      // page fault</span></span><br><span class="line"><span class="comment">//将引发缺页异常的线性地址保存在address变量里面  </span></span><br><span class="line">    __asm__(<span class="string">&quot;movl %%cr2,%0&quot;</span>:<span class="string">&quot;=r&quot;</span> (address));   </span><br></pre></td></tr></table></figure>
-
-<p>让程序继续执行缺的是什么，如何让程序返回用户空间？</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">if</span>(myproc() == <span class="number">0</span> || (tf-&gt;cs&amp;<span class="number">3</span>) == <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// In kernel, it must be our mistake.</span></span><br><span class="line">      cprintf(<span class="string">&quot;unexpected trap %d from cpu %d eip %x (cr2=0x%x)\n&quot;</span>,</span><br><span class="line">              tf-&gt;trapno, cpuid(), tf-&gt;eip, rcr2());</span><br><span class="line">      panic(<span class="string">&quot;trap&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">char</span> *mem;</span><br><span class="line">    uint a;</span><br><span class="line">	a = PGROUNDDOWN(rcr2()); <span class="comment">//将引起错误的虚拟地址向下4K对齐</span></span><br><span class="line">	<span class="keyword">for</span>(; a &lt; myproc()-&gt;sz; a += PGSIZE)&#123; <span class="comment">//从a开始对大小为myproc()-&gt;sz-a的区域分配并映射物理页</span></span><br><span class="line">	  mem = kalloc(); <span class="comment">//分配物理页</span></span><br><span class="line">	  <span class="keyword">if</span>(mem == <span class="number">0</span>)&#123;</span><br><span class="line">	    cprintf(<span class="string">&quot;allocuvm out of memory\n&quot;</span>);</span><br><span class="line">	    <span class="comment">//这里的 myproc()-&gt;tf-&gt;eax瞎写的，我以为sys_sbrk()返回值即oldsz存在tf-&gt;eax中</span></span><br><span class="line">	    deallocuvm(myproc()-&gt;pgdir, myproc()-&gt;sz, myproc()-&gt;tf-&gt;eax); </span><br><span class="line">	    <span class="keyword">return</span>;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="built_in">memset</span>(mem, <span class="number">0</span>, PGSIZE); <span class="comment">//初始化物理页</span></span><br><span class="line">	  <span class="keyword">if</span>(mappages(myproc()-&gt;pgdir, (<span class="keyword">char</span>*)a, PGSIZE, V2P(mem), PTE_W|PTE_U) &lt; <span class="number">0</span>)&#123; </span><br><span class="line">	  <span class="comment">//映射刚分配的物理页到虚拟地址失败</span></span><br><span class="line">	    cprintf(<span class="string">&quot;allocuvm out of memory (2)\n&quot;</span>);</span><br><span class="line">	    deallocuvm(myproc()-&gt;pgdir, myproc()-&gt;sz, myproc()-&gt;tf-&gt;eax);</span><br><span class="line">	    kfree(mem);</span><br><span class="line">	    <span class="keyword">return</span>;</span><br><span class="line">	  &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">break</span>;</span><br><span class="line">	  </span><br><span class="line">    <span class="comment">// In user space, assume process misbehaved.</span></span><br><span class="line">    cprintf(<span class="string">&quot;pid %d %s: trap %d err %d on cpu %d &quot;</span></span><br><span class="line">            <span class="string">&quot;eip 0x%x addr 0x%x--kill proc\n&quot;</span>,</span><br><span class="line">            myproc()-&gt;pid, myproc()-&gt;name, tf-&gt;trapno,</span><br><span class="line">            tf-&gt;err, cpuid(), tf-&gt;eip, rcr2());</span><br><span class="line">    myproc()-&gt;killed = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="https://img-blog.csdnimg.cn/20190717151016657.png" alt="在这里插入图片描述"></p>
-<h2 id="实验总结与心得体会"><a href="#实验总结与心得体会" class="headerlink" title="实验总结与心得体会"></a>实验总结与心得体会</h2><p>经过本次实验，对于线性地址的理解更为深入了，对Unix的分页机制以及地址方面的知识了解到了更多。</p>
-
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/132-pattern/index.html" >
+            
+                <span>132 Pattern</span>
+        </a>
+        <div class="abstract-content">
+            132 PatternGiven an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i], nums[j] and nums[k] such that i &lt; j &lt; k and nums[i] &lt; nums[k] &lt; nums[j].
+Return true if there is a 132 pattern in nums, otherwise, return false.
+Follow up: The O(n^2) is trivial, co...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/24</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "stack">stack</a>
+    
+</div>
+            
+        </div>
     </article>
-    <!-- license  -->
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/mit-6-828-homework-xv6cpualarm/index.html" title= "MIT 6.828 Homework_xv6CPUAlarm">
-                    <div class="nextTitle">MIT 6.828 Homework_xv6CPUAlarm</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/mit-6-828-homework-systemcall/index.html" title= "MIT 6.828 Homework_SystemCall">
-                    <div class="prevTitle">MIT 6.828 Homework_SystemCall</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-    <div id="lv-container" data-id="city" data-uid= https://livere.com>
-        <script type="text/javascript">
-            (function (d, s) {
-                var j, e = d.getElementsByTagName(s)[0];
-                if (typeof LivereTower === 'function') { return; }
-                j = d.createElement(s);
-                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                j.async = true;
-
-                e.parentNode.insertBefore(j, e);
-            })(document, 'script');
-        </script>
-        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
-    </div>
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -580,24 +458,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lazy-Page-Allocation"><span class="toc-number">1.</span> <span class="toc-text">Lazy Page Allocation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">实验内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-One"><span class="toc-number">1.2.1.</span> <span class="toc-text">Part One</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-Two"><span class="toc-number">1.2.2.</span> <span class="toc-text">Part Two</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.</span> <span class="toc-text">实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-Two-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Part Two</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">实验总结与心得体会</span></a></li></ol></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1124,8 +984,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
