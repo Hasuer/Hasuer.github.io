@@ -20,19 +20,26 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://hasuer.github.io/about/index.html">
+    <meta name="description" content="实验进度   序号 是否已完成    必做任务1 √   必做任务2 √   必做任务3 √   必做任务4 √   选做任务1 √   选做任务2 √   选做任务3 √   思考题1GDT有多大？ 段寄存器中用作GDT表下标的位段宽度是13位，所以GDT中可以有2^13&#x3D;8192个描述项。 每个进程都要在全局段描述表GDT中占据两个表项 每个进程的局部段描述表LDT都作为一个独立的段而存在，在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PA3实验报告">
+<meta property="og:url" content="https://hasuer.github.io/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="实验进度   序号 是否已完成    必做任务1 √   必做任务2 √   必做任务3 √   必做任务4 √   选做任务1 √   选做任务2 √   选做任务3 √   思考题1GDT有多大？ 段寄存器中用作GDT表下标的位段宽度是13位，所以GDT中可以有2^13&#x3D;8192个描述项。 每个进程都要在全局段描述表GDT中占据两个表项 每个进程的局部段描述表LDT都作为一个独立的段而存在，在">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-09-30T17:10:37.000Z">
-<meta property="article:modified_time" content="2020-09-30T17:11:32.046Z">
+<meta property="og:image" content="https://hasuer.github.io/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users/86150/Desktop/Snipaste_2021-01-17_14-30-55.png">
+<meta property="og:image" content="https://hasuer.github.io/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users/86150/Desktop/Snipaste_2021-01-17_13-48-29.png">
+<meta property="og:image" content="https://hasuer.github.io/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users/86150/AppData/Roaming/Typora/typora-user-images/image-20210117153643345.png">
+<meta property="article:published_time" content="2021-01-16T05:48:27.000Z">
+<meta property="article:modified_time" content="2021-01-18T03:20:19.517Z">
 <meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="NEMU实验">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users/86150/Desktop/Snipaste_2021-01-17_14-30-55.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>about · Hasuer&#39;s Studio</title>
+    <title>PA3实验报告 · Hasuer&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -213,12 +220,23 @@
 <meta name="generator" content="Hexo 5.2.0"></head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">PA3实验报告</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>Hasuer's Studio.</a>
 </header>
@@ -230,24 +248,74 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            PA3实验报告
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "NEMU实验">NEMU实验</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.4k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/01/16</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -350,7 +418,98 @@
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <h2 id="实验进度"><a href="#实验进度" class="headerlink" title="实验进度"></a>实验进度</h2><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">是否已完成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">必做任务1</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务2</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务3</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">必做任务4</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">选做任务1</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">选做任务2</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">选做任务3</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+<h3 id="思考题1"><a href="#思考题1" class="headerlink" title="思考题1"></a>思考题1</h3><p><strong>GDT有多大？</strong></p>
+<p>段寄存器中用作GDT表下标的位段宽度是13位，所以GDT中可以有2^13=8192个描述项。</p>
+<p>每个进程都要在全局段描述表GDT中占据两个表项</p>
+<p>每个进程的局部段描述表LDT都作为一个独立的段而存在，在全局段描述表GDT中要有一个表项指向这个段的起始地址，并说明该段的长度以及其他一些 参数。除上之外，每个进程还有一个TSS结构(任务状态段)也是一样。所以，每个进程都要在全局段描述表GDT中占据两个表项。</p>
+<h3 id="思考题2"><a href="#思考题2" class="headerlink" title="思考题2"></a>思考题2</h3><p><strong>GDTR中存放的GDT首地址可以是虚拟地址吗？</strong></p>
+<p>不可以，因为GDT的转换规则就是在GDRT中读出段的首地址，根据段寄存器中的选择符index位在表中进行索引 位在表中进行索引 , 找到一个段描述符 。在段描述符中读出的基地址和虚拟地址相加 , 得出线性地址 。</p>
+<p>虚拟地址就是需要通过GDT进行转换来映射到物理地址，所以GDT的首地址一定要是物理地址，不然在不同的工作环境中就使用相同的GDT机制的出来的结果是不相同的。</p>
+<h3 id="思考题３"><a href="#思考题３" class="headerlink" title="思考题３"></a>思考题３</h3><p><strong>如何提高寻找段描述符的效率?</strong></p>
+<p>在段寄存器中保存基地址，之后在进行访问的时候采用映射的方法，基地址加上偏移量找到。</p>
+<h3 id="思考题４"><a href="#思考题４" class="headerlink" title="思考题４"></a>思考题４</h3><p><strong>段式存储管理的缺点</strong></p>
+<ul>
+<li>段的体积大，在内存中无法做到连续存储，容易形成外碎片，降低内存利用率。</li>
+</ul>
+<h3 id="思考题５"><a href="#思考题５" class="headerlink" title="思考题５"></a>思考题５</h3><p><strong>页式存储管理的优点</strong></p>
+<ul>
+<li><p>分页式管理便于进行内存调度，可以有自己的调度算法</p>
+</li>
+<li><p>并且没有外碎片，内碎片不超过页的大小</p>
+</li>
+</ul>
+<h3 id="思考题６"><a href="#思考题６" class="headerlink" title="思考题６"></a>思考题６</h3><p><strong>问题1：</strong></p>
+<p><img src="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users\86150\Desktop\Snipaste_2021-01-17_14-30-55.png" alt="Snipaste_2021-01-17_14-30-55">因为低12位是页内偏移，可以直接根据虚拟地址给出，不需要进行转换。</p>
+<p><strong>问题2：</strong></p>
+<p>是必须的。和问题2一样，CR3是用于物理地址转换的，如果它也是虚拟地址就没有什么可以转换CR3的线性地址了。</p>
+<p><strong>问题3</strong></p>
+<p>一级页表有占用内存过多的缺点。多级页表能够有效的减少内存的占用，虽然看上去消耗内存反而增大了，但是实际上很多对应页表没有用到，并没有实际创建因而减小了内存。</p>
+<h3 id="思考题７"><a href="#思考题７" class="headerlink" title="思考题７"></a>思考题７</h3><p><strong>空指针真的是空的吗？</strong></p>
+<p>空指针并不是空的，只是指向的地址是０，属于操作系统无法访问。</p>
+<h3 id="思考题８"><a href="#思考题８" class="headerlink" title="思考题８"></a>思考题８</h3><p><strong>在扁平模式下如何访问？</strong></p>
+<p>在页表项中有权限位，进行地址转换时首先检查权限位，倘若没有权限就无法访问，也就不会有地址转换的步骤了。</p>
+<h3 id="思考题９"><a href="#思考题９" class="headerlink" title="思考题９"></a>思考题９</h3><p><img src="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users\86150\Desktop\Snipaste_2021-01-17_13-48-29.png" alt="Snipaste_2021-01-17_13-48-29"></p>
+<p>第一个矩形表示的是虚拟地址，虚拟地址中包含了页内偏移和页号，在通过页号来找到对应页表项，在页表项中读取出页框号，将页框号和页内偏移合并到一起成为了实际地址。</p>
+<h3 id="思考题10"><a href="#思考题10" class="headerlink" title="思考题10"></a>思考题10</h3><p><strong>示例代码哪里错了？</strong></p>
+<p><img src="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index/Users\86150\AppData\Roaming\Typora\typora-user-images\image-20210117153643345.png" alt="image-20210117153643345"></p>
+<p>原本的最后 ptable 会到负数，ptable [-1]。</p>
+<h3 id="思考题11"><a href="#思考题11" class="headerlink" title="思考题11"></a>思考题11</h3><p><strong>问题１</strong></p>
+<p>因为这里定义的ｘ生成的地址是虚拟地址，超过了物理地址的界限，报错说 <code>0xc014a000 outside of the physical memory.</code>而kvm.c 中的虚拟地址都经过了 va_to_pa 的转换，在物理地址范围之内</p>
+<p>**问题2 **</p>
+<p>两个虚拟地址指向同一个物理地址是因为在 <code>0xc0100000</code> 上的在 init 中作为今后访问内核的虚拟地址</p>
+<p><strong>问题3</strong></p>
+<p>两个虚拟地址指向同一个物理地址是因为在 <code>0xc0100000</code> 上的在 init 中作为今后访问内核的虚拟地址，另一份在 updir 没有正常使用时让虚拟地址得以正常转换。</p>
+<p><strong>问题4</strong></p>
+<p>出现了 present = 0 的错误。因为开启 paging 位之后，所有地址都需要进行虚拟地址转换，而 esp 还是使用开始的物理地址发现这个虚拟地址下并没有使用。</p>
+<p><strong>问题5</strong></p>
+<p>出现的问题和上面相同，使用 init_cond () 会先 push 再 jmp, 之后又会通过 ret 进行返回。通过调试得到是在 loader 中出现问题的，而在 lnaddr_read 和 lnaddr_write 处监视发现对应栈的位置也只读写了一次。只能推测是因为将地址压入栈导致栈溢出</p>
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><ul>
+<li><p>这个实验中包含了考试周，所以在内容的衔接上有点不流畅，在本学期的操作系统课程中也正好学习了分页分段。</p>
+</li>
+<li><p>在这个实验中，对于分页和分段的代码实现有了更加深刻的理解。</p>
+</li>
+<li><p>此外就是nemu实在太难了，有一些代码抄了都不是很懂，哎，菜是原罪。</p>
+</li>
+<li><p>出bug不可怕，如果能通过debug的过程对框架代码和计算机系统的原理有更深刻的理解，。</p>
+</li>
+</ul>
+
     </article>
     <!-- license  -->
     
@@ -360,6 +519,11 @@
             
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/mit-6-828-homework-bigfilesforxv6/index.html" title= "MIT 6.828 Homework_BigFilesForXV6">
+                    <div class="prevTitle">MIT 6.828 Homework_BigFilesForXV6</div>
+                </a>
             
         </li>
     </ul>
@@ -473,6 +637,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">实验进度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%981"><span class="toc-number">1.1.</span> <span class="toc-text">思考题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%982"><span class="toc-number">1.2.</span> <span class="toc-text">思考题2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%93"><span class="toc-number">1.3.</span> <span class="toc-text">思考题３</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%94"><span class="toc-number">1.4.</span> <span class="toc-text">思考题４</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%95"><span class="toc-number">1.5.</span> <span class="toc-text">思考题５</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%96"><span class="toc-number">1.6.</span> <span class="toc-text">思考题６</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%97"><span class="toc-number">1.7.</span> <span class="toc-text">思考题７</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%98"><span class="toc-number">1.8.</span> <span class="toc-text">思考题８</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%99"><span class="toc-number">1.9.</span> <span class="toc-text">思考题９</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%9810"><span class="toc-number">1.10.</span> <span class="toc-text">思考题10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%9811"><span class="toc-number">1.11.</span> <span class="toc-text">思考题11</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">心得体会</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -953,6 +1135,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
