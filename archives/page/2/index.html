@@ -354,6 +354,45 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/mit-6-828-assignment-threadsandlocks/index.html" >
+            
+                <span>MIT 6.828 Assignment_ThreadsandLocks</span>
+        </a>
+        <div class="abstract-content">
+            
+实验指导书
+
+MIT 6.828 Operating System Engineering
+
+【思路】
+代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。
+put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。
+get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。
+这样不断通过put 和get来实现并行程序。
+产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >
             
                 <span>打印多个hello</span>
@@ -407,37 +446,6 @@
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "进程管理">进程管理</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/132-pattern/index.html" >
-            
-                <span>132 Pattern</span>
-        </a>
-        <div class="abstract-content">
-            132 PatternGiven an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i], nums[j] and nums[k] such that i &lt; j &lt; k and nums[i] &lt; nums[k] &lt; nums[j].
-Return true if there is a 132 pattern in nums, otherwise, return false.
-Follow up: The O(n^2) is trivial, co...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/24</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "stack">stack</a>
     
 </div>
             
@@ -1058,30 +1066,9 @@ init进程是直接由内核产生，一般来说ID是1
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 23
+        Total : 22
         </div>
         <!-- search  -->
         
@@ -1094,6 +1081,11 @@ init进程是直接由内核产生，一般来说ID是1
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/18</span><a class="archive-post-title" href= "/index.html" >[Untitled Post]</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1166,11 +1158,6 @@ init进程是直接由内核产生，一般来说ID是1
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/132-pattern/index.html" >132 Pattern</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html" >外刊句子</a>
         </li>
     
@@ -1206,11 +1193,6 @@ init进程是直接由内核产生，一般来说ID是1
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html" >【哈佛公开课】Justice</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA1实验报告</a>
         </li>
     
@@ -1224,8 +1206,6 @@ init进程是直接由内核产生，一般来说ID是1
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="stack"><span class="iconfont-archer">&#xe606;</span>stack</span>
-    
         <span class="sidebar-tag-name" data-tags="MIT OS"><span class="iconfont-archer">&#xe606;</span>MIT OS</span>
     
         <span class="sidebar-tag-name" data-tags="NEMU实验"><span class="iconfont-archer">&#xe606;</span>NEMU实验</span>
@@ -1233,8 +1213,6 @@ init进程是直接由内核产生，一般来说ID是1
         <span class="sidebar-tag-name" data-tags="进程管理"><span class="iconfont-archer">&#xe606;</span>进程管理</span>
     
         <span class="sidebar-tag-name" data-tags="Linux 基础"><span class="iconfont-archer">&#xe606;</span>Linux 基础</span>
-    
-        <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
     
         <span class="sidebar-tag-name" data-tags="新英文杂志"><span class="iconfont-archer">&#xe606;</span>新英文杂志</span>
     
@@ -1275,13 +1253,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="LeetCode"><span class="iconfont-archer">&#xe60a;</span>LeetCode</span>
-    
         <span class="sidebar-category-name" data-categories="操作系统原理"><span class="iconfont-archer">&#xe60a;</span>操作系统原理</span>
     
         <span class="sidebar-category-name" data-categories="计算机组成原理"><span class="iconfont-archer">&#xe60a;</span>计算机组成原理</span>
-    
-        <span class="sidebar-category-name" data-categories="公开课"><span class="iconfont-archer">&#xe60a;</span>公开课</span>
     
         <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
     
