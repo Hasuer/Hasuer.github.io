@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="IntroductionIn problems where we deal with sorted arrays (or LinkedLists) and need to find a set of elements that fulfill certain constraints, the Two Pointers approach becomes quite useful. The set o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.Two Pointers">
+<meta property="og:url" content="https://hasuer.github.io/3-two-pointers/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="IntroductionIn problems where we deal with sorted arrays (or LinkedLists) and need to find a set of elements that fulfill certain constraints, the Two Pointers approach becomes quite useful. The set o">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-29T11:32:15.000Z">
+<meta property="article:modified_time" content="2021-01-29T11:53:00.249Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>3.Two Pointers · Hasuer&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/profile.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">3.Two Pointers</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Hasuer's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            3.Two Pointers
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Interview">Interview</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">494</span>Reading time: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/01/29</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In problems where we deal with sorted arrays (or LinkedLists) and need to find a set of elements that fulfill certain constraints, the Two Pointers approach becomes quite useful. The set of elements could be a pair, a triplet or even a subarray. For example, take a look at the following problem:</p>
+<blockquote>
+<p>Given an array of sorted numbers and a target sum, find a pair in the array whose sum is equal to the given target.</p>
+</blockquote>
+<p>To solve this problem, we can consider each element one by one (pointed out by the first pointer) and iterate through the remaining elements (pointed out by the second pointer) to find a pair with the given sum. The time complexity of this algorithm will be <strong><em>O(N^2)</em></strong> where ‘N’ is the number of elements in the input array.</p>
+<p>Given that the input array is sorted, an efficient way would be to start with one pointer in the beginning and another pointer at the end. At every step, we will see if the numbers pointed by the two pointers add up to the target sum. If they do not, we will do one of two things:</p>
+<ol>
+<li>If the sum of the two numbers pointed by the two pointers is greater than the target sum, this means that we need a pair with a smaller sum. So, to try more pairs, we can decrement the end-pointer.</li>
+<li>If the sum of the two numbers pointed by the two pointers is smaller than the target sum, this means that we need a pair with a larger sum. So, to try more pairs, we can increment the start-pointer.</li>
+</ol>
+<p>Here is the visual representation of this algorithm:</p>
+<div class="canvas-wrapper"><div class="canvas-svg-viewmode">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="420" viewbox="0 0 600 420" xml:space="preserve" style="width:100%;height:100%">
+<desc>Created with Fabric.js 1.6.0-rc.1</desc>
+<defs/>
+<g transform="translate(205.33 37)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjE8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIxPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(174.82999999999998 52.28000000000001)">
+ <polygon points="0,-0.5 0,-29.5 29,-29.5 29,-0.5 0,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.5" y="-10.72" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <polygon points="30,-0.5 30,-29.5 59,-29.5 59,-0.5 30,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="39.5" y="-10.72" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <polygon points="60,-0.5 60,-29.5 89,-29.5 89,-0.5 60,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="69.5" y="-10.72" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <polygon points="90,-0.5 90,-29.5 119,-29.5 119,-0.5 90,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="99.5" y="-10.72" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <polygon points="120,-0.5 120,-29.5 149,-29.5 149,-0.5 120,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="129.5" y="-10.72" fill="#000000">6</tspan>
+ </text>
+ </g>
+</g>
+ <g transform="translate(78.86 78.12)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-51.36" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-46.91" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="-38.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-32.69" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-23.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-14.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-10.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="2" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="10.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="24.23" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="28.67" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">=</tspan><tspan x="38.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="42.46" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">6</tspan> </text>
+ </g>
+ <g transform="translate(289.13 126.99)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-189.63" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">1</tspan><tspan x="-180.73" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-176.29" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">+</tspan><tspan x="-166.94" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-162.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">6</tspan><tspan x="-153.6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-149.15" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">&gt;</tspan><tspan x="-139.81" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-135.36" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-130.92" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="-122.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-116.69" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-107.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-98.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-94.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-90" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="-82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="-73.11" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="-59.78" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">,</tspan><tspan x="-55.33" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-50.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-46.44" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="-37.54" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-28.64" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-23.32" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-14.42" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">f</tspan><tspan x="-9.97" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="-1.07" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="4.25" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="13.15" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="17.6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="21.15" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="30.05" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="34.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">'</tspan><tspan x="37.55" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="45.55" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="50" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan><tspan x="58.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="67.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="75.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="81.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="90.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="103.35" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="112.25" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="121.14" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="125.59" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="130.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">P</tspan><tspan x="140.71" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="149.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="153.16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="162.06" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="166.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="175.4" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="180.73" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">2</tspan> </text>
+ </g>
+<g transform="translate(363.33 37)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjI8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIyPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g transform="translate(324.33 175)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjI8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIyPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g transform="translate(205.33 175)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjE8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIxPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(174.82999999999998 191.28)">
+ <polygon points="0,-0.5 0,-29.5 29,-29.5 29,-0.5 0,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.5" y="-10.72" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <polygon points="30,-0.5 30,-29.5 59,-29.5 59,-0.5 30,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="39.5" y="-10.72" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <polygon points="60,-0.5 60,-29.5 89,-29.5 89,-0.5 60,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="69.5" y="-10.72" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <polygon points="90,-0.5 90,-29.5 119,-29.5 119,-0.5 90,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="99.5" y="-10.72" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <polygon points="120,-0.5 120,-29.5 149,-29.5 149,-0.5 120,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="129.5" y="-10.72" fill="#000000">6</tspan>
+ </text>
+ </g>
+</g>
+ <g transform="translate(291.8 265.99)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-186.96" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">1</tspan><tspan x="-178.06" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-173.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">+</tspan><tspan x="-164.27" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-159.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">4</tspan><tspan x="-150.93" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-146.48" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">&lt;</tspan><tspan x="-137.14" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-132.69" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-128.25" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="-119.35" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-114.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-105.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-96.22" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-91.78" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-87.33" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="-79.33" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="-70.43" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="-57.11" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">,</tspan><tspan x="-52.66" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-48.21" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-43.77" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="-34.87" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-25.97" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-20.64" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-11.75" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">f</tspan><tspan x="-7.3" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="1.6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="6.93" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="15.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="20.27" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="23.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="32.72" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="37.17" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">'</tspan><tspan x="40.22" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="48.22" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="52.67" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="56.22" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="65.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="73.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="78.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="87.35" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="100.68" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="109.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="118.47" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="122.92" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="127.36" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">P</tspan><tspan x="138.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="146.93" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="150.49" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="159.39" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="163.83" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="172.73" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="178.06" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">1</tspan> </text>
+ </g>
+<g transform="translate(246.33 306)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjE8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIxPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g transform="translate(324.33 305)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNjFweCIgaGVpZ2h0PSI1OHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAyNSAxOCBMIDI1IDM5Ljc2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMjUgNDUuNzYgTCAyMSAzNy43NiBMIDI1IDM5Ljc2IEwgMjkgMzcuNzYgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjUsMi41KSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTsiIHBvaW50ZXItZXZlbnRzPSJhbGwiIHdpZHRoPSI0NSIgaGVpZ2h0PSIxMiIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjI7IHZlcnRpY2FsLWFsaWduOiB0b3A7IHdoaXRlLXNwYWNlOiBub3dyYXA7Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dGV4dC1hbGlnbjppbmhlcml0O3RleHQtZGVjb3JhdGlvbjppbmhlcml0OyI+UG9pbnRlcjI8L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjMiIHk9IjEyIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEycHgiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiPlBvaW50ZXIyPC90ZXh0Pjwvc3dpdGNoPjwvZz48L2c+PC9zdmc+" x="-30.5" y="-29" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="61" height="58" preserveaspectratio="none"/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(174.82999999999998 321.28)">
+ <polygon points="0,-0.5 0,-29.5 29,-29.5 29,-0.5 0,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.5" y="-10.72" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <polygon points="30,-0.5 30,-29.5 59,-29.5 59,-0.5 30,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="39.5" y="-10.72" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <polygon points="60,-0.5 60,-29.5 89,-29.5 89,-0.5 60,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#d9d9d9;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="69.5" y="-10.72" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <polygon points="90,-0.5 90,-29.5 119,-29.5 119,-0.5 90,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="99.5" y="-10.72" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <polygon points="120,-0.5 120,-29.5 149,-29.5 149,-0.5 120,-0.5 " style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ffff00;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="129.5" y="-10.72" fill="#000000">6</tspan>
+ </text>
+ </g>
+</g>
+ <g transform="translate(291.85 397.29) scale(0.98 0.98)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-157.65" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">2</tspan><tspan x="-148.75" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-144.31" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">+</tspan><tspan x="-134.96" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-130.52" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">4</tspan><tspan x="-121.62" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-117.18" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">=</tspan><tspan x="-107.83" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">=</tspan><tspan x="-98.49" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-94.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-89.6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="-80.7" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="-75.37" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-66.47" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-57.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-53.13" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-48.68" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="-40.68" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="-31.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="-18.46" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">,</tspan><tspan x="-14.01" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-9.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">w</tspan><tspan x="1.99" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="10.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="15.33" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="24.23" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="33.13" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">v</tspan><tspan x="41.13" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="50.03" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="54.47" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">f</tspan><tspan x="58.92" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="67.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="76.71" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="85.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan><tspan x="94.51" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="98.96" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="107.86" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">u</tspan><tspan x="116.75" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="122.08" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="126.53" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">p</tspan><tspan x="135.43" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="144.32" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="147.88" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">r</tspan><tspan x="153.21" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">!</tspan> </text>
+ </g>
+</svg></div></div>
+
+<p>The time complexity of the above algorithm will be O(N)<em>O</em>(<em>N</em>).</p>
+<p>In the following chapters, we will apply the <strong>Two Pointers</strong> approach to solve a few problems.</p>
+<h1 id="Pair-with-Target-Sum-easy"><a href="#Pair-with-Target-Sum-easy" class="headerlink" title="Pair with Target Sum (easy)"></a>Pair with Target Sum (easy)</h1><details open class="styles__PageTOCStyled-rf9d2l-0 EAtON" style="box-sizing: border-box; display: block; background: rgb(245, 245, 245); border-radius: 4px; border-left: 5px solid rgb(204, 203, 255); padding: 10px 20px; min-width: 300px;"><summary role="button" tabindex="0" class="styles__HeadingWrap-rf9d2l-1 kdoJDy" style="box-sizing: border-box; display: block; cursor: pointer; outline-style: none; margin: 7px 0px 5px; font-size: 16px; font-weight: 700;">We'll cover the following<div rotate="0" color="#000" size="24" display="inline-flex" name="icon-button" class="styles__IconButton-sc-12pjl04-0 dhVQSt" style="box-sizing: border-box; display: inline-flex; vertical-align: middle; cursor: pointer; transition: all 0.2s ease 0s; color: rgb(0, 0, 0); margin: 0px; float: right;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></div></summary><div class="markdown-container-div Markdown__MarkdownContainerDiv-sc-7qtuee-5 fnZvSb" height="auto" style="box-sizing: border-box; height: auto;"><div class="markdownViewer Markdown__Viewer-sc-7qtuee-1 eQnogc" role="none" style="box-sizing: border-box; color: rgb(61, 61, 78); line-height: 1.7; outline: none; font-size: 18px; overflow-wrap: break-word; font-family: &quot;Nunito Sans&quot;;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#problem-statement" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Problem Statement</a></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#try-it-yourself" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Try it yourself</a></li></ul></li></ul></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#solution" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Solution</a></li></ul></li></ul></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#code" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Code</a></li></ul></li></ul></li></ul></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#time-complexity" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Time Complexity</a></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#space-complexity" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Space Complexity</a></li></ul></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#an-alternate-approach" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">An Alternate approach</a></li></ul></li></ul></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><ul style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; margin-left: -20px;"><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#time-complexity-2" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Time Complexity</a></li><li style="box-sizing: border-box; margin-bottom: 5px; list-style: none;"><a href="#space-complexity-2" style="box-sizing: border-box; background-color: initial; text-decoration: none; color: rgb(0, 0, 0); transition: color 0.2s ease 0s; font-size: 14px;">Space Complexity</a></li></ul></li></ul></li></ul></li></ul></div></div></details>
+
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given an array of sorted numbers and a target sum, find a <strong>pair in the array whose sum is equal to the given target</strong>.</p>
+<p>Write a function to return the indices of the two numbers (i.e. the pair) such that they add up to the given target.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>], target=<span class="number">6</span></span><br><span class="line">Output: [<span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line">Explanation: The numbers at index <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span> add up to <span class="number">6</span>: <span class="number">2</span>+<span class="number">4</span>=<span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">2</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">11</span>], target=<span class="number">11</span></span><br><span class="line">Output: [<span class="number">0</span>, <span class="number">2</span>]</span><br><span class="line">Explanation: The numbers at index <span class="number">0</span> <span class="keyword">and</span> <span class="number">2</span> add up to <span class="number">11</span>: <span class="number">2</span>+<span class="number">9</span>=<span class="number">11</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Try-it-yourself"><a href="#Try-it-yourself" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/1-introduction/index.html" title= "1.Introduction">
+                    <div class="prevTitle">1.Introduction</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= https://livere.com>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linhao_yu@foxmail@mail" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Hasuer" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pair-with-Target-Sum-easy"><span class="toc-number">2.</span> <span class="toc-text">Pair with Target Sum (easy)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.0.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself"><span class="toc-number">2.0.2.</span> <span class="toc-text">Try it yourself</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 27
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/3-two-pointers/index.html" >3.Two Pointers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/1-introduction/index.html" >1.Introduction</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html" >改变vscode默认代码格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/matlab-plot/index.html" >Matlab_plot</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA3实验报告</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-bigfilesforxv6/index.html" >MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-locking/index.html" >MIT 6.828 Homework_Locking</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-xv6cpualarm/index.html" >MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-lazypageallocation/index.html" >MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/mit-6-828-homework-systemcall/index.html" >MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2-sliding-window/index.html" >2.Sliding Window</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/mit-6-828-assignment-barriers/index.html" >MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA2实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/mit-6-828-assignment-threadsandlocks/index.html" >MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >打印多个hello</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/pv%E9%A2%98/index.html" >PV题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/132-pattern/index.html" >132 Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html" >外刊句子</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/book-xv6-chapter-0/index.html" >book_xv6:Chapter_0</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/blog%E7%9B%AE%E5%BD%95/index.html" >Blog目录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/mit-6-828-operating-system-engineering/index.html" >MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span><a class="archive-post-title" href= "/mit-6-828-assignment-shell/index.html" >MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span><a class="archive-post-title" href= "/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html" >归并排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href= "/09-working-with-processes/index.html" >09 Working with processes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html" >【哈佛公开课】Justice</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA1实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/hello-world/index.html" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="stack"><span class="iconfont-archer">&#xe606;</span>stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="MIT OS"><span class="iconfont-archer">&#xe606;</span>MIT OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="NEMU实验"><span class="iconfont-archer">&#xe606;</span>NEMU实验</span>
+    
+        <span class="sidebar-tag-name" data-tags="进程管理"><span class="iconfont-archer">&#xe606;</span>进程管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux 基础"><span class="iconfont-archer">&#xe606;</span>Linux 基础</span>
+    
+        <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
+    
+        <span class="sidebar-tag-name" data-tags="新英文杂志"><span class="iconfont-archer">&#xe606;</span>新英文杂志</span>
+    
+        <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Interview"><span class="iconfont-archer">&#xe606;</span>Interview</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="LeetCode"><span class="iconfont-archer">&#xe60a;</span>LeetCode</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理"><span class="iconfont-archer">&#xe60a;</span>操作系统原理</span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理"><span class="iconfont-archer">&#xe60a;</span>计算机组成原理</span>
+    
+        <span class="sidebar-category-name" data-categories="公开课"><span class="iconfont-archer">&#xe60a;</span>公开课</span>
+    
+        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验"><span class="iconfont-archer">&#xe60a;</span>操作系统实验</span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab"><span class="iconfont-archer">&#xe60a;</span>Matlab</span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips"><span class="iconfont-archer">&#xe60a;</span>Vscode-tips</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
