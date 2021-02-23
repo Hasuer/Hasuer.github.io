@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="IntroductionThe Fast &amp; Slow pointer approach, also known as the Hare &amp; Tortoise algorithm, is a pointer algorithm that uses two pointers which move through the array (or sequence&#x2F;LinkedList) a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.Pattern Fast &amp; Slow Pointers">
+<meta property="og:url" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="IntroductionThe Fast &amp; Slow pointer approach, also known as the Hare &amp; Tortoise algorithm, is a pointer algorithm that uses two pointers which move through the array (or sequence&#x2F;LinkedList) a">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-23T02:10:27.000Z">
+<meta property="article:modified_time" content="2021-02-23T11:38:10.607Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>4.Pattern Fast &amp; Slow Pointers · Hasuer&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/profile.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">4.Pattern Fast & Slow Pointers</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Hasuer's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            4.Pattern Fast & Slow Pointers
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Interview">Interview</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.5k</span>Reading time: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/02/23</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>The <strong>Fast &amp; Slow</strong> pointer approach, also known as the <strong>Hare &amp; Tortoise algorithm</strong>, is a pointer algorithm that uses two pointers which move through the array (or sequence/LinkedList) at different speeds. This approach is quite useful when dealing with cyclic LinkedLists or arrays.</p>
+<p>By moving at different speeds (say, in a cyclic LinkedList), the algorithm proves that the two pointers are bound to meet. The fast pointer should catch the slow pointer once both the pointers are in a cyclic loop.</p>
+<p>One of the famous problems solved using this technique was <strong>Finding a cycle in a LinkedList</strong>. Let’s jump onto this problem to understand the <strong>Fast &amp; Slow</strong> pattern.</p>
+<h1 id="LinkedList-Cycle-easy"><a href="#LinkedList-Cycle-easy" class="headerlink" title="LinkedList Cycle (easy)"></a>LinkedList Cycle (easy)</h1><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given the head of a <strong>Singly LinkedList</strong>, write a function to determine if the LinkedList has a <strong>cycle</strong> in it or not.</p>
+<div class="canvas-wrapper"><div class="canvas-svg-viewmode">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="900" height="250" viewbox="0 0 900 250" xml:space="preserve" style="width:100%;height:100%">
+<desc>Created with Fabric.js 1.6.0-rc.1</desc>
+<defs/>
+<g transform="translate(337 61.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(40.07 16.99)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-35.57" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">E</tspan><tspan x="-24.9" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">x</tspan><tspan x="-16" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="-7.1" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">m</tspan><tspan x="7.13" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">p</tspan><tspan x="16.9" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="21.34" y="3.59" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="30.24" y="3.59" font-family="helvetica" font-size="16" font-weight="bold" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">:</tspan> </text>
+ </g>
+ <g transform="translate(320.3 29.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-17.8" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="-8.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="0" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="8.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan> </text>
+ </g>
+ <g transform="translate(128 81.99)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-116.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">F</tspan><tspan x="-106.73" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="-97.83" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="-94.28" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="-90.72" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="-81.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">w</tspan><tspan x="-70.27" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="-66.71" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="-57.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-48.92" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-44.47" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">L</tspan><tspan x="-35.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="-32.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="-23.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">k</tspan><tspan x="-15.12" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-6.22" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan><tspan x="2.68" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">L</tspan><tspan x="11.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="15.13" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="23.13" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="27.57" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="32.02" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="40.92" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="49.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="57.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="62.26" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="71.16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="75.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="83.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">y</tspan><tspan x="91.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="99.61" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="103.16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="112.06" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">:</tspan> </text>
+ </g>
+ <g transform="translate(159.37 192)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-148.72" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">F</tspan><tspan x="-138.95" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="-130.05" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="-126.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="-122.94" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="-114.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">w</tspan><tspan x="-102.49" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="-98.93" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="-90.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">g</tspan><tspan x="-81.14" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-76.69" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">L</tspan><tspan x="-67.79" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="-64.24" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="-55.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">k</tspan><tspan x="-47.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="-38.44" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan><tspan x="-29.54" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">L</tspan><tspan x="-20.64" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">i</tspan><tspan x="-17.09" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="-9.09" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="-4.64" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="-0.2" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan><tspan x="8.7" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">o</tspan><tspan x="17.6" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="26.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">s</tspan><tspan x="34.5" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">n</tspan><tspan x="43.39" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">'</tspan><tspan x="46.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">t</tspan><tspan x="50.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="55.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="64.24" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="73.14" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">v</tspan><tspan x="81.14" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="90.04" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="94.48" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="103.38" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="107.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="115.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">y</tspan><tspan x="123.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">c</tspan><tspan x="131.82" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">l</tspan><tspan x="135.38" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="144.28" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">:</tspan> </text>
+ </g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(355.49999999999994 163.16)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">8</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 285.5301 -0.5 285.5301 -0.5 C 290.3635 -0.5 295.1968 -5.3333 295.1968 -10.1667 C 295.1968 -10.1667 295.1968 -19.8333 295.1968 -19.8333 C 295.1968 -24.6667 290.3635 -29.5 285.5301 -29.5 C 285.5301 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="268" y="-11.12" fill="#000000">10</tspan>
+ </text>
+ </g>
+ <path d="M 224.2763 -15 C 232.3028 -15 242.4598 -15 251.7506 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.95,-17.8 259.95,-15 251.95,-12.2 251.95,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 340.8635 -0.5 C 340.8635 -0.5 375.9237 -0.5 375.9237 -0.5 C 380.7571 -0.5 385.5904 -5.3333 385.5904 -10.1667 C 385.5904 -10.1667 385.5904 -19.8333 385.5904 -19.8333 C 385.5904 -24.6667 380.7571 -29.5 375.9237 -29.5 C 375.9237 -29.5 340.8635 -29.5 340.8635 -29.5 C 336.0301 -29.5 331.1968 -24.6667 331.1968 -19.8333 C 331.1968 -19.8333 331.1968 -10.1667 331.1968 -10.1667 C 331.1968 -5.3333 336.0301 -0.5 340.8635 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#ead1dc;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="339.19" y="-11.12" fill="#000000">null</tspan>
+ </text>
+ </g>
+ <path d="M 295.5295 -15 C 303.5839 -15 313.3854 -15 322.8293 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="322.98,-17.8 330.98,-15 322.98,-12.2 322.98,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(355.5 54.160000000000004)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(696.5 103.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+<g transform="translate(337 171.3) scale(1 1.01)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(320.3 137.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-17.8" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">h</tspan><tspan x="-8.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">e</tspan><tspan x="0" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">a</tspan><tspan x="8.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">d</tspan> </text>
+ </g>
+</svg></div></div>
+
+<h3 id="Try-it-yourself"><a href="#Try-it-yourself" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个代码严格来讲是不合格的，因为我修改了题中所给的类的结构，应该是不能修改的</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">bool</span> visited = <span class="literal">false</span>;</span><br><span class="line">    ListNode();</span><br><span class="line">    ListNode(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">        visited = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedListCycle</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">while</span> (p-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p-&gt;visited == <span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            p-&gt;visited = <span class="literal">true</span>;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">    ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">    head-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">    head-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">5</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">6</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next-&gt;next;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面这个版本是看了Solution之后写的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    ListNode();</span><br><span class="line">    ListNode(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedListCycle</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode* slow = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        fast = slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                fast = fast-&gt;next-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Imagine two racers running in a circular racing track. If one racer is faster than the other, the faster racer is bound to catch up and cross the slower racer from behind. We can use this fact to devise an algorithm to determine if a LinkedList has a cycle in it or not.</p>
+<p>Imagine we have a slow and a fast pointer to traverse the LinkedList. In each iteration, the slow pointer moves one step and the fast pointer moves two steps. This gives us two conclusions:</p>
+<ol>
+<li>If the LinkedList doesn’t have a cycle in it, the fast pointer will reach the end of the LinkedList before the slow pointer to reveal that there is no cycle in the LinkedList.</li>
+<li>The slow pointer will never be able to catch up to the fast pointer if there is no cycle in the LinkedList.</li>
+</ol>
+<p>If the LinkedList has a cycle, the fast pointer enters the cycle first, followed by the slow pointer. After this, both pointers will keep moving in the cycle infinitely. If at any stage both of these pointers meet, we can conclude that the LinkedList has a cycle in it. Let’s analyze if it is possible for the two pointers to meet. When the fast pointer is approaching the slow pointer from behind we have two possibilities:</p>
+<ol>
+<li>The fast pointer is one step behind the slow pointer.</li>
+<li>The fast pointer is two steps behind the slow pointer.</li>
+</ol>
+<p>All other distances between the fast and slow pointers will reduce to one of these two possibilities. Let’s analyze these scenarios, considering the fast pointer always moves first:</p>
+<ol>
+<li><strong>If the fast pointer is one step behind the slow pointer:</strong> The fast pointer moves two steps and the slow pointer moves one step, and they both meet.</li>
+<li><strong>If the fast pointer is two steps behind the slow pointer:</strong> The fast pointer moves two steps and the slow pointer moves one step. After the moves, the fast pointer will be one step behind the slow pointer, which reduces this scenario to the first scenario. This means that the two pointers will meet in the next iteration.</li>
+</ol>
+<p>This concludes that the two pointers will definitely meet if the LinkedList has a cycle. A similar analysis can be done where the slow pointer moves first. Here is a visual representation of the above discussion:</p>
+<div class="canvas-wrapper"><div class="canvas-svg-viewmode">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="700" viewbox="0 0 800 700" xml:space="preserve" style="width:100%;height:100%">
+<desc>Created with Fabric.js 1.6.0-rc.1</desc>
+<defs/>
+<g transform="translate(139.84 57.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(158.165 50.160000000000004)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(501.5 101.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(126 24.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-33.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">f</tspan><tspan x="-28.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">a</tspan><tspan x="-20" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">s</tspan><tspan x="-12" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">t</tspan><tspan x="-7.55" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">,</tspan><tspan x="-3.11" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="1.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">s</tspan><tspan x="9.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">l</tspan><tspan x="12.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">o</tspan><tspan x="21.79" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">w</tspan> </text>
+ </g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(158.165 182.16)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(501.5 233.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(158.165 321.16)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(316.84 177.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(296.23 143.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-12.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">f</tspan><tspan x="-8.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">a</tspan><tspan x="0.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">s</tspan><tspan x="8.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">t</tspan> </text>
+ </g>
+ <g transform="translate(211.35 143.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">s</tspan><tspan x="-8" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">l</tspan><tspan x="-4.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">o</tspan><tspan x="4.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">w</tspan> </text>
+ </g>
+<g transform="translate(231.84 177.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+<g transform="translate(501.5 370.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+<g transform="translate(490.84 315.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(469.23 287.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-12.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">f</tspan><tspan x="-8.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">a</tspan><tspan x="0.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">s</tspan><tspan x="8.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">t</tspan> </text>
+ </g>
+<g transform="translate(316.84 315.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(299.34 282.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">s</tspan><tspan x="-8" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">l</tspan><tspan x="-4.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">o</tspan><tspan x="4.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">w</tspan> </text>
+ </g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(158.165 463.16)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(501.5 513.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+<g transform="translate(400 459.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(381.34 429.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-16" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">s</tspan><tspan x="-8" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">l</tspan><tspan x="-4.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">o</tspan><tspan x="4.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">w</tspan> </text>
+ </g>
+<g transform="translate(316.84 456.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(296.23 426.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-12.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">f</tspan><tspan x="-8.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">a</tspan><tspan x="0.45" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">s</tspan><tspan x="8.45" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">t</tspan> </text>
+ </g>
+<g style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform="translate(158.165 598.1600000000001)">
+ <path d="M 9.6667 -0.5 C 9.6667 -0.5 19.3333 -0.5 19.3333 -0.5 C 24.1667 -0.5 29 -5.3333 29 -10.1667 C 29 -10.1667 29 -19.8333 29 -19.8333 C 29 -24.6667 24.1667 -29.5 19.3333 -29.5 C 19.3333 -29.5 9.6667 -29.5 9.6667 -29.5 C 4.8333 -29.5 0 -24.6667 0 -19.8333 C 0 -19.8333 0 -10.1667 0 -10.1667 C 0 -5.3333 4.8333 -0.5 9.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="9.7" y="-11.12" fill="#000000">1</tspan>
+ </text>
+ </g>
+ <path d="M 74.6667 -0.5 C 74.6667 -0.5 84.3333 -0.5 84.3333 -0.5 C 89.1667 -0.5 94 -5.3333 94 -10.1667 C 94 -10.1667 94 -19.8333 94 -19.8333 C 94 -24.6667 89.1667 -29.5 84.3333 -29.5 C 84.3333 -29.5 74.6667 -29.5 74.6667 -29.5 C 69.8333 -29.5 65 -24.6667 65 -19.8333 C 65 -19.8333 65 -10.1667 65 -10.1667 C 65 -5.3333 69.8333 -0.5 74.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="74.7" y="-11.12" fill="#000000">2</tspan>
+ </text>
+ </g>
+ <path d="M 29.2495 -15 C 37.3108 -15 47.474 -15 56.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="56.81,-17.8 64.81,-15 56.81,-12.2 56.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 139.6667 -0.5 C 139.6667 -0.5 149.3333 -0.5 149.3333 -0.5 C 154.1667 -0.5 159 -5.3333 159 -10.1667 C 159 -10.1667 159 -19.8333 159 -19.8333 C 159 -24.6667 154.1667 -29.5 149.3333 -29.5 C 149.3333 -29.5 139.6667 -29.5 139.6667 -29.5 C 134.8333 -29.5 130 -24.6667 130 -19.8333 C 130 -19.8333 130 -10.1667 130 -10.1667 C 130 -5.3333 134.8333 -0.5 139.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="139.7" y="-11.12" fill="#000000">3</tspan>
+ </text>
+ </g>
+ <path d="M 94.2495 -15 C 102.3108 -15 112.474 -15 121.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="121.81,-17.8 129.81,-15 121.81,-12.2 121.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 204.6667 -0.5 C 204.6667 -0.5 214.3333 -0.5 214.3333 -0.5 C 219.1667 -0.5 224 -5.3333 224 -10.1667 C 224 -10.1667 224 -19.8333 224 -19.8333 C 224 -24.6667 219.1667 -29.5 214.3333 -29.5 C 214.3333 -29.5 204.6667 -29.5 204.6667 -29.5 C 199.8333 -29.5 195 -24.6667 195 -19.8333 C 195 -19.8333 195 -10.1667 195 -10.1667 C 195 -5.3333 199.8333 -0.5 204.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="204.7" y="-11.12" fill="#000000">4</tspan>
+ </text>
+ </g>
+ <path d="M 159.2495 -15 C 167.3108 -15 177.474 -15 186.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="186.81,-17.8 194.81,-15 186.81,-12.2 186.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 269.6667 -0.5 C 269.6667 -0.5 279.3333 -0.5 279.3333 -0.5 C 284.1667 -0.5 289 -5.3333 289 -10.1667 C 289 -10.1667 289 -19.8333 289 -19.8333 C 289 -24.6667 284.1667 -29.5 279.3333 -29.5 C 279.3333 -29.5 269.6667 -29.5 269.6667 -29.5 C 264.8333 -29.5 260 -24.6667 260 -19.8333 C 260 -19.8333 260 -10.1667 260 -10.1667 C 260 -5.3333 264.8333 -0.5 269.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="269.7" y="-11.12" fill="#000000">5</tspan>
+ </text>
+ </g>
+ <path d="M 224.2495 -15 C 232.3108 -15 242.474 -15 251.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="251.81,-17.8 259.81,-15 251.81,-12.2 251.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+ <path d="M 334.6667 -0.5 C 334.6667 -0.5 344.3333 -0.5 344.3333 -0.5 C 349.1667 -0.5 354 -5.3333 354 -10.1667 C 354 -10.1667 354 -19.8333 354 -19.8333 C 354 -24.6667 349.1667 -29.5 344.3333 -29.5 C 344.3333 -29.5 334.6667 -29.5 334.6667 -29.5 C 329.8333 -29.5 325 -24.6667 325 -19.8333 C 325 -19.8333 325 -10.1667 325 -10.1667 C 325 -5.3333 329.8333 -0.5 334.6667 -0.5" style="stroke:#000000;stroke-width:0.5;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#bfefff;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <g transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) ">
+ <text font-family="Courier,monospace" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+ <tspan x="334.7" y="-11.12" fill="#000000">6</tspan>
+ </text>
+ </g>
+ <path d="M 289.2495 -15 C 297.3108 -15 307.474 -15 316.5475 -15" style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1" transform=" matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) " stroke-linecap="round"/>
+ <polygon points="316.81,-17.8 324.81,-15 316.81,-12.2 316.81,-17.8 " style="stroke:#000000;stroke-width:0.6;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#404040;fill-rule:nonzero;opacity:1" transform="  matrix(1.3333333333333333 0 0 1.3333333333333333 5.333333333333333 45.33333333333333) "/>
+</g>
+<g transform="translate(501.5 648.99)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjk1cHgiIGhlaWdodD0iNTFweCIgdmVyc2lvbj0iMS4xIj48ZGVmcy8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC41LDAuNSkiPjxwYXRoIGQ9Ik0gMjg0IDAgUSAyOTQgMCAyOTQgMjUgUSAyOTQgNTAgMTQ5IDUwIFEgNCA1MCA0IDI2LjM3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDQgMjEuMTIgTCA3LjUgMjguMTIgTCA0IDI2LjM3IEwgMC41IDI4LjEyIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" x="-147.5" y="-25.5" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="295" height="51" preserveaspectratio="none"/>
+</g>
+<g transform="translate(490.84 595.16)">
+<image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDBweCIgaGVpZ2h0PSI0NHB4IiB2ZXJzaW9uPSIxLjEiPjxkZWZzLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjUsMC41KSI+PHBhdGggZD0iTSAwIDkgUSAwIC0xMSAwIDE0IFEgMCAzOSAzMy42MyAzOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAzOC44OCAzOSBMIDMxLjg4IDQyLjUgTCAzMy42MyAzOSBMIDMxLjg4IDM1LjUgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PC9nPjwvc3ZnPg==" x="-20" y="-22" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:rgb(0,0,0);fill-rule:nonzero;opacity:1" width="40" height="44" preserveaspectratio="none"/>
+</g>
+ <g transform="translate(469.23 568.15)">
+ <text font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000000;fill-rule:nonzero;opacity:1">
+<tspan x="-33.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">f</tspan><tspan x="-28.9" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">a</tspan><tspan x="-20" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">s</tspan><tspan x="-12" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#ff0000;opacity:1">t</tspan><tspan x="-7.55" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1">,</tspan><tspan x="-3.11" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#000000;opacity:1"> </tspan><tspan x="1.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">s</tspan><tspan x="9.34" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">l</tspan><tspan x="12.89" y="3.59" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">o</tspan><tspan x="21.79" y="3.59" font-family="helvetica" font-size="16" font-weight="normal" style="stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;fill:#6aa84f;opacity:1">w</tspan> </text>
+ </g>
+</svg></div></div>
+
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>Here is what our algorithm will look like:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    ListNode();</span><br><span class="line">    ListNode(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedListCycle</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>As we have concluded above, once the slow pointer enters the cycle, the fast pointer will meet the slow pointer in the same loop. Therefore, the time complexity of our algorithm will be <strong><em>O(N)</em></strong> where ‘N’ is the total number of nodes in the LinkedList.</p>
+<h4 id="Space-Complexity"><a href="#Space-Complexity" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h3 id="Similar-Problems"><a href="#Similar-Problems" class="headerlink" title="Similar Problems"></a>Similar Problems</h3><p><strong>Problem 1:</strong> Given the head of a LinkedList with a cycle, find the length of the cycle.</p>
+<p><strong>Solution:</strong> We can use the above solution to find the cycle in the LinkedList. Once the fast and slow pointers meet, we can save the slow pointer and iterate the whole cycle with another pointer until we see the slow pointer again to find the length of the cycle.</p>
+<p>Here is what our algorithm will look like:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    ListNode();</span><br><span class="line">    ListNode(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedListCycle</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hasCycle</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">                <span class="keyword">return</span> Length(slow);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Length</span><span class="params">(ListNode* slow)</span> </span>&#123;</span><br><span class="line">        ListNode* current = slow;</span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">1</span>;</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">        <span class="keyword">while</span> (current != slow) &#123;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">            length++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">    ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">    head-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">    head-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">4</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">5</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">6</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next-&gt;next;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; LinkedListCycle::hasCycle(head);</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Time and Space Complexity:</strong> The above algorithm runs in <strong><em>O(N)</em></strong> time complexity and <strong><em>O(1)</em></strong> space complexity.</p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html" title= "富爸爸穷爸爸">
+                    <div class="prevTitle">富爸爸穷爸爸</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= https://livere.com>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linhao_yu@foxmail@mail" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Hasuer" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LinkedList-Cycle-easy"><span class="toc-number">2.</span> <span class="toc-text">LinkedList Cycle (easy)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.0.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself"><span class="toc-number">2.0.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.0.3.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity"><span class="toc-number">2.0.3.3.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Similar-Problems"><span class="toc-number">2.0.4.</span> <span class="toc-text">Similar Problems</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 31
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span><a class="archive-post-title" href= "/4-pattern-fast-slow-pointers/index.html" >4.Pattern Fast & Slow Pointers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html" >富爸爸穷爸爸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/latex%E8%BD%AC%E6%8D%A2markdown/index.html" >latex转换markdown</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html" >人类简史</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/3-two-pointers/index.html" >3.Two Pointers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/1-introduction/index.html" >1.Introduction</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html" >改变vscode默认代码格式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href= "/matlab-plot/index.html" >Matlab_plot</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span><a class="archive-post-title" href= "/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA3实验报告</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-bigfilesforxv6/index.html" >MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-locking/index.html" >MIT 6.828 Homework_Locking</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-xv6cpualarm/index.html" >MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span><a class="archive-post-title" href= "/mit-6-828-homework-lazypageallocation/index.html" >MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/mit-6-828-homework-systemcall/index.html" >MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2-sliding-window/index.html" >2.Sliding Window</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/mit-6-828-assignment-barriers/index.html" >MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA2实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span><a class="archive-post-title" href= "/mit-6-828-assignment-threadsandlocks/index.html" >MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >打印多个hello</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span><a class="archive-post-title" href= "/pv%E9%A2%98/index.html" >PV题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/132-pattern/index.html" >132 Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span><a class="archive-post-title" href= "/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html" >外刊句子</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/book-xv6-chapter-0/index.html" >book_xv6:Chapter_0</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/blog%E7%9B%AE%E5%BD%95/index.html" >Blog目录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/mit-6-828-operating-system-engineering/index.html" >MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span><a class="archive-post-title" href= "/mit-6-828-assignment-shell/index.html" >MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span><a class="archive-post-title" href= "/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html" >归并排序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span><a class="archive-post-title" href= "/09-working-with-processes/index.html" >09 Working with processes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html" >【哈佛公开课】Justice</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >PA1实验报告</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href= "/hello-world/index.html" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="stack"><span class="iconfont-archer">&#xe606;</span>stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="MIT OS"><span class="iconfont-archer">&#xe606;</span>MIT OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="NEMU实验"><span class="iconfont-archer">&#xe606;</span>NEMU实验</span>
+    
+        <span class="sidebar-tag-name" data-tags="进程管理"><span class="iconfont-archer">&#xe606;</span>进程管理</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux 基础"><span class="iconfont-archer">&#xe606;</span>Linux 基础</span>
+    
+        <span class="sidebar-tag-name" data-tags="人文"><span class="iconfont-archer">&#xe606;</span>人文</span>
+    
+        <span class="sidebar-tag-name" data-tags="新英文杂志"><span class="iconfont-archer">&#xe606;</span>新英文杂志</span>
+    
+        <span class="sidebar-tag-name" data-tags="排序算法"><span class="iconfont-archer">&#xe606;</span>排序算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="Interview"><span class="iconfont-archer">&#xe606;</span>Interview</span>
+    
+        <span class="sidebar-tag-name" data-tags="社会"><span class="iconfont-archer">&#xe606;</span>社会</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类史"><span class="iconfont-archer">&#xe606;</span>人类史</span>
+    
+        <span class="sidebar-tag-name" data-tags="历史"><span class="iconfont-archer">&#xe606;</span>历史</span>
+    
+        <span class="sidebar-tag-name" data-tags="投资理财"><span class="iconfont-archer">&#xe606;</span>投资理财</span>
+    
+        <span class="sidebar-tag-name" data-tags="财商"><span class="iconfont-archer">&#xe606;</span>财商</span>
+    
+        <span class="sidebar-tag-name" data-tags="思维模式"><span class="iconfont-archer">&#xe606;</span>思维模式</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="LeetCode"><span class="iconfont-archer">&#xe60a;</span>LeetCode</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理"><span class="iconfont-archer">&#xe60a;</span>操作系统原理</span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理"><span class="iconfont-archer">&#xe60a;</span>计算机组成原理</span>
+    
+        <span class="sidebar-category-name" data-categories="公开课"><span class="iconfont-archer">&#xe60a;</span>公开课</span>
+    
+        <span class="sidebar-category-name" data-categories="算法"><span class="iconfont-archer">&#xe60a;</span>算法</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验"><span class="iconfont-archer">&#xe60a;</span>操作系统实验</span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab"><span class="iconfont-archer">&#xe60a;</span>Matlab</span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips"><span class="iconfont-archer">&#xe60a;</span>Vscode-tips</span>
+    
+        <span class="sidebar-category-name" data-categories="读书"><span class="iconfont-archer">&#xe60a;</span>读书</span>
+    
+        <span class="sidebar-category-name" data-categories="tips"><span class="iconfont-archer">&#xe60a;</span>tips</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
