@@ -354,6 +354,45 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/mit-6-828-assignment-threadsandlocks/index.html" >
+            
+                <span>MIT 6.828 Assignment_ThreadsandLocks</span>
+        </a>
+        <div class="abstract-content">
+            
+实验指导书
+
+MIT 6.828 Operating System Engineering
+
+【思路】
+代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。
+put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。
+get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。
+这样不断通过put 和get来实现并行程序。
+产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/06</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >
             
                 <span>打印多个hello</span>
@@ -646,58 +685,6 @@ MIT 6.828 Operating System Engineering
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "排序算法">排序算法</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/09-working-with-processes/index.html" >
-            
-                <span>09 Working with processes</span>
-        </a>
-        <div class="abstract-content">
-            What is a process?
-进程是一个正在执行的程序。
-每一个程序都有自己的运行环境
-
-To see the PID of your current shell process, type:
-1echo $$
-
-其中：
-
-echo表示在屏幕上显示东西
-
-$$表示查看当前进程的PID
-
-Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）
-
-
-
-
-Starting and stopping a process
-所有的进程都是由其他进程发起的
-init进程是直接由内核产生，一般来说ID是1
-进程的退出
-自己执行完毕以后退出
-其他的进程发出了信号...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/15</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux 基础">Linux 基础</a>
     
 </div>
             
@@ -1225,9 +1212,26 @@ init进程是直接由内核产生，一般来说ID是1
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 33
+        Total : 34
         </div>
         <!-- search  -->
         
@@ -1240,6 +1244,11 @@ init进程是直接由内核产生，一般来说ID是1
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span><a class="archive-post-title" href= "/%E5%88%B7%E9%A2%98%E6%BC%8F%E6%B4%9E/index.html" >刷题漏洞</a>
+        </li>
     
     
         <li class="archive-post-item">
