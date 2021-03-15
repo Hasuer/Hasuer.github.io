@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://hasuer.github.io/5-pattern-merge-intervals/index/2.png">
 <meta property="og:image" content="https://hasuer.github.io/5-pattern-merge-intervals/index/3.png">
 <meta property="article:published_time" content="2021-03-11T10:02:17.000Z">
-<meta property="article:modified_time" content="2021-03-15T09:15:35.040Z">
+<meta property="article:modified_time" content="2021-03-15T09:16:25.761Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
@@ -421,14 +421,14 @@ height:50vh;
     <article class="article-entry">
         <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>This pattern describes an efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals if they overlap.</p>
 <p>Given two intervals (‘a’ and ‘b’), there will be six different ways the two intervals can relate to each other:</p>
-<img src="/5-pattern-merge-intervals/index/1.png" style="zoom:60%;">
+<img src="/5-pattern-merge-intervals/index/1.png">
 
 <p>Understanding the above six cases will help us in solving all intervals related problems. Let’s jump onto our first problem to understand the <strong>Merge Interval</strong> pattern.</p>
 <h1 id="Merge-Intervals-medium"><a href="#Merge-Intervals-medium" class="headerlink" title="Merge Intervals (medium)"></a>Merge Intervals (medium)</h1><h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a list of intervals, <strong>merge all the overlapping intervals</strong> to produce a list that has only mutually exclusive intervals.</p>
 <p><strong>Example 1:</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Intervals:</span> [[<span class="number">1</span>,<span class="number">4</span>], [<span class="number">2</span>,<span class="number">5</span>], [<span class="number">7</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="attr">Output:</span> [[<span class="number">1</span>,<span class="number">5</span>], [<span class="number">7</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="attr">Explanation:</span> <span class="string">Since</span> <span class="string">the</span> <span class="string">first</span> <span class="string">two</span> <span class="string">intervals</span> [<span class="number">1</span>,<span class="number">4</span>] <span class="string">and</span> [<span class="number">2</span>,<span class="number">5</span>] <span class="string">overlap,</span> <span class="string">we</span> <span class="string">merged</span> <span class="string">them</span> <span class="string">into</span> </span><br><span class="line"><span class="string">one</span> [<span class="number">1</span>,<span class="number">5</span>]<span class="string">.</span></span><br></pre></td></tr></table></figure>
 
-<img src="/5-pattern-merge-intervals/index/1.png" style="zoom:60%;">
+<img src="/5-pattern-merge-intervals/index/1.png">
 
 <p><strong>Example 2:</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Intervals:</span> [[<span class="number">6</span>,<span class="number">7</span>], [<span class="number">2</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="attr">Output:</span> [[<span class="number">2</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="attr">Explanation:</span> <span class="string">Since</span> <span class="string">the</span> <span class="string">intervals</span> [<span class="number">6</span>,<span class="number">7</span>] <span class="string">and</span> [<span class="number">5</span>,<span class="number">9</span>] <span class="string">overlap,</span> <span class="string">we</span> <span class="string">merged</span> <span class="string">them</span> <span class="string">into</span> <span class="string">one</span> [<span class="number">5</span>,<span class="number">9</span>]<span class="string">.</span></span><br></pre></td></tr></table></figure>
@@ -440,10 +440,10 @@ height:50vh;
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 这是看了solution之后写的答案</span><br><span class="line"><span class="regexp">//</span> 好吧，努力了一下之后发现写不来，看了代码开努力复现</span><br><span class="line"><span class="regexp">//</span> 涉及到了Java 中Collections.sort(), java迭代器, 我做了记录，可以看“刷题漏洞”</span><br></pre></td></tr></table></figure>
 
 <h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Let’s take the example of two intervals (‘a’ and ‘b’) such that <code>a.start &lt;= b.start</code>. There are four possible scenarios:</p>
-<img src="/5-pattern-merge-intervals/index/2.png" style="zoom:67%;">
+<img src="/5-pattern-merge-intervals/index/2.png">
 
 <p>Our goal is to merge the intervals whenever they overlap. For the above-mentioned three overlapping scenarios (2, 3, and 4), this is how we will merge them:</p>
-<img src="/5-pattern-merge-intervals/index/3.png" style="zoom:67%;">
+<img src="/5-pattern-merge-intervals/index/3.png">
 
 <p>The diagram above clearly shows a merging approach. Our algorithm will look like this:</p>
 <ol>
