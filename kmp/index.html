@@ -20,21 +20,21 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="首先安装pandoc install pandoc into your system到你的电脑 以windows为例输入如下指令  12cd tex文件所属的目录pandoc -s tex文件名.tex -o md的文件名.md">
+    <meta name="description" content="KMP算法简介定义： 在串中寻找字串（第一个字符）在串中的位置。 注意： 在这个算法中有两个问题要考虑：  这个位置是指索引（下标）还是小标加一（位置）。 字符串的第一个位置，也就是S[0]是否要存放长度。  KMP算法S[0]表示字符串长度12345678910111213141516171819202122int Index_Kmp(SString S, SString T, int pos)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="latex转换markdown">
-<meta property="og:url" content="https://hasuer.github.io/latex%E8%BD%AC%E6%8D%A2markdown/index.html">
+<meta property="og:title" content="KMP">
+<meta property="og:url" content="https://hasuer.github.io/kmp/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="首先安装pandoc install pandoc into your system到你的电脑 以windows为例输入如下指令  12cd tex文件所属的目录pandoc -s tex文件名.tex -o md的文件名.md">
+<meta property="og:description" content="KMP算法简介定义： 在串中寻找字串（第一个字符）在串中的位置。 注意： 在这个算法中有两个问题要考虑：  这个位置是指索引（下标）还是小标加一（位置）。 字符串的第一个位置，也就是S[0]是否要存放长度。  KMP算法S[0]表示字符串长度12345678910111213141516171819202122int Index_Kmp(SString S, SString T, int pos)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-14T13:04:11.000Z">
-<meta property="article:modified_time" content="2021-02-14T13:05:52.788Z">
+<meta property="article:published_time" content="2021-04-11T12:25:33.000Z">
+<meta property="article:modified_time" content="2021-04-11T13:29:03.333Z">
 <meta property="article:author" content="Hasuer">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>latex转换markdown · Hasuer&#39;s Studio</title>
+    <title>KMP · Hasuer&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -229,7 +229,7 @@
                 <a href="/" >Hasuer&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">latex转换markdown</a>
+                <a href="#" class="post-name">KMP</a>
             </div>
     </div>
     
@@ -259,7 +259,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            latex转换markdown
+            KMP
             <!-- 404 -->
             
         </h1>
@@ -278,12 +278,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">47</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">421</span>Reading time: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/02/14</span>
+                    <span class="post-intro-time">2021/04/11</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -407,11 +407,19 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <ol>
-<li>首先安装pandoc <a target="_blank" rel="noopener" href="http://pandoc.org/installing.html">install pandoc into your system</a>到你的电脑</li>
-<li>以windows为例输入如下指令</li>
+        <h2 id="KMP算法简介"><a href="#KMP算法简介" class="headerlink" title="KMP算法简介"></a>KMP算法简介</h2><p><strong>定义：</strong> 在串中寻找字串（第一个字符）在串中的位置。</p>
+<p><strong>注意：</strong> 在这个算法中有两个问题要考虑：</p>
+<ol>
+<li>这个位置是指索引（下标）还是小标加一（位置）。</li>
+<li>字符串的第一个位置，也就是<code>S[0]</code>是否要存放长度。</li>
 </ol>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> tex文件所属的目录</span><br><span class="line">pandoc -s tex文件名.tex -o <span class="built_in">md</span>的文件名.<span class="built_in">md</span></span><br></pre></td></tr></table></figure>
+<h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><h3 id="S-0-表示字符串长度"><a href="#S-0-表示字符串长度" class="headerlink" title="S[0]表示字符串长度"></a><code>S[0]</code>表示字符串长度</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Index_Kmp</span><span class="params">(SString S, SString T, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// S表示原串</span></span><br><span class="line">    <span class="comment">// T表示模式串</span></span><br><span class="line">    <span class="comment">// pos表示索引，这个算法中S[0]表示的是字符串的长度</span></span><br><span class="line">    <span class="comment">// 所以如果pos是5，那么是这个字符串的第4个元素</span></span><br><span class="line">    <span class="comment">// 第一个元素从S[1]开始存储</span></span><br><span class="line">    <span class="comment">// 返回的是在S中的位置，也就是第几个元素。比如返回4，表示是S中的第四个元素，由于S[0]是长度，所以其实是S中索引为4的位置，排在第5个。</span></span><br><span class="line">    <span class="keyword">int</span> i = pos;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt;= S[<span class="number">0</span>] &amp;&amp; j &lt;= T[<span class="number">0</span>]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">0</span> || S[i] == T[j]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (j &gt; T[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">return</span> i - T[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="S-0-不表示字符串长度"><a href="#S-0-不表示字符串长度" class="headerlink" title="S[0]不表示字符串长度"></a><code>S[0]</code>不表示字符串长度</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Index_Kmp</span><span class="params">(String S, String T, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// S表示原串</span></span><br><span class="line">    <span class="comment">// T表示模式串</span></span><br><span class="line">    <span class="comment">// pos表示S中的索引，这个算法中S[0]不表示字符串的长度</span></span><br><span class="line">    <span class="comment">// 这里的pos和上一个代码中的pos意义一样</span></span><br><span class="line">    <span class="comment">// 第一个元素从S[1]开始存储s</span></span><br><span class="line">    <span class="keyword">int</span> i = pos;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;  <span class="comment">// 注意这里J表示从T的第一个位置开始</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= S.length() &amp;&amp; j &lt;= T.length()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (j == <span class="number">0</span> || S[i] == T[j - <span class="number">1</span>]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i &gt; S.length)</span><br><span class="line">        <span class="keyword">return</span> i - T[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
     </article>
     <!-- license  -->
     
@@ -419,17 +427,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html" title= "富爸爸穷爸爸">
-                    <div class="nextTitle">富爸爸穷爸爸</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html" title= "人类简史">
-                    <div class="prevTitle">人类简史</div>
+                <a href= "/%E6%88%91%E7%9A%84%E7%94%9F%E5%91%BD%E6%95%85%E4%BA%8B/index.html" title= "我的生命故事">
+                    <div class="prevTitle">我的生命故事</div>
                 </a>
             
         </li>
@@ -560,7 +563,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#KMP%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">KMP算法简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KMP%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">KMP算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#S-0-%E8%A1%A8%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6"><span class="toc-number">2.1.</span> <span class="toc-text">S[0]表示字符串长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#S-0-%E4%B8%8D%E8%A1%A8%E7%A4%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6"><span class="toc-number">2.2.</span> <span class="toc-text">S[0]不表示字符串长度</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
