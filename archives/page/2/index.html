@@ -354,6 +354,33 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/latex%E8%BD%AC%E6%8D%A2markdown/index.html" >
+            
+                <span>latex转换markdown</span>
+        </a>
+        <div class="abstract-content">
+            
+首先安装pandoc install pandoc into your system到你的电脑
+以windows为例输入如下指令
+
+12cd tex文件所属的目录pandoc -s tex文件名.tex -o md的文件名.md
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/02/14</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html" >
             
                 <span>人类简史</span>
@@ -679,39 +706,6 @@ MIT 6.828 Operating System Engineering
 CPU Alarm实验目的在本练习中，您将向xv6添加一个特性，当进程使用CPU时间时，该特性会定期向进程发出警报。对于想要限制占用CPU时间的计算绑定进程，或者想要进行计算但又想采取某些周期性操作的进程，这可能很有用。更一般地说，您将实现用户级中断/错误处理程序的基本形式;例如，您可以在应用程序中使用类似的方法来处理页面错误。
 实验内容
 您应该添加一个新的alarm(interval, handler)系统调用。如果一个应用程序调用alarm(n, fn)，那么在程序每消耗n个“节拍”的CPU...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "MIT OS">MIT OS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/mit-6-828-homework-lazypageallocation/index.html" >
-            
-                <span>MIT 6.828 Homework_LazyPageAllocation</span>
-        </a>
-        <div class="abstract-content">
-            实验指导书
-
-MIT 6.828 Operating System Engineering
-
-Lazy Page Allocation实验目的O/S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用sbrk()系统调用向内核请求堆内存。在我们提供的内核中，sbrk()分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核延迟每个内存页的分配，直到应用程序尝试使用该页——这是由页面错误发出的信号。也就是说，sbrk()不分配物理内存，只是记住分配了哪些地址。当进程第一次尝试使用任何给定的内存页时，CPU会生成一个...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1325,9 +1319,26 @@ Lazy Page Allocation实验目的O/S可以使用页表硬件的许多巧妙技巧
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 38
+        Total : 39
         </div>
         <!-- search  -->
         
@@ -1340,6 +1351,11 @@ Lazy Page Allocation实验目的O/S可以使用页表硬件的许多巧妙技巧
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/postgresql-alter-table%E4%B8%AD%E6%94%B9%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6using%E7%9A%84%E7%94%A8%E6%B3%95/index.html" >PostgreSQL ALTER TABLE中改变数据类型时USING的用法</a>
+        </li>
     
     
         <li class="archive-post-item">
