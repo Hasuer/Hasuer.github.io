@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta property="og:type" content="website">
 <meta property="og:title" content="Hasuer&#39;s Studio.">
-<meta property="og:url" content="https://hasuer.github.io/tags/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:url" content="https://hasuer.github.io/archives/2021/page/3/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Hasuer">
@@ -354,59 +354,62 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html" >
+        <a class="abstract-title" href = "/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html" >
             
-                <span>打印多个hello</span>
+                <span>PA3实验报告</span>
         </a>
         <div class="abstract-content">
-            打印多个hello这个问题在网上没有找到代码，于是我自己对着代码的运行结果，尝试着去理解，所以不一定对。
-【问题描述：】
-假定下面的C语言程序在 UNIX 系统上运行，并且所有调用都能成功完。其 中pthread_create(&amp;t, NULL, bar, NULL); 的功能是创建一个新线程来执行函数bar，并返回线程对象标识 t。pthread_join(t,NULL );的功能是等待线程结束。试问此程序在运行过中会打印出多少个 “hello” ？需要说明分析过程。 
-12345678910111213141516171819202122232425262728#includ...
+            实验进度
+
+
+序号
+是否已完成
+
+
+
+必做任务1
+√
+
+
+必做任务2
+√
+
+
+必做任务3
+√
+
+
+必做任务4
+√
+
+
+选做任务1
+√
+
+
+选做任务2
+√
+
+
+选做任务3
+√
+
+
+思考题1GDT有多大？
+段寄存器中用作GDT表下标的位段宽度是13位，所以GDT中可以有2^13=8192个描述项。
+每个进程都要在全局段描述表GDT中占据两个表项
+每个进程的局部段描述表LDT都作为一个独立的段而存在，在全局段描述表GDT中要有一个表项指向这个段的起始地址，并说明该段的长度以及其他一些 参数。除上之外，每个进程还有一个TSS结构(任务状态段)也是一样。所以，每个进程都要在全局段描述表GDT中占据...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/03</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/01/16</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "进程管理">进程管理</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/pv%E9%A2%98/index.html" >
-            
-                <span>PV题</span>
-        </a>
-        <div class="abstract-content">
-            除了前两道题是老师给了答案的，后面是自己做的，不能保证正确率。
-读者写者问题【问题描述】
-读者-写者问题为数据库访问建立了一个模型。例如,一个系统,其中有许多竞争的进程试图读写其中的数据,多个进程同时读是可以接受的,但如果一个进程正在更新数据库,则所有的其他进程都不能访问数据库，即使读操作也不行。分别写出读者优先、写者优先和公平竞争三种情况下的程序。
-【解答】
-12345678910111213141516171819202122232425262728293031// reader prioriy solutoinsemaphore fmutex = 1; // access to f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/31</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "进程管理">进程管理</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "NEMU实验">NEMU实验</a>
     
 </div>
             
@@ -414,6 +417,10 @@
     </article>
     
     <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/archives/2021/page/2/">&lt; PREV</a><a class="page-number" href="/archives/2021/">1</a><a class="page-number" href="/archives/2021/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
     
 </main>
             <!-- profile -->
