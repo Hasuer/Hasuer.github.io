@@ -28,7 +28,7 @@
 <meta property="og:description" content="此文为转载，原文连接 托管中心维护远程库  内网：可以自己搭建一个GitLab服务器 外网：可以使用码云、Github    版本控制工具  集中式：CSV ,SVN,VSS 分布式：Git，Darcs,…  Git命令行操作本地库初始化进入文件夹 12git init注意：生成的 .git 目录中存放的是本地库相关文件，不要删除  设置签名这里设置的签名和GitHub中的用户，密码没有关系。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-07T12:59:22.000Z">
-<meta property="article:modified_time" content="2021-07-07T13:25:56.789Z">
+<meta property="article:modified_time" content="2021-07-07T13:44:11.375Z">
 <meta property="article:author" content="Hasuer">
 <meta name="twitter:card" content="summary">
     <meta http-equiv="Cache-control" content="no-cache">
@@ -436,7 +436,12 @@ height:50vh;
 <blockquote>
 <p>仅仅加了一个 <code>--global</code></p>
 <p>优先级别：<code>项目级别</code>  &gt;  <code>系统级别</code></p>
-<p>信息保存位置：<code>~/.gitconfig 文件</code>   </p>
+<p>项目级别的作用范围更小，类似于局部变量 &gt; 全局变量。<strong>二者必须要有其一。</strong></p>
+<p>信息保存位置：<code>~/.git/config 文件</code>   </p>
+<p>查看方式：<code> cat .git/config</code></p>
+</blockquote>
+<blockquote>
+<p>查看当前用户（global）配置     <code>git config --global  --list</code><br>查看当前仓库配置信息    <code>git config -- local    --list</code></p>
 </blockquote>
 <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><h4 id="状态查看"><a href="#状态查看" class="headerlink" title="状态查看"></a>状态查看</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> status   <span class="comment">#查看工作区、暂存区状态</span></span><br></pre></td></tr></table></figure>
 
