@@ -29,8 +29,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/1.png">
 <meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/2.png">
+<meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/3.png">
 <meta property="article:published_time" content="2021-07-07T12:59:22.000Z">
-<meta property="article:modified_time" content="2021-07-08T10:33:32.749Z">
+<meta property="article:modified_time" content="2021-07-08T12:39:49.004Z">
 <meta property="article:author" content="Hasuer">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/1.png">
@@ -281,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.7k</span>Reading time: <span class="post-count reading-time">6 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.9k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -463,8 +464,7 @@ height:50vh;
 </ul>
 <h4 id="文件差异比较"><a href="#文件差异比较" class="headerlink" title="文件差异比较"></a>文件差异比较</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span>文件名 <span class="comment">#工作区文件和暂存区比较</span></span><br><span class="line">git <span class="keyword">diff </span>哈希值 文件名  <span class="comment">#工作区文件和本地库历史记录比较</span></span><br><span class="line">git <span class="keyword">diff </span> <span class="comment">#不带文件名，则比较多个文件</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p><code>hot_fix</code> <code>master</code> <code>feature_x</code> <code>feature_y</code></p>
-<h4 id="什么是分支管理"><a href="#什么是分支管理" class="headerlink" title="什么是分支管理"></a>什么是分支管理</h4><ul>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><h4 id="什么是分支管理"><a href="#什么是分支管理" class="headerlink" title="什么是分支管理"></a>什么是分支管理</h4><ul>
 <li>在版本控制中，使用推进多个任务</li>
 </ul>
 <h4 id="分支的好处"><a href="#分支的好处" class="headerlink" title="分支的好处"></a>分支的好处</h4><ul>
@@ -516,24 +516,33 @@ height:50vh;
 <li>第一步：编辑，删除特殊标记<code>&lt;&lt;&lt;</code> <code>===</code></li>
 <li>第二步：修改到满意位置，保存退出</li>
 <li>第三步：添加到缓存区  <code>git  add 文件名</code></li>
-<li>第四步：提交到本地库<code>git commit -m &#39;日志信息&#39; </code>  <code>注意：后面一定不能带文件名</code></li>
+<li>第四步：提交到本地库<code>git commit -m &#39;日志信息&#39; </code>  <ul>
+<li><strong>注意：后面一定不能带文件名</strong></li>
 </ul>
 </li>
 </ul>
-<h2 id="Git-结合Github"><a href="#Git-结合Github" class="headerlink" title="Git 结合Github"></a>Git 结合Github</h2><p><code>别分手</code>  <code>别名 分支名</code></p>
-<h3 id="创建远程库地址别名"><a href="#创建远程库地址别名" class="headerlink" title="创建远程库地址别名"></a>创建远程库地址别名</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> remote -v  #查看远程地址别名git remote <span class="keyword">add</span> 别名 远程地址 例子：git remote <span class="keyword">add</span> origin https:<span class="comment">//xx</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Git-结合Github"><a href="#Git-结合Github" class="headerlink" title="Git 结合Github"></a>Git 结合Github</h2><h3 id="创建远程库地址别名"><a href="#创建远程库地址别名" class="headerlink" title="创建远程库地址别名"></a>创建远程库地址别名</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -v  <span class="comment">#查看远程地址别名</span></span><br><span class="line">git remote <span class="keyword">add</span><span class="bash"> 别名 远程地址 </span></span><br><span class="line">	例子：git remote <span class="keyword">add</span><span class="bash"> origin https://xx</span></span><br><span class="line">	这里的 origin 是别名的意思</span><br></pre></td></tr></table></figure>
 
 <h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><p><code>开发修改完把本地库的文件推送到远程仓库</code> <code>前提是提交到了本地库才可以推送</code></p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">push</span> 别名 分支名git <span class="built_in">push</span> -u 别名 分支名    #-u指定默认主机例子：git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">push</span> 别名 分支名</span><br><span class="line">git <span class="keyword">push</span> -u 别名 分支名    <span class="meta">#-u指定默认主机</span></span><br><span class="line">	例子：git <span class="keyword">push</span> origin master</span><br></pre></td></tr></table></figure>
 
-<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><p><code>完整的把远程库克隆到本地</code>  <code>克隆下来后不要在主分支里面做开发</code> <code>clone进行一次，从无到有的过程，更新用pull</code></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span>  <span class="title">远程地址例子：git</span> <span class="keyword">clone</span> <span class="title">https</span>://xx</span><br></pre></td></tr></table></figure>
+<h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><p>完整的把远程库克隆到本地<code>  </code>克隆下来后不要在主分支里面做开发<code> </code>clone进行一次，从无到有的过程，更新用pull</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span>  <span class="title">远程地址</span></span><br><span class="line"><span class="title">	例子：git</span> <span class="keyword">clone</span> <span class="title">https</span>://xx</span><br></pre></td></tr></table></figure>
 
-<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><p>  <code>本地存在clone下来的文件  就用pull更新</code>  </p>
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pull = fetch + <span class="keyword">merge</span>	git <span class="keyword">fetch</span> 别名 分支名	git <span class="keyword">merge</span> 别名 分支名git pull 别名 分支名</span><br></pre></td></tr></table></figure>
+<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><p><code>pull = fetch + merge</code></p>
+<p>把远程库中的内容拉取到本地库，但是在本地库没有 被更新，这个时候当前分支（本地库）是看不到变化的，只有进入<code>origin/分支名</code>才能看到变化。这个时候在本地的分支执行merge命令之后才能在本地的分支看到变化。</p>
+<p>  本地存在clone下来的文件  就用pull更新</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pull = fetch + merge	</span><br><span class="line">git fetch <span class="comment">[远程地址别名]</span> <span class="comment">[分支名]</span>	</span><br><span class="line">git merge <span class="comment">[远程地址别名]</span> <span class="comment">[分支名]</span>	</span><br><span class="line">git pull <span class="comment">[远程地址别名]</span> <span class="comment">[分支名]</span>	</span><br></pre></td></tr></table></figure>
 
-<h3 id="解决冲突-1"><a href="#解决冲突-1" class="headerlink" title="解决冲突"></a>解决冲突</h3><p><code>注意：解决冲突后的提交是不能带文件名的</code></p>
-<p><code>如果不是基于远程库最新版做的修改不能推送，必须先pull下来安装冲突办法解决</code></p>
+<h3 id="解决冲突-1"><a href="#解决冲突-1" class="headerlink" title="解决冲突"></a>解决冲突</h3><p><strong>注意：解决冲突后的提交是不能带文件名的</strong></p>
+<ul>
+<li>如果不是基于GitHub 远程库的最新版所做的修改，不能推送，必须先拉取。</li>
+<li>拉取下来后如果进入冲突状态，则按照“分支冲突解决”操作解决即可。</li>
+</ul>
+<img src="/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/3.png">
+
 <h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p><code>提交记录简洁不分叉</code>  <code>没学懂，感觉有点鸡肋</code> <code>混眼熟</code></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git</span> rebase -i 索引号git rebase -i HEAD~<span class="number">3</span>  <span class="comment">#合并最近三条记录说明：在vim编辑里面改成s</span></span><br></pre></td></tr></table></figure>
 
