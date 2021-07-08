@@ -30,8 +30,11 @@
 <meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/1.png">
 <meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/2.png">
 <meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/3.png">
+<meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/4.png">
+<meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/5.png">
+<meta property="og:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/6.png">
 <meta property="article:published_time" content="2021-07-07T12:59:22.000Z">
-<meta property="article:modified_time" content="2021-07-08T12:52:45.255Z">
+<meta property="article:modified_time" content="2021-07-08T13:28:53.899Z">
 <meta property="article:author" content="Hasuer">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hasuer.github.io/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/1.png">
@@ -282,7 +285,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.9k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
+                        <span>Word count: <span class="post-count word-count">2k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -567,10 +570,35 @@ height:50vh;
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">tag</span> -<span class="keyword">a</span> v1.<span class="number">0</span> -<span class="keyword">m</span> <span class="string">&#x27;版本介绍&#x27;</span>   #创建本地<span class="keyword">tag</span>信息git <span class="keyword">tag</span> -d v1.<span class="number">0</span>    		#删除taggit push origin --<span class="keyword">tags</span>   #将本地<span class="keyword">tag</span>信息推送到远程库git pull origin --<span class="keyword">tags</span>    #拉取到本地git checkout v.<span class="number">10</span>    #切换taggit clone -<span class="keyword">b</span> v0.<span class="number">1</span> 地址   #指定<span class="keyword">tag</span>下载代码</span><br></pre></td></tr></table></figure>
 
 <h3 id="SSH-免密登录"><a href="#SSH-免密登录" class="headerlink" title="SSH 免密登录"></a>SSH 免密登录</h3><ul>
-<li>输入:<code>ssh-keygen -t rsa -C GitHub邮箱地址</code>  </li>
-<li>进入<code>.ssh</code>目录，复制<code>id_rsa.pub</code>文件内容</li>
-<li>登录GitHub。<code>Settings</code>  –&gt; <code>SSH and GPG keys </code> –&gt; <code>New SSH Key    </code></li>
-<li>回到git通过SSH地址创建。<code>git remote add 别名 SSH地址  </code></li>
+<li><p>进入当前的家目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除<code>.ssh</code>目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rm -rvf .ssh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行命令生成SSH密钥目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C [Github邮箱]</span><br><span class="line">或者 </span><br><span class="line">$ ssh-keygen (会让你设置SSH的登录密码，可以不输入，一直Enter)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入.ssh目录查看文件列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> .ssh</span><br><span class="line">$ ls -la</span><br></pre></td></tr></table></figure>
+
+<img src="/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/4.png">
+</li>
+<li><p>查看<code>id_rsa.pub</code>的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<img src="/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/5.png">
+</li>
+<li><p>在GitHub上建立SSH Key, 把刚刚生成的ssh密钥填进去。</p>
+</li>
+<li><p>保证本地库对应的远程库是SSH方式的。</p>
+<img src="/git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/index/6.png">
+
+<p>如果没有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add remote origin_ssh[(这是别名) [SSH地址]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后就可以愉快的push啦~~</p>
+</li>
 </ul>
 <h2 id="Git工作流"><a href="#Git工作流" class="headerlink" title="Git工作流"></a>Git工作流</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在项目开发过程中使用Git的方式</span><br></pre></td></tr></table></figure>
 
