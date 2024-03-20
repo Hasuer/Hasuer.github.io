@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define maxn 10005
+#define maxm 500005
+#define inf (1<<31)-1
+int cnt, m,n,s,head[maxn],vis[maxn],dis[maxn];
+// head 初始化为0，边从1还是编号
+// head 初始化为-1，边从0开始编号，add函数需要修改
+struct edge {
+	int u,v,w,next;
+} e[maxm];
+struct node {
+	int w, num;
+	bool operator < (const node &x) const {
+		// 在函数后一定要加上const，不然报错 
+		// 构造小顶对，由小到大排列
+		return w > x.w; // 注意是>
+	}
+};
+
+void add(int u, int v, int w) {
+	e[++cnt].v = v;
+	e[cnt].w = w;
+	e[cnt].next = head[u];
+	head[u] = cnt;
+}
+
+priority_queue<node> q;
+void dijkstra() {
+	for(int i = 0; i < maxn; i ++) {
+		dis[i] = inf;
+	}
+	dis[s] = 0;
+	q.push({0,s});
+	while(!q.empty()) {
+		//记录堆顶（堆内最小的边）并将其弹出
+		node x = q.top();
+		q.pop();
+		int u = x.num;
+		if(vis[u] == 1) {
+			//没有遍历过才需要遍历
+			continue;
+		}
+		vis[u] =1;
+		for(int i = head[u]; i; i = e[i].next) {
+			// i表示边的编号，这里边是从1开始编号的。
+			//搜索堆顶所有连边
+			int v = e[i].v;
+			if(dis[v] > dis[u] + e[i].w) {
+				dis[v] = dis[u] + e[i].w;
+				q.push({dis[v], v});
+			}
+		}
+	}
+}
+
+int main() {
+	scanf("%d%d%d",&n,&m,&s);
+	int u,v,w;
+	for (int i =0; i < m ; i++) {
+		scanf("%d%d%d",&u,&v,&w);
+		add(u,v,w);
+	}
+	dijkstra();
+	for(int i = 1; i <= n;  i++) {
+		//这里从1开始是因为题目的节点是从1还是编号的
+		// 要是节点从0开始编号，就i = 0; i < n
+		printf("%d ", dis[i]);
+	}
+	return 0;
+}

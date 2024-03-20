@@ -1,0 +1,2575 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="此笔记转载自这里,对应的视频课程是尚硅谷Web前端axios入门与源码解析 预备工具  作为一个前端开发工程师，在后端还没有ready的时候，不可避免的要使用mock的数据。很多时候，我们并不想使用简单的静态数据，而是希望自己起一个本地的mock-server来完全模拟请求以及请求回来的过程。json-server是一个很好的可以替我们完成这一工作的工具。我们只需要提供一个json文件，或者写几行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axios学习笔记">
+<meta property="og:url" content="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="此笔记转载自这里,对应的视频课程是尚硅谷Web前端axios入门与源码解析 预备工具  作为一个前端开发工程师，在后端还没有ready的时候，不可避免的要使用mock的数据。很多时候，我们并不想使用简单的静态数据，而是希望自己起一个本地的mock-server来完全模拟请求以及请求回来的过程。json-server是一个很好的可以替我们完成这一工作的工具。我们只需要提供一个json文件，或者写几行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/Axios系统学习笔记原理图.png">
+<meta property="og:image" content="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/Users/Hasuer/AppData/Local/Temp/BNZ.62187fc84e0baf70/Axios入门与源码解析笔记中的图片/Axios系统学习流程图.png">
+<meta property="article:published_time" content="2022-02-25T07:03:16.000Z">
+<meta property="article:modified_time" content="2022-02-25T12:06:54.964Z">
+<meta property="article:author" content="Hasuer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/Axios系统学习笔记原理图.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/old_profile.ico">
+    
+    <title>Axios学习笔记 · Hasuer&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Hasuer's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Axios学习笔记</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Axios学习笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4.8k</span>Reading time: <span class="post-count reading-time">21 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/02/25</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>此笔记转载自<a target="_blank" rel="noopener" href="https://gitee.com/hongjilin/hongs-study-notes/tree/master/%E7%BC%96%E7%A8%8B_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Ajax%E3%80%81Axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">这里</a>,对应的视频课程是<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av756328321?from=search&amp;seid=3894592914109668754&amp;spm_id_from=333.337.0.0">尚硅谷Web前端axios入门与源码解析</a></p>
+<h2 id="预备工具"><a href="#预备工具" class="headerlink" title="预备工具"></a>预备工具</h2><blockquote>
+<ol>
+<li>作为一个前端开发工程师，在后端还没有ready的时候，不可避免的要使用mock的数据。很多时候，我们并不想使用简单的静态数据，而是希望自己起一个本地的mock-server来完全模拟请求以及请求回来的过程。json-server是一个很好的可以替我们完成这一工作的工具。我们只需要提供一个json文件，或者写几行简单的js脚本就可以模拟出RESTful API的接口。</li>
+<li>安装json-server<br><code>npm install -g json-server</code></li>
+<li>创建db.json<br>在一个文件夹下新建一个db.json文件</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&#123;</span><br><span class="line">&gt;<span class="attr">&quot;posts&quot;</span>: [</span><br><span class="line"> &#123; <span class="attr">&quot;id&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;json-server&quot;</span>, <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;typicode&quot;</span> &#125;</span><br><span class="line">&gt;],</span><br><span class="line">&gt;<span class="attr">&quot;comments&quot;</span>: [</span><br><span class="line"> &#123; <span class="attr">&quot;id&quot;</span>: <span class="number">1</span>, <span class="attr">&quot;body&quot;</span>: <span class="string">&quot;some comment&quot;</span>, <span class="attr">&quot;postId&quot;</span>: <span class="number">1</span> &#125;</span><br><span class="line">&gt;],</span><br><span class="line">&gt;<span class="attr">&quot;profile&quot;</span>: &#123; <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;typicode&quot;</span> &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动json-server<br>在当前文件夹下输入如下命令：<code>json-server db.json</code></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/typicode/json-server">文档</a></li>
+</ol>
+</blockquote>
+<h1 id="一、Axios的理解与使用"><a href="#一、Axios的理解与使用" class="headerlink" title="一、Axios的理解与使用"></a>一、Axios的理解与使用</h1><h2 id="axios-是什么"><a href="#axios-是什么" class="headerlink" title="axios 是什么?"></a>axios 是什么?</h2><blockquote>
+<ol>
+<li>前端最流行的 ajax 请求库 </li>
+<li>react/vue 官方都推荐使用 axios 发 ajax 请求 </li>
+<li>文档: <a target="_blank" rel="noopener" href="https://github.com/axios/axios">https://github.com/axios/axios</a></li>
+</ol>
+</blockquote>
+<h2 id="axios-特点"><a href="#axios-特点" class="headerlink" title="axios 特点"></a>axios 特点</h2><blockquote>
+<ol>
+<li>基于 xhr + promise 的异步 ajax 请求库 </li>
+<li>浏览器端/node 端都可以使用 </li>
+<li>支持请求／响应拦截器 </li>
+<li>支持请求取消 </li>
+<li>请求/响应数据转换 </li>
+<li>批量发送多个请求</li>
+</ol>
+</blockquote>
+<h2 id="axios-常用语法"><a href="#axios-常用语法" class="headerlink" title="axios 常用语法"></a>axios 常用语法</h2><blockquote>
+<ol>
+<li>axios(config): <code>通用/最本质</code>的发任意类型请求的方式 </li>
+<li>axios(url[, config]): 可以只指定 url 发 get 请求 </li>
+<li>axios.request(config): 等同于 axios(config) </li>
+<li>axios.get(url[, config]): 发 get 请求 </li>
+<li>axios.delete(url[, config]): 发 delete 请求 </li>
+<li>axios.post(url[, data, config]): 发 post 请求</li>
+<li>axios.put(url[, data, config]): 发 put 请求 </li>
+<li>axios.defaults.xxx: 请求的默认全局配置 </li>
+<li>axios.interceptors.request.use(): 添加请求拦截器 </li>
+<li>axios.interceptors.response.use(): 添加响应拦截器 </li>
+<li>axios.create([config]): 创建一个新的 axios(它没有下面的功能) </li>
+<li>axios.Cancel(): 用于创建取消请求的错误对象 </li>
+<li>axios.CancelToken(): 用于创建取消请求的 token 对象 </li>
+<li>axios.isCancel(): 是否是一个取消请求的错误 </li>
+<li>axios.all(promises): 用于批量执行多个异步请求 </li>
+<li>axios.spread(): 用来指定接收所有成功数据的回调函数的方法</li>
+</ol>
+</blockquote>
+<h2 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h2><p><img src="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/Axios系统学习笔记原理图.png"></p>
+<h2 id="难点语法的理解和使用"><a href="#难点语法的理解和使用" class="headerlink" title="难点语法的理解和使用"></a>难点语法的理解和使用</h2><h3 id="axios-create-config"><a href="#axios-create-config" class="headerlink" title="axios.create(config)"></a>axios.create(config)</h3><blockquote>
+<ol>
+<li><p>根据指定配置创建一个新的 axios, 也就就每个新 axios 都有自己的配置 </p>
+</li>
+<li><p>新 axios 只是没有取消请求和批量发请求的方法, 其它所有语法都是一致的 </p>
+</li>
+<li><p>为什么要设计这个语法?</p>
+<p>(1) 需求: 项目中有部分接口需要的配置与另一部分接口需要的配置不太一样, 如何处理 </p>
+<p>(2) 解决: 创建 2 个新 axios, 每个都有自己特有的配置, 分别应用到不同要 求的接口请求中</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建实例对象  /getJoke</span></span><br><span class="line">  <span class="keyword">const</span> duanzi = axios.create(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;https://api.apiopen.top&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> onather = axios.create(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;https://b.com&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">2000</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">//这里  duanzi 与 axios 对象的功能几近是一样的</span></span><br><span class="line">  <span class="comment">// duanzi(&#123;</span></span><br><span class="line">  <span class="comment">//     url: &#x27;/getJoke&#x27;,</span></span><br><span class="line">  <span class="comment">// &#125;).then(response =&gt; &#123;</span></span><br><span class="line">  <span class="comment">//     console.log(response);</span></span><br><span class="line">  <span class="comment">// &#125;);</span></span><br><span class="line">  duanzi.get(<span class="string">&#x27;/getJoke&#x27;</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response.data)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="拦截器函数-ajax-请求-请求的回调函数的调用顺序"><a href="#拦截器函数-ajax-请求-请求的回调函数的调用顺序" class="headerlink" title="拦截器函数/ajax 请求/请求的回调函数的调用顺序"></a>拦截器函数/ajax 请求/请求的回调函数的调用顺序</h3><blockquote>
+<ol>
+<li>说明: 调用 axios()并不是立即发送 ajax 请求, 而是需要经历一个较长的流程 </li>
+<li>流程: 请求拦截器2 =&gt; 请求拦截器1 =&gt; 发ajax请求 =&gt; 响应拦截器1 =&gt; 响应拦截器 2 =&gt; 请求的回调 </li>
+<li>注意: 此流程是通过 promise 串连起来的, 请求拦截器传递的是 config, 响应 拦截器传递的是 response</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// Promise</span></span><br><span class="line">  <span class="comment">// 设置请求拦截器  config 配置对象</span></span><br><span class="line">  axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 成功 - 1号&#x27;</span>);</span><br><span class="line">    <span class="comment">//修改 config 中的参数</span></span><br><span class="line">    config.params = &#123;</span><br><span class="line">      <span class="attr">a</span>: <span class="number">100</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 失败 - 1号&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 成功 - 2号&#x27;</span>);</span><br><span class="line">    <span class="comment">//修改 config 中的参数</span></span><br><span class="line">    config.timeout = <span class="number">2000</span>;</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 失败 - 2号&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置响应拦截器</span></span><br><span class="line">  axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 成功 1号&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> response.data;</span><br><span class="line">    <span class="comment">// return response;</span></span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 失败 1号&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 成功 2号&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 失败 2号&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//发送请求</span></span><br><span class="line">  axios(&#123;</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span><br><span class="line">  &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;自定义回调处理成功的结果&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(response);</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="取消请求"><a href="#取消请求" class="headerlink" title="取消请求"></a>取消请求</h3><blockquote>
+<ol>
+<li>基本流程 配置 cancelToken 对象 <ol>
+<li>缓存用于取消请求的 cancel 函数 </li>
+<li>在后面特定时机调用 cancel 函数取消请求 </li>
+<li>在错误回调中判断如果 error 是 cancel, 做相应处理</li>
+</ol>
+</li>
+<li>实现功能 点击按钮, 取消某个正在请求中的请求,<ol>
+<li>实现功能 点击按钮, 取消某个正在请求中的请求</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">//获取按钮</span></span><br><span class="line">  <span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>);</span><br><span class="line">  <span class="comment">//2.声明全局变量</span></span><br><span class="line">  <span class="keyword">let</span> cancel = <span class="literal">null</span>;</span><br><span class="line">  <span class="comment">//发送请求</span></span><br><span class="line">  btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检测上一次的请求是否已经完成</span></span><br><span class="line">    <span class="keyword">if</span> (cancel !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">//取消上一次的请求</span></span><br><span class="line">      cancel();</span><br><span class="line">    &#125;</span><br><span class="line">    axios(&#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span><br><span class="line">      <span class="comment">//1. 添加配置对象的属性</span></span><br><span class="line">      <span class="attr">cancelToken</span>: <span class="keyword">new</span> axios.CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">c</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//3. 将 c 的值赋值给 cancel</span></span><br><span class="line">        cancel = c;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(response);</span><br><span class="line">      <span class="comment">//将 cancel 的值初始化</span></span><br><span class="line">      cancel = <span class="literal">null</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//绑定第二个事件取消请求</span></span><br><span class="line">  btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;cancel(); &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="默认配置"><a href="#默认配置" class="headerlink" title="默认配置"></a>默认配置</h2><blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="comment">//默认配置</span></span><br><span class="line">  axios.defaults.method = <span class="string">&#x27;GET&#x27;</span>;<span class="comment">//设置默认的请求类型为 GET</span></span><br><span class="line">  axios.defaults.baseURL = <span class="string">&#x27;http://localhost:3000&#x27;</span>;<span class="comment">//设置基础 URL</span></span><br><span class="line">  axios.defaults.params = &#123;<span class="attr">id</span>:<span class="number">100</span>&#125;;</span><br><span class="line">  axios.defaults.timeout = <span class="number">3000</span>;<span class="comment">//</span></span><br><span class="line"></span><br><span class="line">  btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      axios(&#123;</span><br><span class="line">          <span class="attr">url</span>: <span class="string">&#x27;/posts&#x27;</span></span><br><span class="line">      &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(response);</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="Axios的难点问题"><a href="#Axios的难点问题" class="headerlink" title="Axios的难点问题"></a>Axios的难点问题</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><blockquote>
+<p>├── /dist/ # 项目输出目录<br>├── /lib/ # 项目源码目录<br>│ ├── /adapters/ # 定义请求的适配器 xhr、http<br>│ │ ├── http.js # 实现 http 适配器(包装 http 包)<br>│ │ └── xhr.js # 实现 xhr 适配器(包装 xhr 对象)<br>│ ├── /cancel/ # 定义取消功能<br>│ ├── /core/ # 一些核心功能<br>│ │ ├── Axios.js # axios 的核心主类<br>│ │ ├── dispatchRequest.js # 用来调用 http 请求适配器方法发送请求的函数<br>│ │ ├── InterceptorManager.js # 拦截器的管理器<br>│ │ └── settle.js # 根据 http 响应状态，改变 Promise 的状态<br>│ ├── /helpers/ # 一些辅助方法<br>│ ├── axios.js # 对外暴露接口<br>│ ├── defaults.js # axios 的默认配置<br>│ └── utils.js # 公用工具<br>├── package.json # 项目信息<br>├── index.d.ts # 配置 TypeScript 的声明文件<br>└── index.js # 入口文件</p>
+</blockquote>
+<h2 id="axios-与-Axios-的关系"><a href="#axios-与-Axios-的关系" class="headerlink" title="axios 与 Axios 的关系"></a>axios 与 Axios 的关系</h2><blockquote>
+<ol>
+<li>从<code>语法</code>上来说: axios 不是 Axios 的实例</li>
+<li>从<code>功能</code>上来说: axios 是 Axios 的实例</li>
+<li>axios 是 <code>Axios.prototype.request</code> 函数 bind()返回的函数</li>
+<li>axios 作为对象有 Axios 原型对象上的所有方法, 有 Axios 对象上所有属性</li>
+</ol>
+</blockquote>
+<h2 id="instance-与-axios-的区别"><a href="#instance-与-axios-的区别" class="headerlink" title="instance 与 axios 的区别?"></a>instance 与 axios 的区别?</h2><blockquote>
+<ol>
+<li>相同:<br>(1) 都是一个能发任意请求的函数: request(config)<br>(2) 都有发特定请求的各种方法: get()/post()/put()/delete()<br>(3) 都有默认配置和拦截器的属性: defaults/interceptors</li>
+<li>不同:<br>(1) 默认配置很可能不一样<br>(2) instance 没有 axios 后面添加的一些方法: create()/CancelToken()/all()</li>
+</ol>
+</blockquote>
+<h2 id="axios运行的整体流程"><a href="#axios运行的整体流程" class="headerlink" title="axios运行的整体流程"></a>axios运行的整体流程</h2><blockquote>
+<ol>
+<li><p>整体流程:<br>request(config) ==&gt; dispatchRequest(config) ==&gt; xhrAdapter(config)</p>
+</li>
+<li><p>request(config):<br>将请求拦截器 / dispatchRequest() / 响应拦截器 通过 promise 链串连起来,<br> 返回 promise</p>
+</li>
+<li><p>dispatchRequest(config):<br>转换请求数据 ===&gt; 调用 xhrAdapter()发请求 ===&gt; 请求返回后转换响应数<br> 据. 返回 promise</p>
+</li>
+<li><p>xhrAdapter(config):<br>创建 XHR 对象, 根据 config 进行相应设置, 发送特定请求, 并接收响应数据,<br> 返回 promise </p>
+</li>
+<li><p>流程图:</p>
+</li>
+</ol>
+<p><img src="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/Users\Hasuer\AppData\Local\Temp\BNZ.62187fc84e0baf70\Axios入门与源码解析笔记中的图片\Axios系统学习流程图.png" alt="Axios系统学习流程图"></p>
+</blockquote>
+<h2 id="axios-的请求-响应拦截器是什么"><a href="#axios-的请求-响应拦截器是什么" class="headerlink" title="axios 的请求/响应拦截器是什么?"></a>axios 的请求/响应拦截器是什么?</h2><blockquote>
+<ol>
+<li>请求拦截器:<br>Ⅰ- 在真正发送请求前执行的回调函数<br>Ⅱ- 可以对请求进行检查或配置进行特定处理<br>Ⅲ- 成功的回调函数, 传递的默认是 config(也必须是)<br>Ⅳ- 失败的回调函数, 传递的默认是 error</li>
+<li>响应拦截器<br>Ⅰ- 在请求得到响应后执行的回调函数<br>Ⅱ- 可以对响应数据进行特定处理<br>Ⅲ- 成功的回调函数, 传递的默认是 response<br>Ⅳ- 失败的回调函数, 传递的默认是 error</li>
+</ol>
+</blockquote>
+<h2 id="axios-的请求-响应数据转换器是什么"><a href="#axios-的请求-响应数据转换器是什么" class="headerlink" title="axios 的请求/响应数据转换器是什么?"></a>axios 的请求/响应数据转换器是什么?</h2><blockquote>
+<ol>
+<li>请求转换器: 对请求头和请求体数据进行特定处理的函数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">if</span> (utils.isObject(data)) &#123;</span><br><span class="line">setContentTypeIfUnset(headers, <span class="string">&#x27;application/json;charset=utf-8&#x27;</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(data);</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>响应转换器: 将响应体 json 字符串解析为 js 对象或数组的函数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;response.data = <span class="built_in">JSON</span>.parse(response.data)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="response与error-的整体结构"><a href="#response与error-的整体结构" class="headerlink" title="response与error  的整体结构"></a>response与error  的整体结构</h2><blockquote>
+<ol>
+<li>response的整体结构</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&#123;</span><br><span class="line">&gt;data, status,statusText,headers,config,request</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>error  的整体结构</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&#123;</span><br><span class="line">&gt;message,response,request,</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="如何取消未完成的请求"><a href="#如何取消未完成的请求" class="headerlink" title="如何取消未完成的请求?"></a>如何取消未完成的请求?</h2><blockquote>
+<ol>
+<li>当配置了 cancelToken 对象时, 保存 cancel 函数<br>(1) 创建一个用于将来中断请求的 cancelPromise<br>(2) 并定义了一个用于取消请求的 cancel 函数<br>(3) 将 cancel 函数传递出来</li>
+<li>调用 cancel()取消请求<br>(1) 执行 cacel 函数, 传入错误信息 message<br>(2) 内部会让 cancelPromise 变为成功, 且成功的值为一个 Cancel 对象<br>(3) 在 cancelPromise 的成功回调中中断请求, 并让发请求的 proimse 失败,<br>失败的 reason 为 Cancel 对象</li>
+</ol>
+</blockquote>
+<h1 id="Axios源码模拟实现"><a href="#Axios源码模拟实现" class="headerlink" title="Axios源码模拟实现"></a>Axios源码模拟实现</h1><h2 id="axios-的创建过程模拟实现"><a href="#axios-的创建过程模拟实现" class="headerlink" title="axios 的创建过程模拟实现"></a>axios 的创建过程模拟实现</h2><blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="comment">//构造函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="function"><span class="keyword">function</span> <span class="title">Axios</span>(<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="comment">//初始化</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">this</span>.defaults = config; <span class="comment">//为了创建 default 默认属性</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">this</span>.intercepters = &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">request</span>: &#123;&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">response</span>: &#123;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="comment">//原型添加相关的方法</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;Axios.prototype.request = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">console</span>.log(<span class="string">&#x27;发送 AJAX 请求 请求的类型为 &#x27;</span> + config.method);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;Axios.prototype.get = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">return</span> <span class="built_in">this</span>.request(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;Axios.prototype.post = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">return</span> <span class="built_in">this</span>.request(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="comment">//声明函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="function"><span class="keyword">function</span> <span class="title">createInstance</span>(<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="comment">//实例化一个对象</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">let</span> context = <span class="keyword">new</span> Axios(config); <span class="comment">// context.get()  context.post()  但是不能当做函数使用 context() X</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="comment">//创建请求函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">let</span> instance = Axios.prototype.request.bind(</span></span></span><br><span class="line"><span class="javascript"><span class="xml">context); <span class="comment">// instance 是一个函数 并且可以 instance(&#123;&#125;)  此时 instance 不能 instance.get X</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="comment">//将 Axios.prototype 对象中的方法添加到instance函数对象中,才可以instance.get....</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">Object</span>.keys(Axios.prototype).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  instance[key] = Axios.prototype[key].bind(context); <span class="comment">// this.default  this.interceptors</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="comment">//为 instance 函数对象添加属性 default 与 interceptors</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">Object</span>.keys(context).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  instance[key] = context[key];</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">return</span> instance;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="keyword">let</span> axios = createInstance();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="comment">//发送请求</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;<span class="comment">// axios(&#123;method:&#x27;POST&#x27;&#125;);</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;axios.get(&#123;&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;axios.post(&#123;&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="axios发送请求过程详解"><a href="#axios发送请求过程详解" class="headerlink" title="axios发送请求过程详解"></a>axios发送请求过程详解</h2><blockquote>
+<ol>
+<li>整体流程:<br>request(config) ==&gt; dispatchRequest(config) ==&gt; xhrAdapter(config)</li>
+<li>request(config):<br>将请求拦截器 / dispatchRequest() / 响应拦截器 通过 promise 链串连起来,<br>返回 promise</li>
+<li>dispatchRequest(config):<br>转换请求数据 ===&gt; 调用 xhrAdapter()发请求 ===&gt; 请求返回后转换响应数<br>据. 返回 promise</li>
+<li>xhrAdapter(config):<br>创建 XHR 对象, 根据 config 进行相应设置, 发送特定请求, 并接收响应数据,<br>返回 promise </li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">// axios 发送请求   axios  Axios.prototype.request  bind</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">//1. 声明构造函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="function"><span class="keyword">function</span> <span class="title">Axios</span>(<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="built_in">this</span>.config = config;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  Axios.prototype.request = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//发送请求</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//创建一个 promise 对象</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">let</span> promise = <span class="built_in">Promise</span>.resolve(config);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//声明一个数组</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">let</span> chains = [dispatchRequest, <span class="literal">undefined</span>]; <span class="comment">// undefined 占位</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//调用 then 方法指定回调</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">let</span> result = promise.then(chains[<span class="number">0</span>], chains[<span class="number">1</span>]);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//返回 promise 的结果</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">return</span> result;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">//2. dispatchRequest 函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="function"><span class="keyword">function</span> <span class="title">dispatchRequest</span>(<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="comment">//调用适配器发送请求</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">return</span> xhrAdapter(config).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//响应的结果进行转换处理</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//....</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="keyword">return</span> response;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="keyword">throw</span> error;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">//3. adapter 适配器</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="function"><span class="keyword">function</span> <span class="title">xhrAdapter</span>(<span class="params">config</span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="built_in">console</span>.log(<span class="string">&#x27;xhrAdapter 函数执行&#x27;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//发送 AJAX 请求</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//初始化</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      xhr.open(config.method, config.url);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//发送</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      xhr.send();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      <span class="comment">//绑定事件</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">      xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">          <span class="comment">//判断成功的条件</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">          <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="comment">//成功的状态</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">            resolve(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">//配置对象</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">config</span>: config,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">//响应体</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">data</span>: xhr.response,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">//响应头</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">headers</span>: xhr.getAllResponseHeaders(), <span class="comment">//字符串  parseHeaders</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">// xhr 请求对象</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">request</span>: xhr,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">//响应状态码</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">status</span>: xhr.status,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="comment">//响应状态字符串</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">              <span class="attr">statusText</span>: xhr.statusText</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">          &#125; <span class="keyword">else</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="comment">//失败的状态</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">            reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;请求失败 失败的状态码为&#x27;</span> + xhr.status));</span></span></span><br><span class="line"><span class="javascript"><span class="xml">          &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">      &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="comment">//4. 创建 axios 函数</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  <span class="keyword">let</span> axios = Axios.prototype.request.bind(<span class="literal">null</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  axios(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    <span class="built_in">console</span>.log(response);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">  &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="拦截器的模拟实现"><a href="#拦截器的模拟实现" class="headerlink" title="拦截器的模拟实现"></a>拦截器的模拟实现</h2><blockquote>
+<ol>
+<li>array.shift()该方法用于把数组的第一个元素从其中删除，并返回第一个元素的值</li>
+<li>思路为先将拦截器的响应回调与请求回调都压入一个数组中,之后进行遍历运行</li>
+<li><code>promise = promise.then(chains.shift(), chains.shift());</code> 通过循环使用promise的then链条得到最终的结果—&gt;等式前面的<code>promise</code>将被最终的结果覆盖</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">title</span>&gt;</span>拦截器<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">&gt;<span class="comment">&lt;!-- &lt;script src=&quot;./node_modules/axios/dist/mine-axios.js&quot;&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//构造函数</span></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">Axios</span>(<span class="params">config</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.config = config;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.interceptors = &#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">request</span>: <span class="keyword">new</span> InterceptorManager(),</span></span><br><span class="line"><span class="javascript">          <span class="attr">response</span>: <span class="keyword">new</span> InterceptorManager(),</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//发送请求  难点与重点</span></span></span><br><span class="line"><span class="javascript">  Axios.prototype.request = <span class="function"><span class="keyword">function</span>(<span class="params">config</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//创建一个 promise 对象</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> promise = <span class="built_in">Promise</span>.resolve(config);</span></span><br><span class="line"><span class="javascript">      <span class="comment">//创建一个数组</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">const</span> chains = [dispatchRequest, <span class="literal">undefined</span>];</span></span><br><span class="line"><span class="javascript">      <span class="comment">//处理拦截器</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//请求拦截器 将请求拦截器的回调 压入到 chains 的前面  request.handles = []</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.interceptors.request.handlers.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">          chains.unshift(item.fulfilled, item.rejected);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="comment">//响应拦截器</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.interceptors.response.handlers.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">          chains.push(item.fulfilled, item.rejected);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">// console.log(chains);</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//遍历</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">while</span>(chains.length &gt; <span class="number">0</span>)&#123; </span></span><br><span class="line"><span class="javascript">          <span class="comment">//array.shift()</span></span></span><br><span class="line"><span class="javascript">          promise = promise.then(chains.shift(), chains.shift());</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> promise;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//发送请求</span></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">dispatchRequest</span>(<span class="params">config</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//返回一个promise 队形</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">          resolve(&#123;</span></span><br><span class="line"><span class="javascript">              <span class="attr">status</span>: <span class="number">200</span>,</span></span><br><span class="line"><span class="javascript">              <span class="attr">statusText</span>: <span class="string">&#x27;OK&#x27;</span></span></span><br><span class="line"><span class="javascript">          &#125;);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//创建实例</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> context = <span class="keyword">new</span> Axios(&#123;&#125;);</span></span><br><span class="line"><span class="javascript">  <span class="comment">//创建axios函数</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> axios = Axios.prototype.request.bind(context);</span></span><br><span class="line"><span class="javascript">  <span class="comment">//将 context 属性 config interceptors 添加至 axios 函数对象身上</span></span></span><br><span class="line"><span class="javascript">  <span class="built_in">Object</span>.keys(context).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      axios[key] = context[key];</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//拦截器管理器构造函数</span></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">InterceptorManager</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.handlers = [];</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  InterceptorManager.prototype.use = <span class="function"><span class="keyword">function</span>(<span class="params">fulfilled, rejected</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.handlers.push(&#123;</span></span><br><span class="line"><span class="javascript">          fulfilled,</span></span><br><span class="line"><span class="javascript">          rejected</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//以下为功能测试代码</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 设置请求拦截器  config 配置对象</span></span></span><br><span class="line"><span class="javascript">  axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> <span class="title">one</span>(<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 成功 - 1号&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> config;</span></span><br><span class="line"><span class="javascript">  &#125;, <span class="function"><span class="keyword">function</span> <span class="title">one</span>(<span class="params">error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 失败 - 1号&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  axios.interceptors.request.use(<span class="function"><span class="keyword">function</span> <span class="title">two</span>(<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 成功 - 2号&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> config;</span></span><br><span class="line"><span class="javascript">  &#125;, <span class="function"><span class="keyword">function</span> <span class="title">two</span>(<span class="params">error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;请求拦截器 失败 - 2号&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 设置响应拦截器</span></span></span><br><span class="line"><span class="javascript">  axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 成功 1号&#x27;</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> response;</span></span><br><span class="line"><span class="javascript">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 失败 1号&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  axios.interceptors.response.use(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 成功 2号&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> response;</span></span><br><span class="line"><span class="javascript">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">&#x27;响应拦截器 失败 2号&#x27;</span>)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//发送请求</span></span></span><br><span class="line"><span class="javascript">  axios(&#123;</span></span><br><span class="line"><span class="javascript">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span></span><br><span class="line"><span class="javascript">      <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span></span><br><span class="line"><span class="javascript">  &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(response);</span></span><br><span class="line"><span class="javascript">  &#125;);</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="请求取消功能模拟实现"><a href="#请求取消功能模拟实现" class="headerlink" title="请求取消功能模拟实现"></a>请求取消功能模拟实现</h2><blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">title</span>&gt;</span>取消请求<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">link</span> <span class="attr">crossorigin</span>=<span class="string">&#x27;anonymous&#x27;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span>rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">&gt;<span class="comment">&lt;!-- &lt;script src=&quot;./node_modules/axios/dist/mine-axios.js&quot;&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;page-header&quot;</span>&gt;</span>axios取消请求<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-primary&quot;</span>&gt;</span> 发送请求 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-warning&quot;</span>&gt;</span> 取消请求 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//构造函数</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="function"><span class="keyword">function</span> <span class="title">Axios</span>(<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.config = config;</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//原型 request 方法</span></span></span><br><span class="line"><span class="javascript">&gt;Axios.prototype.request = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="keyword">return</span> dispatchRequest(config);</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//dispatchRequest 函数</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="function"><span class="keyword">function</span> <span class="title">dispatchRequest</span>(<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="keyword">return</span> xhrAdapter(config);</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//xhrAdapter</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="function"><span class="keyword">function</span> <span class="title">xhrAdapter</span>(<span class="params">config</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="comment">//发送 AJAX 请求</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//实例化对象</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">  <span class="comment">//初始化</span></span></span><br><span class="line"><span class="javascript">  xhr.open(config.method, config.url);</span></span><br><span class="line"><span class="javascript">  <span class="comment">//发送</span></span></span><br><span class="line"><span class="javascript">  xhr.send();</span></span><br><span class="line"><span class="javascript">  <span class="comment">//处理结果</span></span></span><br><span class="line"><span class="javascript">  xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//判断结果</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//设置为成功的状态</span></span></span><br><span class="line"><span class="javascript">        resolve(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">status</span>: xhr.status,</span></span><br><span class="line"><span class="javascript">          <span class="attr">statusText</span>: xhr.statusText</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">        reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;请求失败&#x27;</span>));</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//关于取消请求的处理</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">if</span> (config.cancelToken) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//对 cancelToken 对象身上的 promise 对象指定成功的回调</span></span></span><br><span class="line"><span class="javascript">    config.cancelToken.promise.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      xhr.abort();</span></span><br><span class="line"><span class="javascript">      <span class="comment">//将整体结果设置为失败</span></span></span><br><span class="line"><span class="javascript">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;请求已经被取消&#x27;</span>))</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//创建 axios 函数</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">const</span> context = <span class="keyword">new</span> Axios(&#123;&#125;);</span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">const</span> axios = Axios.prototype.request.bind(context);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//CancelToken 构造函数</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="function"><span class="keyword">function</span> <span class="title">CancelToken</span>(<span class="params">executor</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="comment">//声明一个变量</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> resolvePromise;</span></span><br><span class="line"><span class="javascript"><span class="comment">//为实例对象添加属性</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">this</span>.promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//将 resolve 赋值给 resolvePromise</span></span></span><br><span class="line"><span class="javascript">  resolvePromise = resolve</span></span><br><span class="line"><span class="javascript">&#125;);</span></span><br><span class="line"><span class="javascript"><span class="comment">//调用 executor 函数</span></span></span><br><span class="line"><span class="javascript">executor(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//执行 resolvePromise 函数</span></span></span><br><span class="line"><span class="javascript">  resolvePromise();</span></span><br><span class="line"><span class="javascript">&#125;);</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//获取按钮 以上为模拟实现的代码</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">const</span> btns = <span class="built_in">document</span>.querySelectorAll(<span class="string">&#x27;button&#x27;</span>);</span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//2.声明全局变量</span></span></span><br><span class="line"><span class="javascript">&gt;<span class="keyword">let</span> cancel = <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//发送请求</span></span></span><br><span class="line"><span class="javascript">&gt;btns[<span class="number">0</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="comment">//检测上一次的请求是否已经完成</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">if</span> (cancel !== <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//取消上一次的请求</span></span></span><br><span class="line"><span class="javascript">  cancel();</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">//创建 cancelToken 的值</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">let</span> cancelToken = <span class="keyword">new</span> CancelToken(<span class="function"><span class="keyword">function</span> (<span class="params">c</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">  cancel = c;</span></span><br><span class="line"><span class="javascript">&#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">axios(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="attr">url</span>: <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="comment">//1. 添加配置对象的属性</span></span></span><br><span class="line"><span class="javascript">  <span class="attr">cancelToken</span>: cancelToken</span></span><br><span class="line"><span class="javascript">&#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">console</span>.log(response);</span></span><br><span class="line"><span class="javascript">  <span class="comment">//将 cancel 的值初始化</span></span></span><br><span class="line"><span class="javascript">  cancel = <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">&gt;<span class="comment">//绑定第二个事件取消请求</span></span></span><br><span class="line"><span class="javascript">&gt;btns[<span class="number">1</span>].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">cancel();</span></span><br><span class="line"><span class="javascript">&gt;&#125;</span></span><br><span class="line"><span class="javascript">&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&gt;<span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="原作者对于某些问题解答与理解"><a href="#原作者对于某些问题解答与理解" class="headerlink" title="原作者对于某些问题解答与理解"></a>原作者对于某些问题解答与理解</h1><h2 id="axios同步与异步转换-在外部取值"><a href="#axios同步与异步转换-在外部取值" class="headerlink" title="axios同步与异步转换,在外部取值"></a>axios同步与异步转换,在外部取值</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  axios  =  <span class="built_in">require</span> (<span class="string">&#x27;axios&#x27;</span>);</span><br><span class="line"> <span class="comment">//创建实例对象 </span></span><br><span class="line"> <span class="keyword">const</span> $http = axios.create(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;http://localhost:53000&#x27;</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">11000</span>  <span class="comment">//请求超时时间</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> resolveCommon = <span class="function">()=&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> data=$http(&#123; <span class="attr">url</span>:<span class="string">&quot;/test&quot;</span>&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">v</span>=&gt;</span>v.data)  <span class="comment">//等于 `.then(v=&gt;&#123;return v&#125;)`</span></span><br><span class="line">  <span class="built_in">console</span>.log(data)</span><br><span class="line">  <span class="comment">//打印结果: Promise &#123; &lt;pending&gt; &#125; </span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> resolveAsync=<span class="keyword">async</span> ()=&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> data=<span class="keyword">await</span> $http(&#123; <span class="attr">url</span>:<span class="string">&quot;/test&quot;</span>&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">v</span>=&gt;</span>v.data)  <span class="comment">//等于 `.then(v=&gt;&#123;return v&#125;)`,我再then()中返回出去,让外部承接</span></span><br><span class="line">  <span class="built_in">console</span>.log(data)  <span class="comment">//获得正确的值</span></span><br><span class="line">   <span class="comment">/** </span></span><br><span class="line"><span class="comment">    * 打印结果&#123; id: 1000,course_name: &#x27;这是请求数据1&#x27;, autor: &#x27;袁明&#x27;, college: &#x27;金并即总变史&#x27;,category_Id: 2&#125;</span></span><br><span class="line"><span class="comment">    *  */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//模拟新增数据,将上一步的结果简单加工一下</span></span><br><span class="line">   data.course_name=data.course_name+<span class="number">1</span></span><br><span class="line"> $http(&#123;</span><br><span class="line">   <span class="attr">url</span>:<span class="string">&quot;/test&quot;</span>,</span><br><span class="line">   <span class="attr">method</span>:<span class="string">&quot;put&quot;</span>,</span><br><span class="line">   data</span><br><span class="line"> &#125;).then(<span class="function"><span class="params">v</span>=&gt;</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(v)  <span class="comment">//直接打印了 需要再取出参照上一步</span></span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">resolveCommon()  <span class="comment">//调用普通promise函数</span></span><br><span class="line">resolveAsync()    <span class="comment">//调用await+async</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
+            <p>Link：<a href="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html</a>
+            <p>Publish date：<a href="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">February 25th 2022, 3:03:16 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">February 25th 2022, 8:06:54 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/%E6%96%B0%E8%8B%B1%E6%96%87%E6%9D%82%E5%BF%97/index.html" title="新英文杂志">
+                    <div class="nextTitle">新英文杂志</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html" title="Promise学习笔记">
+                    <div class="prevTitle">Promise学习笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/HasuerYu" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E5%A4%87%E5%B7%A5%E5%85%B7"><span class="toc-number">1.</span> <span class="toc-text">预备工具</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Axios%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number"></span> <span class="toc-text">一、Axios的理解与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">axios 是什么?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">axios 特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">axios 常用语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">原理图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E8%AF%AD%E6%B3%95%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">难点语法的理解和使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#axios-create-config"><span class="toc-number">5.1.</span> <span class="toc-text">axios.create(config)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%E5%87%BD%E6%95%B0-ajax-%E8%AF%B7%E6%B1%82-%E8%AF%B7%E6%B1%82%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="toc-number">5.2.</span> <span class="toc-text">拦截器函数&#x2F;ajax 请求&#x2F;请求的回调函数的调用顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E8%AF%B7%E6%B1%82"><span class="toc-number">5.3.</span> <span class="toc-text">取消请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">默认配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Axios%E7%9A%84%E9%9A%BE%E7%82%B9%E9%97%AE%E9%A2%98"><span class="toc-number"></span> <span class="toc-text">Axios的难点问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E4%B8%8E-Axios-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.</span> <span class="toc-text">axios 与 Axios 的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#instance-%E4%B8%8E-axios-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">instance 与 axios 的区别?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios%E8%BF%90%E8%A1%8C%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">axios运行的整体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E7%9A%84%E8%AF%B7%E6%B1%82-%E5%93%8D%E5%BA%94%E6%8B%A6%E6%88%AA%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">5.</span> <span class="toc-text">axios 的请求&#x2F;响应拦截器是什么?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E7%9A%84%E8%AF%B7%E6%B1%82-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E5%99%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">6.</span> <span class="toc-text">axios 的请求&#x2F;响应数据转换器是什么?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#response%E4%B8%8Eerror-%E7%9A%84%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">7.</span> <span class="toc-text">response与error  的整体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8F%96%E6%B6%88%E6%9C%AA%E5%AE%8C%E6%88%90%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-number">8.</span> <span class="toc-text">如何取消未完成的请求?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Axios%E6%BA%90%E7%A0%81%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-number"></span> <span class="toc-text">Axios源码模拟实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#axios-%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.</span> <span class="toc-text">axios 的创建过程模拟实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">axios发送请求过程详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">拦截器的模拟实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%96%E6%B6%88%E5%8A%9F%E8%83%BD%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">请求取消功能模拟实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E4%BD%9C%E8%80%85%E5%AF%B9%E4%BA%8E%E6%9F%90%E4%BA%9B%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94%E4%B8%8E%E7%90%86%E8%A7%A3"><span class="toc-number"></span> <span class="toc-text">原作者对于某些问题解答与理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#axios%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5%E8%BD%AC%E6%8D%A2-%E5%9C%A8%E5%A4%96%E9%83%A8%E5%8F%96%E5%80%BC"><span class="toc-number">1.</span> <span class="toc-text">axios同步与异步转换,在外部取值</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 70
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span>
+            <a class="archive-post-title" href="/ubuntu20-04%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql8-%E8%AF%A6%E7%BB%86/index.html">Ubuntu20.04安装配置MySQL8(详细)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/%E6%96%B0%E8%8B%B1%E6%96%87%E6%9D%82%E5%BF%97/index.html">新英文杂志</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Axios学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Promise学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Nginx学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">AJAX学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span>
+            <a class="archive-post-title" href="/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/index.html">状态压缩dp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.html">蓝桥杯</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/19-conclusions/index.html">19. Conclusions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span>
+            <a class="archive-post-title" href="/18-miscellaneous/index.html">18. Miscellaneous</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/17-pattern-topological-sort-graph/index.html">17. Pattern Topological Sort (Graph)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/12</span>
+            <a class="archive-post-title" href="/%E9%A9%AC%E6%96%AF%E5%85%8B%E7%9A%84%E5%86%92%E9%99%A9%E4%BA%BA%E7%94%9F/index.html">马斯克的冒险人生</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span>
+            <a class="archive-post-title" href="/16-pattern-0-or-1-knapsack-dynamic-programming/index.html">16. Pattern  0 or 1 Knapsack (Dynamic Programming)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span>
+            <a class="archive-post-title" href="/15-pattern-k-way-merge/index.html">15. Pattern K-way merge</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span>
+            <a class="archive-post-title" href="/14-pattern-top-k-elements/index.html">14. Pattern Top _K_ Elements</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/12</span>
+            <a class="archive-post-title" href="/13-pattern-bitwise-xor/index.html">13. Pattern Bitwise XOR</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/12-pattern-modified-binary-search/index.html">12. Pattern Modified Binary Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span>
+            <a class="archive-post-title" href="/11-pattern-subsets/index.html">11. Pattern Subsets</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span>
+            <a class="archive-post-title" href="/10-pattern-two-heaps/index.html">10. Pattern Two Heaps</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span>
+            <a class="archive-post-title" href="/9-pattern-tree-depth-first-search/index.html">9. Pattern Tree Depth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span>
+            <a class="archive-post-title" href="/8-pattern-tree-breadth-first-search/index.html">8. Pattern Tree Breadth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/7-pattern-in-place-reversal-of-a-linkedlist/index.html">7. Pattern In-place Reversal of a LinkedList</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span>
+            <a class="archive-post-title" href="/6-pattern-cyclic-sort/index.html">6. Pattern Cyclic Sort</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/5-pattern-merge-intervals/index.html">5.Pattern Merge Intervals</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/4-pattern-fast-slow-pointers/index.html">4. Pattern Fast_Slow pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/28</span>
+            <a class="archive-post-title" href="/3-pattern-two-pointers/index.html">3. Pattern Two Pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2-pattern-sliding-window/index.html">2. Pattern Sliding Window</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/1-introduction/index.html">1.Introduction</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/index.html">人工智能基础课堂笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Git学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/c-sort/index.html">C++ Sort()</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2%E8%AF%BB%E5%90%8E%E6%84%9F/index.html">人类简史读后感</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span>
+            <a class="archive-post-title" href="/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF-m-scott-peck/index.html">少有人走的路-M.Scott Peck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB/index.html">亲密关系</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E5%BF%83%E7%81%B5%E6%88%90%E9%95%BF%E6%97%85%E7%A8%8B/index.html">我的心灵成长旅程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/index.html">长沙之旅</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/postgresql-alter-table%E4%B8%AD%E6%94%B9%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6using%E7%9A%84%E7%94%A8%E6%B3%95/index.html">PostgreSQL ALTER TABLE中改变数据类型时USING的用法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/kmp/index.html">KMP</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E7%94%9F%E5%91%BD%E6%95%85%E4%BA%8B/index.html">我的生命故事</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/%E7%A9%B7%E6%9F%A5%E7%90%86%E5%AE%9D%E5%85%B8/index.html">穷查理宝典</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span>
+            <a class="archive-post-title" href="/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/index.html">被讨厌的勇气</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/%E5%88%B7%E9%A2%98%E6%BC%8F%E6%B4%9E/index.html">刷题漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/index.html">非暴力沟通</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html">富爸爸穷爸爸</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/latex%E8%BD%AC%E6%8D%A2markdown/index.html">latex转换markdown</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html">人类简史</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span>
+            <a class="archive-post-title" href="/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html">改变vscode默认代码格式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/matlab-plot/index.html">Matlab_plot</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span>
+            <a class="archive-post-title" href="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA3实验报告</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-bigfilesforxv6/index.html">MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-locking/index.html">MIT 6.828 Homework_Locking</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-xv6cpualarm/index.html">MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-lazypageallocation/index.html">MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-systemcall/index.html">MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-barriers/index.html">MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA2实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-threadsandlocks/index.html">MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">打印多个hello</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span>
+            <a class="archive-post-title" href="/pv%E9%A2%98/index.html">PV题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/132-pattern/index.html">132 Pattern</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">外刊句子</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/book-xv6-chapter-0/index.html">book_xv6:Chapter_0</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">Blog目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-shell/index.html">MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">归并排序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span>
+            <a class="archive-post-title" href="/09-working-with-processes/index.html">09 Working with processes</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html">【哈佛公开课】Justice</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA1实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span>
+            <a class="archive-post-title" href="/hello-world/index.html">Hello World</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="Interview">
+                <span class="iconfont-archer">&#xe606;</span>
+                Interview
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="stack">
+                <span class="iconfont-archer">&#xe606;</span>
+                stack
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="MIT OS">
+                <span class="iconfont-archer">&#xe606;</span>
+                MIT OS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="NEMU实验">
+                <span class="iconfont-archer">&#xe606;</span>
+                NEMU实验
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="进程管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                进程管理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux 基础">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux 基础
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人文">
+                <span class="iconfont-archer">&#xe606;</span>
+                人文
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="社会">
+                <span class="iconfont-archer">&#xe606;</span>
+                社会
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人类史">
+                <span class="iconfont-archer">&#xe606;</span>
+                人类史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="历史">
+                <span class="iconfont-archer">&#xe606;</span>
+                历史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心理学">
+                <span class="iconfont-archer">&#xe606;</span>
+                心理学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人际关系">
+                <span class="iconfont-archer">&#xe606;</span>
+                人际关系
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="情感">
+                <span class="iconfont-archer">&#xe606;</span>
+                情感
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="新英文杂志">
+                <span class="iconfont-archer">&#xe606;</span>
+                新英文杂志
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资理财">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资理财
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="财商">
+                <span class="iconfont-archer">&#xe606;</span>
+                财商
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心智">
+                <span class="iconfont-archer">&#xe606;</span>
+                心智
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="排序算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                排序算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人生哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                人生哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心灵成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                心灵成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="沟通">
+                <span class="iconfont-archer">&#xe606;</span>
+                沟通
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人物传记，企业管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                人物传记，企业管理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Algorithm">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Algorithm
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="技术笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            技术笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统实验
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            计算机组成原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Matlab
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tips
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="阅读笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            阅读笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="随笔">
+            <span class="iconfont-archer">&#xe60a;</span>
+            随笔
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vscode-tips
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

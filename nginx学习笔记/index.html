@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Nginx 简介Nginx概述Nginx (“engine x”)是一个高性能的 HTTP 和反向代理服务器 特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等 Nginx 作为 web 服务器Nginx可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx学习笔记">
+<meta property="og:url" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="Nginx 简介Nginx概述Nginx (“engine x”)是一个高性能的 HTTP 和反向代理服务器 特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等 Nginx 作为 web 服务器Nginx可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/1.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/2.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/3.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/4.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/5.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/6.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/7.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/8.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/9.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/10.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/11.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/12.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/13.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/14.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/15.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/16.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/17.jpg">
+<meta property="og:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/18.jpg">
+<meta property="article:published_time" content="2022-02-23T12:37:35.000Z">
+<meta property="article:modified_time" content="2022-02-25T06:01:54.829Z">
+<meta property="article:author" content="Hasuer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/1.jpg">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/old_profile.ico">
+    
+    <title>Nginx学习笔记 · Hasuer&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Hasuer's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Nginx学习笔记</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Nginx学习笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.6k</span>Reading time: <span class="post-count reading-time">13 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/02/23</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Nginx-简介"><a href="#Nginx-简介" class="headerlink" title="Nginx 简介"></a>Nginx 简介</h1><h2 id="Nginx概述"><a href="#Nginx概述" class="headerlink" title="Nginx概述"></a>Nginx概述</h2><p>Nginx (“engine x”)是一个高性能的 HTTP 和反向代理服务器 特点是占有内存少，并发能力强，事实上 nginx 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等</p>
+<h2 id="Nginx-作为-web-服务器"><a href="#Nginx-作为-web-服务器" class="headerlink" title="Nginx 作为 web 服务器"></a>Nginx 作为 web 服务器</h2><p>Nginx可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如 pe rl 、 php等。但是不支持 java 。 Java 程序只能通过与 tomcat 配合完成。 Nginx 专为性能优化而开发，性能是其最重要的考量 实现上非常注重效率 ，能经受高负载的考验 有报告表明能支持高达 50,000 个并发连接数。</p>
+<p><a target="_blank" rel="noopener" href="https://lnmp.org/nginx.html">https://lnmp.org/nginx.html</a></p>
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>Nginx不仅可以做反向代理，实现负载均衡。还能用作正向代理来进行上网等功能。</p>
+<p>正向代理：如果把局域网外的Internet 想象成一个巨大的资源库，则局域网中的客户端要访问 Internet ，则需要通过代理服务器来访问，这种代理服务就称为正向代理。</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/1.jpg"></p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，在返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器 IP 地址。</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/2.jpg"></p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回给客户端。 这种架构模式对于早期的系统相对单一，并发请求相对较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增长，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃。很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况呢？ </p>
+<p>我们首先想到的可能是升级服务器的配置，比如提高CPU执行频率，加大内存等提高机器的物理性能来解决此问题，但是我们知道摩尔定律的日益失效，硬件的性能提升已经不能满足日益提升的需求了。最明显的一个例子，天猫双十一当天，某个热销商品的瞬时访问量是极其庞大的，那么类似上面的系统架构，将机器都增加到现有的顶级物理配置，都是不能够满足需求的。那么怎么办呢？ </p>
+<p>上面的分析我们去掉了增加服务器物理配置来解决问题的办法，也就是说纵向解决问题的办法行不通了，那么横向增加服务器的数量呢？这时候集群的概念产生了，单个服务器解决不了，我们增加服务器的数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上的情况改为将请求分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的<strong>负载均衡</strong></p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/3.jpg"></p>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p>为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度。降低原来单个服务器的压力。</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/4.jpg"></p>
+<h1 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a>Nginx 安装</h1><h2 id="进入-nginx-官网，下载"><a href="#进入-nginx-官网，下载" class="headerlink" title="进入 nginx 官网，下载"></a>进入 nginx 官网，下载</h2><p><a target="_blank" rel="noopener" href="http://nginx.org/">http://nginx.org/</a></p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/5.jpg"></p>
+<h2 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h2><p><strong>第一步，安装 pcre</strong><br><code>wget http://downloads.sourceforge.net/project/pcre/pcre/8.37/pcre8.37.tar.gz</code></p>
+<p>解压文件，<br><code>./configure</code>完成后，回到 pcre 目录下执行 <code>make</code><br>再执行<br><code>make install</code></p>
+<p><strong>第二步，安装 openssl</strong><br><strong>第三步，安装 zlib</strong><br><code>yum -y install make zlib zlib-devel gcc-c++ libtool openssl openssl-devel</code></p>
+<p><strong>第四步,安装 nginx</strong></p>
+<ol>
+<li><p>解压缩 nginx xx.tar.gz 包。</p>
+</li>
+<li><p>进入解压缩目录 执行 ./configure 。</p>
+</li>
+<li><p>make &amp;&amp; make install</p>
+</li>
+</ol>
+<p><strong>查看开放的端口号</strong><br><code>firewall-cmd --list all</code><br><strong>设置开放的端口号</strong><br><code>firewall-cmd --add-service=http --permanent</code><br><code>sudo firewall-cmd --add -port=80/tcp --permanent</code><br><strong>重启防火墙</strong><br><code>firewall-cmd --reload</code></p>
+<h1 id="nginx-常用的命令和配置文件"><a href="#nginx-常用的命令和配置文件" class="headerlink" title="nginx 常用的命令和配置文件"></a>nginx 常用的命令和配置文件</h1><h2 id="nginx-常用的命令"><a href="#nginx-常用的命令" class="headerlink" title="nginx 常用的命令"></a>nginx 常用的命令</h2><ul>
+<li><p><strong>启动命令</strong></p>
+<p>在<code>/usr/local/nginx/sbin</code> 目录下执行 <code>./nginx</code></p>
+</li>
+<li><p><strong>关闭命令</strong><br>在<code>/usr/local/nginx/sbin</code> 目录下执行 <code>./nginx -s stop</code></p>
+</li>
+<li><p><strong>重新加载命令</strong><br>在<code>/usr/local/nginx/sbin</code> 目录下执行 <code>./nginx -s reload</code></p>
+</li>
+</ul>
+<h2 id="nginx-conf-配置文件"><a href="#nginx-conf-配置文件" class="headerlink" title="nginx.conf 配置文件"></a>nginx.conf 配置文件</h2><p>nginx 安装目录下，其默认的配置文件都放在这个目录的 conf 目录下，而 主配置文件 nginx.conf 也在其中，后续对 nginx 的使用基本上都是对此配置文件进行相应的修改</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/6.jpg"></p>
+<p>配置文件中有很多 开头的表示注释内容，我们去掉所有以 # 开头的段落，精简之后的内容如下：</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/7.jpg"></p>
+<p>根据上述文件，我们可以很明显的将 nginx.conf 配置文件分为<strong>三部分</strong>：</p>
+<h3 id="第一部分：全局块"><a href="#第一部分：全局块" class="headerlink" title="第一部分：全局块"></a><strong>第一部分：全局块</strong></h3><p>从配置文件开始到 events 块之间的内容，主要会设置一些影响nginx 服务器整体运行的配置指令，主要包括配置运行 Nginx 服务器的用户（组）、允许生成的 worker process 数，进程 PID 存放路径、日志存放路径和类型以及配置文件的引入等。 比如上面第一行配置的：</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/8.jpg"></p>
+<p>这是 Nginx 服务器并发处理服务的关键配置，worker_processes 值越大，可以支持的并发处理量也越多，但是会受到硬件、软件等设备的制约</p>
+<h3 id="第二部分：events块"><a href="#第二部分：events块" class="headerlink" title="第二部分：events块"></a><strong>第二部分：events块</strong></h3><p>比如上面的配置：</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/9.jpg"></p>
+<p>events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，常用的设置包括是否开启对多 work process 下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个 word process 可以同时支持的最大连接数等。 </p>
+<p>上述例子就表示每个 work process 支持的最大连接数为 1024. </p>
+<p>这部分的配置对 Nginx 的性能影响较大，在实际中应该灵活配置。</p>
+<h3 id="第三部分：http块"><a href="#第三部分：http块" class="headerlink" title="第三部分：http块"></a><strong>第三部分：http块</strong></h3><p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/10.jpg"></p>
+<p>这算是 Nginx 服务器配置中最频繁的部分，代理、缓存和日志定义等绝大多数功能和第三方模块的配置都在这里。 需要注意的是：http 块也可以包括 <strong>http全局块、server 块</strong>。</p>
+<p><strong>http 全局块</strong><br>http全局块配置的指令包括文件引入、MIME-TYPE 定义、日志自定义、连接超时时间、单链接请求数上限等。</p>
+<p><strong>server 块</strong><br>这块和虚拟主机有密切关系，虚拟主机从用户角度看，和一台独立的硬件主机是完全一样的，该技术的产生是为了节省互联网服务器硬件成本。 </p>
+<p>每个 http 块可以<strong>包括多个 server 块</strong>，而每个 server 块就相当于一个虚拟主机。 </p>
+<p>而每个 server 块也分为全局 server 块，以及可以同时<strong>包含多个 locaton 块</strong>。</p>
+<ul>
+<li><strong>全局 server 块</strong> </li>
+</ul>
+<p>最常见的配置是本虚拟机主机的监听配置和本虚拟主机的名称或IP配置。 </p>
+<ul>
+<li><strong>location 块</strong></li>
+</ul>
+<p>一个 server 块可以配置多个 location 块。 这块的主要作用是基于 Nginx 服务器接收到的请求字符串（例如 server_name/uri-string），对虚拟主机名称（也可以是IP别名）之外的字符串（例如 前面的 /uri-string）进行匹配，对特定的请求进行处理。地址定向、数据缓存和应答控制等功能，还有许多第三方模块的配置也在这里进行。</p>
+<h1 id="nginx-配置实例-反向代理"><a href="#nginx-配置实例-反向代理" class="headerlink" title="nginx 配置实例 反向代理"></a>nginx 配置实例 反向代理</h1><h2 id="反向代理实例一"><a href="#反向代理实例一" class="headerlink" title="反向代理实例一"></a>反向代理实例一</h2><p><strong>实现效果</strong>：使用 n ginx 反向代理，访问 www 123 com 直接跳转到 127.0.0.1:8080</p>
+<h3 id="实验代码"><a href="#实验代码" class="headerlink" title="实验代码"></a>实验代码</h3><ol>
+<li>启动一个 tomcat ，浏览器地址栏输入 127.0.0.1:8080 ，出现如下界面</li>
+</ol>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/11.jpg"></p>
+<ol>
+<li><p>通过修改本地 host 文件，将 www. 123 .com 映射到 127.0.0.1</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/12.jpg"></p>
+</li>
+</ol>
+<p>配置完成之后，我们便可以通过<code>www.123.com:8080</code> 访问到第一步出现的 Tomcat初始界面。那么如何只需要输入<code>www.123.com</code>便可以跳转到 Tomcat初始界面呢？便用到 nginx的反向代理。</p>
+<ol>
+<li><p>在 <code>nginx.conf</code>配置文件中增加如下配置</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/13.jpg"></p>
+</li>
+</ol>
+<p>如上配置，我们监听80端口，访问域名为www.123.com，不加端口号时默认为80端口，故访问该域名时会跳转到127.0.0.1:8080路径上。在浏览器端输入 www.123.com 结果如下：</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/14.jpg"></p>
+<h2 id="反向代理实例二"><a href="#反向代理实例二" class="headerlink" title="反向代理实例二"></a>反向代理实例二</h2><p><strong>实现效果：</strong>使用 nginx 反向代理， 根据访问的路径跳转到不同端口的服务中<br>nginx 监听端口为 9001<br>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/edu/">http://127.0.0.1:9001/edu/</a> 直接跳转到 127.0.0.1:8081<br>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:9001/vod/">http://127.0.0.1:9001/vod/</a> 直接跳转到 127.0.0.1:8082</p>
+<h3 id="实验代码-1"><a href="#实验代码-1" class="headerlink" title="实验代码"></a>实验代码</h3><p>第一步，准备两个 tomcat ，一个 8001 端口，一个 8002 端口，并准备好测试的页面<br>第二步，修改 nginx 的配置文件<br>在<strong>http 块</strong>中添加 server{}<br><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/15.jpg"></p>
+<p>location 指令说明<br>该指令用于匹配 URL。 语法如下：</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/16.jpg"></p>
+<p>1、= ：用于不含正则表达式的 uri 前，要求请求字符串与 uri 严格匹配，如果匹配成功，就停止继续向下搜索并立即处理该请求。 </p>
+<p>2、~：用于表示 uri 包含正则表达式，并且区分大小写。 </p>
+<p>3、~*：用于表示 uri 包含正则表达式，并且不区分大小写。 </p>
+<p>4、^~：用于不含正则表达式的 uri 前，要求 Nginx 服务器找到标识 uri 和请求字符串匹配度最高的 location 后，立即使用此 location 处理请求，而不再使用 location 块中的正则 uri 和请求字符串做匹配。 </p>
+<p><strong><em>注意：如果 url 包含正则表达式，则必须要有 ~ 或者 ~\</em> 标识。</strong></p>
+<h1 id="nginx-配置实例-负载均衡"><a href="#nginx-配置实例-负载均衡" class="headerlink" title="nginx 配置实例 负载均衡"></a>nginx 配置实例 负载均衡</h1><p><strong>实现效果</strong>： 配置负载均衡</p>
+<h2 id="实验代码-2"><a href="#实验代码-2" class="headerlink" title="实验代码"></a>实验代码</h2><ol>
+<li>首先准备两个同时启动的 Tomcat</li>
+<li>在 nginx.conf 中进行配置</li>
+</ol>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/17.jpg"></p>
+<p>随着互联网信息的爆炸性增长，负载均衡（load balance ）已经不再是一个很陌生的话题顾名思义，负载均衡即是将负载分摊到不同的服务单元，既保证服务的可用性，又保证响应足够快，给用户很好的体验。快速增长的访问量和数据流量催生了各式各样的负载均衡产品，很多专业的负载均衡硬件提供了很好的功能，但却价格不菲，这使得负载均衡软件大受欢迎，nginx 就是其中的一个，在 linux 下有 Nginx 、 LVS 、 Haproxy 等等服务可以提供负载均衡服务，而且 Nginx 提供了几种分配方式 策略:</p>
+<p><strong>1、轮询（默认）</strong><br>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。<br><strong>2、weight</strong><br>weight代表权 重默认为 1, 权重越高被分配的客户端越多。指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。 例如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream server_pool&#123; </span><br><span class="line"><span class="built_in">	server </span>192.168.5.21 <span class="attribute">weight</span>=10; </span><br><span class="line"><span class="built_in">	server </span>192.168.5.22 <span class="attribute">weight</span>=10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3、ip_hash</strong><br>每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。 例如：</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream server_pool&#123; </span><br><span class="line">	<span class="attribute">ip_hash; </span></span><br><span class="line"><span class="attribute">	server 192.168.5.21</span>:80; </span><br><span class="line">	<span class="attribute">server 192.168.5.22</span>:80; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4、fair（第三方）</strong></p>
+<p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream server_pool&#123; </span><br><span class="line">	<span class="keyword">server</span> <span class="number">192.168</span><span class="number">.5</span><span class="number">.21</span>:<span class="number">80</span>; </span><br><span class="line">	<span class="keyword">server</span> <span class="number">192.168</span><span class="number">.5</span><span class="number">.22</span>:<span class="number">80</span>; </span><br><span class="line">	fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="nginx-配置实例-动静分离"><a href="#nginx-配置实例-动静分离" class="headerlink" title="nginx 配置实例 动静分离"></a>nginx 配置实例 动静分离</h1><p>Nginx 动静分离简单来说就是把动态跟静态请求分开，不能理解成只是单纯的把动态页面和静态页面物理分离。严格意义上说应该是动态请求跟静态请求分开，可以理解成使用Nginx 处理静态页面，Tomcat处理动态页面。</p>
+<p>动静分离从目前实现角度来讲大致分为两种， </p>
+<p>一种是纯粹把静态文件独立成单独的域名，放在独立的服务器上，<strong>也是目前主流推崇的方案</strong>；</p>
+<p> 另外一种方法就是动态跟静态文件混合在一起发布，通过 nginx 来分开。 通过 location 指定不同的后缀名实现不同的请求转发。通过 expires 参数设置，可以使浏览器缓存过期时间，减少与服务器之前的请求和流量。具体 Expires 定义：是给一个资源设定一个过期时间，也就是说无需去服务端验证，直接通过浏览器自身确认是否过期即可，所以不会产生额外的流量。此种方法非常适合不经常变动的资源。（如果经常更新的文件，不建议使用 Expires 来缓存），我这里设置 3d，表示在这 3 天之内访问这个 URL，发送一个请求，比对服务器该文件最后更新时间没有变化，则不会从服务器抓取，返回状态码 304，如果有修改，则直接从服务器重新下载，返回状态码 200。</p>
+<h2 id="实验代码-3"><a href="#实验代码-3" class="headerlink" title="实验代码"></a>实验代码</h2><ol>
+<li><p>项目资源准备</p>
+</li>
+<li><p>进行 nginx 配置<br>找到 nginx 安装目录，打开 /conf/nginx.conf 配置文件，</p>
+<p><img src="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index/18.jpg"></p>
+</li>
+</ol>
+<p>添加监听端口、访问名字<br>重点是添加location,最后检查 Nginx 配置是否正确即可，然后测试动静分离是否成功，之需要删除后端 tomcat服务器上的某个静态文件，查看是否能访问，如果可以访问说明静态资源 nginx 直接返回了，不走后端 tomcat 服务器.</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
+            <p>Link：<a href="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html</a>
+            <p>Publish date：<a href="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">February 23rd 2022, 8:37:35 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">February 25th 2022, 2:01:54 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html" title="Promise学习笔记">
+                    <div class="nextTitle">Promise学习笔记</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html" title="AJAX学习笔记">
+                    <div class="prevTitle">AJAX学习笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/HasuerYu" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Nginx 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">Nginx概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx-%E4%BD%9C%E4%B8%BA-web-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">Nginx 作为 web 服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">正向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">1.5.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">1.6.</span> <span class="toc-text">动静分离</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">Nginx 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5-nginx-%E5%AE%98%E7%BD%91%EF%BC%8C%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.1.</span> <span class="toc-text">进入 nginx 官网，下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-nginx"><span class="toc-number">2.2.</span> <span class="toc-text">安装 nginx</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">nginx 常用的命令和配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">nginx 常用的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx-conf-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">nginx.conf 配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E5%85%A8%E5%B1%80%E5%9D%97"><span class="toc-number">3.2.1.</span> <span class="toc-text">第一部分：全局块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9Aevents%E5%9D%97"><span class="toc-number">3.2.2.</span> <span class="toc-text">第二部分：events块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9Ahttp%E5%9D%97"><span class="toc-number">3.2.3.</span> <span class="toc-text">第三部分：http块</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">nginx 配置实例 反向代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%AE%9E%E4%BE%8B%E4%B8%80"><span class="toc-number">4.1.</span> <span class="toc-text">反向代理实例一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%A3%E7%A0%81"><span class="toc-number">4.1.1.</span> <span class="toc-text">实验代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%AE%9E%E4%BE%8B%E4%BA%8C"><span class="toc-number">4.2.</span> <span class="toc-text">反向代理实例二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%A3%E7%A0%81-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">实验代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">5.</span> <span class="toc-text">nginx 配置实例 负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%A3%E7%A0%81-2"><span class="toc-number">5.1.</span> <span class="toc-text">实验代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx-%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">6.</span> <span class="toc-text">nginx 配置实例 动静分离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BB%A3%E7%A0%81-3"><span class="toc-number">6.1.</span> <span class="toc-text">实验代码</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 70
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span>
+            <a class="archive-post-title" href="/ubuntu20-04%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql8-%E8%AF%A6%E7%BB%86/index.html">Ubuntu20.04安装配置MySQL8(详细)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/%E6%96%B0%E8%8B%B1%E6%96%87%E6%9D%82%E5%BF%97/index.html">新英文杂志</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Axios学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Promise学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Nginx学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">AJAX学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span>
+            <a class="archive-post-title" href="/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/index.html">状态压缩dp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.html">蓝桥杯</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/19-conclusions/index.html">19. Conclusions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span>
+            <a class="archive-post-title" href="/18-miscellaneous/index.html">18. Miscellaneous</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/17-pattern-topological-sort-graph/index.html">17. Pattern Topological Sort (Graph)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/12</span>
+            <a class="archive-post-title" href="/%E9%A9%AC%E6%96%AF%E5%85%8B%E7%9A%84%E5%86%92%E9%99%A9%E4%BA%BA%E7%94%9F/index.html">马斯克的冒险人生</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span>
+            <a class="archive-post-title" href="/16-pattern-0-or-1-knapsack-dynamic-programming/index.html">16. Pattern  0 or 1 Knapsack (Dynamic Programming)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span>
+            <a class="archive-post-title" href="/15-pattern-k-way-merge/index.html">15. Pattern K-way merge</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span>
+            <a class="archive-post-title" href="/14-pattern-top-k-elements/index.html">14. Pattern Top _K_ Elements</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/12</span>
+            <a class="archive-post-title" href="/13-pattern-bitwise-xor/index.html">13. Pattern Bitwise XOR</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/12-pattern-modified-binary-search/index.html">12. Pattern Modified Binary Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span>
+            <a class="archive-post-title" href="/11-pattern-subsets/index.html">11. Pattern Subsets</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span>
+            <a class="archive-post-title" href="/10-pattern-two-heaps/index.html">10. Pattern Two Heaps</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span>
+            <a class="archive-post-title" href="/9-pattern-tree-depth-first-search/index.html">9. Pattern Tree Depth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span>
+            <a class="archive-post-title" href="/8-pattern-tree-breadth-first-search/index.html">8. Pattern Tree Breadth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/7-pattern-in-place-reversal-of-a-linkedlist/index.html">7. Pattern In-place Reversal of a LinkedList</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span>
+            <a class="archive-post-title" href="/6-pattern-cyclic-sort/index.html">6. Pattern Cyclic Sort</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/5-pattern-merge-intervals/index.html">5.Pattern Merge Intervals</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/4-pattern-fast-slow-pointers/index.html">4. Pattern Fast_Slow pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/28</span>
+            <a class="archive-post-title" href="/3-pattern-two-pointers/index.html">3. Pattern Two Pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2-pattern-sliding-window/index.html">2. Pattern Sliding Window</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/1-introduction/index.html">1.Introduction</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/index.html">人工智能基础课堂笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Git学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/c-sort/index.html">C++ Sort()</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2%E8%AF%BB%E5%90%8E%E6%84%9F/index.html">人类简史读后感</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span>
+            <a class="archive-post-title" href="/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF-m-scott-peck/index.html">少有人走的路-M.Scott Peck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB/index.html">亲密关系</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E5%BF%83%E7%81%B5%E6%88%90%E9%95%BF%E6%97%85%E7%A8%8B/index.html">我的心灵成长旅程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/index.html">长沙之旅</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/postgresql-alter-table%E4%B8%AD%E6%94%B9%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6using%E7%9A%84%E7%94%A8%E6%B3%95/index.html">PostgreSQL ALTER TABLE中改变数据类型时USING的用法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/kmp/index.html">KMP</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E7%94%9F%E5%91%BD%E6%95%85%E4%BA%8B/index.html">我的生命故事</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/%E7%A9%B7%E6%9F%A5%E7%90%86%E5%AE%9D%E5%85%B8/index.html">穷查理宝典</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span>
+            <a class="archive-post-title" href="/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/index.html">被讨厌的勇气</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/%E5%88%B7%E9%A2%98%E6%BC%8F%E6%B4%9E/index.html">刷题漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/index.html">非暴力沟通</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html">富爸爸穷爸爸</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/latex%E8%BD%AC%E6%8D%A2markdown/index.html">latex转换markdown</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html">人类简史</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span>
+            <a class="archive-post-title" href="/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html">改变vscode默认代码格式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/matlab-plot/index.html">Matlab_plot</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span>
+            <a class="archive-post-title" href="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA3实验报告</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-bigfilesforxv6/index.html">MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-locking/index.html">MIT 6.828 Homework_Locking</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-xv6cpualarm/index.html">MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-lazypageallocation/index.html">MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-systemcall/index.html">MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-barriers/index.html">MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA2实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-threadsandlocks/index.html">MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">打印多个hello</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span>
+            <a class="archive-post-title" href="/pv%E9%A2%98/index.html">PV题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/132-pattern/index.html">132 Pattern</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">外刊句子</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/book-xv6-chapter-0/index.html">book_xv6:Chapter_0</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">Blog目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-shell/index.html">MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">归并排序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span>
+            <a class="archive-post-title" href="/09-working-with-processes/index.html">09 Working with processes</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html">【哈佛公开课】Justice</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA1实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span>
+            <a class="archive-post-title" href="/hello-world/index.html">Hello World</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="Interview">
+                <span class="iconfont-archer">&#xe606;</span>
+                Interview
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="stack">
+                <span class="iconfont-archer">&#xe606;</span>
+                stack
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="MIT OS">
+                <span class="iconfont-archer">&#xe606;</span>
+                MIT OS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="NEMU实验">
+                <span class="iconfont-archer">&#xe606;</span>
+                NEMU实验
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="进程管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                进程管理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux 基础">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux 基础
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人文">
+                <span class="iconfont-archer">&#xe606;</span>
+                人文
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="社会">
+                <span class="iconfont-archer">&#xe606;</span>
+                社会
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人类史">
+                <span class="iconfont-archer">&#xe606;</span>
+                人类史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="历史">
+                <span class="iconfont-archer">&#xe606;</span>
+                历史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心理学">
+                <span class="iconfont-archer">&#xe606;</span>
+                心理学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人际关系">
+                <span class="iconfont-archer">&#xe606;</span>
+                人际关系
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="情感">
+                <span class="iconfont-archer">&#xe606;</span>
+                情感
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="新英文杂志">
+                <span class="iconfont-archer">&#xe606;</span>
+                新英文杂志
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资理财">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资理财
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="财商">
+                <span class="iconfont-archer">&#xe606;</span>
+                财商
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心智">
+                <span class="iconfont-archer">&#xe606;</span>
+                心智
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="排序算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                排序算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人生哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                人生哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心灵成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                心灵成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="沟通">
+                <span class="iconfont-archer">&#xe606;</span>
+                沟通
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人物传记，企业管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                人物传记，企业管理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Algorithm">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Algorithm
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="技术笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            技术笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统实验
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            计算机组成原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Matlab
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tips
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="阅读笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            阅读笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="随笔">
+            <span class="iconfont-archer">&#xe60a;</span>
+            随笔
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vscode-tips
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

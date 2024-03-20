@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="IntroductionThe Fast &amp; Slow pointer approach, also known as the Hare &amp; Tortoise algorithm, is a pointer algorithm that uses two pointers which move through the array (or sequence&#x2F;LinkedList) a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4. Pattern Fast_Slow pointers">
+<meta property="og:url" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="IntroductionThe Fast &amp; Slow pointer approach, also known as the Hare &amp; Tortoise algorithm, is a pointer algorithm that uses two pointers which move through the array (or sequence&#x2F;LinkedList) a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index/2.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index/3.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index/4.png">
+<meta property="article:published_time" content="2021-11-04T03:48:27.000Z">
+<meta property="article:modified_time" content="2024-03-10T16:13:51.958Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/4-pattern-fast-slow-pointers/index/1.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/old_profile.ico">
+    
+    <title>4. Pattern Fast_Slow pointers · Hasuer&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Hasuer's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">4. Pattern Fast_Slow pointers</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                4. Pattern Fast_Slow pointers
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="Algorithm"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                Algorithm
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Interview">Interview</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4.9k</span>Reading time: <span class="post-count reading-time">29 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2021/11/04</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>The <strong>Fast &amp; Slow</strong> pointer approach, also known as the <strong>Hare &amp; Tortoise algorithm</strong>, is a pointer algorithm that uses two pointers which move through the array (or sequence/LinkedList) at different speeds. This approach is quite useful when dealing with cyclic LinkedLists or arrays.</p>
+<p>By moving at different speeds (say, in a cyclic LinkedList), the algorithm proves that the two pointers are bound to meet. The fast pointer should catch the slow pointer once both the pointers are in a cyclic loop.</p>
+<p>One of the famous problems solved using this technique was <strong>Finding a cycle in a LinkedList</strong>. Let’s jump onto this problem to understand the <strong>Fast &amp; Slow</strong> pattern.</p>
+<h2 id="LinkedList-Cycle-easy"><a href="#LinkedList-Cycle-easy" class="headerlink" title="LinkedList Cycle (easy)"></a>LinkedList Cycle (easy)</h2><p>leetcode 141</p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given the head of a <strong>Singly LinkedList</strong>, write a function to determine if the LinkedList has a <strong>cycle</strong> in it or not.</p>
+<p><img src="/4-pattern-fast-slow-pointers/index/1.png"></p>
+<h3 id="Try-it-yourself"><a href="#Try-it-yourself" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.valve = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">if</span> fast == slow:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">1</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">3</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">5</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line">    result = has_cycle(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    result = has_cycle(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    result = has_cycle(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Imagine two racers running in a circular racing track. If one racer is faster than the other, the faster racer is bound to catch up and cross the slower racer from behind. We can use this fact to devise an algorithm to determine if a LinkedList has a cycle in it or not.</p>
+<p>Imagine we have a slow and a fast pointer to traverse the LinkedList. In each iteration, the slow pointer moves one step and the fast pointer moves two steps. This gives us two conclusions:</p>
+<ol>
+<li>If the LinkedList doesn’t have a cycle in it, the fast pointer will reach the end of the LinkedList before the slow pointer to reveal that there is no cycle in the LinkedList.</li>
+<li>The slow pointer will never be able to catch up to the fast pointer if there is no cycle in the LinkedList.</li>
+</ol>
+<p>If the LinkedList has a cycle, the fast pointer enters the cycle first, followed by the slow pointer. After this, both pointers will keep moving in the cycle infinitely. If at any stage both of these pointers meet, we can conclude that the LinkedList has a cycle in it. Let’s analyze if it is possible for the two pointers to meet. When the fast pointer is approaching the slow pointer from behind we have two possibilities:</p>
+<ol>
+<li>The fast pointer is one step behind the slow pointer.</li>
+<li>The fast pointer is two steps behind the slow pointer.</li>
+</ol>
+<p>All other distances between the fast and slow pointers will reduce to one of these two possibilities. Let’s analyze these scenarios, considering the fast pointer always moves first:</p>
+<ol>
+<li><strong>If the fast pointer is one step behind the slow pointer:</strong> The fast pointer moves two steps and the slow pointer moves one step, and they both meet.</li>
+<li><strong>If the fast pointer is two steps behind the slow pointer:</strong> The fast pointer moves two steps and the slow pointer moves one step. After the moves, the fast pointer will be one step behind the slow pointer, which reduces this scenario to the first scenario. This means that the two pointers will meet in the next iteration.</li>
+</ol>
+<p>This concludes that the two pointers will definitely meet if the LinkedList has a cycle. A similar analysis can be done where the slow pointer moves first. Here is a visual representation of the above discussion:</p>
+<p><img src="/4-pattern-fast-slow-pointers/index/2.png"></p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和我的代码一摸一样，这里就不在重复了</span></span><br></pre></td></tr></table></figure>
+<h4 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>As we have concluded above, once the slow pointer enters the cycle, the fast pointer will meet the slow pointer in the same loop. Therefore, the time complexity of our algorithm will be <strong><em>O(N)</em></strong> where ‘N’ is the total number of nodes in the LinkedList.</p>
+<h4 id="Space-Complexity"><a href="#Space-Complexity" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h3 id="Similar-Problems"><a href="#Similar-Problems" class="headerlink" title="Similar Problems"></a>Similar Problems</h3><p><strong>Problem 1:</strong> Given the head of a LinkedList with a cycle, find the length of the cycle.</p>
+<p><strong>Solution:</strong> We can use the above solution to find the cycle in the LinkedList. Once the fast and slow pointers meet, we can save the slow pointer and iterate the whole cycle with another pointer until we see the slow pointer again to find the length of the cycle.</p>
+<p>Here is what our algorithm will look like:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedListCycleLength</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findCycleLength</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// todo:</span></span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (slow == fast) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">calculateLength</span>(slow);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateLength</span><span class="params">(ListNode* slow)</span> </span>&#123;</span><br><span class="line">        ListNode* current = slow;</span><br><span class="line">        <span class="keyword">int</span> cycleLength = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">            cycleLength++;</span><br><span class="line">        &#125; <span class="keyword">while</span> (current != slow);</span><br><span class="line">        <span class="keyword">return</span> cycleLength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ListNode* head = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">1</span>);</span><br><span class="line">    head-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">2</span>);</span><br><span class="line">    head-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">3</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">4</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">5</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;LinkedList has cycle: &quot;</span></span><br><span class="line">         &lt;&lt; LinkedListCycleLength::<span class="built_in">findCycleLength</span>(head) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = head-&gt;next-&gt;next-&gt;next;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;LinkedList has cycle: &quot;</span></span><br><span class="line">         &lt;&lt; LinkedListCycleLength::<span class="built_in">findCycleLength</span>(head) &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Time and Space Complexity:</strong> The above algorithm runs in <strong><em>O(N)</em></strong> time complexity and <strong><em>O(1)</em></strong> space complexity.</p>
+<h2 id="Start-of-LinkedList-Cycle-medium"><a href="#Start-of-LinkedList-Cycle-medium" class="headerlink" title="Start of LinkedList Cycle (medium)"></a>Start of LinkedList Cycle (medium)</h2><p>leetcode 142</p>
+<h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given the head of a <strong>Singly LinkedList</strong> that contains a cycle, write a function to find the <strong>starting node of the cycle</strong>.</p>
+<p><img src="/4-pattern-fast-slow-pointers/index/3.png"></p>
+<h3 id="Try-it-yourself-1"><a href="#Try-it-yourself-1" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_cycle_start</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">if</span> fast == slow:</span><br><span class="line">            cycle_len = cal_len(slow)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> find_start(head, cycle_len).value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal_len</span>(<span class="params">slow</span>):</span></span><br><span class="line">    current = slow</span><br><span class="line">    <span class="built_in">len</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        current = current.<span class="built_in">next</span></span><br><span class="line">        <span class="built_in">len</span> += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> current == slow:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_start</span>(<span class="params">head, length</span>):</span></span><br><span class="line">    p1, p2 = head, head</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        p2 = p2.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">while</span> p1 != p2:</span><br><span class="line">        p1 = p1.<span class="built_in">next</span></span><br><span class="line">        p2 = p2.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> p1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">1</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">3</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">5</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    result = find_cycle_start(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    result = find_cycle_start(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = head</span><br><span class="line">    result = find_cycle_start(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>If we know the length of the <strong>LinkedList</strong> cycle, we can find the start of the cycle through the following steps:</p>
+<ol>
+<li>Take two pointers. Let’s call them <code>pointer1</code> and <code>pointer2</code>.</li>
+<li>Initialize both pointers to point to the start of the LinkedList.</li>
+<li>We can find the length of the LinkedList cycle using the approach discussed in <em>LinkedList Cycle</em>. Let’s assume that the length of the cycle is ‘K’ nodes.</li>
+<li>Move <code>pointer2</code> ahead by ‘K’ nodes.</li>
+<li>Now, keep incrementing <code>pointer1</code> and <code>pointer2</code> until they both meet.</li>
+<li>As <code>pointer2</code> is ‘K’ nodes ahead of <code>pointer1</code>, which means, <code>pointer2</code> must have completed one loop in the cycle when both pointers meet. Their meeting point will be the start of the cycle.</li>
+</ol>
+<p>Let’s visually see this with the above-mentioned Example-1:</p>
+<p><img src="/4-pattern-fast-slow-pointers/index/4.png"></p>
+<p>We can use the algorithm discussed in <em>LinkedList Cycle</em> to find the length of the cycle and then follow the above-mentioned steps to find the start of the cycle.</p>
+<h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 答案和我写的代码的思路一样的，只是结构不一样，就不重写了</span></span><br></pre></td></tr></table></figure>
+<h4 id="Time-Complexity-1"><a href="#Time-Complexity-1" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>As we know, finding the cycle in a LinkedList with ‘N’ nodes and also finding the length of the cycle requires <strong><em>O(N)</em></strong>. Also, as we saw in the above algorithm, we will need <strong><em>O(N)</em></strong> to find the start of the cycle. Therefore, the overall time complexity of our algorithm will be <strong><em>O(N)</em></strong>.</p>
+<h4 id="Space-Complexity-1"><a href="#Space-Complexity-1" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Happy-Number-medium"><a href="#Happy-Number-medium" class="headerlink" title="Happy Number (medium)"></a>Happy Number (medium)</h2><p>leetcode 202</p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Any number will be called a happy number if, after repeatedly replacing it with a number equal to the <strong>sum of the square of all of its digits, leads us to number ‘1’</strong>. All other (not-happy) numbers will never reach ‘1’. Instead, they will be stuck in a cycle of numbers which does not include ‘1’.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inpu<span class="variable">t:</span> <span class="number">23</span>   </span><br><span class="line">Outpu<span class="variable">t:</span> true (<span class="number">23</span> <span class="keyword">is</span> <span class="keyword">a</span> happy <span class="keyword">number</span>)  </span><br><span class="line">Explanation<span class="variable">s:</span> Here are the steps <span class="keyword">to</span> <span class="keyword">find</span> out that <span class="number">23</span> <span class="keyword">is</span> <span class="keyword">a</span> happy <span class="keyword">number</span>:</span><br></pre></td></tr></table></figure>
+<ol>
+<li>2^2 + 3 ^2 = 4 + 9 = 13</li>
+<li>1^2 + 3^2 = 1 + 9 = 10</li>
+<li>1^2 + 0^2 = 1 + 0 = 1</li>
+</ol>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inpu<span class="variable">t:</span> <span class="number">12</span>   </span><br><span class="line">Outpu<span class="variable">t:</span> false (<span class="number">12</span> <span class="keyword">is</span> not <span class="keyword">a</span> happy <span class="keyword">number</span>)  </span><br><span class="line">Explanation<span class="variable">s:</span> Here are the steps <span class="keyword">to</span> <span class="keyword">find</span> out that <span class="number">12</span> <span class="keyword">is</span> not <span class="keyword">a</span> happy <span class="keyword">number</span>:</span><br></pre></td></tr></table></figure>
+<ol>
+<li>1^2 + 2 ^2 = 1 + 4 = 5</li>
+<li>5^2 = 25</li>
+<li>2^2 + 5^2 = 4 + 25 = 29</li>
+<li>2^2 + 9^2 = 4 + 81 = 85</li>
+<li>8^2 + 5^2 = 64 + 25 = 89</li>
+<li>8^2 + 9^2 = 64 + 81 = 145</li>
+<li>1^2 + 4^2 + 5^2 = 1 + 16 + 25 = 42</li>
+<li>4^2 + 2^2 = 16 + 4 = 20</li>
+<li>2^2 + 0^2 = 4 + 0 = 4</li>
+<li>4^2 = 16</li>
+<li>1^2 + 6^2 = 1 + 36 = 37</li>
+<li>3^2 + 7^2 = 9 + 49 = 58</li>
+<li>5^2 + 8^2 = 25 + 64 = 89</li>
+</ol>
+<p>Step ‘13’ leads us back to step ‘5’ as the number becomes equal to ‘89’, this means that we can never reach ‘1’, therefore, ‘12’ is not a happy number.</p>
+<h3 id="Try-it-yourself-2"><a href="#Try-it-yourself-2" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和solution不太一样 但是也对</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_happy_number</span>(<span class="params">num</span>):</span></span><br><span class="line">    slow, fast = num, num</span><br><span class="line">    <span class="keyword">while</span> fast != <span class="number">1</span> <span class="keyword">and</span> find_square_sum(fast) != <span class="number">1</span>:</span><br><span class="line">        slow = find_square_sum(slow)</span><br><span class="line">        fast = find_square_sum(find_square_sum(fast))</span><br><span class="line">        <span class="keyword">if</span> slow == fast:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_square_sum</span>(<span class="params">num</span>):</span></span><br><span class="line">    _<span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> num != <span class="number">0</span>:</span><br><span class="line">        digit = num % <span class="number">10</span></span><br><span class="line">        _<span class="built_in">sum</span> += digit * digit</span><br><span class="line">        num = num // <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> _<span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    result = find_happy_number(<span class="number">23</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    result = find_happy_number(<span class="number">12</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>The process, defined above, to find out if a number is a happy number or not, always ends in a cycle. If the number is a happy number, the process will be stuck in a cycle on number ‘1,’ and if the number is not a happy number then the process will be stuck in a cycle with a set of numbers. As we saw in Example-2 while determining if ‘12’ is a happy number or not, our process will get stuck in a cycle with the following numbers: 89 -&gt; 145 -&gt; 42 -&gt; 20 -&gt; 4 -&gt; 16 -&gt; 37 -&gt; 58 -&gt; 89</p>
+<p>We saw in the <em>LinkedList Cycle</em> problem that we can use the <strong>Fast &amp; Slow pointers</strong> method to find a cycle among a set of elements. As we have described above, each number will definitely have a cycle. Therefore, we will use the same fast &amp; slow pointer strategy to find the cycle and once the cycle is found, we will see if the cycle is stuck on number ‘1’ to find out if the number is happy or not.</p>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_happy_number</span>(<span class="params">num</span>):</span></span><br><span class="line">    slow, fast = num, num</span><br><span class="line">    <span class="comment"># As we have described above, each number will definitely have a cycle. </span></span><br><span class="line">    <span class="comment"># if the cycle is stuck on number ‘1’ to find out if the number is happy or not.</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        slow = find_square_sum(slow)</span><br><span class="line">        fast = find_square_sum(find_square_sum(fast))</span><br><span class="line">        <span class="keyword">if</span> slow == fast:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> slow == <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_square_sum</span>(<span class="params">num</span>):</span></span><br><span class="line">    _<span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> num != <span class="number">0</span>:</span><br><span class="line">        digit = num % <span class="number">10</span></span><br><span class="line">        _<span class="built_in">sum</span> += digit * digit</span><br><span class="line">        num = num // <span class="number">10</span></span><br><span class="line">    <span class="keyword">return</span> _<span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    result = find_happy_number(<span class="number">23</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    result = find_happy_number(<span class="number">12</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-Complexity-2"><a href="#Time-Complexity-2" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>The time complexity of the algorithm is difficult to determine. However we know the fact that all <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Happy_number#Sequence_behavio">unhappy numbers</a> eventually get stuck in the cycle: 4 -&gt; 16 -&gt; 37 -&gt; 58 -&gt; 89 -&gt; 145 -&gt; 42 -&gt; 20 -&gt; 4</p>
+<p>This <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Happy_number#Sequence_behavior">sequence behavior</a> tells us two things:</p>
+<ol>
+<li>If the number N<em>N</em> is less than or equal to 1000, then we reach the cycle or ‘1’ in at most 1001 steps.</li>
+<li>For <strong><em>N &gt; 1000</em></strong>, suppose the number has ‘M’ digits and the next number is ‘N1’. From the above Wikipedia link, we know that the sum of the squares of the digits of ‘N’ is at most $9^2M$, or $81M$ (this will happen when all digits of ‘N’ are ‘9’).</li>
+</ol>
+<p>This means:</p>
+<ol>
+<li>$N1 &lt; 81M$</li>
+<li>As we know $M = log(N+1)$</li>
+<li>Therefore: $N1 &lt; 81 * log(N+1) =&gt; N1 = O(logN)$</li>
+</ol>
+<p>This concludes that the above algorithm will have a time complexity of <strong><em>O(logN)</em></strong>.</p>
+<h4 id="Space-Complexity-2"><a href="#Space-Complexity-2" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Middle-of-the-LinkedList-easy"><a href="#Middle-of-the-LinkedList-easy" class="headerlink" title="Middle of the LinkedList (easy)"></a>Middle of the LinkedList (easy)</h2><p>leetcode 876</p>
+<h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given the head of a <strong>Singly LinkedList</strong>, write a method to return the <strong>middle node</strong> of the LinkedList.</p>
+<p>If the total number of nodes in the LinkedList is even, return the second middle node.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Input</span>: <span class="number">1</span> -&gt; <span class="number">2</span> -&gt; <span class="number">3</span> -&gt; <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; null</span><br><span class="line"><span class="attribute">Output</span>: <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Input</span>: <span class="number">1</span> -&gt; <span class="number">2</span> -&gt; <span class="number">3</span> -&gt; <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">6</span> -&gt; null</span><br><span class="line"><span class="attribute">Output</span>: <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Input</span>: <span class="number">1</span> -&gt; <span class="number">2</span> -&gt; <span class="number">3</span> -&gt; <span class="number">4</span> -&gt; <span class="number">5</span> -&gt; <span class="number">6</span> -&gt; <span class="number">7</span> -&gt; null</span><br><span class="line"><span class="attribute">Output</span>: <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-3"><a href="#Try-it-yourself-3" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_middle_of_linked_list</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> slow.value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">1</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">3</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    result = find_middle_of_linked_list(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line">    result = find_middle_of_linked_list(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">7</span>)</span><br><span class="line">    result = find_middle_of_linked_list(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>One brute force strategy could be to first count the number of nodes in the LinkedList and then find the middle node in the second iteration. Can we do this in one iteration?</p>
+<p>We can use the <strong>Fast &amp; Slow pointers</strong> method such that the fast pointer is always twice the nodes ahead of the slow pointer. This way, when the fast pointer reaches the end of the LinkedList, the slow pointer will be pointing at the middle node.</p>
+<h3 id="Code-3"><a href="#Code-3" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和我写的一摸一样，这里就不再赘述了</span></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The above algorithm will have a time complexity of <strong><em>O(N)</em></strong> where ‘N’ is the number of nodes in the LinkedList.</p>
+<h4 id="Space-complexity"><a href="#Space-complexity" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Problem-Challenge-1"><a href="#Problem-Challenge-1" class="headerlink" title="Problem Challenge 1"></a>Problem Challenge 1</h2><h3 id="Palindrome-LinkedList-medium"><a href="#Palindrome-LinkedList-medium" class="headerlink" title="Palindrome LinkedList (medium)"></a>Palindrome LinkedList (medium)</h3><p>leetcode 234</p>
+<p>Given the head of a <strong>Singly LinkedList</strong>, write a method to check if the <strong>LinkedList is a palindrome</strong> or not.</p>
+<p>Your algorithm should use <strong>constant space</strong> and the input LinkedList should be in the original form once the algorithm is finished. The algorithm should have O(N)<em>O</em>(<em>N</em>) time complexity where ‘N’ is the number of nodes in the LinkedList.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: <span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span> -&gt; <span class="number">2</span> -&gt; <span class="literal">null</span></span><br><span class="line">Output: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: <span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span> -&gt; <span class="number">2</span> -&gt; <span class="number">2</span> -&gt; <span class="literal">null</span></span><br><span class="line">Output: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-4"><a href="#Try-it-yourself-4" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和solution略微不同 但是有问题</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">head</span>):</span></span><br><span class="line">    prev = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">next</span> = head.<span class="built_in">next</span></span><br><span class="line">        head.<span class="built_in">next</span> = prev</span><br><span class="line">        prev = head</span><br><span class="line">        head = <span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_palindromic_linked_list</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    head_second_half = reverse(slow)</span><br><span class="line">    copy_head_second_half = head_second_half</span><br><span class="line">	<span class="comment"># 这里while略微不同，这样的写法会让直接return False就不会再次reverse 题目需要链表顺序不变，但是leetcode没有这个限制</span></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> head_second_half <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">if</span> head.value != head_second_half.value:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        head = head.<span class="built_in">next</span></span><br><span class="line">        head_second_half = head_second_half.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    reverse(copy_head_second_half)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    result = is_palindromic_linked_list(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">2</span>)</span><br><span class="line">    result = is_palindromic_linked_list(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><p>As we know, a palindrome LinkedList will have nodes values that read the same backward or forward. This means that if we divide the LinkedList into two halves, the node values of the first half in the forward direction should be similar to the node values of the second half in the backward direction. As we have been given a Singly LinkedList, we can’t move in the backward direction. To handle this, we will perform the following steps:</p>
+<ol>
+<li>We can use the <strong>Fast &amp; Slow pointers</strong> method similar to <em>Middle of the LinkedList</em> to find the middle node of the LinkedList.</li>
+<li>Once we have the middle of the LinkedList, we will reverse the second half.</li>
+<li>Then, we will compare the first half with the reversed second half to see if the LinkedList represents a palindrome.</li>
+<li>Finally, we will reverse the second half of the LinkedList again to revert and bring the LinkedList back to its original form.</li>
+</ol>
+<h3 id="Code-4"><a href="#Code-4" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="keyword">int</span> value) &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;value = value;</span><br><span class="line">        next = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PalindromicLinkedList</span> &#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// todo:</span></span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//找到中间节点</span></span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        ListNode* fast = head;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* headSecondHalf = <span class="built_in">reverse</span>(slow);</span><br><span class="line">        ListNode* copyHeadSecondHalf = headSecondHalf;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">nullptr</span> &amp;&amp; headSecondHalf != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (head-&gt;value != headSecondHalf-&gt;value) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">            headSecondHalf = headSecondHalf-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">reverse</span>(copyHeadSecondHalf);</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">nullptr</span> || headSecondHalf == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> ListNode* <span class="title">reverse</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode* prev = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            ListNode* next = head-&gt;next;</span><br><span class="line">            head-&gt;next = prev;</span><br><span class="line">            prev = head;</span><br><span class="line">            head = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ListNode* head = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">2</span>);</span><br><span class="line">    head-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">4</span>);</span><br><span class="line">    head-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">6</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">4</span>);</span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">2</span>);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Middle Node: &quot;</span> &lt;&lt; PalindromicLinkedList::<span class="built_in">isPalindrome</span>(head)</span><br><span class="line">         &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    head-&gt;next-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">2</span>);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Middle Node: &quot;</span> &lt;&lt; PalindromicLinkedList::<span class="built_in">isPalindrome</span>(head)</span><br><span class="line">         &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-1"><a href="#Time-complexity-1" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The above algorithm will have a time complexity of <strong><em>O(N)</em></strong> where ‘N’ is the number of nodes in the LinkedList.</p>
+<h4 id="Space-complexity-1"><a href="#Space-complexity-1" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Problem-Challenge-2"><a href="#Problem-Challenge-2" class="headerlink" title="# Problem Challenge 2"></a># Problem Challenge 2</h2><h3 id="Rearrange-a-LinkedList-medium"><a href="#Rearrange-a-LinkedList-medium" class="headerlink" title="Rearrange a LinkedList (medium)"></a>Rearrange a LinkedList (medium)</h3><p>leetcode 143</p>
+<p>Given the head of a Singly LinkedList, write a method to modify the LinkedList such that the <strong>nodes from the second half of the LinkedList are inserted alternately to the nodes from the first half in reverse order</strong>. So if the LinkedList has nodes 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6 -&gt; null, your method should return 1 -&gt; 6 -&gt; 2 -&gt; 5 -&gt; 3 -&gt; 4 -&gt; null.</p>
+<p>Your algorithm should not use any extra space and the input LinkedList should be modified in-place.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: <span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">6</span> -&gt; <span class="number">8</span> -&gt; <span class="number">10</span> -&gt; <span class="number">12</span> -&gt; <span class="literal">null</span></span><br><span class="line">Output: <span class="number">2</span> -&gt; <span class="number">12</span> -&gt; <span class="number">4</span> -&gt; <span class="number">10</span> -&gt; <span class="number">6</span> -&gt; <span class="number">8</span> -&gt; <span class="literal">null</span> </span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: <span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">6</span> -&gt; <span class="number">8</span> -&gt; <span class="number">10</span> -&gt; <span class="literal">null</span></span><br><span class="line">Output: <span class="number">2</span> -&gt; <span class="number">10</span> -&gt; <span class="number">4</span> -&gt; <span class="number">8</span> -&gt; <span class="number">6</span> -&gt; <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-5"><a href="#Try-it-yourself-5" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和solution有一点不一样,是自己做错了</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_list</span>(<span class="params">self</span>):</span></span><br><span class="line">        temp = self</span><br><span class="line">        <span class="keyword">while</span> temp <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="built_in">str</span>(temp.value) + <span class="string">&quot; &quot;</span> ,end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            temp = temp.<span class="built_in">next</span></span><br><span class="line">        <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">head</span>):</span></span><br><span class="line">    prev = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">next</span> = head.<span class="built_in">next</span></span><br><span class="line">        head.<span class="built_in">next</span> = prev</span><br><span class="line">        prev = head</span><br><span class="line">        head = <span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reorder</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    head_second_half = reverse(slow)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> head_second_half <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        temp1 = head.<span class="built_in">next</span></span><br><span class="line">        head.<span class="built_in">next</span> = head_second_half</span><br><span class="line">        head = temp1</span><br><span class="line">        temp2 = head_second_half.<span class="built_in">next</span></span><br><span class="line">        head_second_half.<span class="built_in">next</span> = temp1</span><br><span class="line">        head_second_half = temp2</span><br><span class="line">    <span class="comment"># 这里和solution有一点不一样，但是过了一个测试用例了[1,2,3,4,5]过不了</span></span><br><span class="line">    head.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">8</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">10</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">    result = reorder(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line">    head.print_list()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><p>This problem shares similarities with <em>Palindrome LinkedList</em>. To rearrange the given LinkedList we will follow the following steps:</p>
+<ol>
+<li>We can use the <strong>Fast &amp; Slow pointers</strong> method similar to <em>Middle of the LinkedList</em> to find the middle node of the LinkedList.</li>
+<li>Once we have the middle of the LinkedList, we will reverse the second half of the LinkedList.</li>
+<li>Finally, we’ll iterate through the first half and the reversed second half to produce a LinkedList in the required order.</li>
+</ol>
+<h3 id="Code-5"><a href="#Code-5" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_list</span>(<span class="params">self</span>):</span></span><br><span class="line">        temp = self</span><br><span class="line">        <span class="keyword">while</span> temp <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="built_in">str</span>(temp.value) + <span class="string">&quot; &quot;</span>, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            temp = temp.<span class="built_in">next</span></span><br><span class="line">        <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">head</span>):</span></span><br><span class="line">    prev = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">next</span> = head.<span class="built_in">next</span></span><br><span class="line">        head.<span class="built_in">next</span> = prev</span><br><span class="line">        prev = head</span><br><span class="line">        head = <span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reorder</span>(<span class="params">head</span>):</span></span><br><span class="line">    slow, fast = head, head</span><br><span class="line">    <span class="keyword">while</span> fast <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> fast.<span class="built_in">next</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        slow = slow.<span class="built_in">next</span></span><br><span class="line">        fast = fast.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">    head_second_half = reverse(slow)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> head_second_half <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        temp1 = head.<span class="built_in">next</span></span><br><span class="line">        head.<span class="built_in">next</span> = head_second_half</span><br><span class="line">        head = temp1</span><br><span class="line">        temp2 = head_second_half.<span class="built_in">next</span></span><br><span class="line">        head_second_half.<span class="built_in">next</span> = temp1</span><br><span class="line">        head_second_half = temp2</span><br><span class="line">    <span class="keyword">if</span> head <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        head.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    head = Node(<span class="number">2</span>)</span><br><span class="line">    head.<span class="built_in">next</span> = Node(<span class="number">4</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">6</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">8</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">10</span>)</span><br><span class="line">    head.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span>.<span class="built_in">next</span> = Node(<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">    result = reorder(head)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line">    head.print_list()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-Complexity-3"><a href="#Time-Complexity-3" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>The above algorithm will have a time complexity of <strong><em>O(N)</em></strong> where ‘N’ is the number of nodes in the LinkedList.</p>
+<h4 id="Space-Complexity-3"><a href="#Space-Complexity-3" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Problem-Challenge-3"><a href="#Problem-Challenge-3" class="headerlink" title="#Problem Challenge 3"></a>#Problem Challenge 3</h2><h3 id="Cycle-in-a-Circular-Array-hard"><a href="#Cycle-in-a-Circular-Array-hard" class="headerlink" title="Cycle in a Circular Array (hard)"></a>Cycle in a Circular Array (hard)</h3><p>leetcode 457</p>
+<p>We are given an array containing positive and negative numbers. Suppose the array contains a number ‘M’ at a particular index. Now, if ‘M’ is positive we will move forward ‘M’ indices and if ‘M’ is negative move backwards ‘M’ indices. You should assume that the <strong>array is circular</strong> which means two things:</p>
+<ol>
+<li>If, while moving forward, we reach the end of the array, we will jump to the first element to continue the movement.</li>
+<li>If, while moving backward, we reach the beginning of the array, we will jump to the last element to continue the movement.</li>
+</ol>
+<p>Write a method to determine <strong>if the array has a cycle</strong>. The cycle should have more than one element and should follow one direction which means the cycle should not contain both forward and backward movements.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [1, 2, -1, 2, 2]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: The<span class="built_in"> array </span>has a cycle among indices: 0 -&gt; 1 -&gt; 3 -&gt; 0</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [2, 2, -1, 2]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: The<span class="built_in"> array </span>has a cycle among indices: 1 -&gt; 3 -&gt; 1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [2, 1, -1, -2]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The<span class="built_in"> array </span>does<span class="built_in"> not </span>have any cycle.</span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-6"><a href="#Try-it-yourself-6" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不会</span></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><p>This problem involves finding a cycle in the array and, as we know, the <strong>Fast &amp; Slow pointer</strong> method is an efficient way to do that. We can start from each index of the array to find the cycle. If a number does not have a cycle we will move forward to the next element. There are a couple of additional things we need to take care of:</p>
+<ol>
+<li>As mentioned in the problem, the cycle should have more than one element. This means that when we move a pointer forward, if the pointer points to the same element after the move, we have a one-element cycle. Therefore, we can finish our cycle search for the current element.</li>
+<li>The other requirement mentioned in the problem is that the cycle should not contain both forward and backward movements. We will handle this by remembering the direction of each element while searching for the cycle. If the number is positive, the direction will be forward and if the number is negative, the direction will be backward. So whenever we move a pointer forward, if there is a change in the direction, we will finish our cycle search right there for the current element.</li>
+</ol>
+<h3 id="Code-6"><a href="#Code-6" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">circular_array_loop_exists</span>(<span class="params">arr</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        is_forward = arr[i] &gt;= <span class="number">0</span></span><br><span class="line">        slow, fast = i, i</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            slow = find_next_index(arr, is_forward, slow)</span><br><span class="line">            fast = find_next_index(arr, is_forward, fast)</span><br><span class="line">            <span class="keyword">if</span> fast != -<span class="number">1</span>:</span><br><span class="line">                fast = find_next_index(arr, is_forward, fast)</span><br><span class="line">            <span class="keyword">if</span> slow == -<span class="number">1</span> <span class="keyword">or</span> fast == -<span class="number">1</span> <span class="keyword">or</span> slow == fast:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> slow != -<span class="number">1</span> <span class="keyword">and</span> slow == fast:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_next_index</span>(<span class="params">arr, is_forward, current_index</span>):</span></span><br><span class="line">    direction = arr[current_index] &gt;= <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> is_forward != direction:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    next_index = (current_index + arr[current_index]) % <span class="built_in">len</span>(arr)</span><br><span class="line">    <span class="keyword">if</span> next_index == current_index:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> next_index</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    result = circular_array_loop_exists([<span class="number">1</span>, <span class="number">2</span>, -<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line">    result = circular_array_loop_exists([<span class="number">2</span>, <span class="number">2</span>, -<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line">    result = circular_array_loop_exists([<span class="number">2</span>, <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">2</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Result: &quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-Complexity-4"><a href="#Time-Complexity-4" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><p>The above algorithm will have a time complexity of <strong><em>O(N^2)</em></strong> where ‘N’ is the number of elements in the array. This complexity is due to the fact that we are iterating all elements of the array and trying to find a cycle for each element.</p>
+<h4 id="Space-Complexity-4"><a href="#Space-Complexity-4" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><p>The algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h4 id="An-Alternate-Approach"><a href="#An-Alternate-Approach" class="headerlink" title="An Alternate Approach"></a>An Alternate Approach</h4><p>In our algorithm, we don’t keep a record of all the numbers that have been evaluated for cycles. We know that all such numbers will not produce a cycle for any other instance as well. If we can remember all the numbers that have been visited, our algorithm will improve to <strong><em>O(N)</em></strong> as, then, each number will be evaluated for cycles only once. We can keep track of this by creating a separate array however the space complexity of our algorithm will increase to <strong><em>O(N)</em></strong>.</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
+            <p>Link：<a href="https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html">https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html</a>
+            <p>Publish date：<a href="https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html">November 4th 2021, 11:48:27 am</a>
+            <p>Update date：<a href="https://hasuer.github.io/4-pattern-fast-slow-pointers/index.html">March 11th 2024, 12:13:51 am</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/5-pattern-merge-intervals/index.html" title="5.Pattern Merge Intervals">
+                    <div class="nextTitle">5.Pattern Merge Intervals</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/3-pattern-two-pointers/index.html" title="3. Pattern Two Pointers">
+                    <div class="prevTitle">3. Pattern Two Pointers</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/HasuerYu" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LinkedList-Cycle-easy"><span class="toc-number">2.</span> <span class="toc-text">LinkedList Cycle (easy)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself"><span class="toc-number">2.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity"><span class="toc-number">2.4.1.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity"><span class="toc-number">2.4.2.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Similar-Problems"><span class="toc-number">2.5.</span> <span class="toc-text">Similar Problems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-of-LinkedList-Cycle-medium"><span class="toc-number">3.</span> <span class="toc-text">Start of LinkedList Cycle (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-1"><span class="toc-number">3.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.3.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Code-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity-1"><span class="toc-number">3.3.2.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity-1"><span class="toc-number">3.3.3.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Happy-Number-medium"><span class="toc-number">4.</span> <span class="toc-text">Happy Number (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-2"><span class="toc-number">4.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity-2"><span class="toc-number">4.4.1.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity-2"><span class="toc-number">4.4.2.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Middle-of-the-LinkedList-easy"><span class="toc-number">5.</span> <span class="toc-text">Middle of the LinkedList (easy)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-3"><span class="toc-number">5.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">5.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity"><span class="toc-number">5.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity"><span class="toc-number">5.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-1"><span class="toc-number">6.</span> <span class="toc-text">Problem Challenge 1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Palindrome-LinkedList-medium"><span class="toc-number">6.1.</span> <span class="toc-text">Palindrome LinkedList (medium)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-4"><span class="toc-number">6.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-4"><span class="toc-number">6.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-4"><span class="toc-number">6.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-1"><span class="toc-number">6.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-1"><span class="toc-number">6.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-2"><span class="toc-number">7.</span> <span class="toc-text"># Problem Challenge 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rearrange-a-LinkedList-medium"><span class="toc-number">7.1.</span> <span class="toc-text">Rearrange a LinkedList (medium)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-5"><span class="toc-number">7.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-5"><span class="toc-number">7.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-5"><span class="toc-number">7.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity-3"><span class="toc-number">7.4.1.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity-3"><span class="toc-number">7.4.2.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-3"><span class="toc-number">8.</span> <span class="toc-text">#Problem Challenge 3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cycle-in-a-Circular-Array-hard"><span class="toc-number">8.1.</span> <span class="toc-text">Cycle in a Circular Array (hard)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-6"><span class="toc-number">8.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-6"><span class="toc-number">8.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-6"><span class="toc-number">8.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity-4"><span class="toc-number">8.4.1.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity-4"><span class="toc-number">8.4.2.</span> <span class="toc-text">Space Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#An-Alternate-Approach"><span class="toc-number">8.4.3.</span> <span class="toc-text">An Alternate Approach</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 70
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span>
+            <a class="archive-post-title" href="/ubuntu20-04%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql8-%E8%AF%A6%E7%BB%86/index.html">Ubuntu20.04安装配置MySQL8(详细)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/%E6%96%B0%E8%8B%B1%E6%96%87%E6%9D%82%E5%BF%97/index.html">新英文杂志</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Axios学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Promise学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Nginx学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">AJAX学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span>
+            <a class="archive-post-title" href="/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/index.html">状态压缩dp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.html">蓝桥杯</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/19-conclusions/index.html">19. Conclusions</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span>
+            <a class="archive-post-title" href="/18-miscellaneous/index.html">18. Miscellaneous</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/17-pattern-topological-sort-graph/index.html">17. Pattern Topological Sort (Graph)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/12</span>
+            <a class="archive-post-title" href="/%E9%A9%AC%E6%96%AF%E5%85%8B%E7%9A%84%E5%86%92%E9%99%A9%E4%BA%BA%E7%94%9F/index.html">马斯克的冒险人生</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span>
+            <a class="archive-post-title" href="/16-pattern-0-or-1-knapsack-dynamic-programming/index.html">16. Pattern  0 or 1 Knapsack (Dynamic Programming)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span>
+            <a class="archive-post-title" href="/15-pattern-k-way-merge/index.html">15. Pattern K-way merge</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/14</span>
+            <a class="archive-post-title" href="/14-pattern-top-k-elements/index.html">14. Pattern Top _K_ Elements</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/12</span>
+            <a class="archive-post-title" href="/13-pattern-bitwise-xor/index.html">13. Pattern Bitwise XOR</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/12-pattern-modified-binary-search/index.html">12. Pattern Modified Binary Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/29</span>
+            <a class="archive-post-title" href="/11-pattern-subsets/index.html">11. Pattern Subsets</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span>
+            <a class="archive-post-title" href="/10-pattern-two-heaps/index.html">10. Pattern Two Heaps</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span>
+            <a class="archive-post-title" href="/9-pattern-tree-depth-first-search/index.html">9. Pattern Tree Depth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span>
+            <a class="archive-post-title" href="/8-pattern-tree-breadth-first-search/index.html">8. Pattern Tree Breadth First Search</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/7-pattern-in-place-reversal-of-a-linkedlist/index.html">7. Pattern In-place Reversal of a LinkedList</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span>
+            <a class="archive-post-title" href="/6-pattern-cyclic-sort/index.html">6. Pattern Cyclic Sort</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/08</span>
+            <a class="archive-post-title" href="/5-pattern-merge-intervals/index.html">5.Pattern Merge Intervals</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span>
+            <a class="archive-post-title" href="/4-pattern-fast-slow-pointers/index.html">4. Pattern Fast_Slow pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/28</span>
+            <a class="archive-post-title" href="/3-pattern-two-pointers/index.html">3. Pattern Two Pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/2-pattern-sliding-window/index.html">2. Pattern Sliding Window</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/1-introduction/index.html">1.Introduction</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/index.html">人工智能基础课堂笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Git学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/c-sort/index.html">C++ Sort()</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2%E8%AF%BB%E5%90%8E%E6%84%9F/index.html">人类简史读后感</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span>
+            <a class="archive-post-title" href="/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF-m-scott-peck/index.html">少有人走的路-M.Scott Peck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB/index.html">亲密关系</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E5%BF%83%E7%81%B5%E6%88%90%E9%95%BF%E6%97%85%E7%A8%8B/index.html">我的心灵成长旅程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/index.html">长沙之旅</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/postgresql-alter-table%E4%B8%AD%E6%94%B9%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6using%E7%9A%84%E7%94%A8%E6%B3%95/index.html">PostgreSQL ALTER TABLE中改变数据类型时USING的用法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/kmp/index.html">KMP</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E7%94%9F%E5%91%BD%E6%95%85%E4%BA%8B/index.html">我的生命故事</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/%E7%A9%B7%E6%9F%A5%E7%90%86%E5%AE%9D%E5%85%B8/index.html">穷查理宝典</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span>
+            <a class="archive-post-title" href="/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/index.html">被讨厌的勇气</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/%E5%88%B7%E9%A2%98%E6%BC%8F%E6%B4%9E/index.html">刷题漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/index.html">非暴力沟通</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html">富爸爸穷爸爸</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/latex%E8%BD%AC%E6%8D%A2markdown/index.html">latex转换markdown</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html">人类简史</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span>
+            <a class="archive-post-title" href="/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html">改变vscode默认代码格式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/matlab-plot/index.html">Matlab_plot</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span>
+            <a class="archive-post-title" href="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA3实验报告</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-bigfilesforxv6/index.html">MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-locking/index.html">MIT 6.828 Homework_Locking</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-xv6cpualarm/index.html">MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-lazypageallocation/index.html">MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-systemcall/index.html">MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-barriers/index.html">MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA2实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-threadsandlocks/index.html">MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">打印多个hello</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span>
+            <a class="archive-post-title" href="/pv%E9%A2%98/index.html">PV题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/132-pattern/index.html">132 Pattern</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">外刊句子</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/book-xv6-chapter-0/index.html">book_xv6:Chapter_0</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">Blog目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-shell/index.html">MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">归并排序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span>
+            <a class="archive-post-title" href="/09-working-with-processes/index.html">09 Working with processes</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html">【哈佛公开课】Justice</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA1实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span>
+            <a class="archive-post-title" href="/hello-world/index.html">Hello World</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="Interview">
+                <span class="iconfont-archer">&#xe606;</span>
+                Interview
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="stack">
+                <span class="iconfont-archer">&#xe606;</span>
+                stack
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="MIT OS">
+                <span class="iconfont-archer">&#xe606;</span>
+                MIT OS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="NEMU实验">
+                <span class="iconfont-archer">&#xe606;</span>
+                NEMU实验
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="进程管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                进程管理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux 基础">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux 基础
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人文">
+                <span class="iconfont-archer">&#xe606;</span>
+                人文
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="社会">
+                <span class="iconfont-archer">&#xe606;</span>
+                社会
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人类史">
+                <span class="iconfont-archer">&#xe606;</span>
+                人类史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="历史">
+                <span class="iconfont-archer">&#xe606;</span>
+                历史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心理学">
+                <span class="iconfont-archer">&#xe606;</span>
+                心理学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人际关系">
+                <span class="iconfont-archer">&#xe606;</span>
+                人际关系
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="情感">
+                <span class="iconfont-archer">&#xe606;</span>
+                情感
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="新英文杂志">
+                <span class="iconfont-archer">&#xe606;</span>
+                新英文杂志
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资理财">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资理财
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="财商">
+                <span class="iconfont-archer">&#xe606;</span>
+                财商
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心智">
+                <span class="iconfont-archer">&#xe606;</span>
+                心智
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="排序算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                排序算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人生哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                人生哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心灵成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                心灵成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="沟通">
+                <span class="iconfont-archer">&#xe606;</span>
+                沟通
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人物传记，企业管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                人物传记，企业管理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Algorithm">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Algorithm
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="技术笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            技术笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统实验
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            计算机组成原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Matlab
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tips
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="阅读笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            阅读笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="随笔">
+            <span class="iconfont-archer">&#xe60a;</span>
+            随笔
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vscode-tips
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

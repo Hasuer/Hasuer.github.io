@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#define inf 1234567890
+int n,m,s;
+int a[10005][10005]; // 邻接表
+inline int read()
+{
+    int x=0,k=1; char c=getchar();
+    while(c<'0'||c>'9'){if(c=='-')k=-1;c=getchar();}
+    while(c>='0'&&c<='9')x=(x<<3)+(x<<1)+(c^48),c=getchar();
+    return x*k;
+}//快读
+void Floyd() {
+	for(int k = 1; k <= n; k ++) {
+		for (int i = 1; i <= n; i ++) {
+		    if(k == i || a[i][k] == inf){
+		        continue;
+		    }
+			for (int j = 1; j <= n; j ++) {
+				if( i == j || j == k) {
+					// 重要判断，减少复杂度
+					continue;
+				}
+				if(a[k][j] != inf ) {
+					// 重要判断，减少复杂度 ,必不可少，不然会溢出
+					if(a[i][j] > a[i][k] + a[k][j]) {
+						a[i][j] = a[i][k] + a[k][j];
+					}
+				}
+
+			}
+		}
+	}
+}
+int main() {
+	n = read();
+	m = read();
+	s = read();
+//	memset(a, 127,sizeof(a)); // 初始化为一个很大的数
+	for(int i = 0 ; i <= n;  i++) {
+		for (int j = 0 ; j <= n; j ++) {
+			a[i][j] = inf;
+		}
+	}
+	for (int i= 0 ; i < m;  i++) {
+		int u, v, w;
+//		scanf("%d%d%d",&u,&v,&w);
+		u=read();
+		v=read();
+		w=read();
+		a[u][v] =min(a[u][v], w);
+		// min对付重边
+	}
+	Floyd();
+	a[s][s] = 0; // 对自己重置为0
+	for(int i = 1; i <= n; i ++ ) {
+		printf("%d ",a[s][i]);
+	}
+	return 0;
+}
