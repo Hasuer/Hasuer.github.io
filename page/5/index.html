@@ -445,63 +445,6 @@
             
         
         <article class="index-post">
-            <a class="abstract-title" href="/mit-6-828-assignment-threadsandlocks/index.html">
-                
-                <span class="abstract-title-text">MIT 6.828 Assignment_ThreadsandLocks</span>
-            </a>
-            <div class="abstract-content">
-                
-实验指导书
-
-MIT 6.828 Operating System Engineering
-
-【思路】
-代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。
-put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。
-get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。
-这样不断通过put 和get来实现并行程序。
-产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/11/06">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/06</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
             <a class="abstract-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">
                 
                 <span class="abstract-title-text">打印多个hello</span>
@@ -928,6 +871,74 @@ MIT 6.828 Operating System Engineering
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="排序算法">排序算法</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/09-working-with-processes/index.html">
+                
+                <span class="abstract-title-text">09 Working with processes</span>
+            </a>
+            <div class="abstract-content">
+                What is a process?
+进程是一个正在执行的程序。
+每一个程序都有自己的运行环境
+
+To see the PID of your current shell process, type:
+1echo $$
+其中：
+
+echo表示在屏幕上显示东西
+
+$$$$表示查看当前进程的PID
+
+Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）
+
+
+
+Starting and stopping a process
+所有的进程都是由其他进程发起的
+init进程是直接由内核产生，一般来说ID是1
+进程的退出
+自己执行完毕以后退出
+其他的进程发出了信号...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/10/18">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Linux 基础">Linux 基础</a>
     
 </div>
 
@@ -1379,32 +1390,7 @@ MIT 6.828 Operating System Engineering
         
         
         
-        
-        
-        
-        
-        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
@@ -1885,7 +1871,7 @@ MIT 6.828 Operating System Engineering
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 54
+        Total : 53
         </div>
         <!-- search  -->
         
@@ -1983,12 +1969,6 @@ MIT 6.828 Operating System Engineering
             <div class="archive-year"> 2021 </div>
             <ul class="year-list">
             
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">11/25</span>
-            <a class="archive-post-title" href="/10-pattern-two-heaps/index.html">10. Pattern Two Heaps</a>
-        </li>
-    
         
         <li class="archive-post-item">
             <span class="archive-post-date">09/13</span>
@@ -2281,29 +2261,9 @@ MIT 6.828 Operating System Engineering
                 进程管理
             </span>
         
-            <span class="sidebar-tag-name" data-tags="Linux 基础">
-                <span class="iconfont-archer">&#xe606;</span>
-                Linux 基础
-            </span>
-        
             <span class="sidebar-tag-name" data-tags="人文">
                 <span class="iconfont-archer">&#xe606;</span>
                 人文
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="社会">
-                <span class="iconfont-archer">&#xe606;</span>
-                社会
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="人类史">
-                <span class="iconfont-archer">&#xe606;</span>
-                人类史
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="历史">
-                <span class="iconfont-archer">&#xe606;</span>
-                历史
             </span>
         
             <span class="sidebar-tag-name" data-tags="心理学">
@@ -2319,6 +2279,21 @@ MIT 6.828 Operating System Engineering
             <span class="sidebar-tag-name" data-tags="情感">
                 <span class="iconfont-archer">&#xe606;</span>
                 情感
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="社会">
+                <span class="iconfont-archer">&#xe606;</span>
+                社会
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人类史">
+                <span class="iconfont-archer">&#xe606;</span>
+                人类史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="历史">
+                <span class="iconfont-archer">&#xe606;</span>
+                历史
             </span>
         
             <span class="sidebar-tag-name" data-tags="新英文杂志">
@@ -2341,6 +2316,11 @@ MIT 6.828 Operating System Engineering
                 思维模式
             </span>
         
+            <span class="sidebar-tag-name" data-tags="Linux 基础">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux 基础
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="成长">
                 <span class="iconfont-archer">&#xe606;</span>
                 成长
@@ -2356,6 +2336,16 @@ MIT 6.828 Operating System Engineering
                 排序算法
             </span>
         
+            <span class="sidebar-tag-name" data-tags="心灵成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                心灵成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                哲学
+            </span>
+        
             <span class="sidebar-tag-name" data-tags="投资">
                 <span class="iconfont-archer">&#xe606;</span>
                 投资
@@ -2369,16 +2359,6 @@ MIT 6.828 Operating System Engineering
             <span class="sidebar-tag-name" data-tags="人生哲学">
                 <span class="iconfont-archer">&#xe606;</span>
                 人生哲学
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="心灵成长">
-                <span class="iconfont-archer">&#xe606;</span>
-                心灵成长
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="哲学">
-                <span class="iconfont-archer">&#xe606;</span>
-                哲学
             </span>
         
             <span class="sidebar-tag-name" data-tags="沟通">
@@ -2427,14 +2407,14 @@ MIT 6.828 Operating System Engineering
             操作系统实验
         </span>
     
-        <span class="sidebar-category-name" data-categories="计算机组成原理">
-            <span class="iconfont-archer">&#xe60a;</span>
-            计算机组成原理
-        </span>
-    
         <span class="sidebar-category-name" data-categories="Matlab">
             <span class="iconfont-archer">&#xe60a;</span>
             Matlab
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            计算机组成原理
         </span>
     
         <span class="sidebar-category-name" data-categories="tips">
