@@ -445,6 +445,159 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">
+                
+                <span class="abstract-title-text">PA2实验报告</span>
+            </a>
+            <div class="abstract-content">
+                
+
+
+
+序号
+是否完成
+
+
+
+
+必做任务1
+是
+
+
+必做任务2
+是
+
+
+必做任务3
+是
+
+
+必做任务4
+是
+
+
+必做任务5
+是
+
+
+选作任务1
+是
+
+
+选作任务2
+是
+
+
+
+
+思考题1【问题】
+main函数返回到哪里？查看testcase的相关代码，你知道用户程序从main函数返回以后会跳转到哪里吗？如果用户程序在GNU/Linux中运行，问题的答案又是什么？
+【我的解答】
+
+程序从主函数执行以后会回到ui_mainloop中继续执行下一条指令，从而达到循环执行的效果
+在Linux中，用户程序执行完main函数会回到类似的地方，叫做_libc_start_main
+
+
+
+思考题2【问题】...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/01/18">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/10</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="计算机组成原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                计算机组成原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="NEMU实验">NEMU实验</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-assignment-threadsandlocks/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Assignment_ThreadsandLocks</span>
+            </a>
+            <div class="abstract-content">
+                
+实验指导书
+
+MIT 6.828 Operating System Engineering
+
+【思路】
+代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。
+put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。
+get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。
+这样不断通过put 和get来实现并行程序。
+产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/11/06">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/06</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">
                 
                 <span class="abstract-title-text">打印多个hello</span>
@@ -813,132 +966,6 @@ MIT 6.828 Operating System Engineering
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">
-                
-                <span class="abstract-title-text">归并排序</span>
-            </a>
-            <div class="abstract-content">
-                归并排序这是一个典型排序问题。用到了递归和分治的思想。
-动图1：
-
-动图2：
-
-分为三步：
-
-递归分解
-合并排好序的数组
-主函数
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;vector&gt;using namespace std;void mergearray(vector&lt;int&gt;&amp; nums, int first, in...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/23">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/18</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="Algorithm"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                Algorithm
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="排序算法">排序算法</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/09-working-with-processes/index.html">
-                
-                <span class="abstract-title-text">09 Working with processes</span>
-            </a>
-            <div class="abstract-content">
-                What is a process?
-进程是一个正在执行的程序。
-每一个程序都有自己的运行环境
-
-To see the PID of your current shell process, type:
-1echo $$
-其中：
-
-echo表示在屏幕上显示东西
-
-$$$$表示查看当前进程的PID
-
-Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）
-
-
-
-Starting and stopping a process
-所有的进程都是由其他进程发起的
-init进程是直接由内核产生，一般来说ID是1
-进程的退出
-自己执行完毕以后退出
-其他的进程发出了信号...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/10/18">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/15</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Linux 基础">Linux 基础</a>
     
 </div>
 
@@ -1390,7 +1417,41 @@ init进程是直接由内核产生，一般来说ID是1
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1871,7 +1932,7 @@ init进程是直接由内核产生，一般来说ID是1
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 53
+        Total : 55
         </div>
         <!-- search  -->
         
@@ -1885,6 +1946,18 @@ init进程是直接由内核产生，一般来说ID是1
             <div class="archive-year"> 2024 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/fast/index.html">Fast</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2-pattern-fast-slow-pointers/index.html">2. Pattern Fast_Slow pointers</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">04/30</span>
