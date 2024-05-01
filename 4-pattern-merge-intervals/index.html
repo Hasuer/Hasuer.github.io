@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Hasuer">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Hasuer">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="IntroductionThis pattern describes an efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4. Pattern Merge Intervals">
+<meta property="og:url" content="https://hasuer.github.io/4-pattern-merge-intervals/index.html">
+<meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="IntroductionThis pattern describes an efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/2.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/3.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/4.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/5.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/6.png">
+<meta property="og:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/7.png">
+<meta property="article:published_time" content="2024-05-01T05:23:13.000Z">
+<meta property="article:modified_time" content="2024-05-01T06:40:00.193Z">
+<meta property="article:author" content="Hasuer">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/4-pattern-merge-intervals/index/1.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/old_profile.ico">
+    
+    <title>4. Pattern Merge Intervals · Hasuer&#39;s Studio</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20210823" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20210823" as="style">
+    <link rel="stylesheet" href="/css/dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/mobile.css?v=20210823" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20210823" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20210823" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>Hasuer's Studio.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">Hasuer&#39;s Studio.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">4. Pattern Merge Intervals</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                4. Pattern Merge Intervals
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="Algorithm"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                Algorithm
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Interview">Interview</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">5.2k</span>Reading time: <span class="post-count reading-time">30 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/05/01</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>This pattern describes an efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals if they overlap.</p>
+<p>Given two intervals (‘a’ and ‘b’), there will be six different ways the two intervals can relate to each other:</p>
+<p><img src="/4-pattern-merge-intervals/index/1.png"></p>
+<p>Understanding the above six cases will help us in solving all intervals related problems. Let’s jump onto our first problem to understand the <strong>Merge Interval</strong> pattern.</p>
+<h2 id="Merge-Intervals-medium"><a href="#Merge-Intervals-medium" class="headerlink" title="*Merge Intervals (medium)"></a>*Merge Intervals (medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"> Top Interview 150 | <a target="_blank" rel="noopener" href="https://leetcode.com/problems/merge-intervals/">56. Merge Intervals</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Similar | Top Interview 150 | <a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/">452. Minimum Number of Arrows to Burst Balloons</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a list of intervals, <strong>merge all the overlapping intervals</strong> to produce a list that has only mutually exclusive intervals.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Intervals</span>: [[<span class="number">1</span>,<span class="number">4</span>], [<span class="number">2</span>,<span class="number">5</span>], [<span class="number">7</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="symbol">Output</span>: [[<span class="number">1</span>,<span class="number">5</span>], [<span class="number">7</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">Since</span> the first two intervals [<span class="number">1</span>,<span class="number">4</span>] and [<span class="number">2</span>,<span class="number">5</span>] overlap, we merged them into </span><br><span class="line">one [<span class="number">1</span>,<span class="number">5</span>].</span><br></pre></td></tr></table></figure>
+<p><img src="/4-pattern-merge-intervals/index/1.png"></p>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Intervals</span>: [[<span class="number">6</span>,<span class="number">7</span>], [<span class="number">2</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="symbol">Output</span>: [[<span class="number">2</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">Since</span> the intervals [<span class="number">6</span>,<span class="number">7</span>] and [<span class="number">5</span>,<span class="number">9</span>] overlap, we merged them into one [<span class="number">5</span>,<span class="number">9</span>].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intervals: <span class="string">[[1,4], [2,6], [3,5]]</span></span><br><span class="line">Output: <span class="string">[[1,6]]</span></span><br><span class="line">Explanation: Since all the given intervals overlap, we merged them into one.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself"><a href="#Try-it-yourself" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 看了solution才想起来的</span></span><br></pre></td></tr></table></figure>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Let’s take the example of two intervals (‘a’ and ‘b’) such that <code>a.start &lt;= b.start</code>. There are four possible scenarios:</p>
+<p><img src="/4-pattern-merge-intervals/index/2.png"></p>
+<p>Our goal is to merge the intervals whenever they overlap. For the above-mentioned three overlapping scenarios (2, 3, and 4), this is how we will merge them:</p>
+<p><img src="/4-pattern-merge-intervals/index/3.png"></p>
+<p>The diagram above clearly shows a merging approach. Our algorithm will look like this:</p>
+<ol>
+<li>Sort the intervals on the start time to ensure <code>a.start &lt;= b.start</code></li>
+<li>If ‘a’ overlaps ‘b’ (i.e. <code>b.start &lt;= a.end</code>), we need to merge them into a new interval ‘c’ such that:</li>
+</ol>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">c</span>.start <span class="operator">=</span> a.start</span><br><span class="line"><span class="keyword">c</span>.<span class="keyword">end</span> <span class="operator">=</span> <span class="keyword">max</span>(a.<span class="keyword">end</span><span class="punctuation">,</span> b.<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Interval</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, start, end</span>):</span></span><br><span class="line">        self.start = start</span><br><span class="line">        self.end = end</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_interval</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[&quot;</span> + <span class="built_in">str</span>(self.start) + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(self.end) + <span class="string">&quot;]&quot;</span>, end=<span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">intervals</span>):</span></span><br><span class="line">    <span class="comment"># 下面这个if也可以不要。leetcode过了</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(intervals) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> intervals</span><br><span class="line">    intervals.sort(key=<span class="keyword">lambda</span> x: x.start)</span><br><span class="line">    mergedIntervals = []</span><br><span class="line">    start = intervals[<span class="number">0</span>].start</span><br><span class="line">    end = intervals[<span class="number">0</span>].end</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(intervals)):</span><br><span class="line">        interval = intervals[i]</span><br><span class="line">        <span class="keyword">if</span> interval.start &lt;= end:</span><br><span class="line">            end = <span class="built_in">max</span>(end, interval.end)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            mergedIntervals.append(Interval(start, end))</span><br><span class="line">            start = interval.start</span><br><span class="line">            end = interval.end</span><br><span class="line">    mergedIntervals.append(Interval(start, end))</span><br><span class="line">    <span class="keyword">return</span> mergedIntervals</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> merge([Interval(<span class="number">1</span>, <span class="number">3</span>), Interval(<span class="number">2</span>, <span class="number">5</span>), Interval(<span class="number">7</span>, <span class="number">9</span>)]):</span><br><span class="line">        i.print_interval()</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> merge([Interval(<span class="number">6</span>, <span class="number">7</span>), Interval(<span class="number">2</span>, <span class="number">4</span>), Interval(<span class="number">5</span>, <span class="number">9</span>)]):</span><br><span class="line">        i.print_interval()</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> merge([Interval(<span class="number">1</span>, <span class="number">4</span>), Interval(<span class="number">2</span>, <span class="number">6</span>), Interval(<span class="number">3</span>, <span class="number">5</span>)]):</span><br><span class="line">        i.print_interval()</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The time complexity of the above algorithm is <strong><em>O(N \</em> logN)*</strong>, where ‘N’ is the total number of intervals. We are iterating the intervals only once which will take <strong><em>O(N)</em></strong>, in the beginning though, since we need to sort the intervals, our algorithm will take <strong><em>O(N \</em> logN)*</strong>.</p>
+<h4 id="Space-complexity"><a href="#Space-complexity" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be <strong><em>O(N)</em></strong> as we need to return a list containing all the merged intervals. We will also need <strong><em>O(N)</em></strong> space for sorting. For Java, depending on its version, <code>Collection.sort()</code> either uses <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Merge_sort">Merge sort</a> or <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Timsort">Timsort</a>, and both these algorithms need <strong><em>O(N)</em></strong> space. Overall, our algorithm has a space complexity of <strong><em>O(N)</em></strong>.</p>
+<h3 id="Similar-Problems"><a href="#Similar-Problems" class="headerlink" title="Similar Problems"></a>Similar Problems</h3><p><strong>Problem 1:</strong> Given a set of intervals, find out if any two intervals overlap.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intervals: <span class="comment">[<span class="comment">[1,4]</span>, <span class="comment">[2,5]</span>, <span class="comment">[7,9]</span>]</span></span><br><span class="line">Output: true</span><br><span class="line">Explanation: Intervals <span class="comment">[1,4]</span> and <span class="comment">[2,5]</span> overlap</span><br></pre></td></tr></table></figure>
+<p><strong>Solution:</strong> We can follow the same approach as discussed above to find if any two intervals overlap.</p>
+<h2 id="Insert-Interval-medium"><a href="#Insert-Interval-medium" class="headerlink" title="*Insert Interval (medium)"></a>*Insert Interval (medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Top Interview 150 |<a target="_blank" rel="noopener" href="https://leetcode.com/problems/insert-interval/">57. Insert Interval</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a list of non-<strong>overlapping</strong> intervals <strong>sorted by their start time,</strong> <strong>insert a given interval at the correct position</strong> and merge all necessary intervals to produce a list that has only mutually exclusive intervals.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Input</span>: <span class="symbol">Intervals</span>=[[<span class="number">1</span>,<span class="number">3</span>], [<span class="number">5</span>,<span class="number">7</span>], [<span class="number">8</span>,<span class="number">12</span>]], <span class="symbol">New</span> <span class="symbol">Interval</span>=[<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="symbol">Output</span>: [[<span class="number">1</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">7</span>], [<span class="number">8</span>,<span class="number">12</span>]]</span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">After</span> insertion, since [<span class="number">4</span>,<span class="number">6</span>] overlaps with [<span class="number">5</span>,<span class="number">7</span>], we merged them into one [<span class="number">4</span>,<span class="number">7</span>].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Input</span>: <span class="symbol">Intervals</span>=[[<span class="number">1</span>,<span class="number">3</span>], [<span class="number">5</span>,<span class="number">7</span>], [<span class="number">8</span>,<span class="number">12</span>]], <span class="symbol">New</span> <span class="symbol">Interval</span>=[<span class="number">4</span>,<span class="number">10</span>]</span><br><span class="line"><span class="symbol">Output</span>: [[<span class="number">1</span>,<span class="number">3</span>], [<span class="number">4</span>,<span class="number">12</span>]]</span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">After</span> insertion, since [<span class="number">4</span>,<span class="number">10</span>] overlaps with [<span class="number">5</span>,<span class="number">7</span>] &amp; [<span class="number">8</span>,<span class="number">12</span>], we merged them into [<span class="number">4</span>,<span class="number">12</span>].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Input</span>: <span class="symbol">Intervals</span>=[[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">5</span>,<span class="number">7</span>]], <span class="symbol">New</span> <span class="symbol">Interval</span>=[<span class="number">1</span>,<span class="number">4</span>]</span><br><span class="line"><span class="symbol">Output</span>: [[<span class="number">1</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">7</span>]]</span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">After</span> insertion, since [<span class="number">1</span>,<span class="number">4</span>] overlaps with [<span class="number">2</span>,<span class="number">3</span>], we merged them into one [<span class="number">1</span>,<span class="number">4</span>].</span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-1"><a href="#Try-it-yourself-1" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个思路和上一题的思路一眼，只不过先add一个interval之后再排序，再用和上面一样的代码</span></span><br><span class="line"><span class="comment">// 但是我发现这道题的solution和我的写法不一样哈哈哈，所以看看solution，这个自己写的就算复习上一题的算法好了</span></span><br><span class="line"><span class="comment">// 看了solution意思就是，上一题没有排序，这一题排序了已经，所以我们要写出比nlogn更好的时间复杂度的算法。</span></span><br><span class="line"><span class="comment">// 在第二轮做的时候就直接用了solution的方法,虽然过了测试用例，但是做了很久，不熟</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>If the given list was not sorted, we could have simply appended the new interval to it and used the <code>merge()</code> function from <em>Merge Intervals</em>. But since the given list is sorted, we should try to come up with a solution better than <strong><em>O(N \</em> logN)*</strong></p>
+<p>When inserting a new interval in a sorted list, we need to first find the correct index where the new interval can be placed. In other words, we need to skip all the intervals which end before the start of the new interval. So we can iterate through the given sorted listed of intervals and skip all the intervals with the following condition:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intervals[i].end &lt; <span class="keyword">new</span><span class="type">Interval</span>.start</span><br></pre></td></tr></table></figure>
+<p>Once we have found the correct place, we can follow an approach similar to <em>Merge Intervals</em> to insert and/or merge the new interval. Let’s call the new interval ‘a’ and the first interval with the above condition ‘b’. There are five possibilities:</p>
+<p><img src="/4-pattern-merge-intervals/index/4.png"></p>
+<p>The diagram above clearly shows the merging approach. To handle all four merging scenarios, we need to do something like this:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.start = min(a.<span class="keyword">start</span>, b.<span class="keyword">start</span>)</span><br><span class="line">c.end = max(a.<span class="keyword">end</span>, b.<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<p>Our overall algorithm will look like this:</p>
+<ol>
+<li>Skip all intervals which end before the start of the new interval, i.e., skip all <code>intervals</code> with the following condition:</li>
+</ol>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intervals[i].end &lt; <span class="keyword">new</span><span class="type">Interval</span>.start</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Let’s call the last interval ‘b’ that does not satisfy the above condition. If ‘b’ overlaps with the new interval (a) (i.e. <code>b.start &lt;= a.end</code>), we need to merge them into a new interval ‘c’:</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.start = min(a.<span class="keyword">start</span>, b.<span class="keyword">start</span>)</span><br><span class="line">c.end = max(a.<span class="keyword">end</span>, b.<span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>We will repeat the above two steps to merge ‘c’ with the next overlapping interval.</li>
+</ol>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">intervals, new_interval</span>):</span></span><br><span class="line">    merged = []</span><br><span class="line">    i, start, end = <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(intervals) <span class="keyword">and</span> intervals[i][end] &lt; new_interval[start]:</span><br><span class="line">        merged.append(intervals[i])</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(intervals) <span class="keyword">and</span> intervals[i][start] &lt;= new_interval[end]:</span><br><span class="line">		<span class="comment"># 下面这两条没有想到</span></span><br><span class="line">        new_interval[start] = <span class="built_in">min</span>(intervals[i][start], new_interval[start])</span><br><span class="line">        new_interval[end] = <span class="built_in">max</span>(intervals[i][end], new_interval[end])</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    merged.append([new_interval[start], new_interval[end]])</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(intervals):</span><br><span class="line">        merged.append(intervals[i])</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> merged</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = insert([[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">7</span>], [<span class="number">8</span>, <span class="number">12</span>]], [<span class="number">4</span>, <span class="number">6</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = insert([[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">7</span>], [<span class="number">8</span>, <span class="number">12</span>]], [<span class="number">4</span>, <span class="number">10</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = insert([[<span class="number">2</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">7</span>]], [<span class="number">1</span>, <span class="number">4</span>])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-1"><a href="#Time-complexity-1" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>As we are iterating through all the intervals only once, the time complexity of the above algorithm is <strong><em>O(N)</em></strong>, where ‘N’ is the total number of intervals.</p>
+<h4 id="Space-complexity-1"><a href="#Space-complexity-1" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be <strong><em>O(N)</em></strong> as we need to return a list containing all the merged intervals.</p>
+<h2 id="Intervals-Intersection-medium"><a href="#Intervals-Intersection-medium" class="headerlink" title="*Intervals Intersection (medium)"></a>*Intervals Intersection (medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Top Interview 150 |<a target="_blank" rel="noopener" href="https://leetcode.com/problems/interval-list-intersections/">986. Interval List Intersections</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given two lists of intervals, find the <strong>intersection of these two lists</strong>. Each list consists of <strong>disjoint intervals sorted on their start time</strong>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: arr1=<span class="string">[[1, 3], [5, 6], [7, 9]]</span>, arr2=<span class="string">[[2, 3], [5, 7]]</span></span><br><span class="line">Output: [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">7</span>]</span><br><span class="line">Explanation: The <span class="built_in">output</span> list contains the common intervals between the two lists.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: arr1=<span class="string">[[1, 3], [5, 7], [9, 12]]</span>, arr2=<span class="string">[[5, 10]]</span></span><br><span class="line">Output: [<span class="number">5</span>, <span class="number">7</span>], [<span class="number">9</span>, <span class="number">10</span>]</span><br><span class="line">Explanation: The <span class="built_in">output</span> list contains the common intervals between the two lists.</span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-2"><a href="#Try-it-yourself-2" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是看了solution之后写的，不太会</span></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>This problem follows the <em>Merge Intervals</em> pattern. As we have discussed under <em>Insert Intervals</em>, there are five overlapping possibilities between two intervals ‘a’ and ‘b’. A close observation will tell us that whenever the two intervals overlap, one of the interval’s start time lies within the other interval. This rule can help us identify if any two intervals overlap or not.</p>
+<p><img src="/4-pattern-merge-intervals/index/5.png"></p>
+<p>Now, if we have found that the two intervals overlap, how can we find the overlapped part?</p>
+<p>Again from the above diagram, the overlapping interval will be equal to:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start = max(a.<span class="keyword">start</span>, b.<span class="keyword">start</span>)</span><br><span class="line">end = min(a.<span class="keyword">end</span>, b.<span class="keyword">end</span>) </span><br></pre></td></tr></table></figure>
+<p>That is, the highest start time and the lowest end time will be the overlapping interval.</p>
+<p>So our algorithm will be to iterate through both the lists together to see if any two intervals overlap. If two intervals overlap, we will insert the overlapped part into a result list and move on to the next interval which is finishing early.</p>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">intervals_a, intervals_b</span>):</span></span><br><span class="line">    merged = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(intervals_a) <span class="keyword">and</span> j &lt; <span class="built_in">len</span>(intervals_b):</span><br><span class="line">        a_overlap_b = intervals_a[i][<span class="number">0</span>] &gt;= intervals_b[j][<span class="number">0</span>] <span class="keyword">and</span> \</span><br><span class="line">                      intervals_a[i][<span class="number">0</span>] &lt;= intervals_b[j][<span class="number">1</span>]</span><br><span class="line">        b_overlap_a = intervals_b[j][<span class="number">0</span>] &gt;= intervals_a[i][<span class="number">0</span>] <span class="keyword">and</span> \</span><br><span class="line">                      intervals_b[j][<span class="number">0</span>] &lt;= intervals_a[i][<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> a_overlap_b <span class="keyword">or</span> b_overlap_a:</span><br><span class="line">            merged.append([<span class="built_in">max</span>(intervals_a[i][<span class="number">0</span>], intervals_b[j][<span class="number">0</span>]), <span class="built_in">min</span>(intervals_a[i][<span class="number">1</span>], intervals_b[j][<span class="number">1</span>])])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> intervals_a[i][<span class="number">1</span>] &gt; intervals_b[j][<span class="number">1</span>]:</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> merged</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = insert([[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">9</span>]], [[<span class="number">2</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">7</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = insert([[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">7</span>], [<span class="number">9</span>, <span class="number">12</span>]], [[<span class="number">5</span>, <span class="number">10</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-2"><a href="#Time-complexity-2" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>As we are iterating through both the lists once, the time complexity of the above algorithm is <strong><em>O(N+M)</em></strong>, where ‘N’ and ‘M’ are the total number of intervals in the input arrays respectively.</p>
+<h4 id="Space-complexity-2"><a href="#Space-complexity-2" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>Ignoring the space needed for the result list, the algorithm runs in constant space <strong><em>O(1)</em></strong>.</p>
+<h2 id="Conflicting-Appointments-medium"><a href="#Conflicting-Appointments-medium" class="headerlink" title="Conflicting Appointments (medium)"></a>Conflicting Appointments (medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given an array of intervals representing ‘N’ appointments, find out if a person can <strong>attend all the appointments</strong>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Appointments: <span class="comment">[<span class="comment">[1,4]</span>, <span class="comment">[2,5]</span>, <span class="comment">[7,9]</span>]</span></span><br><span class="line">Output: false</span><br><span class="line">Explanation: Since <span class="comment">[1,4]</span> and <span class="comment">[2,5]</span> overlap, a <span class="keyword">person</span> cannot attend both <span class="keyword">of</span> these appointments.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Appointments: <span class="string">[[6,7], [2,4], [8,12]]</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line">Explanation: None of the appointments overlap, therefore a person can attend all of them.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Appointments: <span class="comment">[<span class="comment">[4,5]</span>, <span class="comment">[2,3]</span>, <span class="comment">[3,6]</span>]</span></span><br><span class="line">Output: false</span><br><span class="line">Explanation: Since <span class="comment">[4,5]</span> and <span class="comment">[3,6]</span> overlap, a <span class="keyword">person</span> cannot attend both <span class="keyword">of</span> these appointments.</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-3"><a href="#Try-it-yourself-3" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">can_attend_all_appointment</span>(<span class="params">intervals</span>):</span></span><br><span class="line">    intervals.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(intervals)):</span><br><span class="line">        <span class="comment"># 注意这里是 &lt; 不是 &lt;=,因为&lt;=还是可以参加所有的预约的</span></span><br><span class="line">        <span class="keyword">if</span> intervals[i][<span class="number">0</span>] &lt; intervals[i - <span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = can_attend_all_appointment([[<span class="number">1</span>, <span class="number">4</span>], [<span class="number">2</span>, <span class="number">5</span>], [<span class="number">7</span>, <span class="number">9</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = can_attend_all_appointment([[<span class="number">6</span>, <span class="number">7</span>], [<span class="number">2</span>, <span class="number">4</span>], [<span class="number">8</span>, <span class="number">12</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = can_attend_all_appointment([[<span class="number">4</span>, <span class="number">5</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">6</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>The problem follows the <em>Merge Intervals</em> pattern. We can sort all the intervals by start time and then check if any two intervals overlap. A person will not be able to attend all appointments if any two appointments overlap.</p>
+<h3 id="Code-3"><a href="#Code-3" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 和我的一样，不在赘述</span></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-3"><a href="#Time-complexity-3" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The time complexity of the above algorithm is <strong><em>O(N\</em>logN)*</strong>, where ‘N’ is the total number of appointments. Though we are iterating the intervals only once, our algorithm will take <strong><em>O(N\</em>logN)*</strong> since we need to sort them in the beginning.</p>
+<h4 id="Space-complexity-3"><a href="#Space-complexity-3" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be O(N), which we need for sorting. For Java, <code>Arrays.sort()</code> uses <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Timsort">Timsort</a>, which needs <strong><em>O(N)</em></strong> space.</p>
+<hr>
+<h3 id="Similar-Problems-1"><a href="#Similar-Problems-1" class="headerlink" title="Similar Problems"></a>Similar Problems</h3><p><strong>Problem 1:</strong> Given a list of appointments, find all the conflicting appointments.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Appointments</span>: [[<span class="number">4</span>,<span class="number">5</span>], [<span class="number">2</span>,<span class="number">3</span>], [<span class="number">3</span>,<span class="number">6</span>], [<span class="number">5</span>,<span class="number">7</span>], [<span class="number">7</span>,<span class="number">8</span>]]</span><br><span class="line"><span class="symbol">Output</span>: </span><br><span class="line">[<span class="number">4</span>,<span class="number">5</span>] and [<span class="number">3</span>,<span class="number">6</span>] conflict. </span><br><span class="line">[<span class="number">3</span>,<span class="number">6</span>] and [<span class="number">5</span>,<span class="number">7</span>] conflict.</span><br></pre></td></tr></table></figure>
+<h2 id="Problem-Challenge-1"><a href="#Problem-Challenge-1" class="headerlink" title="*Problem Challenge 1"></a>*Problem Challenge 1</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Minimum-Meeting-Rooms-hard"><a href="#Minimum-Meeting-Rooms-hard" class="headerlink" title="Minimum Meeting Rooms (hard)"></a>Minimum Meeting Rooms (hard)</h3><p>Given a list of intervals representing the start and end time of ‘N’ meetings, find the <strong>minimum number of rooms</strong> required to <strong>hold all the meetings</strong>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Meetings</span>: [[<span class="number">1</span>,<span class="number">4</span>], [<span class="number">2</span>,<span class="number">5</span>], [<span class="number">7</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="symbol">Output</span>: <span class="number">2</span></span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">Since</span> [<span class="number">1</span>,<span class="number">4</span>] and [<span class="number">2</span>,<span class="number">5</span>] overlap, we need two rooms to hold these two meetings. [<span class="number">7</span>,<span class="number">9</span>] can </span><br><span class="line">occur in any of the two rooms later.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Meetings: <span class="comment">[<span class="comment">[6,7]</span>, <span class="comment">[2,4]</span>, <span class="comment">[8,12]</span>]</span></span><br><span class="line">Output: 1</span><br><span class="line">Explanation: None <span class="keyword">of</span> the meetings overlap, therefore we only need one <span class="keyword">room</span> to hold all meetings.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Meetings</span>: [[<span class="number">1</span>,<span class="number">4</span>], [<span class="number">2</span>,<span class="number">3</span>], [<span class="number">3</span>,<span class="number">6</span>]]</span><br><span class="line"><span class="symbol">Output</span>:<span class="number">2</span></span><br><span class="line"><span class="symbol">Explanation</span>: <span class="symbol">Since</span> [<span class="number">1</span>,<span class="number">4</span>] overlaps with the other two meetings [<span class="number">2</span>,<span class="number">3</span>] and [<span class="number">3</span>,<span class="number">6</span>], we need two rooms to </span><br><span class="line">hold all the meetings.</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Meetings: <span class="comment">[<span class="comment">[4,5]</span>, <span class="comment">[2,3]</span>, <span class="comment">[2,4]</span>, <span class="comment">[3,5]</span>]</span></span><br><span class="line">Output: 2</span><br><span class="line">Explanation: We will need one <span class="keyword">room</span> for <span class="comment">[2,3]</span> and <span class="comment">[3,5]</span>, and another <span class="keyword">room</span> for <span class="comment">[2,4]</span> and <span class="comment">[4,5]</span>.</span><br><span class="line"> </span><br><span class="line">Here <span class="keyword">is</span> a visual representation <span class="keyword">of</span> Example 4:</span><br></pre></td></tr></table></figure>
+<p><img src="/4-pattern-merge-intervals/index/6.png"></p>
+<h3 id="Try-it-yourself-4"><a href="#Try-it-yourself-4" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这是看了solution写的 但是没有定义class，所以在使用heap的时候吧list的两个元素反转了一下</span></span><br><span class="line"><span class="comment"># 在solution可以看到原版答案</span></span><br><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_meeting_rooms</span>(<span class="params">meetings</span>):</span></span><br><span class="line">    <span class="comment"># 根据开始时间排序</span></span><br><span class="line">    meetings.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    min_rooms = <span class="number">0</span></span><br><span class="line">    min_heap = []</span><br><span class="line">    <span class="keyword">for</span> meeting <span class="keyword">in</span> meetings:</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(min_heap) &gt; <span class="number">0</span> <span class="keyword">and</span> meeting[<span class="number">0</span>] &gt;= min_heap[<span class="number">0</span>][<span class="number">0</span>]:  <span class="comment"># 和最早的会议结束时间去比较，注意min_heap[0][0]是结束时间，因为在插入的时候</span></span><br><span class="line">            heappop(min_heap)</span><br><span class="line">        heappush(min_heap, (meeting[<span class="number">1</span>], meeting[<span class="number">0</span>])) <span class="comment"># 优先根据列表的第二个元素排序,也就是会议的结束时间</span></span><br><span class="line">        min_rooms = <span class="built_in">max</span>(min_rooms, <span class="built_in">len</span>(min_heap))</span><br><span class="line">    <span class="keyword">return</span> min_rooms</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">1</span>, <span class="number">4</span>], [<span class="number">2</span>, <span class="number">5</span>], [<span class="number">7</span>, <span class="number">9</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">6</span>, <span class="number">7</span>], [<span class="number">2</span>, <span class="number">4</span>], [<span class="number">8</span>, <span class="number">12</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">1</span>, <span class="number">4</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">6</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><p>Let’s take the above-mentioned example (4) and try to follow our <em>Merge Intervals</em> approach:</p>
+<p><strong>Meetings:</strong> [[4,5], [2,3], [2,4], [3,5]]</p>
+<p><strong>Step 1:</strong> Sorting these meetings on their start time will give us: [[2,3], [2,4], [3,5], [4,5]]</p>
+<p><strong>Step 2:</strong> Merging overlapping meetings:</p>
+<ul>
+<li>[2,3] overlaps with [2,4], so after merging we’ll have =&gt; [[2,4], [3,5], [4,5]]</li>
+<li>[2,4] overlaps with [3,5], so after merging we’ll have =&gt; [[2,5], [4,5]]</li>
+<li>[2,5] overlaps [4,5], so after merging we’ll have =&gt; [2,5]</li>
+</ul>
+<p>Since all the given meetings have merged into one big meeting ([2,5]), does this mean that they all are overlapping and we need a minimum of four rooms to hold these meetings? You might have already guessed that the answer is NO! As we can clearly see, some meetings are mutually exclusive. For example, [2,3] and [3,5] do not overlap and can happen in one room. So, to correctly solve our problem, we need to keep track of the mutual exclusiveness of the overlapping meetings.</p>
+<p>Here is what our strategy will look like:</p>
+<ol>
+<li>We will sort the meetings based on start time.</li>
+<li>We will schedule the first meeting (let’s call it <code>m1</code>) in one room (let’s call it <code>r1</code>).</li>
+<li>If the next meeting <code>m2</code> is not overlapping with <code>m1</code>, we can safely schedule it in the same room <code>r1</code>.</li>
+<li>If the next meeting <code>m3</code> is overlapping with <code>m2</code> we can’t use <code>r1</code>, so we will schedule it in another room (let’s call it <code>r2</code>).</li>
+<li>Now if the next meeting <code>m4</code> is overlapping with <code>m3</code>, we need to see if the room <code>r1</code> has become free. For this, we need to keep track of the end time of the meeting happening in it. If the end time of <code>m2</code> is before the start time of <code>m4</code>, we can use that room <code>r1</code>, otherwise, we need to schedule <code>m4</code> in another room <code>r3</code>.</li>
+</ol>
+<p>We can conclude that we need to <strong>keep track of the ending time of all the meetings currently happening</strong> so that when we try to schedule a new meeting, we can see what meetings have already ended. We need to put this information in a data structure that can easily give us the smallest ending time. A <strong>Min Heap</strong> would fit our requirements best.</p>
+<p>So our algorithm will look like this:</p>
+<ol>
+<li>Sort all the meetings on their start time.</li>
+<li>Create a min-heap to store all the active meetings. This min-heap will also be used to find the active meeting with the smallest end time.</li>
+<li>Iterate through all the meetings one by one to add them in the min-heap. Let’s say we are trying to schedule the meeting <code>m1</code>.</li>
+<li>Since the min-heap contains all the active meetings, so before scheduling <code>m1</code> we can remove all meetings from the heap that have ended before <code>m1</code>, i.e., remove all meetings from the heap that have an end time smaller than or equal to the start time of <code>m1</code>.</li>
+<li>Now add <code>m1</code> to the heap.</li>
+<li>The heap will always have all the overlapping meetings, so we will need rooms for all of them. Keep a counter to remember the maximum size of the heap at any time which will be the minimum number of rooms needed.</li>
+</ol>
+<h3 id="Code-4"><a href="#Code-4" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Meeting</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, start, end</span>):</span></span><br><span class="line">        self.start = start</span><br><span class="line">        self.end = end</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__lt__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="comment"># 按照第二个元素由小到大排列</span></span><br><span class="line">        <span class="keyword">return</span> self.end &lt; other.end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_meeting_rooms</span>(<span class="params">meetings</span>):</span></span><br><span class="line">    <span class="comment"># 根据开始时间排序</span></span><br><span class="line">    meetings.sort(key=<span class="keyword">lambda</span> x: x.start)</span><br><span class="line"></span><br><span class="line">    min_rooms = <span class="number">0</span></span><br><span class="line">    min_heap = []</span><br><span class="line">    <span class="keyword">for</span> meeting <span class="keyword">in</span> meetings:</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(min_heap) &gt; <span class="number">0</span> <span class="keyword">and</span> meeting.start &gt;= min_heap[<span class="number">0</span>].end:  <span class="comment"># 和最早的会议结束时间去比较，注意min_heap[0][0]是结束时间，因为在插入的时候</span></span><br><span class="line">            heappop(min_heap)</span><br><span class="line">        heappush(min_heap, meeting)  <span class="comment"># 优先根据列表的第二个元素排序,也就是会议的结束时间</span></span><br><span class="line">        min_rooms = <span class="built_in">max</span>(min_rooms, <span class="built_in">len</span>(min_heap))</span><br><span class="line">    <span class="keyword">return</span> min_rooms</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = min_meeting_rooms([Meeting(<span class="number">4</span>, <span class="number">5</span>), Meeting(<span class="number">2</span>, <span class="number">3</span>), Meeting(<span class="number">2</span>, <span class="number">4</span>), Meeting(<span class="number">3</span>, <span class="number">5</span>)])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-4"><a href="#Time-complexity-4" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The time complexity of the above algorithm is <strong><em>O(N\</em>logN)*</strong>, where ‘N’ is the total number of meetings. This is due to the sorting that we did in the beginning. Also, while iterating the meetings we might need to poll/offer meeting to the priority queue. Each of these operations can take <strong><em>O(N\</em>logN)*</strong>. Overall our algorithm will take <strong><em>O(N\</em>logN)*</strong>.</p>
+<h4 id="Space-complexity-4"><a href="#Space-complexity-4" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be <strong><em>O(N)</em></strong> which is required for sorting. Also, in the worst case scenario, we’ll have to insert all the meetings into the <strong>Min Heap</strong> (when all meetings overlap) which will also take <strong><em>O(N)</em></strong> space. The overall space complexity of our algorithm is <strong><em>O(N)</em></strong>.</p>
+<hr>
+<h3 id="Similar-Problems-2"><a href="#Similar-Problems-2" class="headerlink" title="Similar Problems"></a>Similar Problems</h3><p><strong>Problem 1:</strong> Given a list of intervals, find the point where the maximum number of intervals overlap.</p>
+<p><strong>Problem 2:</strong> Given a list of intervals representing the arrival and departure times of trains to a train station, our goal is to find the minimum number of platforms required for the train station so that no train has to wait.</p>
+<p>Both of these problems can be solved using the approach discussed above.</p>
+<h2 id="Problem-Challenge-2"><a href="#Problem-Challenge-2" class="headerlink" title="Problem Challenge 2"></a>Problem Challenge 2</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Maximum-CPU-Load-hard"><a href="#Maximum-CPU-Load-hard" class="headerlink" title="Maximum CPU Load (hard)"></a>Maximum CPU Load (hard)</h3><p>We are given a list of Jobs. Each job has a Start time, an End time, and a CPU load when it is running. Our goal is to find the <strong>maximum CPU load</strong> at any time if all the <strong>jobs are running on the same machine</strong>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Jobs: <span class="string">[[1,4,3], [2,5,4], [7,9,6]]</span></span><br><span class="line">Output: <span class="number">7</span></span><br><span class="line">Explanation: Since [<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>] <span class="keyword">and</span> [<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>] overlap, their maximum CPU <span class="built_in">load</span> (<span class="number">3</span>+<span class="number">4</span>=<span class="number">7</span>) will be when both the </span><br><span class="line">jobs are <span class="built_in">running</span> at the same <span class="built_in">time</span> i.e., during the <span class="built_in">time</span> interval (<span class="number">2</span>,<span class="number">4</span>).</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Jobs: <span class="string">[[6,7,10], [2,4,11], [8,12,15]]</span></span><br><span class="line">Output: <span class="number">15</span></span><br><span class="line">Explanation: None of the jobs overlap, therefore we will take the maximum <span class="built_in">load</span> of any job which is <span class="number">15.</span></span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Jobs: <span class="string">[[1,4,2], [2,4,1], [3,6,5]]</span></span><br><span class="line">Output: <span class="number">8</span></span><br><span class="line">Explanation: Maximum CPU <span class="built_in">load</span> will be <span class="number">8</span> as all jobs overlap during the <span class="built_in">time</span> interval [<span class="number">3</span>,<span class="number">4</span>]. </span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-5"><a href="#Try-it-yourself-5" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这是看了solution写的 但是没有定义class，所以在使用heap的时候吧list的两个元素反转了一下</span></span><br><span class="line"><span class="comment"># 在solution可以看到原版答案</span></span><br><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_meeting_rooms</span>(<span class="params">jobs</span>):</span></span><br><span class="line">    <span class="comment"># 根据开始时间排序</span></span><br><span class="line">    jobs.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    max_load, current_load = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    min_heap = []</span><br><span class="line">    <span class="keyword">for</span> job <span class="keyword">in</span> jobs:</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(min_heap) &gt; <span class="number">0</span> <span class="keyword">and</span> job[<span class="number">0</span>] &gt;= min_heap[<span class="number">0</span>][<span class="number">1</span>]:  </span><br><span class="line">            current_load -= min_heap[<span class="number">0</span>][<span class="number">2</span>]</span><br><span class="line">            heappop(min_heap)</span><br><span class="line">        heappush(min_heap, job)  </span><br><span class="line">        current_load += job[<span class="number">2</span>]</span><br><span class="line">        max_load = <span class="built_in">max</span>(max_load, current_load)</span><br><span class="line">    <span class="keyword">return</span> max_load</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>], [<span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>], [<span class="number">7</span>, <span class="number">9</span>, <span class="number">6</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">11</span>], [<span class="number">8</span>, <span class="number">12</span>, <span class="number">15</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([[<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>], [<span class="number">3</span>, <span class="number">6</span>, <span class="number">5</span>]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><p>The problem follows the <strong><em>Merge Intervals</em></strong> pattern and can easily be converted to <strong><em>Minimum Meeting Rooms</em></strong>. Similar to ‘Minimum Meeting Rooms’ where we were trying to find the maximum number of meetings happening at any time, for ‘Maximum CPU Load’ we need to find the maximum number of jobs running at any time. We will need to keep a running count of the maximum CPU load at any time to find the overall maximum load.</p>
+<h3 id="Code-5"><a href="#Code-5" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">job</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, start, end, cpu_load</span>):</span></span><br><span class="line">        self.start = start</span><br><span class="line">        self.end = end</span><br><span class="line">        self.cpu_load = cpu_load</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__lt__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="comment"># 按照第二个元素由小到大排列</span></span><br><span class="line">        <span class="keyword">return</span> self.end &lt; other.end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_meeting_rooms</span>(<span class="params">jobs</span>):</span></span><br><span class="line">    <span class="comment"># 根据开始时间排序</span></span><br><span class="line">    jobs.sort(key=<span class="keyword">lambda</span> x: x.start)</span><br><span class="line"></span><br><span class="line">    max_load, current_load = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    min_heap = []</span><br><span class="line">    <span class="keyword">for</span> job <span class="keyword">in</span> jobs:</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(min_heap) &gt; <span class="number">0</span> <span class="keyword">and</span> job.start &gt;= min_heap[<span class="number">0</span>].end:  </span><br><span class="line">            current_load -= min_heap[<span class="number">0</span>].cpu_load</span><br><span class="line">            heappop(min_heap)</span><br><span class="line">        heappush(min_heap, job)  </span><br><span class="line">        current_load += job.cpu_load</span><br><span class="line">        max_load = <span class="built_in">max</span>(max_load, current_load)</span><br><span class="line">    <span class="keyword">return</span> max_load</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = min_meeting_rooms([job(<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>), job(<span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>), job(<span class="number">7</span>, <span class="number">9</span>, <span class="number">6</span>)])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([job(<span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>), job(<span class="number">2</span>, <span class="number">4</span>, <span class="number">11</span>), job(<span class="number">8</span>, <span class="number">12</span>, <span class="number">15</span>)])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = min_meeting_rooms([job(<span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>), job(<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>), job(<span class="number">3</span>, <span class="number">6</span>, <span class="number">5</span>)])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-5"><a href="#Time-complexity-5" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The time complexity of the above algorithm is <strong><em>O(N\</em>logN)*</strong>, where ‘N’ is the total number of jobs. This is due to the sorting that we did in the beginning. Also, while iterating the jobs, we might need to poll/offer jobs to the priority queue. Each of these operations can take <strong><em>O(log\</em>N)*</strong>. Overall our algorithm will take <strong><a href><em>O(N\</em>logN)*</a></strong></p>
+<h4 id="Space-complexity-5"><a href="#Space-complexity-5" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be <strong><em>O(N)</em></strong>, which is required for sorting. Also, in the worst case, we have to insert all the jobs into the priority queue (when all jobs overlap) which will also take <strong><em>O(N)</em></strong> space. The overall space complexity of our algorithm is <strong><em>O(N)</em></strong></p>
+<h2 id="Problem-Challenge-3"><a href="#Problem-Challenge-3" class="headerlink" title="**Problem Challenge 3"></a>**Problem Challenge 3</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Employee-Free-Time-hard"><a href="#Employee-Free-Time-hard" class="headerlink" title="Employee Free Time (hard)"></a>Employee Free Time (hard)</h3><p>For ‘K’ employees, we are given a list of intervals representing the working hours of each employee. Our goal is to find out if there is a <strong>free interval that is common to all employees</strong>. You can assume that each list of employee working hours is sorted on the start time.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: Employee Working Hours=<span class="comment">[<span class="comment">[<span class="comment">[1,3]</span>, <span class="comment">[5,6]</span>]</span>, <span class="comment">[<span class="comment">[2,3]</span>, <span class="comment">[6,8]</span>]</span>]</span></span><br><span class="line">Output: <span class="comment">[3,5]</span></span><br><span class="line">Explanation: Both the employess <span class="keyword">are</span> free between <span class="comment">[3,5]</span>.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: Employee Working Hours=<span class="string">[[[1,3], [9,12]]</span>, <span class="string">[[2,4]]</span>, <span class="string">[[6,8]]</span>]</span><br><span class="line">Output: [<span class="number">4</span>,<span class="number">6</span>], [<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line">Explanation: All employess are free between [<span class="number">4</span>,<span class="number">6</span>] <span class="keyword">and</span> [<span class="number">8</span>,<span class="number">9</span>].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: Employee Working Hours=<span class="string">[[[1,3]]</span>, <span class="string">[[2,4]]</span>, <span class="string">[[3,5], [7,9]]</span>]</span><br><span class="line">Output: [<span class="number">5</span>,<span class="number">7</span>]</span><br><span class="line">Explanation: All employess are free between [<span class="number">5</span>,<span class="number">7</span>].</span><br></pre></td></tr></table></figure>
+<h3 id="Try-it-yourself-6"><a href="#Try-it-yourself-6" class="headerlink" title="Try it yourself"></a>Try it yourself</h3><p>Try solving this question here:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不会</span></span><br><span class="line"><span class="comment"># One simple solution can be to put the working hours of all employees in a list and sort them on the start time. Then we can iterate through the list to find the gaps.</span></span><br><span class="line"><span class="comment"># 可以看solution 但是这个的缺点是没有利用本身的排序</span></span><br></pre></td></tr></table></figure>
+<h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><p>This problem follows the <strong><em>Merge Intervals</em></strong> pattern. Let’s take the above-mentioned example (2) and visually draw it:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: Employee Working Hours=<span class="string">[[[1,3], [9,12]]</span>, <span class="string">[[2,4]]</span>, <span class="string">[[6,8]]</span>]</span><br><span class="line">Output: [<span class="number">4</span>,<span class="number">6</span>], [<span class="number">8</span>,<span class="number">9</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="/4-pattern-merge-intervals/index/7.png"></p>
+<p>One simple solution can be to put the working hours of all employees in a list and sort them on the start time. Then we can iterate through the list to find the gaps. Let’s dig deeper. Sorting the intervals of the above example will give us:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[1,3]</span>, <span class="selector-attr">[2,4]</span>, <span class="selector-attr">[6,8]</span>, <span class="selector-attr">[9,12]</span></span><br></pre></td></tr></table></figure>
+<p>We can now iterate through these intervals, and whenever we find non-overlapping intervals (e.g., [2,4] and [6,8]), we can calculate a free interval (e.g., [4,6]). This algorithm will take <strong><em>O(N \</em> logN)*</strong> time, where ‘N’ is the total number of intervals. This time is needed because we need to sort all the intervals. The space complexity will be <strong><em>O(N)</em></strong>, which is needed for sorting. Can we find a better solution?</p>
+<h4 id="Using-a-Heap-to-Sort-the-Intervals"><a href="#Using-a-Heap-to-Sort-the-Intervals" class="headerlink" title="Using a Heap to Sort the Intervals"></a>Using a Heap to Sort the Intervals</h4><p>One fact that we are not utilizing is that each employee list is individually sorted!</p>
+<p>How about we take the first interval of each employee and insert it in a <strong>Min Heap</strong>. This <strong>Min Heap</strong> can always give us the interval with the smallest start time. Once we have the smallest start-time interval, we can then compare it with the next smallest start-time interval (again from the <strong>Heap</strong>) to find the gap. This interval comparison is similar to what we suggested in the previous approach.</p>
+<p>Whenever we take an interval out of the <strong>Min Heap</strong>, we can insert the next interval of the same employee. This also means that we need to know which interval belongs to which employee.</p>
+<h3 id="Code-6"><a href="#Code-6" class="headerlink" title="Code"></a>Code</h3><p>Here is what our algorithm will look like:</p>
+<p><strong>其实思路没咋看懂，比较难懂，需要自习研究一下</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> heapq <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Interval</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, start, end</span>):</span></span><br><span class="line">        self.start = start</span><br><span class="line">        self.end = end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmployeeInterval</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, interval, employeeIndex, intervalIndex</span>):</span></span><br><span class="line">        self.interval = interval</span><br><span class="line">        self.intervalIndex = intervalIndex</span><br><span class="line">        self.employeeIndex = employeeIndex</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__lt__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="comment"># 按照第一个元素由小到大排列（默认，所以这个不写也可以）</span></span><br><span class="line">        <span class="keyword">return</span> self.interval.start &lt; other.interval.start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_employee_freeTime</span>(<span class="params">schedules</span>):</span></span><br><span class="line">    <span class="comment"># 根据开始时间排序</span></span><br><span class="line">    min_heap, result = [], []</span><br><span class="line">    n = <span class="built_in">len</span>(schedules)  <span class="comment"># 员工人数</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        heappush(min_heap, EmployeeInterval(schedules[i][<span class="number">0</span>], i, <span class="number">0</span>))</span><br><span class="line">    previousInterval = min_heap[<span class="number">0</span>].interval</span><br><span class="line">    <span class="keyword">while</span> min_heap:</span><br><span class="line">        queue_top = heappop(min_heap)</span><br><span class="line">        <span class="keyword">if</span> previousInterval.end &lt; queue_top.interval.start:</span><br><span class="line">            result.append([previousInterval.end, queue_top.interval.start])</span><br><span class="line">            previousInterval = queue_top.interval</span><br><span class="line">        <span class="keyword">elif</span> previousInterval.end &lt; queue_top.interval.end:</span><br><span class="line">            previousInterval = queue_top.interval</span><br><span class="line">        employeeSchedule = schedules[queue_top.employeeIndex]</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(employeeSchedule) &gt; queue_top.intervalIndex + <span class="number">1</span>:</span><br><span class="line">            heappush(min_heap, EmployeeInterval(employeeSchedule[queue_top.intervalIndex + <span class="number">1</span>], queue_top.employeeIndex,</span><br><span class="line">                                                queue_top.intervalIndex + <span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    res = find_employee_freeTime(</span><br><span class="line">        [[Interval(<span class="number">1</span>, <span class="number">3</span>), Interval(<span class="number">5</span>, <span class="number">6</span>)], [Interval(<span class="number">2</span>, <span class="number">3</span>), Interval(<span class="number">6</span>, <span class="number">8</span>)]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = find_employee_freeTime(</span><br><span class="line">        [[Interval(<span class="number">1</span>, <span class="number">3</span>), Interval(<span class="number">9</span>, <span class="number">12</span>)], [Interval(<span class="number">2</span>, <span class="number">4</span>), Interval(<span class="number">6</span>, <span class="number">8</span>)]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line">    res = find_employee_freeTime(</span><br><span class="line">        [[Interval(<span class="number">1</span>, <span class="number">3</span>), Interval(<span class="number">2</span>, <span class="number">4</span>)], [Interval(<span class="number">3</span>, <span class="number">5</span>), Interval(<span class="number">7</span>, <span class="number">9</span>)]])</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(res))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Time-complexity-6"><a href="#Time-complexity-6" class="headerlink" title="Time complexity"></a>Time complexity</h4><p>The time complexity of the above algorithm is <strong><em>O(N\</em>logK)*</strong>, where ‘N’ is the total number of intervals and ‘K’ is the total number of employees. This is due to the fact that we are iterating through the intervals only once (which will take <strong><em>O(N)</em></strong>), and every time we process an interval, we remove (and can insert) one interval in the <strong>Min Heap</strong>, (which will take <strong><em>O(N\</em>logK)*</strong>). At any time the heap will not have more than ‘K’ elements.</p>
+<h4 id="Space-complexity-6"><a href="#Space-complexity-6" class="headerlink" title="Space complexity"></a>Space complexity</h4><p>The space complexity of the above algorithm will be <strong><em>O(K)</em></strong> as at any time the heap will not have more than ‘K’ elements.</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
+            <p>Link：<a href="https://hasuer.github.io/4-pattern-merge-intervals/index.html">https://hasuer.github.io/4-pattern-merge-intervals/index.html</a>
+            <p>Publish date：<a href="https://hasuer.github.io/4-pattern-merge-intervals/index.html">May 1st 2024, 1:23:13 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/4-pattern-merge-intervals/index.html">May 1st 2024, 2:40:00 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/3-pattern-sliding-window/index.html" title="3. Pattern Sliding Window">
+                    <div class="prevTitle">3. Pattern Sliding Window</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/HasuerYu" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-Intervals-medium"><span class="toc-number">2.</span> <span class="toc-text">*Merge Intervals (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself"><span class="toc-number">2.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity"><span class="toc-number">2.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity"><span class="toc-number">2.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Similar-Problems"><span class="toc-number">2.5.</span> <span class="toc-text">Similar Problems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insert-Interval-medium"><span class="toc-number">3.</span> <span class="toc-text">*Insert Interval (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-1"><span class="toc-number">3.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-1"><span class="toc-number">3.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-1"><span class="toc-number">3.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intervals-Intersection-medium"><span class="toc-number">4.</span> <span class="toc-text">*Intervals Intersection (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-2"><span class="toc-number">4.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-2"><span class="toc-number">4.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-2"><span class="toc-number">4.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conflicting-Appointments-medium"><span class="toc-number">5.</span> <span class="toc-text">Conflicting Appointments (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-3"><span class="toc-number">5.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">5.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-3"><span class="toc-number">5.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-3"><span class="toc-number">5.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Similar-Problems-1"><span class="toc-number">5.5.</span> <span class="toc-text">Similar Problems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-1"><span class="toc-number">6.</span> <span class="toc-text">*Problem Challenge 1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Minimum-Meeting-Rooms-hard"><span class="toc-number">6.1.</span> <span class="toc-text">Minimum Meeting Rooms (hard)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-4"><span class="toc-number">6.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-4"><span class="toc-number">6.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-4"><span class="toc-number">6.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-4"><span class="toc-number">6.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-4"><span class="toc-number">6.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Similar-Problems-2"><span class="toc-number">6.5.</span> <span class="toc-text">Similar Problems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-2"><span class="toc-number">7.</span> <span class="toc-text">Problem Challenge 2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maximum-CPU-Load-hard"><span class="toc-number">7.1.</span> <span class="toc-text">Maximum CPU Load (hard)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-5"><span class="toc-number">7.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-5"><span class="toc-number">7.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-5"><span class="toc-number">7.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-5"><span class="toc-number">7.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-5"><span class="toc-number">7.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Challenge-3"><span class="toc-number">8.</span> <span class="toc-text">**Problem Challenge 3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Employee-Free-Time-hard"><span class="toc-number">8.1.</span> <span class="toc-text">Employee Free Time (hard)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-it-yourself-6"><span class="toc-number">8.2.</span> <span class="toc-text">Try it yourself</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-6"><span class="toc-number">8.3.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Using-a-Heap-to-Sort-the-Intervals"><span class="toc-number">8.3.1.</span> <span class="toc-text">Using a Heap to Sort the Intervals</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-6"><span class="toc-number">8.4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-complexity-6"><span class="toc-number">8.4.1.</span> <span class="toc-text">Time complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-complexity-6"><span class="toc-number">8.4.2.</span> <span class="toc-text">Space complexity</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 57
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/4-pattern-merge-intervals/index.html">4. Pattern Merge Intervals</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/3-pattern-sliding-window/index.html">3. Pattern Sliding Window</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/fast/index.html">Fast</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2-pattern-fast-slow-pointers/index.html">2. Pattern Fast_Slow pointers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/0-introduction/index.html">0.Introduction</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/30</span>
+            <a class="archive-post-title" href="/1-pattern-two-pointers/index.html">1. Pattern Two Pointers</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span>
+            <a class="archive-post-title" href="/ubuntu20-04%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql8-%E8%AF%A6%E7%BB%86/index.html">Ubuntu20.04安装配置MySQL8(详细)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/13</span>
+            <a class="archive-post-title" href="/%E6%96%B0%E8%8B%B1%E6%96%87%E6%9D%82%E5%BF%97/index.html">新英文杂志</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/axios%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Axios学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/promise%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Promise学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Nginx学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">AJAX学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span>
+            <a class="archive-post-title" href="/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9dp/index.html">状态压缩dp</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span>
+            <a class="archive-post-title" href="/%E8%93%9D%E6%A1%A5%E6%9D%AF/index.html">蓝桥杯</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/12</span>
+            <a class="archive-post-title" href="/%E9%A9%AC%E6%96%AF%E5%85%8B%E7%9A%84%E5%86%92%E9%99%A9%E4%BA%BA%E7%94%9F/index.html">马斯克的冒险人生</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/13</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%9F%BA%E7%A1%80%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/index.html">人工智能基础课堂笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span>
+            <a class="archive-post-title" href="/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">Git学习笔记</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span>
+            <a class="archive-post-title" href="/c-sort/index.html">C++ Sort()</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/19</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2%E8%AF%BB%E5%90%8E%E6%84%9F/index.html">人类简史读后感</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span>
+            <a class="archive-post-title" href="/%E5%B0%91%E6%9C%89%E4%BA%BA%E8%B5%B0%E7%9A%84%E8%B7%AF-m-scott-peck/index.html">少有人走的路-M.Scott Peck</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E4%BA%B2%E5%AF%86%E5%85%B3%E7%B3%BB/index.html">亲密关系</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E5%BF%83%E7%81%B5%E6%88%90%E9%95%BF%E6%97%85%E7%A8%8B/index.html">我的心灵成长旅程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span>
+            <a class="archive-post-title" href="/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/index.html">长沙之旅</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/postgresql-alter-table%E4%B8%AD%E6%94%B9%E5%8F%98%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%97%B6using%E7%9A%84%E7%94%A8%E6%B3%95/index.html">PostgreSQL ALTER TABLE中改变数据类型时USING的用法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/11</span>
+            <a class="archive-post-title" href="/kmp/index.html">KMP</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span>
+            <a class="archive-post-title" href="/%E6%88%91%E7%9A%84%E7%94%9F%E5%91%BD%E6%95%85%E4%BA%8B/index.html">我的生命故事</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span>
+            <a class="archive-post-title" href="/%E7%A9%B7%E6%9F%A5%E7%90%86%E5%AE%9D%E5%85%B8/index.html">穷查理宝典</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span>
+            <a class="archive-post-title" href="/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94/index.html">被讨厌的勇气</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span>
+            <a class="archive-post-title" href="/%E5%88%B7%E9%A2%98%E6%BC%8F%E6%B4%9E/index.html">刷题漏洞</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/27</span>
+            <a class="archive-post-title" href="/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/index.html">非暴力沟通</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span>
+            <a class="archive-post-title" href="/%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8/index.html">富爸爸穷爸爸</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/latex%E8%BD%AC%E6%8D%A2markdown/index.html">latex转换markdown</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/%E4%BA%BA%E7%B1%BB%E7%AE%80%E5%8F%B2/index.html">人类简史</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span>
+            <a class="archive-post-title" href="/%E6%94%B9%E5%8F%98vscode%E9%BB%98%E8%AE%A4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F/index.html">改变vscode默认代码格式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span>
+            <a class="archive-post-title" href="/matlab-plot/index.html">Matlab_plot</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/16</span>
+            <a class="archive-post-title" href="/pa3%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA3实验报告</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-bigfilesforxv6/index.html">MIT 6.828 Homework_BigFilesForXV6</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-locking/index.html">MIT 6.828 Homework_Locking</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-xv6cpualarm/index.html">MIT 6.828 Homework_xv6CPUAlarm</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-lazypageallocation/index.html">MIT 6.828 Homework_LazyPageAllocation</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span>
+            <a class="archive-post-title" href="/mit-6-828-homework-systemcall/index.html">MIT 6.828 Homework_SystemCall</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-barriers/index.html">MIT 6.828 Assignment_Barriers</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA2实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/06</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-threadsandlocks/index.html">MIT 6.828 Assignment_ThreadsandLocks</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">打印多个hello</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/31</span>
+            <a class="archive-post-title" href="/pv%E9%A2%98/index.html">PV题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/132-pattern/index.html">132 Pattern</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/24</span>
+            <a class="archive-post-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">外刊句子</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/book-xv6-chapter-0/index.html">book_xv6:Chapter_0</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">Blog目录</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span>
+            <a class="archive-post-title" href="/mit-6-828-operating-system-engineering/index.html">MIT 6.828 Operating System Engineering</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/20</span>
+            <a class="archive-post-title" href="/mit-6-828-assignment-shell/index.html">MIT 6.828 Assignment_Shell</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/18</span>
+            <a class="archive-post-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">归并排序</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/15</span>
+            <a class="archive-post-title" href="/09-working-with-processes/index.html">09 Working with processes</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span>
+            <a class="archive-post-title" href="/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html">【哈佛公开课】Justice</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">PA1实验报告</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span>
+            <a class="archive-post-title" href="/hello-world/index.html">Hello World</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="Interview">
+                <span class="iconfont-archer">&#xe606;</span>
+                Interview
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="stack">
+                <span class="iconfont-archer">&#xe606;</span>
+                stack
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="MIT OS">
+                <span class="iconfont-archer">&#xe606;</span>
+                MIT OS
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="NEMU实验">
+                <span class="iconfont-archer">&#xe606;</span>
+                NEMU实验
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="进程管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                进程管理
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人文">
+                <span class="iconfont-archer">&#xe606;</span>
+                人文
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心理学">
+                <span class="iconfont-archer">&#xe606;</span>
+                心理学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人际关系">
+                <span class="iconfont-archer">&#xe606;</span>
+                人际关系
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="情感">
+                <span class="iconfont-archer">&#xe606;</span>
+                情感
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="社会">
+                <span class="iconfont-archer">&#xe606;</span>
+                社会
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人类史">
+                <span class="iconfont-archer">&#xe606;</span>
+                人类史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="历史">
+                <span class="iconfont-archer">&#xe606;</span>
+                历史
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="新英文杂志">
+                <span class="iconfont-archer">&#xe606;</span>
+                新英文杂志
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资理财">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资理财
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="财商">
+                <span class="iconfont-archer">&#xe606;</span>
+                财商
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Linux 基础">
+                <span class="iconfont-archer">&#xe606;</span>
+                Linux 基础
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心智">
+                <span class="iconfont-archer">&#xe606;</span>
+                心智
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="排序算法">
+                <span class="iconfont-archer">&#xe606;</span>
+                排序算法
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="心灵成长">
+                <span class="iconfont-archer">&#xe606;</span>
+                心灵成长
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="投资">
+                <span class="iconfont-archer">&#xe606;</span>
+                投资
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="思维">
+                <span class="iconfont-archer">&#xe606;</span>
+                思维
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人生哲学">
+                <span class="iconfont-archer">&#xe606;</span>
+                人生哲学
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="沟通">
+                <span class="iconfont-archer">&#xe606;</span>
+                沟通
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="人物传记，企业管理">
+                <span class="iconfont-archer">&#xe606;</span>
+                人物传记，企业管理
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Algorithm">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Algorithm
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="LeetCode">
+            <span class="iconfont-archer">&#xe60a;</span>
+            LeetCode
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="技术笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            技术笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="操作系统实验">
+            <span class="iconfont-archer">&#xe60a;</span>
+            操作系统实验
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Matlab">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Matlab
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="计算机组成原理">
+            <span class="iconfont-archer">&#xe60a;</span>
+            计算机组成原理
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            tips
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="阅读笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            阅读笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="随笔">
+            <span class="iconfont-archer">&#xe60a;</span>
+            随笔
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Vscode-tips">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Vscode-tips
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "Hasuer"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20210823"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20210823"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20210823" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
