@@ -430,6 +430,143 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-locking/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_Locking</span>
+            </a>
+            <div class="abstract-content">
+                [实验指导书]https://pdos.csail.mit.edu/6.828/2018/homework/xv6-lock.html)
+
+MIT 6.828 Operating System Engineering
+
+Locking实验目的在这个作业中，你将探索中断和锁定之间的一些交互。
+实验内容锁的结构阅读 spinlock.h ，锁的结构如下：
+12345678910// Mutual exclusion lock.struct spinlock &#123;  uint locked;       // Is the lock held?  // For debugging:  ...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-xv6cpualarm/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_xv6CPUAlarm</span>
+            </a>
+            <div class="abstract-content">
+                实验指导书
+
+MIT 6.828 Operating System Engineering
+
+CPU Alarm实验目的在本练习中，您将向xv6添加一个特性，当进程使用CPU时间时，该特性会定期向进程发出警报。对于想要限制占用CPU时间的计算绑定进程，或者想要进行计算但又想采取某些周期性操作的进程，这可能很有用。更一般地说，您将实现用户级中断/错误处理程序的基本形式;例如，您可以在应用程序中使用类似的方法来处理页面错误。
+实验内容
+您应该添加一个新的alarm(interval, handler)系统调用。如果一个应用程序调用alarm(n, fn)，那么在程序每消耗n个“节拍”的CPU...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统实验"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统实验
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-lazypageallocation/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_LazyPageAllocation</span>
+            </a>
+            <div class="abstract-content">
+                实验指导书
+
+MIT 6.828 Operating System Engineering
+
+Lazy Page Allocation实验目的O/S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用sbrk()系统调用向内核请求堆内存。在我们提供的内核中，sbrk()分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核延迟每个内存页的分配，直到应用程序尝试使用该页——这是由页面错误发出的信号。也就是说，sbrk()不分配物理内存，只是记住分配了哪些地址。当进程第一次尝试使用任何给定的内存页时，CPU会生成一个...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/mit-6-828-homework-systemcall/index.html">
                 
                 <span class="abstract-title-text">MIT 6.828 Homework_SystemCall</span>
@@ -835,129 +972,6 @@ Follow up: The O(n^2) is trivial, co...
         </article>
         <div class="index-post-divider"></div>
     
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">
-                
-                <span class="abstract-title-text">外刊句子</span>
-            </a>
-            <div class="abstract-content">
-                外刊句子积累
-被动：And such a drop needs to be achieved not by halting the world in its tracks, but by rewiring it.
-Ever since Industrial Revolution[something happened in the past] ago, mankind has done sth.
-占比： contributors; account for; make up big slices of the pie
-sth. should be heeded 某事要被留心
-rare to ...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/11/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/24</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="新英文杂志">新英文杂志</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/book-xv6-chapter-0/index.html">
-                
-                <span class="abstract-title-text">book_xv6:Chapter_0</span>
-            </a>
-            <div class="abstract-content">
-                【转载自：https://123xzy.github.io/2019/03/08/MIT-6-828-book-xv6-Chapter-0/】
-
-MIT 6.828 Operating System Engineering
-这本书要和xv6源码一起阅读
-操作系统接口操作系统的任务是在多个程序之间共享计算机，并提供比硬件单独支持更有用的服务集合。操作系统管理和抽象低级硬件，因此像文字处理机就不需要考虑使用哪种类型的磁盘。它还支持多路复用硬件，允许程序间共享计算机（或近似于）并发运行。最后，操作系统提供了程序交互的受控方式，以便程序之间可以共享数据或者协同工作。
-OS通过接口向用户程序提供服...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/10/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">
-                
-                    <span class="iconfont-archer stick-top">&#xe63d;</span>
-                
-                <span class="abstract-title-text">Blog目录</span>
-            </a>
-            <div class="abstract-content">
-                MIT 6.828 Operating System Engineering
-【】
-
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/06/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
     <!-- paginator  -->
     
         <nav class="page-nav">
@@ -1343,7 +1357,58 @@ OS通过接口向用户程序提供服...
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1872,7 +1937,7 @@ OS通过接口向用户程序提供服...
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 57
+        Total : 60
         </div>
         <!-- search  -->
         
@@ -1886,6 +1951,24 @@ OS通过接口向用户程序提供服...
             <div class="archive-year"> 2024 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/8-pattern-monotonic-stack/index.html">8. Pattern Monotonic Stack</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/9-pattern-hash-maps/index.html">9. Pattern Hash Maps</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/6-pattern-in-place-reversal-of-a-linkedlist/index.html">6. Pattern In-place Reversal of a LinkedList</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/01</span>
