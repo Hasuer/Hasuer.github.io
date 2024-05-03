@@ -430,6 +430,506 @@
             
         
         <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-locking/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_Locking</span>
+            </a>
+            <div class="abstract-content">
+                [实验指导书]https://pdos.csail.mit.edu/6.828/2018/homework/xv6-lock.html)
+
+MIT 6.828 Operating System Engineering
+
+Locking实验目的在这个作业中，你将探索中断和锁定之间的一些交互。
+实验内容锁的结构阅读 spinlock.h ，锁的结构如下：
+12345678910// Mutual exclusion lock.struct spinlock &#123;  uint locked;       // Is the lock held?  // For debugging:  ...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-xv6cpualarm/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_xv6CPUAlarm</span>
+            </a>
+            <div class="abstract-content">
+                实验指导书
+
+MIT 6.828 Operating System Engineering
+
+CPU Alarm实验目的在本练习中，您将向xv6添加一个特性，当进程使用CPU时间时，该特性会定期向进程发出警报。对于想要限制占用CPU时间的计算绑定进程，或者想要进行计算但又想采取某些周期性操作的进程，这可能很有用。更一般地说，您将实现用户级中断/错误处理程序的基本形式;例如，您可以在应用程序中使用类似的方法来处理页面错误。
+实验内容
+您应该添加一个新的alarm(interval, handler)系统调用。如果一个应用程序调用alarm(n, fn)，那么在程序每消耗n个“节拍”的CPU...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统实验"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统实验
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-lazypageallocation/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_LazyPageAllocation</span>
+            </a>
+            <div class="abstract-content">
+                实验指导书
+
+MIT 6.828 Operating System Engineering
+
+Lazy Page Allocation实验目的O/S可以使用页表硬件的许多巧妙技巧之一是延迟分配堆内存。Xv6应用程序使用sbrk()系统调用向内核请求堆内存。在我们提供的内核中，sbrk()分配物理内存并将其映射到进程的虚拟地址空间。有些程序可以分配内存，但从不使用它，例如实现大型稀疏数组。复杂的内核延迟每个内存页的分配，直到应用程序尝试使用该页——这是由页面错误发出的信号。也就是说，sbrk()不分配物理内存，只是记住分配了哪些地址。当进程第一次尝试使用任何给定的内存页时，CPU会生成一个...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/29</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-homework-systemcall/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Homework_SystemCall</span>
+            </a>
+            <div class="abstract-content">
+                实验指导书
+
+MIT 6.828 Operating System Engineering
+
+xv6 System Call实验目的
+理解系统调用的工作流程和实现系统调用
+修改xv6内核从而打印出每一个系统调用，只需打印出系统调用和他的返回值，不需要打印出参数。
+在已有的基础上增加上一个系统调用，当用户键入date的时候能够打印出当前的时间。
+
+实验内容Part One: System call tracingYour first task is to modify the xv6 kernel to print out a line for each system call invoc...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/12/29">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/28</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-assignment-barriers/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Assignment_Barriers</span>
+            </a>
+            <div class="abstract-content">
+                
+实验指导书
+
+MIT 6.828 Operating System Engineering
+
+分析这个实验是要我们去实行barrier,也就是屏障，只有当所有的线程都到了这个地方以后才会继续一起执行下一步。
+1234567891011121314static void *thread(void *xa)&#123;  long n = (long) xa;  long delay;  int i;  for (i = 0; i &lt; 20; i++) &#123;    int t = bstate.round;    printf(&quot;i = %d, t = %d&quo...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/11/15">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/15</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/pa2%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">
+                
+                <span class="abstract-title-text">PA2实验报告</span>
+            </a>
+            <div class="abstract-content">
+                
+
+
+
+序号
+是否完成
+
+
+
+
+必做任务1
+是
+
+
+必做任务2
+是
+
+
+必做任务3
+是
+
+
+必做任务4
+是
+
+
+必做任务5
+是
+
+
+选作任务1
+是
+
+
+选作任务2
+是
+
+
+
+
+思考题1【问题】
+main函数返回到哪里？查看testcase的相关代码，你知道用户程序从main函数返回以后会跳转到哪里吗？如果用户程序在GNU/Linux中运行，问题的答案又是什么？
+【我的解答】
+
+程序从主函数执行以后会回到ui_mainloop中继续执行下一条指令，从而达到循环执行的效果
+在Linux中，用户程序执行完main函数会回到类似的地方，叫做_libc_start_main
+
+
+
+思考题2【问题】...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2021/01/18">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/10</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="计算机组成原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                计算机组成原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="NEMU实验">NEMU实验</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/mit-6-828-assignment-threadsandlocks/index.html">
+                
+                <span class="abstract-title-text">MIT 6.828 Assignment_ThreadsandLocks</span>
+            </a>
+            <div class="abstract-content">
+                
+实验指导书
+
+MIT 6.828 Operating System Engineering
+
+【思路】
+代码首先创建了10000个小的node，用每一个node（在代码中名字是entry）来表示一个线程，然后通过平均分配的方法来把这些线程分配给各个进程。
+put函数用来将每一个线程加入链表。然后将这个node的对应信息记录到哈希表：struct entry *table[NBUCKET]中。
+get函数得到一个node（也就是一个线程）。同时这也表示这次线程的结束。
+这样不断通过put 和get来实现并行程序。
+产生错误的原因：当我们在使用put函数的时候，不小心造成两个新的node同...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/11/06">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/06</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/%E6%89%93%E5%8D%B0%E5%A4%9A%E4%B8%AAhello/index.html">
+                
+                <span class="abstract-title-text">打印多个hello</span>
+            </a>
+            <div class="abstract-content">
+                打印多个hello这个问题在网上没有找到代码，于是我自己对着代码的运行结果，尝试着去理解，所以不一定对。
+【问题描述：】
+假定下面的C语言程序在 UNIX 系统上运行，并且所有调用都能成功完。其 中pthread_create(&amp;t, NULL, bar, NULL);的功能是创建一个新线程来执行函数bar，并返回线程对象标识 t。pthread_join(t,NULL );的功能是等待线程结束。试问此程序在运行过中会打印出多少个 “hello” ？需要说明分析过程。 
+12345678910111213141516171819202122232425262728#include...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/11/03">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/11/03</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="进程管理">进程管理</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
+            <a class="abstract-title" href="/pv%E9%A2%98/index.html">
+                
+                <span class="abstract-title-text">PV题</span>
+            </a>
+            <div class="abstract-content">
+                除了前两道题是老师给了答案的，后面是自己做的，不能保证正确率。
+读者写者问题【问题描述】
+读者-写者问题为数据库访问建立了一个模型。例如,一个系统,其中有许多竞争的进程试图读写其中的数据,多个进程同时读是可以接受的,但如果一个进程正在更新数据库,则所有的其他进程都不能访问数据库，即使读操作也不行。分别写出读者优先、写者优先和公平竞争三种情况下的程序。
+【解答】
+12345678910111213141516171819202122232425262728293031// reader prioriy solutoinsemaphore fmutex = 1; // access to f...
+            </div>
+            <!-- read more -->
+            
+            <div class="abstract-post-meta">
+                <!-- date -->
+                <div class="abstract-date" title="Last updated: 2020/11/21">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/31</span>
+                </div>
+                <!-- tags -->
+                
+                    <div class= abstract-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="操作系统原理"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                操作系统原理
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="进程管理">进程管理</a>
+    
+</div>
+
+                
+            </div>
+        </article>
+        <div class="index-post-divider"></div>
+    
+        
+        
+        
+        
+            
+        
+        <article class="index-post">
             <a class="abstract-title" href="/132-pattern/index.html">
                 
                 <span class="abstract-title-text">132 Pattern</span>
@@ -464,529 +964,6 @@ Follow up: The O(n^2) is trivial, co...
     
     
         <a class="post-tag" href="javascript:void(0);" data-tags="stack">stack</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/%E5%A4%96%E5%88%8A%E5%8F%A5%E5%AD%90/index.html">
-                
-                <span class="abstract-title-text">外刊句子</span>
-            </a>
-            <div class="abstract-content">
-                外刊句子积累
-被动：And such a drop needs to be achieved not by halting the world in its tracks, but by rewiring it.
-Ever since Industrial Revolution[something happened in the past] ago, mankind has done sth.
-占比： contributors; account for; make up big slices of the pie
-sth. should be heeded 某事要被留心
-rare to ...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/11/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/24</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="新英文杂志">新英文杂志</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/book-xv6-chapter-0/index.html">
-                
-                <span class="abstract-title-text">book_xv6:Chapter_0</span>
-            </a>
-            <div class="abstract-content">
-                【转载自：https://123xzy.github.io/2019/03/08/MIT-6-828-book-xv6-Chapter-0/】
-
-MIT 6.828 Operating System Engineering
-这本书要和xv6源码一起阅读
-操作系统接口操作系统的任务是在多个程序之间共享计算机，并提供比硬件单独支持更有用的服务集合。操作系统管理和抽象低级硬件，因此像文字处理机就不需要考虑使用哪种类型的磁盘。它还支持多路复用硬件，允许程序间共享计算机（或近似于）并发运行。最后，操作系统提供了程序交互的受控方式，以便程序之间可以共享数据或者协同工作。
-OS通过接口向用户程序提供服...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/10/21">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/blog%E7%9B%AE%E5%BD%95/index.html">
-                
-                    <span class="iconfont-archer stick-top">&#xe63d;</span>
-                
-                <span class="abstract-title-text">Blog目录</span>
-            </a>
-            <div class="abstract-content">
-                MIT 6.828 Operating System Engineering
-【】
-
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2021/06/28">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
-                </div>
-                <!-- tags -->
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/mit-6-828-operating-system-engineering/index.html">
-                
-                    <span class="iconfont-archer stick-top">&#xe63d;</span>
-                
-                <span class="abstract-title-text">MIT 6.828 Operating System Engineering</span>
-            </a>
-            <div class="abstract-content">
-                MIT 6.828 Operating System Engineering【转载自：https://123xzy.github.io/2019/03/08/MIT-6-828-Operating-System-Engineering/】
-这个系列的文章会以上面链接中的资源为依据作为学习，在此只是搬运。对于实验和作业会加上自己的理解。每一篇文章前都会加上转载声明，感谢原作者。
-
-MIT 6.828是一门被广泛好评的e操作系统课程。它最重要的特点就是它实践第一的教学原则。在这门课程中会涉及到非常丰富的实验，也会有非常多的动手机会。而且授课者更是亲自构建了一个简化的基于Unix内核的操作系统...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/11/15">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/21</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/mit-6-828-assignment-shell/index.html">
-                
-                <span class="abstract-title-text">MIT 6.828 Assignment_Shell</span>
-            </a>
-            <div class="abstract-content">
-                【转载自：】
-
-https://www.cnblogs.com/jxhd1/p/6706701.html
-https://www.cnblogs.com/fengbohello/p/4262961.html
-https://123xzy.github.io/2019/03/08/MIT-6-828-Assignment-Shell/
-
-
-实验指导书
-
-MIT 6.828 Operating System Engineering
-
-知识了解fork 和 exec在父进程中fork一个子进程，在子进程中调用exec函数启动新的程序。exec函数一共有六个，其中execve为内核级系统调用，其...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/11/06">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/20</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="MIT OS">MIT OS</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/index.html">
-                
-                <span class="abstract-title-text">归并排序</span>
-            </a>
-            <div class="abstract-content">
-                归并排序这是一个典型排序问题。用到了递归和分治的思想。
-动图1：
-
-动图2：
-
-分为三步：
-
-递归分解
-合并排好序的数组
-主函数
-
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;iostream&gt;#include &lt;vector&gt;using namespace std;void mergearray(vector&lt;int&gt;&amp; nums, int first, in...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/23">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/18</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="Algorithm"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                Algorithm
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="排序算法">排序算法</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/09-working-with-processes/index.html">
-                
-                <span class="abstract-title-text">09 Working with processes</span>
-            </a>
-            <div class="abstract-content">
-                What is a process?
-进程是一个正在执行的程序。
-每一个程序都有自己的运行环境
-
-To see the PID of your current shell process, type:
-1echo $$
-其中：
-
-echo表示在屏幕上显示东西
-
-$$$$表示查看当前进程的PID
-
-Linux 能在同一时间执行多个不同的命令，也可以在同一时间运行多次同一个程序（比如Vi）
-
-
-
-Starting and stopping a process
-所有的进程都是由其他进程发起的
-init进程是直接由内核产生，一般来说ID是1
-进程的退出
-自己执行完毕以后退出
-其他的进程发出了信号...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/10/18">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/15</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="操作系统原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                操作系统原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Linux 基础">Linux 基础</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/%E3%80%90%E5%93%88%E4%BD%9B%E5%85%AC%E5%BC%80%E8%AF%BE%E3%80%91justice/index.html">
-                
-                <span class="abstract-title-text">【哈佛公开课】Justice</span>
-            </a>
-            <div class="abstract-content">
-                这是视频课程笔记，视频链接
-01 杀人的道德侧面&amp;同类自残案电车难题1
-你是电车司机，刹车坏了，转向会杀死一个人，不转向会杀死五个人，你会怎么做？
-【转向：】杀死一个人比杀死五个人好
-电车难题2
-你是旁观者，看到一个人在桥上，桥上有一个胖子，你可以把他推下去，这样他会死，但是能够救五个人，你会怎么做？
-【与第一个case不同的地方】事实上好像没有什么是不同的。你掌握的主动权，可以选择杀一个还是五个。无论是推人还是转向，你都是选择杀了一个人。
-电车难题3
-你是一个医生，现在有一个重症患者，五个轻症患者。救重症患者会让他活，但是五个会死，你会怎么做？
-【救五个人】
-电车难题4
-你是一...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/02/23">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/13</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="阅读笔记"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                阅读笔记
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="人文">人文</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/pa1%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/index.html">
-                
-                <span class="abstract-title-text">PA1实验报告</span>
-            </a>
-            <div class="abstract-content">
-                实验进度
-
-
-
-序号
-是否已完成
-
-
-
-
-必做任务1
-√
-
-
-必做任务2
-√
-
-
-必做任务3
-√
-
-
-必做任务4
-√
-
-
-必做任务5
-√
-
-
-必做任务6
-√
-
-
-必做任务7
-√
-
-
-选做任务1
-√
-
-
-选做任务2
-√
-
-
-
-
-实验前的准备【2020.9.25】
-完成了PA0实验指导书的内容，熟悉了  在Linux 环境下进行实验的基本流程
-【2020.9.26】
-
-发现实验平台有点卡顿，所以自己尝试着配置了与实验环境一样的虚拟机实验环境来完成实验。
-
-由于使用到GitHub的仓库操作，所以查看的相关资料和网站学习了远程和本地仓库之间的连接。
-
-
-【2020.9.28】
-
-跟着PA0实验指...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2020/10/11">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/10</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-        
-        
-            
-        
-        
-        <span class="post-category" data-categories="计算机组成原理"">
-            <i class="fas fa-folder post-category-icon"></i>
-            <span class="post-category-text">
-                计算机组成原理
-            </span>
-        </span>
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="NEMU实验">NEMU实验</a>
     
 </div>
 
@@ -1450,7 +1427,182 @@ init进程是直接由内核产生，一般来说ID是1
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -2131,7 +2283,7 @@ init进程是直接由内核产生，一般来说ID是1
     
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 71
+        Total : 80
         </div>
         <!-- search  -->
         
@@ -2145,6 +2297,60 @@ init进程是直接由内核产生，一般来说ID是1
             <div class="archive-year"> 2024 </div>
             <ul class="year-list">
             
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/22-pattern-backtracking/index.html">22. Pattern Backtracking</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/25-pattern-union-find/index.html">25. Pattern Union Find</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/23-pattern-trie/index.html">23. Pattern Trie</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/26-ordered-set/index.html">26. Ordered Set</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/27-pattern-multi-thread/index.html">27. Pattern Multi-thread</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/24-pattern-topological-sort-graph/index.html">24. Pattern Topological Sort (Graph)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/28-miscellaneous/index.html">28. Miscellaneous</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/21-pattern-01-knapsack-dynamic-programming/index.html">21. Pattern  01 Knapsack (Dynamic Programming)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/20-pattern-greedy-algorithms/index.html">20. Pattern Greedy Algorithms</a>
+        </li>
+    
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/02</span>
