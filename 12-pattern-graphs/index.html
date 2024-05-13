@@ -19,16 +19,54 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta property="og:type" content="article">
+    <meta name="description" content="Introduction to GraphA graph is a data structure that consists of a set of vertices (nodes) and a bunch of edges connecting these vertices. Graphs are widely used to model real-world scenarios where r">
+<meta property="og:type" content="article">
 <meta property="og:title" content="12. Pattern Graphs">
 <meta property="og:url" content="https://hasuer.github.io/12-pattern-graphs/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
+<meta property="og:description" content="Introduction to GraphA graph is a data structure that consists of a set of vertices (nodes) and a bunch of edges connecting these vertices. Graphs are widely used to model real-world scenarios where r">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/2.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/3.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/4.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/5.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/6.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/7.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/7.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/6.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/8.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/9.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/10.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/11.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/12.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/13.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/14.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/15.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/16.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/7.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/17.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/6.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/18.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/19.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/20.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/21.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/22.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/23.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/24.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/25.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/26.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/27.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/28.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/29.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/30.png">
+<meta property="og:image" content="https://hasuer.github.io/12-pattern-graphs/index/25.png">
 <meta property="article:published_time" content="2024-05-02T01:42:19.000Z">
-<meta property="article:modified_time" content="2024-05-02T01:43:23.064Z">
+<meta property="article:modified_time" content="2024-05-13T16:29:17.648Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/12-pattern-graphs/index/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/old_profile.ico">
@@ -345,7 +383,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">0</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">8.6k</span>Reading time: <span class="post-count reading-time">53 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -506,7 +544,550 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        
+        <h2 id="Introduction-to-Graph"><a href="#Introduction-to-Graph" class="headerlink" title="Introduction to Graph"></a>Introduction to Graph</h2><p>A graph is a data structure that consists of a set of vertices (nodes) and a bunch of edges connecting these vertices. Graphs are widely used to model real-world scenarios where relationships and connections between entities must be represented. A Graph G (V, E) with five vertices (A, B, C, D, E) and six edges ((A, B), (B, C), (C, E), (E, D), (D, B), (D, A)) are shown in the following figure.</p>
+<p><img src="/12-pattern-graphs/index/1.png"></p>
+<p>Graphs can become more complex as they grow and have many interconnected nodes and edges. Graphs are a fundamental and versatile data structure used in various computer science applications to model and solve complex problems involving relationships and connections.</p>
+<h3 id="Application-of-Graphs"><a href="#Application-of-Graphs" class="headerlink" title="Application of Graphs"></a>Application of Graphs</h3><p>Graphs are versatile data structures that find applications in various fields. Here are five graph applications with facts and figures:</p>
+<p><strong>1. Social Network Analysis:</strong> Graphs are widely used for analyzing social networks to understand connections between individuals or entities. One of the most popular social networks is Facebook.</p>
+<p><strong>2. Transportation Network Optimization:</strong> Graphs are crucial in optimizing transportation networks like road or flight routes. For example, the road network of the United States spans over 4 million miles. Using graph algorithms like Dijkstra’s algorithm, authorities can efficiently find the shortest path between two locations, minimizing travel time and fuel consumption.</p>
+<p><strong>3. Internet and Webpage Ranking:</strong> Search engines like Google use graphs to rank webpages and determine their relevance to a search query. Google’s PageRank algorithm, which Larry Page and Sergey Brin introduced, utilizes a graph representation of the web.</p>
+<p><strong>4. Recommendation Systems:</strong> Graphs are employed in recommendation systems to provide personalized suggestions to users based on their preferences and behaviors. A popular streaming platform, Netflix uses a graph-based collaborative filtering approach to recommend movies and TV shows to its subscribers.</p>
+<p><strong>5. Bioinformatics and Protein Interactions:</strong> In bioinformatics, graphs model complex biological interactions, such as protein-protein interactions, gene regulatory networks, and metabolic pathways. The Human Protein Reference Database (HPRD), which stores protein-protein interaction data, contains information about more than 39,000 interactions among over 9,000 proteins.</p>
+<p>These examples demonstrate the wide-ranging applications of graphs in different domains, each significantly impacting the respective industries.</p>
+<h3 id="Common-Graph-Terminologies"><a href="#Common-Graph-Terminologies" class="headerlink" title="Common Graph Terminologies"></a>Common Graph Terminologies</h3><p>Understanding baseline graph terminologies is essential for understanding complex graph concepts. Like the other concepts, graph theory has some baseline terminologies. These terminologies are the most commonly used jargon in graphs. Understanding these jargons empower you better understand and communicate the graph concept.</p>
+<p>Here are some of the most commonly used graph terminologies:</p>
+<p><strong>1. Digraph:</strong></p>
+<p>A digraph, short for directed graph, is a type of graph in which edges have a direction or are represented by arrows. Each edge connects two vertices (nodes), but the direction of the edge indicates a one-way relationship between the nodes. In other words, if there is an edge from vertex A to vertex B, you can only travel from A to B along that edge.</p>
+<p><img src="/12-pattern-graphs/index/2.png"></p>
+<p><strong>3. Loop in Graph:</strong></p>
+<p>A “loop” in a graph refers to an edge that connects a vertex to itself. In other words, it is an edge that starts and ends at the same vertex. Loops can exist in both directed and undirected graphs.</p>
+<p>In an undirected graph, a loop is simply an edge that connects a vertex to itself. It forms a cycle of length 1. For example, if you have a graph with a single vertex v, and there is an edge from v to itself, then it forms a loop.</p>
+<p><img src="/12-pattern-graphs/index/3.png"></p>
+<p>In a directed graph, a loop is an arc (directed edge) that starts and ends at the same vertex. It forms a directed cycle of length 1. For example, if you have a graph with a single vertex v, and there is a directed edge from v to itself, then it forms a loop.</p>
+<p><img src="/12-pattern-graphs/index/4.png"></p>
+<p><strong>4. Node in Graph:</strong></p>
+<p>A “node” (also known as a “vertex”) is a fundamental building block of a graph. A graph is a mathematical representation of a set of vertices (nodes) and the connections (edges) between those objects. The links between nodes can be either directed or undirected, depending on whether the relationship has a specific direction. In the following figure, A, B, C, D, and E are the nodes in the graph, also known as vertices.</p>
+<p><img src="/12-pattern-graphs/index/5.png"></p>
+<p><strong>5. Adjacent Nodes:</strong></p>
+<p>Two nodes are said to be adjacent if an edge is connected directly. The set of nodes adjacent to a particular node is known as its neighborhood. As in the above figure, the nodes A and B are adjacent.</p>
+<p><strong>6. Degree of a Node:</strong></p>
+<p>The degree of a node is the number of edges connected to it. In an undirected graph, it represents the number of neighbors a node has. As in the above figure, the degree of Node A is two because it has two neighbors.</p>
+<p>In a directed graph, there are two degrees:</p>
+<ul>
+<li>The in-degree (number of incoming edges)</li>
+<li>The out-degree (number of outgoing edges).</li>
+</ul>
+<p><img src="/12-pattern-graphs/index/6.png"></p>
+<p>In the above graph, the degree of node A is two because two edges are outgoing, and the degree of node C is 1.</p>
+<p><strong>7. Path:</strong></p>
+<p>A sequence of vertices in which each consecutive pair of vertices is connected by an edge. For example in the above figure, there is a path from vertex A to B.</p>
+<p><strong>8. Cycle:</strong></p>
+<p>A path in which the first and last vertices are the same, forming a closed loop. The following figure shows a route from A to B, B to D, D to C, and C to A. So here, the cycle completes because we start from vertex A and end again at A vertex.</p>
+<p><img src="/12-pattern-graphs/index/7.png"></p>
+<h3 id="Graph-Types"><a href="#Graph-Types" class="headerlink" title="Graph Types"></a>Graph Types</h3><p>There are several types of graphs, each with its specific characteristics. Here are some common types of graphs, along with examples:</p>
+<p><strong>1. Undirected Graph:</strong> In an undirected graph, edges have no direction, representing a bidirectional connection between two vertices. If an edge exists between vertex A and vertex B, you can traverse from A to B and vice versa.</p>
+<p>Example: Friends Network</p>
+<p><img src="/12-pattern-graphs/index/7.png"></p>
+<p><strong>2. Directed Graph:</strong> In a directed graph, edges have a direction, indicating a one-way connection between vertices. If there is an edge from vertex A to vertex B, you can only traverse from A to B, not vice versa.</p>
+<p>Example: Webpage Links</p>
+<p><img src="/12-pattern-graphs/index/6.png"></p>
+<p><strong>3. Weighted Graph:</strong> Each edge is associated with a numerical value called a weight in a weighted graph. The weight can represent distances, costs, or any other relevant metric between the connected vertices.</p>
+<p>Example: Transportation Network</p>
+<p><img src="/12-pattern-graphs/index/8.png"></p>
+<p><strong>4. Unweighted Graph:</strong> All edges have the same default weight of 1 in an unweighted graph. There are no additional numerical values associated with the edges. In an unweighted graph, the absence of edge weights implies that all edges are considered to have equal importance or distance between the connected nodes.</p>
+<p>Example: Family Tree (Connection exists or doesn’t)</p>
+<p><img src="/12-pattern-graphs/index/9.png"></p>
+<p><strong>5. Cyclic Graph:</strong> A cyclic graph is a graph that contains at least one cycle, which is a closed path (sequence of vertices) that starts and ends at the same vertex.</p>
+<p><img src="/12-pattern-graphs/index/10.png"></p>
+<p><strong>6. Acyclic Graph:</strong> An acyclic graph is a directed graph that has no cycles. A cycle occurs when the following edges from a node lead back to the same node. Some key properties of acyclic graphs:</p>
+<ul>
+<li><p>They have at least one node with no incoming edges (called a source node).</p>
+</li>
+<li><p>They have at least one node with no outgoing edges (called a sink node).</p>
+<p>In this graph, node A is the root node. It has no incoming edges. Nodes D, E, F, G are leaf nodes - they have no outgoing edges. There are no cycles in this graph.</p>
+<p>A valid topological ordering of the nodes could be: A, B, C, D, E, F, G. So this graph structure forms an acyclic-directed graph. Trees and DAGs (Directed Acyclic Graphs) are common examples of acyclic graph structures</p>
+</li>
+</ul>
+<p><img src="/12-pattern-graphs/index/11.png"></p>
+<p><strong>7. Connected Graph:</strong> A connected graph is one in which there is a path between every pair of vertices. In other words, every vertex is reachable from any other vertex in the graph.</p>
+<p><img src="/12-pattern-graphs/index/12.png"></p>
+<p><strong>8. Disconnected Graph:</strong> A disconnected graph has two or more connected components (subgraphs) with no direct connection between these components. The figure below is one separate graph. The first component contains A, B, C, and D vertices, and the other part contains E, F, G, and H, with at least two vertices not connected by a path.</p>
+<p><img src="/12-pattern-graphs/index/13.png"></p>
+<p><strong>9. Strongly Connected Graphs:</strong> A strongly connected graph is a type of directed graph in which there is a directed path from every vertex to every other vertex. In other words, for any two vertices, A and B, in a strongly connected graph, there is a directed path from A to B and B to A.</p>
+<p><img src="/12-pattern-graphs/index/14.png"></p>
+<p>These are some of the common types of graphs in data structures. Each type has its significance and use cases depending on the problem you’re trying to solve. Understanding different types of graphs is crucial for effectively applying graph algorithms and solving graph-related problems.</p>
+<h2 id="Graph-Representations"><a href="#Graph-Representations" class="headerlink" title="Graph Representations"></a>Graph Representations</h2><p>We primarily represent graphs using two ways:</p>
+<ol>
+<li>Adjacency matrix</li>
+<li>Adjacency list</li>
+</ol>
+<p>Let’s explore what they are.</p>
+<h3 id="Adjacency-Matrix"><a href="#Adjacency-Matrix" class="headerlink" title="Adjacency Matrix"></a>Adjacency Matrix</h3><p>An adjacency matrix is a common way to represent a graph as a matrix. It is a square matrix where the rows and columns represent the vertices of the graph, and the entries (elements) of the matrix indicate whether there is an edge between the corresponding vertices.</p>
+<p>In an undirected graph, the edges have no direction, meaning they can be traversed in both directions between two vertices. On the other hand, in a directed graph, the edges have a direction, indicating a one-way relationship between two vertices.</p>
+<p>As there are two major types of graphs directed graph and undirected graph. Let’s see how the adjacency matrix works for both types of graphs:</p>
+<h4 id="Adjacency-matrix-for-undirected-graphs"><a href="#Adjacency-matrix-for-undirected-graphs" class="headerlink" title="Adjacency matrix for undirected graphs"></a>Adjacency matrix for undirected graphs</h4><p>In an undirected graph with N vertices, the adjacency matrix A will be an N x N matrix. For an undirected edge between vertices i and j, the corresponding entries in the matrix (A[i][j] and A[j][i]) will have a value of 1, indicating the presence of an edge. If there is no edge between vertices i and j, the matrix entries will have the value of 0.</p>
+<p>Example of an undirected graph with 4 vertices (A, B, C, D) and 4 edges (A-B, B-C, C-D, D-A):</p>
+<p><img src="/12-pattern-graphs/index/15.png"></p>
+<h4 id="Adjacency-matrix-for-directed-graphs"><a href="#Adjacency-matrix-for-directed-graphs" class="headerlink" title="Adjacency matrix for directed graphs"></a>Adjacency matrix for directed graphs</h4><p>In a directed graph with N vertices, the adjacency matrix A will also be an N x N matrix. For a directed edge from vertex i to vertex j, the corresponding entry in the matrix () will have the value of 1, indicating the presence of an edge from i to j. If there is no edge from vertex i to vertex j, the matrix entry will have the value of 0.</p>
+<p>Example of a directed graph with 4 vertices (A, B, C, D) and 5 directed edges (A-&gt;B, A-&gt;C, C-&gt;D, D-&gt;B, D-&gt;C):</p>
+<p><img src="/12-pattern-graphs/index/16.png"></p>
+<p>The above figure explains the adjacency matrix of the directed graph in such a way that there is an edge between vertices A-C and A-B so 1 is placed there.</p>
+<h3 id="Adjacency-List"><a href="#Adjacency-List" class="headerlink" title="Adjacency List"></a>Adjacency List</h3><p>In linked list representation, an adjacency list is used to store the graph. An adjacency list is a common way to represent the connections between vertices in a graph. It is used in both directed and undirected graphs, but the way edges are stored and described differs slightly between the two types. In an adjacency list, each vertex is associated with a list of its neighboring vertices directly connected to it.</p>
+<h4 id="Representing-undirected-graph-using-adjacency-list"><a href="#Representing-undirected-graph-using-adjacency-list" class="headerlink" title="Representing undirected graph using adjacency list"></a>Representing undirected graph using adjacency list</h4><p>In an undirected graph, the edges between vertices have no direction. If vertex A is connected to vertex B, then vertex B is also connected to vertex A. As a result, the adjacency list for an undirected graph is symmetric. Here is an example of a undirected graph with four vertices (A, B, C, D) and four edges.</p>
+<p><img src="/12-pattern-graphs/index/7.png"></p>
+<p>Here is the adjacency list for the above-undirected graph. From vertex A there is an edge to vertex B and C in the graph. So in the adjacency list, there are two nodes from node A.</p>
+<p><img src="/12-pattern-graphs/index/17.png"></p>
+<h4 id="Representing-directed-graphs-using-adjacency-list"><a href="#Representing-directed-graphs-using-adjacency-list" class="headerlink" title="Representing directed graphs using adjacency list"></a>Representing directed graphs using adjacency list</h4><p>In a directed graph, the edges between vertices have a direction. If vertex X is connected to vertex Y, it does not necessarily mean that vertex Y is connected to vertex X. As a result, the adjacency list for a directed graph is not symmetric.</p>
+<p>Example of a directed graph with 4 vertices (A, B, C, D) and 4 directed edges (A-&gt;B, A-&gt;C, C-&gt;D, D-&gt;B):</p>
+<p><img src="/12-pattern-graphs/index/6.png"></p>
+<p>Here is the adjacency list for the above directed graph. From vertex A there is an edge to vertex B and C in the graph. So in the adjacency list, there are two nodes from node A. From vertex B there is no edge coming out so the adjacency list contains no further node from node B.</p>
+<p><img src="/12-pattern-graphs/index/18.png"></p>
+<h2 id="Graph-as-an-Abstract-Data-Type-ADT"><a href="#Graph-as-an-Abstract-Data-Type-ADT" class="headerlink" title="Graph as an Abstract Data Type (ADT)"></a>Graph as an Abstract Data Type (ADT)</h2><p>As discussed earlier in the course, an abstract data type (ADT) is a theoretical concept that defines a set of operations and their behavior without specifying the internal representation of the data or the algorithms used to implement those operations. It provides a high-level description of the data and the functions that can be performed on it.</p>
+<p>Here are some of the operations can be performed on graphs:</p>
+<ol>
+<li>Adding a new vertex</li>
+<li>Removing a vertex</li>
+<li>Adding an edge between two vertices</li>
+<li>Removing an edge between two vertices</li>
+<li>Getting a list of all the vertices</li>
+<li>Checking if two graph nodes are adjacent to each other or not</li>
+<li>Getting count of the total vertices in the graph</li>
+<li>Getting count of the total edges in the graph</li>
+<li>Getting a list of the graph edges</li>
+<li>Getting neighbors of a graph vertex</li>
+</ol>
+<p>There are a few other ADT operations involving graph searching and traversal. Searching and traversal operations require detailed illustrations. Thereby, we will discuss those in the Graph Traversals section.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.adjacencyList = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_vertex</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># Add a new vertex to the graph.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_vertex</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># Remove a vertex from the graph.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_edge</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># Add an edge between two vertices.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_edge</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        <span class="keyword">pass</span>  <span class="comment"># Remove an edge between two vertices.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_vertices</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> []  <span class="comment"># Get a list of all vertices.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_adjacent</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># Check if two vertices are adjacent.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_vertex_count</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>  <span class="comment"># Get the total number of vertices.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_edge_count</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>  <span class="comment"># Get the total number of edges.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_edges</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> []  <span class="comment"># Get a list of all edges.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_neighbors</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">return</span> []  <span class="comment"># Get a list of neighbors of a given vertex.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Implementing-the-ADT-operations"><a href="#Implementing-the-ADT-operations" class="headerlink" title="Implementing the ADT operations"></a>Implementing the ADT operations</h3><p>In the beginning of this section, we mentioned ten major and the most common ADT operations associated with the graphs. Let’s discuss each operation individually - understanding how is it implemented.</p>
+<h4 id="1-add-vertex-vertex"><a href="#1-add-vertex-vertex" class="headerlink" title="1. add_vertex(vertex)"></a>1. add_vertex(vertex)</h4><p>The function <code>add_vertex(vertex)</code> is a common operation in graph theory, where it adds a new vertex (also called a node or point) to a graph data structure. The vertex is a fundamental unit of a graph and represents an entity or an element. Adding a vertex expands the graph and creates potential connections (edges) between this new vertex and existing vertices.</p>
+<p>In an adjacency list, each vertex is associated with a list of its adjacent vertices. We are using a dictionary or map for implementing the adjacency list. Thereby, we are able to store node key and value (s) associated with it.</p>
+<p>For this course, we assume that graphs don’t have any extra satellite data or values associated with it. Therefore, we will add an empty vector or list as a value attribute for the new graph node or vertex.</p>
+<p>You can add a new vertex following the two main steps:</p>
+<ul>
+<li>Check if vertex already exists<ul>
+<li>Use predefined map or dictionary search methods</li>
+</ul>
+</li>
+<li>If not, add it by inserting new key-value pair<ul>
+<li>Keep value of the new inserted vertex as empty list</li>
+</ul>
+</li>
+</ul>
+<p>Here is a generalized pseudocode:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Graph is represented as:</span><br><span class="line"></span><br><span class="line">adjacencyList (<span class="built_in">map</span>/dictionary):</span><br><span class="line">  <span class="built_in">key</span>: <span class="built_in">vertex</span> </span><br><span class="line">  value: list of adjacent vertices</span><br><span class="line"></span><br><span class="line">Function addVertex(<span class="built_in">vertex</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">vertex</span> does not exist in adjacencyList</span><br><span class="line">  </span><br><span class="line">    <span class="built_in">add</span> <span class="keyword">new</span> <span class="built_in">key</span>-value pair:</span><br><span class="line">      <span class="built_in">key</span>: <span class="built_in">vertex</span></span><br><span class="line">      value: empty list     </span><br><span class="line">    end <span class="keyword">if</span></span><br><span class="line">    </span><br><span class="line">end Function</span><br></pre></td></tr></table></figure>
+<p>Let’s now see the actual implementation of the <code>add_vertex()</code> method.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_vertex</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">  <span class="keyword">if</span> vertex <span class="keyword">not</span> <span class="keyword">in</span> self.adjacency_list:</span><br><span class="line">    self.adjacency_list[vertex] = []</span><br></pre></td></tr></table></figure>
+<h4 id="2-add-edge-vertex1-vertex2"><a href="#2-add-edge-vertex1-vertex2" class="headerlink" title="2. add_edge(vertex1, vertex2)"></a>2. add_edge(vertex1, vertex2)</h4><p><strong>Pseudocode</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Function</span> addEdge(vertex1, vertex2):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">insert</span> vertex2 <span class="keyword">into</span> adjacencyList[vertex1]</span><br><span class="line">  <span class="keyword">insert</span> vertex1 <span class="keyword">into</span> adjacencyList[vertex2]</span><br><span class="line">  </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+<p>To implement the <code>add_edge()</code> function, we need to add an edge between <code>vertex1</code> and <code>vertex2</code> in the graph. We are using the <code>insert</code> method provided by the <code>std::unordered_map</code>. This method allows us to insert elements into the vector of neighbors directly using an iterator.</p>
+<p>Here is the implementation:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_edge</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">     self.adjacency_list[vertex1].append(vertex2)</span><br><span class="line">     self.adjacency_list[vertex2].append(vertex1)</span><br></pre></td></tr></table></figure>
+<h4 id="A-complete-executable-example"><a href="#A-complete-executable-example" class="headerlink" title="A complete executable example"></a>A complete executable example</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.adjacency_list = defaultdict(<span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_vertex</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">if</span> vertex <span class="keyword">not</span> <span class="keyword">in</span> self.adjacency_list:</span><br><span class="line">            self.adjacency_list[vertex] = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_vertex</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">if</span> vertex <span class="keyword">not</span> <span class="keyword">in</span> self.adjacency_list:</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        self.adjacency_list.pop(vertex)</span><br><span class="line">        <span class="keyword">for</span> neighbors <span class="keyword">in</span> self.adjacency_list.values():</span><br><span class="line">            <span class="keyword">if</span> vertex <span class="keyword">in</span> neighbors:</span><br><span class="line">                neighbors.remove(vertex)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_edge</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        self.adjacency_list[vertex1].append(vertex2)</span><br><span class="line">        self.adjacency_list[vertex2].append(vertex1)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_edge</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        self.adjacency_list[vertex1].remove(vertex2)</span><br><span class="line">        self.adjacency_list[vertex2].remove(vertex1)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_vertices</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">list</span>(self.adjacency_list.keys())</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_edges</span>(<span class="params">self</span>):</span></span><br><span class="line">        edges = []</span><br><span class="line">        <span class="keyword">for</span> vertex, neighbors <span class="keyword">in</span> self.adjacency_list.items():</span><br><span class="line">            <span class="keyword">for</span> neighbor <span class="keyword">in</span> neighbors:</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> vertex &lt; neighbor:</span><br><span class="line">                    edges.append((vertex, neighbor))</span><br><span class="line">        <span class="keyword">return</span> edges</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_neighbors</span>(<span class="params">self, vertex</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.adjacency_list[vertex]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_adjacent</span>(<span class="params">self, vertex1, vertex2</span>):</span></span><br><span class="line">        <span class="keyword">return</span> vertex2 <span class="keyword">in</span> self.adjacency_list[vertex1]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_vertex_count</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.adjacency_list)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_edge_count</span>(<span class="params">self</span>):</span></span><br><span class="line">        count = <span class="built_in">sum</span>(<span class="built_in">len</span>(neighbors) <span class="keyword">for</span> neighbors <span class="keyword">in</span> self.adjacency_list.values())</span><br><span class="line">        <span class="keyword">return</span> count // <span class="number">2</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    graph = Graph()</span><br><span class="line">    vertices = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">    edges = [(<span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">3</span>), (<span class="number">3</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">5</span>), (<span class="number">5</span>, <span class="number">6</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> vertices:</span><br><span class="line">        graph.add_vertex(v)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> edge <span class="keyword">in</span> edges:</span><br><span class="line">        graph.add_edge(*edge)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Vertices: <span class="subst">&#123;graph.get_vertices()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Edges: <span class="subst">&#123;graph.get_edges()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Neighbors of 1: <span class="subst">&#123;graph.get_neighbors(<span class="number">1</span>)&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Is 1 adjacent to 2? <span class="subst">&#123;graph.is_adjacent(<span class="number">1</span>, <span class="number">2</span>)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    graph.remove_edge(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">    graph.remove_vertex(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;After removing an edge and vertex:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Vertices: <span class="subst">&#123;graph.get_vertices()&#125;</span>&quot;</span>) </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Edges: <span class="subst">&#123;graph.get_edges()&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Graph-Traversal"><a href="#Graph-Traversal" class="headerlink" title="Graph Traversal"></a>Graph Traversal</h2><p>A graph consists of vertices (nodes) connected by edges (lines). Graph traversal involves visiting all the graph nodes following a specific strategy or order. During traversal, each node is typically marked as visited to avoid revisiting the same node multiple times and to prevent infinite loops in cyclic graphs.</p>
+<p>There are two common graph traversal algorithms: Depth-First Search (DFS) and Breadth-First Search (BFS). Let’s briefly discuss each of them:</p>
+<h3 id="Depth-First-Search-DFS"><a href="#Depth-First-Search-DFS" class="headerlink" title="Depth First Search(DFS)"></a>Depth First Search(DFS)</h3><p>Depth-First Search (DFS) is a graph traversal algorithm that explores all the nodes in a graph by systematically visiting as far as possible along each branch before backtracking. It operates on both directed and undirected graphs and can be implemented using recursion or an explicit stack data structure.</p>
+<p>DFS starts from a selected source node (or a starting point) and explores as deeply as possible along each branch before backtracking. The algorithm visits nodes in a depth ward motion until it reaches a leaf node with no unexplored neighbors. At that point, it backtracks and explores other unexplored branches.</p>
+<p>Here’s a step-by-step explanation of the DFS algorithm:</p>
+<p><strong>1. Initialization:</strong></p>
+<ul>
+<li>Choose a starting node as the source node.</li>
+<li>Create a data structure to keep track of visited nodes (e.g., an array or a hash set) and mark the source node as visited.</li>
+</ul>
+<p><strong>2. Visit the Current Node:</strong></p>
+<ul>
+<li>Process the current node (e.g., print its value or perform any other operation you need to do).</li>
+</ul>
+<p><strong>3. Recursive Approach (Using Recursion):</strong></p>
+<ul>
+<li>For each unvisited neighbor of the current node:<ul>
+<li>Recursively call the DFS function with the neighbor as the new current node.</li>
+<li>Mark the neighbor as visited.</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. Stack-Based Approach (Using an Explicit Stack):</strong></p>
+<ul>
+<li>Push the starting node onto the stack.</li>
+<li>While the stack is not empty:<ul>
+<li>Pop a node from the stack (current node).</li>
+<li>Process the current node (e.g., print its value or perform any other operation you need to do).</li>
+<li>For each unvisited neighbor of the current node:<ul>
+<li>Push the unvisited neighbor onto the stack.</li>
+<li>Mark the neighbor as visited.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>5. Backtracking</strong>:</p>
+<ul>
+<li>If there are no more unvisited neighbors for the current node, backtrack by returning from the recursive function (if recursion) or popping nodes from the stack until a node with unvisited neighbors is found (if using an explicit stack).</li>
+</ul>
+<p><strong>6. Termination</strong>:</p>
+<ul>
+<li>The DFS algorithm terminates when all nodes reachable from the source node have been visited. This means that all connected components of the graph have been explored.</li>
+</ul>
+<h4 id="Step-by-step-Illustration-of-DFS"><a href="#Step-by-step-Illustration-of-DFS" class="headerlink" title="Step-by-step Illustration of DFS"></a>Step-by-step Illustration of DFS</h4><p>Let’s illustrate Depth-First Search (DFS) on a simple graph with its step-by-step traversal process.</p>
+<p>Consider the following graph:</p>
+<p>Depth-First Search (DFS) algorithm on an undirected graph with 5 vertices</p>
+<p><img src="/12-pattern-graphs/index/19.png"></p>
+<p>We are starting from vertex 0, the DFS algorithm starts by putting it in the visited list and putting all its adjacent vertices in the stack.</p>
+<p><img src="/12-pattern-graphs/index/20.png"></p>
+<p>Next, we visit the element at the top of stack i.e. 1 and go to its adjacent nodes. Since 0 has already been visited, we visit 2 instead</p>
+<p><img src="/12-pattern-graphs/index/21.png"></p>
+<p>Vertex 2 has an unvisited adjacent vertex in 4, so we add that to the top of the stack and visit it.</p>
+<p><img src="/12-pattern-graphs/index/22.png"></p>
+<p>Next, we will visit 3.</p>
+<p><img src="/12-pattern-graphs/index/23.png"></p>
+<p>After we visit the last element 3, it doesn’t have any unvisited adjacent nodes, so we have completed the Depth First Traversal of the graph.</p>
+<p><img src="/12-pattern-graphs/index/24.png"></p>
+<p>Now, consider this example:</p>
+<p><img src="/12-pattern-graphs/index/25.png"></p>
+<p>Starting from node A, let’s perform DFS on this graph:</p>
+<ol>
+<li>Start at node A (the source node).</li>
+<li>Mark node A as visited and process it: A (visited).</li>
+<li>Explore an unvisited neighbor of A. Let’s say we choose B.</li>
+<li>Mark node B as visited and process it: A -&gt; B (visited).</li>
+<li>From node B, explore an unvisited neighbor. We choose D.</li>
+<li>Mark node D as visited and process it: A -&gt; B -&gt; D (visited).</li>
+<li>Node D has no unvisited neighbors, so we backtrack to node B.</li>
+<li>Node B has another unvisited neighbor, E. We explore E.</li>
+<li>Mark node E as visited and process it: A -&gt; B -&gt; D -&gt; E (visited).</li>
+<li>From node E, explore an unvisited neighbor. We choose F.</li>
+<li>Mark node F as visited and process it: A -&gt; B -&gt; D -&gt; E -&gt; F (visited).</li>
+<li>Node F has no unvisited neighbors, so we backtrack to node E.</li>
+<li>Node E has no more unvisited neighbors, so we backtrack to node B.</li>
+<li>Node B has no more unvisited neighbors, so we backtrack to node A.</li>
+<li>Node A has one more unvisited neighbor, C. We explore C.</li>
+<li>Mark node C as visited and process it: A -&gt; B -&gt; D -&gt; E -&gt; F -&gt; C (visited).</li>
+<li>Node C has no unvisited neighbors, so we backtrack to node A.</li>
+<li>Node A has no more unvisited neighbors, and we have visited all reachable nodes.</li>
+</ol>
+<p>The DFS traversal order for this graph starting from node A is: A -&gt; B -&gt; D -&gt; E -&gt; F -&gt; C.</p>
+<p>Note that the choice of the starting node can affect the order of traversal for the graph. Also, in a disconnected graph, you would need to start DFS from each unvisited node to traverse all components.</p>
+<h4 id="Implementation-of-Depth-First-Search"><a href="#Implementation-of-Depth-First-Search" class="headerlink" title="Implementation of Depth First Search"></a>Implementation of Depth First Search</h4><p>Below is an implementation of Depth-First Search (DFS) in C++, Python, Java, and JavaScript. DFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking.</p>
+<p>In this example implementation, we assume that the graph is represented as an adjacency list.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, V</span>):</span></span><br><span class="line">        self.vertices = V</span><br><span class="line">        self.adjList = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(V)]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addEdge</span>(<span class="params">self, u, v</span>):</span></span><br><span class="line">        self.adjList[u].append(v)</span><br><span class="line">        self.adjList[v].append(u)  <span class="comment"># For an undirected graph</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">DFS</span>(<span class="params">self, start</span>):</span></span><br><span class="line">        visited = [<span class="literal">False</span>] * self.vertices</span><br><span class="line">        stack = []</span><br><span class="line"></span><br><span class="line">        stack.append(start)</span><br><span class="line">        visited[start] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> stack:</span><br><span class="line">            curr = stack.pop()</span><br><span class="line">            <span class="built_in">print</span>(curr)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> neighbor <span class="keyword">in</span> self.adjList[curr]:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> visited[neighbor]:</span><br><span class="line">                    stack.append(neighbor)</span><br><span class="line">                    visited[neighbor] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">g = Graph(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">g.addEdge(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">g.addEdge(<span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">g.addEdge(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">g.addEdge(<span class="number">1</span>, <span class="number">4</span>)</span><br><span class="line">g.addEdge(<span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line">g.addEdge(<span class="number">2</span>, <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;DFS Traversal starting from vertex 0:&quot;</span>)</span><br><span class="line">g.DFS(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="Complexity-analysis"><a href="#Complexity-analysis" class="headerlink" title="Complexity analysis"></a>Complexity analysis</h4><p>The time and space complexity of Depth-First Search (DFS) depend on the size and structure of the graph being traversed. Let’s analyze the complexity of DFS:</p>
+<p><strong>1. Time Complexity:</strong></p>
+<ul>
+<li>In the worst case, DFS once visits all nodes and edges in the graph. For a graph with V vertices (nodes) and E edges, the time complexity of DFS is <strong><em>O(V + E)</em></strong></li>
+<li>The time complexity can be further broken down as follows:<ul>
+<li>Visiting a node (marking it as visited and processing it) takes <strong><em>O(1)</em></strong> time.</li>
+<li>Exploring all neighbors of a node takes <strong><em>O(d)</em></strong> time, where ‘d’ is the average degree of nodes in the graph. In the worst case, ‘d’ can be as high as <strong><em>V - 1</em></strong> (complete graph).<ul>
+<li>So, the time complexity can be approximated as <strong><em>O(V)</em></strong> for exploring all neighbors of one node.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In summary, the overall time complexity of DFS is: <strong><em>O(V + E)</em></strong></p>
+<p><strong>2. Space Complexity:</strong></p>
+<ul>
+<li>The space complexity of DFS is determined by the space needed to store information about the nodes during the traversal. The primary sources of space usage are the recursion stack (if using recursion) or the explicit stack data structure (if using an iterative approach).</li>
+<li>In the worst case, the maximum depth of the recursion stack (or the maximum number of nodes stored in the stack) is the height of the deepest branch of the graph. For a graph with a single connected component, this height can be <strong><em>O(V - 1)</em></strong> (when all nodes are connected in a straight line).</li>
+<li>The space complexity of the recursion stack in the worst case is <strong><em>O(V)</em></strong>. Additionally, if an explicit stack is used, its space complexity would also be <strong><em>O(V)</em></strong> in the worst case.</li>
+</ul>
+<p>In summary, the overall space complexity of DFS is <strong><em>O(V)</em></strong> due to the recursion stack or the explicit stack.</p>
+<p>DFS can be used for various applications, such as finding connected components, detecting cycles in the graph, topological sorting, and solving problems like maze exploration or finding paths between nodes.</p>
+<p>It’s essential to be cautious about infinite loops when traversing graphs that may have cycles. To avoid this, the algorithm must keep track of visited nodes and avoid revisiting nodes that have already been explored.</p>
+<p>Overall, DFS is a powerful graph traversal algorithm that can efficiently explore the entire graph and is widely used in many graph-related problems.</p>
+<h3 id="Breadth-First-Search-BFS"><a href="#Breadth-First-Search-BFS" class="headerlink" title="Breadth First Search (BFS)"></a>Breadth First Search (BFS)</h3><p>Breadth-First Search (BFS) is a graph traversal algorithm that explores a graph’s vertices (nodes) level by level. It starts from a selected source node and moves outward to visit all the nodes at the same distance from the source before moving on to nodes at the following distance level.</p>
+<p>BFS is particularly useful for finding the shortest path in unweighted graphs and for systematically exploring graphs.</p>
+<p>Here is a complete description of the Breadth-First Search algorithm:</p>
+<p><strong>1. Use a Queue</strong></p>
+<ul>
+<li>BFS uses a queue to keep track of the nodes to be visited. The queue follows the First-In-First-Out (FIFO) principle, where the first node inserted in the queue will be the first one to be removed (dequeue).</li>
+</ul>
+<p><strong>2. Initialization:</strong></p>
+<ul>
+<li>Start by selecting a source node to begin the traversal.</li>
+<li>Create an empty queue to hold the nodes to be visited.</li>
+<li>Mark the source node as visited and enqueue it into the queue.</li>
+</ul>
+<p><strong>3. Traversal:</strong></p>
+<ul>
+<li>While the queue is not empty, continue the following steps:<ul>
+<li>Dequeue a node from the front of the queue (let’s call it the “current node”).</li>
+<li>Process the current node (print it, perform some operation, etc.).</li>
+<li>Enqueue all the unvisited neighbors of the current node into the queue.</li>
+<li>Mark each enqueued neighbor as visited.</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. Termination:</strong></p>
+<ul>
+<li>The BFS algorithm continues until the queue becomes empty, meaning all reachable nodes from the source node have been visited.</li>
+</ul>
+<h4 id="Step-by-Step-Illustration-of-BFS"><a href="#Step-by-Step-Illustration-of-BFS" class="headerlink" title="Step-by-Step Illustration of BFS"></a>Step-by-Step Illustration of BFS</h4><p>Let’s see how the Breadth First Search algorithm works with an example. We use an undirected graph with 5 vertices.</p>
+<p><img src="/12-pattern-graphs/index/26.png"></p>
+<p>We start from vertex 0, the BFS algorithm starts by putting it in the Visited list and putting all its adjacent vertices in the queue.</p>
+<p><img src="/12-pattern-graphs/index/27.png"></p>
+<p>Next, we visit the element at the front of queue i.e. 1 and go to its adjacent nodes. Since 0 has already been visited, we visit 2 instead.</p>
+<p><img src="/12-pattern-graphs/index/28.png"></p>
+<p>Vertex 2 has an unvisited adjacent vertex in 4, so we add that to the back of the queue and visit 3, which is at the front of the queue.</p>
+<p><img src="/12-pattern-graphs/index/29.png"></p>
+<p>Only 4 remains in the queue since the only adjacent node of 3 i.e. 0 is already visited. We visit it.</p>
+<p><img src="/12-pattern-graphs/index/30.png"></p>
+<p>Now, consider this example:</p>
+<p><img src="/12-pattern-graphs/index/25.png"></p>
+<p>Starting from the source node A, the BFS traversal would be as follows:</p>
+<ol>
+<li>Start with A (the source node) and enqueue it. Queue: [A]</li>
+<li>Dequeue A and process it. Enqueue its neighbors B and C. Queue: [B, C]</li>
+<li>Dequeue B and process it. Enqueue its neighbors D and E. Queue: [C, D, E]</li>
+<li>Dequeue C and process it. Enqueue its neighbor F. Queue: [D, E, F]</li>
+<li>Dequeue D and process it. No unvisited neighbors to enqueue. Queue: [E, F]</li>
+<li>Dequeue E and process it. Enqueue its neighbor F. Queue: [F]</li>
+<li>Dequeue F and process it. No unvisited neighbors to enqueue. Queue: []</li>
+</ol>
+<p>The BFS traversal order is: A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; F.</p>
+<p>BFS guarantees that it visits nodes in the order of their distance from the source node.</p>
+<p>It is an efficient algorithm to find the shortest path in unweighted graphs. Additionally, BFS can be used to find connected components, detect cycles, and solve various graph-related problems. However, it may consume more memory compared to DFS, especially in graphs with a large branching factor or infinite graphs.</p>
+<h4 id="Implementation-of-Breadth-First-Search"><a href="#Implementation-of-Breadth-First-Search" class="headerlink" title="Implementation of Breadth First Search"></a>Implementation of Breadth First Search</h4><p>Below is an implementation of Breadth-First Search (DFS) in C++, Python, Java, and JavaScript. BFS is an algorithm used for traversing or searching a graph or tree in a level-by-level manner.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict, deque</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, vertices</span>):</span></span><br><span class="line">        self.V = vertices</span><br><span class="line">        self.adjList = defaultdict(<span class="built_in">list</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addEdge</span>(<span class="params">self, u, v</span>):</span></span><br><span class="line">        self.adjList[u].append(v)</span><br><span class="line">        self.adjList[v].append(u)  <span class="comment"># For undirected graph</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">BFS</span>(<span class="params">self, startVertex</span>):</span></span><br><span class="line">        visited = [<span class="literal">False</span>] * self.V  <span class="comment"># To keep track of visited vertices</span></span><br><span class="line">        q = deque()</span><br><span class="line"></span><br><span class="line">        visited[startVertex] = <span class="literal">True</span></span><br><span class="line">        q.append(startVertex)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> q:</span><br><span class="line">            currentVertex = q.popleft()</span><br><span class="line">            <span class="built_in">print</span>(currentVertex, end=<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Explore adjacent vertices</span></span><br><span class="line">            <span class="keyword">for</span> neighbor <span class="keyword">in</span> self.adjList[currentVertex]:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> visited[neighbor]:</span><br><span class="line">                    visited[neighbor] = <span class="literal">True</span></span><br><span class="line">                    q.append(neighbor)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    graph = Graph(<span class="number">6</span>)  <span class="comment"># Create a graph with 6 vertices</span></span><br><span class="line"></span><br><span class="line">    graph.addEdge(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">    graph.addEdge(<span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">    graph.addEdge(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    graph.addEdge(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">    graph.addEdge(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">    graph.addEdge(<span class="number">3</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Breadth-First Traversal starting from vertex 0:&quot;</span>)</span><br><span class="line">    graph.BFS(<span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="Complexity-analysis-1"><a href="#Complexity-analysis-1" class="headerlink" title="Complexity analysis"></a>Complexity analysis</h4><p>The time and space complexity of Breadth-First Search (BFS) depends on the size of the graph and the way it is represented. Let’s analyze the complexities:</p>
+<p><strong>1. Time Complexity:</strong></p>
+<ul>
+<li>Visiting a vertex takes <strong><em>O(1)</em></strong> time as we dequeue it from the queue in constant time.</li>
+<li>Exploring the neighbors of a vertex takes <strong><em>O(1)</em></strong> time per neighbor, as we have to traverse its adjacency list once.</li>
+<li>In the worst case, we visit all the vertices at least once, which takes <strong><em>O(V)</em></strong> time. Additionally, for each vertex, we explore all its neighbors once, which takes <strong><em>O(E)</em></strong> time in total (sum of the sizes of all adjacency lists).</li>
+<li>Hence, the overall time complexity of BFS is: <strong><em>O(V + E)</em></strong></li>
+</ul>
+<p><strong>2. Space Complexity:</strong></p>
+<ul>
+<li>The space required to store the graph using an adjacency list representation is <strong><em>O(V + E)</em></strong>, as we need to store each vertex and its corresponding edges.</li>
+<li>The space required for the queue in BFS is <strong><em>O(V)</em></strong> in the worst case, as all the vertices can be in the queue at once.</li>
+<li>Since the space occupied by the queue is dominant in the overall space complexity, the space complexity of BFS is: <strong><em>O(V)</em></strong></li>
+</ul>
+<p>BFS is generally efficient for searching and traversal when the graph is not too dense. For sparse graphs, where E is much smaller than <strong><em>V^2</em></strong>, the time complexity becomes almost linear, making BFS a reasonable choice for many practical applications.</p>
+<p>BFS guarantees it visits nodes according to their distance from the source node. It is an efficient algorithm to find the shortest path in unweighted graphs. Additionally, BFS can find connected components, detect cycles, and solve graph-related problems. However, it may consume more memory than DFS, especially in graphs with a significant or infinite branching factor.</p>
+<h2 id="Find-if-Path-Exists-in-Graph-easy"><a href="#Find-if-Path-Exists-in-Graph-easy" class="headerlink" title="Find if Path Exists in Graph(easy)"></a>Find if Path Exists in Graph(easy)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-if-path-exists-in-graph/">1971. Find if Path Exists in Graph</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> </p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given an undirected graph, represented as a list of edges. Each edge is illustrated as a pair of integers <code>[u, v]</code>, signifying that there’s a mutual connection between node <code>u</code> and node <code>v</code>.</p>
+<p>Given this graph, a starting node <code>start</code>, and a destination node <code>end</code>, your task is to ascertain if a path exists between the starting node and the destination node.</p>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><ol>
+<li><strong>Example 1:</strong><ul>
+<li>Input: <code>4, [[0,1],[1,2],[2,3]], 0, 3</code></li>
+<li>Expected Output: <code>true</code></li>
+<li>Justification: There’s a path from node 0 -&gt; 1 -&gt; 2 -&gt; 3.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li>Input: <code>4, [[0,1],[2,3]], 0, 3</code></li>
+<li>Expected Output: <code>false</code></li>
+<li>Justification: Nodes 0 and 3 are not connected, so no path exists between them.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li>Input: <code>5, [[0,1],[3,4]], 0, 4</code></li>
+<li>Expected Output: <code>false</code></li>
+<li>Justification: Nodes 0 and 4 are not connected in any manner.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>1 &lt;= n &lt;= 2 * 10^5</li>
+<li>0 &lt;= edges.length &lt;= 2 * 10^5</li>
+<li>edges[i].length == 2</li>
+<li>0 &lt;= ui, vi &lt;= n - 1</li>
+<li>ui != vi</li>
+<li>0 &lt;= source, destination &lt;= n - 1</li>
+<li>There are no duplicate edges.</li>
+<li>There are no self edges.</li>
+</ul>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>The task at hand is to determine if there’s a path from a starting node to an ending node in a given undirected graph. Our approach uses Depth First Search (DFS) to explore the graph recursively. Starting at the initial node, we’ll dive as deep as possible into its neighboring nodes. If we reach the target node at any point during the traversal, we know a path exists. If we exhaust all possible routes and haven’t found the target, then no path exists.</p>
+<ol>
+<li><strong>Graph Representation:</strong> We’ll begin by converting the provided edge list into an adjacency list to represent our graph. The adjacency list is essentially an array (or list) of lists, where each index corresponds to a node, and its content is a list of neighbors for that node. Since our graph is undirected, if there’s an edge between nodes A and B, both A will be in B’s list and B in A’s list.</li>
+<li><strong>Depth First Search (DFS):</strong> With our graph ready, we then use a recursive DFS function to traverse the graph. This function starts at the given node, and if it’s the target node, we return true. Otherwise, we mark this node as visited and call the DFS function on all its unvisited neighbors. This dives deeper into the graph. If any of these recursive calls return true (meaning they found the target), our current DFS call also returns true.</li>
+<li><strong>Handling Cycles:</strong> To avoid getting stuck in a loop, especially in cyclic graphs, we keep track of which nodes we’ve visited. Before exploring a node, we’ll check if it’s been visited; if it has, we’ll skip it.</li>
+<li><strong>Result:</strong> If our DFS exploration reaches the target node, we return true, signifying that a path exists. Otherwise, after checking all paths from the starting node and not finding the target, we’ll conclude and return false.</li>
+</ol>
+<p><strong>Algorithm Walkthrough:</strong> Using the input from Example 1:</p>
+<ul>
+<li>Nodes = 4, Edges = <code>[[0,1],[1,2],[2,3]]</code>, Start = 0, End = 3</li>
+</ul>
+<ol>
+<li>Create the graph from the edges.</li>
+<li>Begin DFS at node 0.</li>
+<li>Mark node 0 as visited.</li>
+<li>Explore neighbors of node 0. Discover node 1.</li>
+<li>Delve into DFS for node 1.</li>
+<li>Mark node 1 as visited.</li>
+<li>Explore neighbors of node 1. Discover node 2.</li>
+<li>Delve into DFS for node 2.</li>
+<li>Mark node 2 as visited.</li>
+<li>Explore neighbors of node 2. Discover node 3.</li>
+<li>Since node 3 is the target <code>end</code> node, return <code>true</code>.</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>Here is the code for this algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方使用递归如下，但是我更习惯我写的，使用while</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validPath</span>(<span class="params">self, n: <span class="built_in">int</span>, edges: [[<span class="built_in">int</span>]], start: <span class="built_in">int</span>, end: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        graph = defaultdict(<span class="built_in">list</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Create graph from edges</span></span><br><span class="line">        <span class="keyword">for</span> u, v <span class="keyword">in</span> edges:</span><br><span class="line">            graph[u].append(v)</span><br><span class="line">            graph[v].append(u)  <span class="comment"># Undirected graph</span></span><br><span class="line">        </span><br><span class="line">        visited = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">node</span>):</span></span><br><span class="line">            <span class="keyword">if</span> node == end:  <span class="comment"># Found the path</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            visited.add(node)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Traverse neighbors</span></span><br><span class="line">            <span class="keyword">for</span> neighbor <span class="keyword">in</span> graph[node]:</span><br><span class="line">                <span class="keyword">if</span> neighbor <span class="keyword">not</span> <span class="keyword">in</span> visited <span class="keyword">and</span> dfs(neighbor):</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># Path not found</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(start)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test</span></span><br><span class="line">sol = Solution()</span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">4</span>, [[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">3</span>]], <span class="number">0</span>, <span class="number">3</span>))  <span class="comment"># true</span></span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">4</span>, [[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">2</span>,<span class="number">3</span>]], <span class="number">0</span>, <span class="number">3</span>))      <span class="comment"># false</span></span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">5</span>, [[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">3</span>,<span class="number">4</span>]], <span class="number">0</span>, <span class="number">4</span>))      <span class="comment"># false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自己写的，可以过leetcode</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict, deque</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validPath</span>(<span class="params">self, n: <span class="built_in">int</span>, edges: [[<span class="built_in">int</span>]], start: <span class="built_in">int</span>, end: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        graph = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create graph from edges</span></span><br><span class="line">        <span class="keyword">for</span> u, v <span class="keyword">in</span> edges:</span><br><span class="line">            graph[u].append(v)</span><br><span class="line">            graph[v].append(u)  <span class="comment"># Undirected graph</span></span><br><span class="line"></span><br><span class="line">        visited = [<span class="literal">False</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        stack = deque()</span><br><span class="line">        stack.append(start)</span><br><span class="line">        visited[start] = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">while</span> stack:</span><br><span class="line">            element = stack.pop()</span><br><span class="line">            <span class="keyword">for</span> child <span class="keyword">in</span> graph[element]:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> visited[child]:</span><br><span class="line">                    stack.append(child)</span><br><span class="line">                    visited[child] = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">if</span> child == end:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test</span></span><br><span class="line">sol = Solution()</span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">4</span>, [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">3</span>]], <span class="number">0</span>, <span class="number">3</span>))  <span class="comment"># true</span></span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">4</span>, [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>]], <span class="number">0</span>, <span class="number">3</span>))  <span class="comment"># false</span></span><br><span class="line"><span class="built_in">print</span>(sol.validPath(<span class="number">5</span>, [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">3</span>, <span class="number">4</span>]], <span class="number">0</span>, <span class="number">4</span>))  <span class="comment"># false</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h3><ol>
+<li><strong>Graph Construction:</strong> Constructing the adjacency list from the given edge list takes (O(E)), where (E) is the number of edges. Each edge is processed once.</li>
+<li><strong>DFS Traversal:</strong> In the worst-case scenario, the Depth-First Search (DFS) can traverse all nodes and all edges once. This traversal has a time complexity of (O(V + E)), where (V) is the number of vertices or nodes, and (E) is the number of edges.</li>
+</ol>
+<p>Combining the above, our time complexity is dominated by the DFS traversal, making it (O(V + E)).</p>
+<h3 id="Space-Complexity"><a href="#Space-Complexity" class="headerlink" title="Space Complexity"></a>Space Complexity</h3><ol>
+<li><strong>Graph Representation:</strong> The adjacency list requires (O(V + E)) space.</li>
+<li><strong>Visited Set/Array:</strong> The visited set (or array) will take (O(V)) space, as it needs to track each node in the graph.</li>
+<li><strong>Recursive Call Stack:</strong> The DFS function is recursive, and in the worst case (for a connected graph), it can have (V) nested calls. This would result in a call stack depth of (V), adding (O(V)) space complexity.</li>
+</ol>
+<p>The dominant factor here is the graph representation and the call stack, so the total space complexity is (O(V + E)).</p>
+<p><strong>Summary:</strong></p>
+<ul>
+<li>Time Complexity: (O(V + E))</li>
+<li>Space Complexity: (O(V + E))</li>
+</ul>
+<p>This makes our algorithm efficient, especially for sparse graphs (i.e., graphs with relatively fewer edges compared to nodes). The worst-case scenario is when the graph is fully connected, but even then, our algorithm is designed to handle it within reasonable limits.</p>
+<h2 id="Number-of-Provinces-medium"><a href="#Number-of-Provinces-medium" class="headerlink" title="Number of Provinces (medium)"></a>Number of Provinces (medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-provinces/">547. Number of Provinces</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> </p>
+<h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Imagine a country with several cities. Some cities have direct roads connecting them, while others might be connected through a sequence of intermediary cities. Using a matrix representation, if <code>matrix[i][j]</code> holds the value <code>1</code>, it indicates that city <code>i</code> is directly linked to city <code>j</code> and vice versa. If it holds <code>0</code>, then there’s no direct link between them.</p>
+<p>Determine the number of separate city clusters (or provinces).</p>
+<p>A <strong>province</strong> is defined as a collection of cities that can be reached from each other either directly or through other cities in the same province.</p>
+<h3 id="Examples-1"><a href="#Examples-1" class="headerlink" title="Examples"></a>Examples</h3><ol>
+<li><ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Expected Output</strong>:<br><code>2</code></p>
+</li>
+<li><p><strong>Justification</strong>:<br>There are two provinces: cities 0 and 1 form one province, and city 2 forms its own province.</p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Expected Output</strong>:<br><code>2</code></p>
+</li>
+<li><p><strong>Justification</strong>:<br>There are two provinces: cities 0 and 3 are interconnected forming one province, and cities 1 and 2 form another.</p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Expected Output</strong>:<br><code>3</code></p>
+</li>
+<li><p><strong>Justification</strong>:<br>Each city stands alone and is not connected to any other city. Thus, we have three provinces.</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 200</code></li>
+<li><code>n == isConnected.length</code></li>
+<li><code>n == isConnected[i].length</code></li>
+<li><code>isConnected[i][j]</code> is <code>1</code> or <code>0</code>.</li>
+<li><code>isConnected[i][i] == 1</code></li>
+<li><code>isConnected[i][j] == isConnected[j][i]</code></li>
+</ul>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>At a high level, the problem of identifying provinces in the given matrix can be visualized as detecting connected components in an undirected graph. Every city represents a node, and a direct connection between two cities is an edge. The number of separate, interconnected clusters in this graph is essentially the number of provinces. To navigate this graph and identify these clusters, we employ the Depth First Search (DFS) technique, marking visited nodes (cities) along the way.</p>
+<ol>
+<li><strong>Initialization</strong>: Start with a <code>visited</code> array, initialized with all values set to <code>false</code>. This will help in keeping track of cities that have been processed.</li>
+<li><strong>DFS Function</strong>: This recursive function allows us to traverse the matrix. When an unvisited city is found, we recursively visit all other cities accessible from it, marking them as visited. All cities traversed in a single DFS invocation belong to the same province.</li>
+<li><strong>Counting Provinces</strong>: Every unique invocation of the DFS function on an unvisited city, from the main function, signifies the discovery of a new province. Therefore, for each such invocation, we increment our province count.</li>
+<li><strong>Completion</strong>: After every city has been visited, our province counter will hold the total number of provinces in the country.</li>
+</ol>
+<p><strong>Algorithm Walkthrough</strong>: Using the input <code>[[1,1,0],[1,1,0],[0,0,1]]</code>:</p>
+<ul>
+<li>Begin with an unvisited <code>visited</code> array: <code>[false, false, false]</code>.</li>
+<li>Start from city 0:<ul>
+<li>Visit city 0 and city 1 since they are connected. Update <code>visited</code> to <code>[true, true, false]</code>.</li>
+</ul>
+</li>
+<li>City 2 remains unvisited, but it isn’t connected to any other unvisited city. So, it forms its own province.</li>
+<li>We initiated the DFS twice: once for the province comprising cities {0,1} and once for the solitary city 2.</li>
+<li>Our answer becomes <code>2</code>.</li>
+</ul>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><p>Here is the code for this algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方使用的是递归</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCircleNum</span>(<span class="params">self, isConnected</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">city</span>):</span></span><br><span class="line">            <span class="comment"># For each city, mark it as visited and explore its connections</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(isConnected)):</span><br><span class="line">                <span class="keyword">if</span> isConnected[city][i] == <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> visited[i]:</span><br><span class="line">                    visited[i] = <span class="literal">True</span></span><br><span class="line">                    dfs(i)</span><br><span class="line"></span><br><span class="line">        visited = [<span class="literal">False</span>] * <span class="built_in">len</span>(isConnected)</span><br><span class="line">        provinces = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> city <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(isConnected)):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> visited[city]:</span><br><span class="line">                dfs(city)</span><br><span class="line">                provinces += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> provinces</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test the Solution class</span></span><br><span class="line">solution = Solution()</span><br><span class="line"><span class="built_in">print</span>(solution.findCircleNum([[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]))  <span class="comment"># Expected output: 2</span></span><br><span class="line"><span class="built_in">print</span>(solution.findCircleNum([[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]))  <span class="comment"># Expected output: 2</span></span><br><span class="line"><span class="built_in">print</span>(solution.findCircleNum([[<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>]]))  <span class="comment"># Expected output: 3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-Complexity-1"><a href="#Time-Complexity-1" class="headerlink" title="Time Complexity"></a>Time Complexity</h3><ul>
+<li><strong>Depth First Search (DFS)</strong>: For a given node, the DFS will explore all of its neighbors. In the worst case, we may end up visiting all nodes in the graph starting from a single node. Hence, the DFS complexity is (O(n)), where (n) is the number of nodes.</li>
+<li><strong>Overall Time Complexity</strong>: For each node, we might call DFS once (if that node is not visited before). Thus, the overall time complexity is (O(n^2)), with the DFS call being nested inside a loop that iterates over all nodes. In dense graphs where each node is connected to every other node, we will reach this upper bound.</li>
+</ul>
+<h3 id="Space-Complexity-1"><a href="#Space-Complexity-1" class="headerlink" title="Space Complexity"></a>Space Complexity</h3><ul>
+<li><strong>Visited Array</strong>: This is an array of size (n) (the number of nodes), so its space requirement is (O(n)).</li>
+<li><strong>Recursive Call Stack</strong>: In the worst case, if all cities are connected in a linear manner (like a linked list), the maximum depth of recursive DFS calls will be (n). Hence, the call stack will take (O(n)) space.</li>
+<li><strong>Overall Space Complexity</strong>: The dominant space-consuming factors are the <code>visited</code> array and the recursive call stack. Hence, the space complexity is (O(n)).</li>
+</ul>
+<p>In summary:</p>
+<ul>
+<li>Time Complexity: (O(n^2))</li>
+<li>Space Complexity: (O(n))</li>
+</ul>
+<p>This algorithm is efficient because once a city is visited, it won’t be visited again, ensuring we don’t do redundant work. Moreover, using DFS allows us to deeply traverse through connected cities, marking entire provinces in one go. This approach optimizes our search and helps in reducing the number of unnecessary computations.</p>
+<h2 id="Minimum-Number-of-Vertices-to-Reach-All-Nodes-medium"><a href="#Minimum-Number-of-Vertices-to-Reach-All-Nodes-medium" class="headerlink" title="Minimum Number of Vertices to Reach All Nodes(medium)"></a>Minimum Number of Vertices to Reach All Nodes(medium)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/">1557. Minimum Number of Vertices to Reach All Nodes</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> 这道题适合在拓扑排序中</p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a directed acyclic graph with <code>n</code> nodes labeled from <code>0</code> to <code>n-1</code>, determine the smallest number of initial nodes such that you can access all the nodes by traversing edges. Return these nodes.</p>
+<h3 id="Examples-2"><a href="#Examples-2" class="headerlink" title="Examples"></a>Examples</h3><ol>
+<li><p><strong>Input:</strong></p>
+<ul>
+<li><code>n = 6</code></li>
+<li><code>edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]</code></li>
+</ul>
+<p><strong>Expected Output:</strong> <code>[0,3]</code></p>
+<p><strong>Justification:</strong> Starting from nodes 0 and 3, you can reach all other nodes in the graph. Starting from node 0, you can reach nodes 1, 2, and 5. Starting from node 3, you can reach nodes 4 and 2 (and by extension 5).</p>
+</li>
+<li><p><strong>Input:</strong></p>
+<ul>
+<li><code>n = 3</code></li>
+<li><code>edges = [[0,1],[2,1]]</code></li>
+</ul>
+<p><strong>Expected Output:</strong> <code>[0,2]</code></p>
+<p><strong>Justification:</strong> Nodes 0 and 2 are the only nodes that don’t have incoming edges. Hence, you need to start from these nodes to reach node 1.</p>
+</li>
+<li><p><strong>Input:</strong></p>
+<ul>
+<li><code>n = 5</code></li>
+<li><code>edges = [[0,1],[2,1],[3,4]]</code></li>
+</ul>
+<p><strong>Expected Output:</strong> <code>[0,2,3]</code></p>
+<p><strong>Justification:</strong> Node 1 can be reached from both nodes 0 and 2, but to cover all nodes, you also need to start from node 3.</p>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>2 &lt;= n &lt;= 10^5</li>
+<li>1 &lt;= edges.length &lt;= min(10^5, n * (n - 1) / 2)</li>
+<li>edges[i].length == 2</li>
+<li>0 &lt;= fromi, toi &lt; n</li>
+<li>All pairs (fromi, toi) are distinct.</li>
+</ul>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>To solve the problem of determining the minimum number of vertices needed to reach all nodes in a directed graph, we focus on the concept of “in-degree” which represents the number of incoming edges to a node. In a directed graph, if a node doesn’t have any incoming edges (in-degree of 0), then it means that the node cannot be reached from any other node. Hence, such nodes are mandatory starting points to ensure that every node in the graph can be reached. Our algorithm thus identifies all nodes with an in-degree of 0 as they are potential starting points to traverse the entire graph.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><strong>Graph Representation:</strong> Begin by representing the graph using an adjacency list or a similar data structure.</li>
+<li><strong>In-Degree Calculation:</strong> Compute the in-degree for all the nodes. The in-degree of a node is the number of edges coming into it. This can be done by initializing an array to keep track of in-degrees for each node and iterating over the edges to update the in-degree counts.</li>
+<li><strong>Result Gathering:</strong> Iterate over the computed in-degrees. Nodes with an in-degree of 0 don’t have any incoming edges and thus are part of our result set as they serve as starting points.</li>
+</ol>
+<h4 id="Algorithm-Walkthrough"><a href="#Algorithm-Walkthrough" class="headerlink" title="Algorithm Walkthrough:"></a>Algorithm Walkthrough:</h4><p>Let’s walk through the solution using the example <code>n = 6</code> and <code>edges = [[0,1],[0,2],[2,5],[3,4],[4,2]]</code>:</p>
+<ul>
+<li><strong>Step 1:</strong> Start with an in-degree array initialized to zeros for all nodes: <code>[0, 0, 0, 0, 0, 0]</code>.</li>
+<li><strong>Step 2:</strong> Iterate over the edges. For each edge <code>(source, destination)</code>, increment the in-degree of the <code>destination</code> node by 1. After processing all edges, the in-degree array becomes: <code>[0,1,2,0,1,1]</code>.</li>
+<li><strong>Step 3:</strong> Finally, by examining the in-degree array, nodes 0 and 3 are identified as having an in-degree of 0. This means they don’t receive any incoming edges, and thus, they become our result set: <code>[0,3]</code>. Starting from these nodes, we can reach all other nodes in the graph.</li>
+</ul>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><p>Here is the code for this algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findSmallestSetOfVertices</span>(<span class="params">self, n: <span class="built_in">int</span>, edges: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span></span><br><span class="line">        <span class="comment"># Create a set to store nodes with incoming edges</span></span><br><span class="line">        nodes_with_incoming = <span class="built_in">set</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Populate the set</span></span><br><span class="line">        <span class="keyword">for</span> _, to_node <span class="keyword">in</span> edges:</span><br><span class="line">            nodes_with_incoming.add(to_node)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Return nodes without incoming edges</span></span><br><span class="line">        <span class="keyword">return</span> [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n) <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> nodes_with_incoming]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    solution = Solution()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Test cases</span></span><br><span class="line">    edges1 = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">0</span>,<span class="number">2</span>], [<span class="number">2</span>,<span class="number">5</span>], [<span class="number">3</span>,<span class="number">4</span>], [<span class="number">4</span>,<span class="number">2</span>]]</span><br><span class="line">    <span class="built_in">print</span>(solution.findSmallestSetOfVertices(<span class="number">6</span>, edges1))  <span class="comment"># Expected: [0, 3]</span></span><br><span class="line">    </span><br><span class="line">    edges2 = [[<span class="number">0</span>,<span class="number">1</span>], [<span class="number">3</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">2</span>]]</span><br><span class="line">    <span class="built_in">print</span>(solution.findSmallestSetOfVertices(<span class="number">4</span>, edges2))  <span class="comment"># Expected: [0, 3]</span></span><br><span class="line">    </span><br><span class="line">    edges3 = [[<span class="number">2</span>,<span class="number">0</span>], [<span class="number">3</span>,<span class="number">2</span>]]</span><br><span class="line">    <span class="built_in">print</span>(solution.findSmallestSetOfVertices(<span class="number">4</span>, edges3))  <span class="comment"># Expected: [1, 3]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-Complexity-2"><a href="#Time-Complexity-2" class="headerlink" title="Time Complexity:"></a>Time Complexity:</h3><ol>
+<li><strong>Initialization</strong>: Initializing the set for all nodes in the graph takes (O(n)), where (n) is the number of nodes.</li>
+<li><strong>Processing Edges</strong>: For every edge ([u, v]), we are simply checking and potentially removing the node (v) from our set. Since we do a constant amount of work for each edge, this step takes (O(e)) time, where (e) is the number of edges.</li>
+</ol>
+<p>Thus, the overall time complexity is the sum of the above two steps, i.e., (O(n + e)). In the worst case (a complete graph), every node is connected to every other node, making (e = n^2), leading to a worst-case time complexity of (O(n^2)). However, this is not a typical scenario, and in most real-world graphs, (e) is often linear or close to linear with respect to (n). Therefore, (O(n + e)) is a more informative measure.</p>
+<h3 id="Space-Complexity-2"><a href="#Space-Complexity-2" class="headerlink" title="Space Complexity:"></a>Space Complexity:</h3><ol>
+<li><strong>Set for Nodes</strong>: The set that we’re using to keep track of nodes which do not have any incoming edges will, at most, contain all nodes. This gives us a space complexity of (O(n)).</li>
+<li><strong>Graph Representation</strong>: Though we are given the edges as an input, if we consider the space used by this representation, it will be (O(e)) for the edges.</li>
+</ol>
+<p>However, note that since we are not using any additional data structures that scale with the size of the graph other than the set for nodes, our primary concern is the set’s space. Thus, the dominant term here is (O(n)).</p>
+<p>So, the overall space complexity is (O(n)).</p>
+<p>In summary:</p>
+<ul>
+<li>Time Complexity: (O(n + e))</li>
+<li>Space Complexity: (O(n))</li>
+</ul>
+
     </article>
     <!-- license -->
     
@@ -514,7 +1095,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/12-pattern-graphs/index.html">https://hasuer.github.io/12-pattern-graphs/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/12-pattern-graphs/index.html">May 2nd 2024, 9:42:19 am</a>
-            <p>Update date：<a href="https://hasuer.github.io/12-pattern-graphs/index.html">May 2nd 2024, 9:43:23 am</a>
+            <p>Update date：<a href="https://hasuer.github.io/12-pattern-graphs/index.html">May 14th 2024, 12:29:17 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -663,7 +1244,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Graph"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-of-Graphs"><span class="toc-number">1.1.</span> <span class="toc-text">Application of Graphs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Graph-Terminologies"><span class="toc-number">1.2.</span> <span class="toc-text">Common Graph Terminologies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Graph-Types"><span class="toc-number">1.3.</span> <span class="toc-text">Graph Types</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-Representations"><span class="toc-number">2.</span> <span class="toc-text">Graph Representations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adjacency-Matrix"><span class="toc-number">2.1.</span> <span class="toc-text">Adjacency Matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Adjacency-matrix-for-undirected-graphs"><span class="toc-number">2.1.1.</span> <span class="toc-text">Adjacency matrix for undirected graphs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Adjacency-matrix-for-directed-graphs"><span class="toc-number">2.1.2.</span> <span class="toc-text">Adjacency matrix for directed graphs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adjacency-List"><span class="toc-number">2.2.</span> <span class="toc-text">Adjacency List</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Representing-undirected-graph-using-adjacency-list"><span class="toc-number">2.2.1.</span> <span class="toc-text">Representing undirected graph using adjacency list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Representing-directed-graphs-using-adjacency-list"><span class="toc-number">2.2.2.</span> <span class="toc-text">Representing directed graphs using adjacency list</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-as-an-Abstract-Data-Type-ADT"><span class="toc-number">3.</span> <span class="toc-text">Graph as an Abstract Data Type (ADT)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-the-ADT-operations"><span class="toc-number">3.1.</span> <span class="toc-text">Implementing the ADT operations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-add-vertex-vertex"><span class="toc-number">3.1.1.</span> <span class="toc-text">1. add_vertex(vertex)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-add-edge-vertex1-vertex2"><span class="toc-number">3.1.2.</span> <span class="toc-text">2. add_edge(vertex1, vertex2)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#A-complete-executable-example"><span class="toc-number">3.1.3.</span> <span class="toc-text">A complete executable example</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph-Traversal"><span class="toc-number">4.</span> <span class="toc-text">Graph Traversal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-First-Search-DFS"><span class="toc-number">4.1.</span> <span class="toc-text">Depth First Search(DFS)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-step-Illustration-of-DFS"><span class="toc-number">4.1.1.</span> <span class="toc-text">Step-by-step Illustration of DFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Implementation-of-Depth-First-Search"><span class="toc-number">4.1.2.</span> <span class="toc-text">Implementation of Depth First Search</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Complexity-analysis"><span class="toc-number">4.1.3.</span> <span class="toc-text">Complexity analysis</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Breadth-First-Search-BFS"><span class="toc-number">4.2.</span> <span class="toc-text">Breadth First Search (BFS)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-Step-Illustration-of-BFS"><span class="toc-number">4.2.1.</span> <span class="toc-text">Step-by-Step Illustration of BFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Implementation-of-Breadth-First-Search"><span class="toc-number">4.2.2.</span> <span class="toc-text">Implementation of Breadth First Search</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Complexity-analysis-1"><span class="toc-number">4.2.3.</span> <span class="toc-text">Complexity analysis</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Find-if-Path-Exists-in-Graph-easy"><span class="toc-number">5.</span> <span class="toc-text">Find if Path Exists in Graph(easy)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Examples"><span class="toc-number">5.2.</span> <span class="toc-text">Examples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">5.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">5.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Complexity"><span class="toc-number">5.5.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Space-Complexity"><span class="toc-number">5.6.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number-of-Provinces-medium"><span class="toc-number">6.</span> <span class="toc-text">Number of Provinces (medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">6.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Examples-1"><span class="toc-number">6.2.</span> <span class="toc-text">Examples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">6.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">6.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Complexity-1"><span class="toc-number">6.5.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Space-Complexity-1"><span class="toc-number">6.6.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Minimum-Number-of-Vertices-to-Reach-All-Nodes-medium"><span class="toc-number">7.</span> <span class="toc-text">Minimum Number of Vertices to Reach All Nodes(medium)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">7.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Examples-2"><span class="toc-number">7.2.</span> <span class="toc-text">Examples</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">7.3.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">7.3.1.</span> <span class="toc-text">Algorithm Walkthrough:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">7.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Complexity-2"><span class="toc-number">7.5.</span> <span class="toc-text">Time Complexity:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Space-Complexity-2"><span class="toc-number">7.6.</span> <span class="toc-text">Space Complexity:</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
