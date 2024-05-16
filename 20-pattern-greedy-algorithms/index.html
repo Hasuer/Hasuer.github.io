@@ -19,18 +19,21 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="Top Interview 150 |  23. Merge k Sorted Lists Design Gurus Educative.io">
+    <meta name="description" content="Introduction to Greedy AlgorithmUnderstanding Greedy AlgorithmA Greedy algorithm is used to solve problems in which the best choice is made at each step, and it finds a solution in a minimal step. Thi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20. Pattern Greedy Algorithms">
 <meta property="og:url" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="Top Interview 150 |  23. Merge k Sorted Lists Design Gurus Educative.io">
+<meta property="og:description" content="Introduction to Greedy AlgorithmUnderstanding Greedy AlgorithmA Greedy algorithm is used to solve problems in which the best choice is made at each step, and it finds a solution in a minimal step. Thi">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/2.png">
 <meta property="article:published_time" content="2024-05-03T01:58:48.000Z">
-<meta property="article:modified_time" content="2024-05-03T02:11:14.454Z">
+<meta property="article:modified_time" content="2024-05-16T15:24:34.564Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/old_profile.ico">
@@ -347,7 +350,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">12</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">2.2k</span>Reading time: <span class="post-count reading-time">13 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -508,7 +511,175 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Top Interview 150 |  <a target="_blank" rel="noopener" href="https://leetcode.com/problems/merge-k-sorted-lists/">23. Merge k Sorted Lists</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+        <h2 id="Introduction-to-Greedy-Algorithm"><a href="#Introduction-to-Greedy-Algorithm" class="headerlink" title="Introduction to Greedy Algorithm"></a>Introduction to Greedy Algorithm</h2><h3 id="Understanding-Greedy-Algorithm"><a href="#Understanding-Greedy-Algorithm" class="headerlink" title="Understanding Greedy Algorithm"></a><strong>Understanding Greedy Algorithm</strong></h3><p>A Greedy algorithm is used to solve problems in which the best choice is made at each step, and it finds a solution in a minimal step. This approach assumes that choosing a local optimum at each stage will lead to the determination of a global optimum. It’s like making the most beneficial decision at every crossroad, hoping it leads to the ultimate destination efficiently.</p>
+<h4 id="Purpose-of-Greedy-Algorithm"><a href="#Purpose-of-Greedy-Algorithm" class="headerlink" title="Purpose of Greedy Algorithm"></a><strong>Purpose of Greedy Algorithm</strong></h4><p>The main goal of a greedy algorithm is to solve complex problems by breaking them down into simpler subproblems, solving each one optimally to find a solution that is as close as possible to the overall optimum. It’s particularly useful in scenarios where the problem exhibits the properties of greedy choice and optimal substructure.</p>
+<h4 id="Properties-for-Greedy-Algorithm-Suitability"><a href="#Properties-for-Greedy-Algorithm-Suitability" class="headerlink" title="Properties for Greedy Algorithm Suitability"></a><strong>Properties for Greedy Algorithm Suitability</strong></h4><ol>
+<li><strong>Greedy Choice Property</strong>: The local optimal choices lead to a global optimum, meaning the best solution in each small step leads to the best overall solution.</li>
+<li><strong>Optimal Substructure</strong>: A problem has an optimal substructure if an optimal solution to the entire problem contains the optimal solutions to its subproblems.</li>
+</ol>
+<h4 id="Characteristics-of-Greedy-Method"><a href="#Characteristics-of-Greedy-Method" class="headerlink" title="Characteristics of Greedy Method"></a><strong>Characteristics of Greedy Method</strong></h4><ol>
+<li><strong>Local Optimization</strong>: At every step, the algorithm makes a choice that seems the best at that moment, aiming for local optimality.</li>
+<li><strong>Irrevocability</strong>: Once a choice is made, it cannot be undone or revisited. This is a key characteristic that differentiates greedy methods from dynamic programming, where decisions can be re-evaluated.</li>
+</ol>
+<h4 id="Components-of-Greedy-Algorithm"><a href="#Components-of-Greedy-Algorithm" class="headerlink" title="Components of Greedy Algorithm"></a><strong>Components of Greedy Algorithm</strong></h4><ol>
+<li><strong>Candidate Set</strong>: The set of choices available at each step.</li>
+<li><strong>Selection Function</strong>: This function helps in choosing the most promising candidate to be added to the current solution.</li>
+<li><strong>Feasibility Function</strong>: It checks if a candidate can be used to contribute to a solution without violating problem constraints.</li>
+<li><strong>Objective Function</strong>: This evaluates the value or quality of the solution at each step.</li>
+<li><strong>Solution Function</strong>: It determines if a complete solution has been reached.</li>
+</ol>
+<h3 id="Simplified-Greedy-Algorithm-Process"><a href="#Simplified-Greedy-Algorithm-Process" class="headerlink" title="Simplified Greedy Algorithm Process"></a><strong>Simplified Greedy Algorithm Process</strong></h3><ol>
+<li><strong>Start with an Empty Solution Set</strong>: The algorithm begins with no items in the solution set.</li>
+<li><strong>Iterative Item Selection</strong>: In each step, choose the most suitable item based on the current goal.</li>
+<li><strong>Add Item to Solution Set</strong>: The selected item is added to the solution set.</li>
+<li><strong>Feasibility Check</strong>: Determine if the solution set with the new item still meets the problem’s constraints.</li>
+<li><strong>Accept or Reject the Item</strong>:<ul>
+<li><strong>If Feasible</strong>: Keep the item in the solution set.</li>
+<li><strong>If Not Feasible</strong>: Remove and permanently discard the item.</li>
+</ul>
+</li>
+<li><strong>Repeat Until Complete</strong>: Continue this process until a full solution is formed or no feasible solution can be found.</li>
+<li><strong>Assess Final Solution</strong>: Evaluate the completed solution set against the problem’s objectives.</li>
+</ol>
+<p>Let’s understand the greedy algorithm via the example below.</p>
+<h4 id="Problem-Statement-Boats-to-Save-People"><a href="#Problem-Statement-Boats-to-Save-People" class="headerlink" title="Problem Statement (Boats to Save People)"></a>Problem Statement (Boats to Save People)</h4><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/boats-to-save-people/">881. Boats to Save People</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<p>We are given an array <code>people</code> where each element <code>people[i]</code> represents the weight of the <code>i</code>-th person. There is also a weight <code>limit</code> for each boat. Each boat can carry at most two people at a time, but the combined weight of these two people must not exceed <code>limit</code>. The objective is to determine the minimum number of boats required to carry all the people.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><strong>Input:</strong> <code>people = [10, 55, 70, 20, 90, 85]</code>, <code>limit = 100</code><br><strong>Output:</strong> <code>4</code><br><strong>Explanation:</strong> One way to transport all people using 4 boats is as follows:</p>
+<ul>
+<li>Boat 1: Carry people with weights 10 and 90 (total weight = 100).</li>
+<li>Boat 2: Carry a person with weight 85 (total weight = 85).</li>
+<li>Boat 3: Carry people with weights 20 and 70 (total weight = 90).</li>
+<li>Boat 4: Carry people with weights 55 (total weight = 55).</li>
+</ul>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ol>
+<li><strong>Sort the Array:</strong> Sort the <code>people</code> array in ascending order.</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="module-access"><span class="module"><span class="identifier">Arrays</span>.</span></span>sort(people);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><strong>Initialize Two Pointers:</strong> Set two pointers, <code>i</code> at the start (lightest person) and <code>j</code> at the end (heaviest person) of the array.</p>
+</li>
+<li><p><strong>Select Optimal Pairs:</strong> Iterate through the array and pair the lightest person with the heaviest person if their combined weight is within the limit.</p>
+</li>
+</ol>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">if</span> (people[i] + people[j] &lt;= limit) &#123;</span><br><span class="line">    <span class="selector-tag">i</span>++; <span class="comment">// Move to the next lightest person</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><strong>Count Boats:</strong> For each iteration, increment the boat count. Move the <code>j</code> pointer to the left (next heaviest person).</p>
+</li>
+<li><p><strong>Repeat Until All Are Accounted For:</strong> Continue until all people are accounted for (i.e., until <code>i</code> &lt; <code>j</code>).</p>
+</li>
+<li><p>If i == j, increment the boat count by 1 to arrange boat for last remaining person.</p>
+</li>
+<li><p><strong>Return the Boat Count:</strong> The total count of boats is the minimum number required.</p>
+</li>
+</ol>
+<h5 id="Algorithm-Walkthrough"><a href="#Algorithm-Walkthrough" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h5><p><img src="/20-pattern-greedy-algorithms/index/1.png"></p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numRescueBoats</span>(<span class="params">self, people, limit</span>):</span></span><br><span class="line">        people.sort() <span class="comment"># Sort the list in ascending order</span></span><br><span class="line">        i = <span class="number">0</span> <span class="comment"># Pointer for the lightest person</span></span><br><span class="line">        j = <span class="built_in">len</span>(people) - <span class="number">1</span> <span class="comment"># Pointer for the heaviest person</span></span><br><span class="line">        boats = <span class="number">0</span> <span class="comment"># Count of boats</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            <span class="keyword">if</span> people[i] + people[j] &lt;= limit:</span><br><span class="line">                <span class="comment"># If the lightest and heaviest person can share a boat</span></span><br><span class="line">                i += <span class="number">1</span> <span class="comment"># Move to the next lightest person</span></span><br><span class="line">            j -= <span class="number">1</span> <span class="comment"># Move to the next heaviest person</span></span><br><span class="line">            boats += <span class="number">1</span> <span class="comment"># Increment boat count</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># When last person is left.</span></span><br><span class="line">            <span class="keyword">if</span> i == j:</span><br><span class="line">                boats += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> boats <span class="comment"># Return the total number of boats needed</span></span><br><span class="line"></span><br><span class="line">solution = Solution()</span><br><span class="line">people = [<span class="number">10</span>, <span class="number">55</span>, <span class="number">70</span>, <span class="number">20</span>, <span class="number">90</span>, <span class="number">85</span>]</span><br><span class="line">limit = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">result = solution.numRescueBoats(people, limit)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Minimum number of boats required:&quot;</span>, result)</span><br><span class="line"><span class="comment"># Expected output: &quot;Minimum number of boats required: 2&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>In the above problem, the greedy approach is applied through the strategy of <strong>pairing the lightest and heaviest individuals</strong> to optimize boat usage. After sorting the people by weight, the algorithm iteratively pairs the lightest person (at the start of the array) with the heaviest (at the end), maximizing the use of each boat’s capacity. This method ensures that each boat carries as much weight as possible without exceeding the limit, effectively reducing the total number of boats needed.</p>
+<p>The essence of the greedy method here is making the <strong>most efficient pairing choice at each step</strong>, aiming for an overall optimal solution - the minimum number of boats to transport everyone.</p>
+<h3 id="Pros-of-Greedy-Approach"><a href="#Pros-of-Greedy-Approach" class="headerlink" title="Pros of Greedy Approach"></a>Pros of Greedy Approach</h3><ul>
+<li><strong>Efficiency in Time and Space</strong>: Greedy algorithms often have lower time and space complexities, making them fast and memory-efficient.</li>
+<li><strong>Ease of Implementation</strong>: They are generally simpler and more straightforward to code than other complex algorithms.</li>
+<li><strong>Optimal for Certain Problems</strong>: In problems with certain structures, like those with greedy-choice property and optimal substructure, greedy algorithms guarantee an optimal solution.</li>
+<li><strong>Useful for Approximations</strong>: When an exact solution is not feasible, greedy algorithms can provide a close approximation quickly.</li>
+</ul>
+<h3 id="Cons-of-Greedy-Approach-with-Example"><a href="#Cons-of-Greedy-Approach-with-Example" class="headerlink" title="Cons of Greedy Approach with Example"></a>Cons of Greedy Approach with Example</h3><ul>
+<li><strong>Not Always Optimal</strong>: Greedy algorithms do not always yield the global optimum solution, especially in problems lacking a greedy-choice property.</li>
+<li><strong>Shortsighted Approach</strong>: They make decisions based only on current information, without considering the overall problem.</li>
+<li><strong>Example</strong>: Consider the below tree where each path has a certain weight, and we need to find the path with the highest weight.</li>
+</ul>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">      <span class="number">2</span></span><br><span class="line">    /   <span class="string">\</span></span><br><span class="line">   <span class="number">1</span>     <span class="number">3</span></span><br><span class="line">  / <span class="string">\</span>     <span class="string">\</span></span><br><span class="line"><span class="number">20</span>   <span class="number">8</span>     <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>In the given tree, a greedy approach, which selects the path with the highest immediate weight at each step, would choose the path <strong>2 → 3 → 7</strong>, resulting in a total weight of 12.</p>
+<p>However, this is not the optimal path. The path <strong>2 → 1 → 20</strong>, although starting with a lower weight at the first decision point, leads to a higher total weight of 23. This example demonstrates how the greedy approach can fail to find the best solution, as it overlooks the long-term benefits of initially less attractive choices.</p>
+<h3 id="Standard-Greedy-Algorithms"><a href="#Standard-Greedy-Algorithms" class="headerlink" title="Standard Greedy Algorithms"></a>Standard Greedy Algorithms</h3><ul>
+<li><strong>Kruskal’s Minimum Spanning Tree Algorithm</strong>: Builds a minimum spanning tree by adding the shortest edge that doesn’t form a cycle.</li>
+<li><strong>Prim’s Minimum Spanning Tree Algorithm</strong>: Grows a minimum spanning tree from a starting vertex by adding the nearest vertex.</li>
+<li><strong>Dijkstra’s Shortest Path Algorithm</strong>: Finds the shortest path from a single source to all other vertices in a weighted graph.</li>
+<li><strong>Huffman Coding</strong>: Used for data compression, it builds a binary tree with minimum weighted path lengths for given characters.</li>
+<li><strong>Fractional Knapsack Problem</strong>: Maximizes the total value of items in a knapsack without exceeding its capacity.</li>
+<li><strong>Activity Selection Problem</strong>: Select the maximum number of activities that don’t overlap in time.</li>
+<li><strong>Greedy Best-First Search</strong>: Used in AI for pathfinding and graph traversal, prioritizing paths that seem closest to the goal.</li>
+</ul>
+<p>Let’s start solving the problem which are based on the greedy algorithm.</p>
+<h2 id="Valid-Palindrome-II"><a href="#Valid-Palindrome-II" class="headerlink" title="Valid Palindrome II"></a>Valid Palindrome II</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/boats-to-save-people/">881. Boats to Save People</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given string <code>s</code>, determine whether it’s possible to make a given string palindrome by removing at most one character.</p>
+<p>A palindrome is a word or phrase that reads the same backward as forward.</p>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li>Input: <code>&quot;racecar&quot;</code></li>
+<li>Expected Output: <code>true</code></li>
+<li>Justification: The string is already a palindrome, so no removals are needed.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li>Input: <code>&quot;abeccdeba&quot;</code></li>
+<li>Expected Output: <code>true</code></li>
+<li>Justification: Removing the character ‘d’ forms the palindrome “abccba”.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li>Input: <code>&quot;abcdef&quot;</code></li>
+<li>Expected Output: <code>false</code></li>
+<li>Justification: No single character removal will make this string a palindrome.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>1 &lt;= s.length &lt;= 10^5</li>
+<li><code>str</code> consists of lowercase English letters.</li>
+</ul>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, we use a two-pointer approach that initiates at both ends of the string. These pointers move towards the center, comparing characters at each step. Upon encountering a mismatch, the algorithm decides whether to skip the character at the left or the right pointer. A helper function is used to check if the resulting substring (after skipping a character) forms a palindrome. This process is performed twice, once for each pointer. If either scenario results in a palindrome, the original string can be considered a valid palindrome after removing at most one character. This efficient method determines the feasibility of forming a palindrome with minimal alterations to the string.</p>
+<ol>
+<li><strong>Initialization:</strong> Begin by initializing the <code>left</code> pointer with 0 and the <code>right</code> pointer with n - 1, where n is a string length.</li>
+<li><strong>Two-Pointer Traversal:</strong> Use two pointers, and move these pointers towards the center, comparing the characters at each step.</li>
+<li><strong>Handling Mismatch:</strong> Upon encountering a mismatch, the algorithm checks two scenarios: removing the character at the left pointer or at the right pointer. For each scenario, it checks if the remaining substring forms a palindrome.</li>
+<li><strong>Greedy Decision Making:</strong> If either resulting substring is a palindrome, return true. This decision is based on the greedy principle that choosing the first viable option (resulting in a palindrome) is sufficient.</li>
+<li><strong>Concluding Result:</strong> If neither scenario results in a palindrome, the algorithm concludes that it’s impossible to form a palindrome by removing just one character and returns false.</li>
+</ol>
+<p>This greedy approach is efficient as it minimizes the number of checks needed to determine if the string can be a valid palindrome with a single character removal.</p>
+<h4 id="Algorithm-Walkthrough-1"><a href="#Algorithm-Walkthrough-1" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Input:- “abeccdeba”</p>
+<ol>
+<li><strong>Initial Setup:</strong><ul>
+<li>Two pointers are initialized: <code>left</code> at the start (pointing to <code>&#39;a&#39;</code>) and <code>right</code> at the end (pointing to <code>&#39;a&#39;</code>).</li>
+</ul>
+</li>
+<li><strong>First Iteration:</strong><ul>
+<li>Compare characters at <code>left</code> and <code>right</code> pointers.</li>
+<li>Characters are the same (<code>&#39;a&#39;</code>), so move <code>left</code> to the right and <code>right</code> to the left.</li>
+</ul>
+</li>
+<li><strong>Second Iteration:</strong><ul>
+<li>Now <code>left</code> points to <code>&#39;b&#39;</code> and <code>right</code> points to <code>&#39;b&#39;</code>.</li>
+<li>Characters match, so move <code>left</code> and <code>right</code> inward again.</li>
+</ul>
+</li>
+<li><strong>Third Iteration:</strong><ul>
+<li><code>left</code> is now at <code>&#39;e&#39;</code>, and <code>right</code> is at <code>&#39;e&#39;</code>.</li>
+<li>Characters match, so move <code>left</code> and <code>right</code> inward again.</li>
+</ul>
+</li>
+<li><strong>Fourth Iteration:</strong><ul>
+<li><code>left</code> is now at <code>&#39;c&#39;</code>, and <code>right</code> is at <code>&#39;d&#39;</code>.</li>
+<li>Characters do not match. This is where a decision is made.</li>
+</ul>
+</li>
+<li><strong>Checking Substrings:</strong><ul>
+<li>Remove the character at the <code>left</code> pointer (<code>&#39;c&#39;</code>) and check if the substring <code>&quot;cd&quot;</code> is a palindrome. It is not.</li>
+<li>Remove the character at the <code>right</code> pointer (<code>&#39;d&#39;</code>) and check if the substring <code>&quot;cc&quot;</code> is a palindrome. It is a palindrome.</li>
+</ul>
+</li>
+<li><strong>Conclusion:</strong><ul>
+<li>Since removing the character <code>&#39;d&#39;</code> (at the <code>right</code> pointer) resulted in a palindrome, the answer is <code>true</code>.</li>
+</ul>
+</li>
+</ol>
+<p><img src="/20-pattern-greedy-algorithms/index/2.png"></p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><p>Here is the code for this algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindromePossible</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;Check if it&#x27;s possible to form a palindrome by removing at most one character&quot;&quot;&quot;</span></span><br><span class="line">        left, right = <span class="number">0</span>, <span class="built_in">len</span>(s) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">if</span> s[left] != s[right]:</span><br><span class="line">                <span class="comment"># Check if either substring (after removing one char) is a palindrome</span></span><br><span class="line">                <span class="keyword">return</span> self.isPalindrome(s, left + <span class="number">1</span>, right) <span class="keyword">or</span> self.isPalindrome(s, left, right - <span class="number">1</span>)</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span>(<span class="params">self, s: <span class="built_in">str</span>, left: <span class="built_in">int</span>, right: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;Helper function to check if a substring is a palindrome&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">if</span> s[left] != s[right]:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    solution = Solution()</span><br><span class="line">    <span class="built_in">print</span>(solution.isPalindromePossible(<span class="string">&quot;racecar&quot;</span>))  <span class="comment"># true</span></span><br><span class="line">    <span class="built_in">print</span>(solution.isPalindromePossible(<span class="string">&quot;abccdba&quot;</span>))  <span class="comment"># true</span></span><br><span class="line">    <span class="built_in">print</span>(solution.isPalindromePossible(<span class="string">&quot;abcdef&quot;</span>))   <span class="comment"># false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li><strong>Time Complexity:</strong> O(n) for traversing the string.</li>
+<li><strong>Space Complexity:</strong> O(1) as no extra space is used.</li>
+</ul>
 
     </article>
     <!-- license -->
@@ -517,7 +688,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">https://hasuer.github.io/20-pattern-greedy-algorithms/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 3rd 2024, 9:58:48 am</a>
-            <p>Update date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 3rd 2024, 10:11:14 am</a>
+            <p>Update date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 16th 2024, 11:24:34 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -666,7 +837,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Greedy-Algorithm"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Understanding-Greedy-Algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">Understanding Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Purpose-of-Greedy-Algorithm"><span class="toc-number">1.1.1.</span> <span class="toc-text">Purpose of Greedy Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-for-Greedy-Algorithm-Suitability"><span class="toc-number">1.1.2.</span> <span class="toc-text">Properties for Greedy Algorithm Suitability</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Characteristics-of-Greedy-Method"><span class="toc-number">1.1.3.</span> <span class="toc-text">Characteristics of Greedy Method</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Components-of-Greedy-Algorithm"><span class="toc-number">1.1.4.</span> <span class="toc-text">Components of Greedy Algorithm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simplified-Greedy-Algorithm-Process"><span class="toc-number">1.2.</span> <span class="toc-text">Simplified Greedy Algorithm Process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Statement-Boats-to-Save-People"><span class="toc-number">1.2.1.</span> <span class="toc-text">Problem Statement (Boats to Save People)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.2.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm"><span class="toc-number">1.2.3.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">1.2.4.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros-of-Greedy-Approach"><span class="toc-number">1.3.</span> <span class="toc-text">Pros of Greedy Approach</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cons-of-Greedy-Approach-with-Example"><span class="toc-number">1.4.</span> <span class="toc-text">Cons of Greedy Approach with Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Standard-Greedy-Algorithms"><span class="toc-number">1.5.</span> <span class="toc-text">Standard Greedy Algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Valid-Palindrome-II"><span class="toc-number">2.</span> <span class="toc-text">Valid Palindrome II</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
