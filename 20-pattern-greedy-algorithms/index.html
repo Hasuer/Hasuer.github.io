@@ -29,8 +29,10 @@
 <meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/1.png">
 <meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/2.png">
 <meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/3.png">
+<meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/4.png">
+<meta property="og:image" content="https://hasuer.github.io/20-pattern-greedy-algorithms/index/5.png">
 <meta property="article:published_time" content="2024-05-03T01:58:48.000Z">
-<meta property="article:modified_time" content="2024-05-16T16:25:36.979Z">
+<meta property="article:modified_time" content="2024-05-16T16:28:19.640Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
@@ -351,7 +353,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">3.9k</span>Reading time: <span class="post-count reading-time">24 min</span></span>
+                        <span>Word count: <span class="post-count word-count">4.7k</span>Reading time: <span class="post-count reading-time">29 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -835,6 +837,115 @@
 <li><strong>Time Complexity:</strong> The time complexity of this algorithm is O(n), where n is the length of the string. This is because we iterate through the string once.</li>
 <li><strong>Space Complexity:</strong> The space complexity is O(1), as we only use a fixed amount of additional space (counter and balance variables) regardless of the input size.</li>
 </ul>
+<h2 id="Remove-Duplicate-Letters"><a href="#Remove-Duplicate-Letters" class="headerlink" title="Remove Duplicate Letters"></a>Remove Duplicate Letters</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/">921. Minimum Add to Make Parentheses Valid</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> </p>
+<h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a string <code>s</code>, remove all duplicate letters from the input string while maintaining the original order of the letters.</p>
+<p>Additionally, the returned string should be the smallest in lexicographical order among all possible results.</p>
+<p><strong>Examples:</strong></p>
+<ol>
+<li><ul>
+<li><strong>Input:</strong> “bbaac”</li>
+<li><strong>Expected Output:</strong> “bac”</li>
+<li><strong>Justification:</strong> Removing the extra ‘b’ and one ‘a’ from the original string gives ‘bac’, which is the smallest lexicographical string without duplicate letters.</li>
+</ul>
+</li>
+<li><ul>
+<li><strong>Input:</strong> “zabccde”</li>
+<li><strong>Expected Output:</strong> “zabcde”</li>
+<li><strong>Justification:</strong> Removing one of the ‘c’s forms ‘zabcde’, the smallest string in lexicographical order without duplicates.</li>
+</ul>
+</li>
+<li><ul>
+<li><strong>Input:</strong> “mnopmn”</li>
+<li><strong>Expected Output:</strong> “mnop”</li>
+<li><strong>Justification:</strong> Removing the second ‘m’ and ‘n’ gives ‘mnop’, which is the smallest possible string without duplicate characters.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>1 &lt;= s.length &lt;= 104</li>
+<li>s consists of lowercase English letters.</li>
+</ul>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>To solve the given problem, begin by iterating through the string, and calculate the frequency count for each character. We will use the stack to maintain the order of characters and the set to track the uniqueness of characters.</p>
+<p>Next, start traversing the string, and for every character encountered, check if it’s already in the ‘present’ set. If it’s not, compare it with the top element of the ‘result’ stack. If the stack is not empty, and the current character is lexicographically smaller than the stack’s top, and the top character of the stack appears again in the string (indicated by a non-zero frequency count), repeatedly pop the stack and remove those elements from the ‘present’ set. Then, add the current character to the stack and the ‘present’ set.</p>
+<p>This process, facilitated by the stack and set, ensures that the stack is built with unique characters in the smallest lexicographical order. After processing the entire string, pop elements from the stack to construct the final string, thereby obtaining the smallest lexicographical sequence without duplicate characters.</p>
+<ol>
+<li><p><strong>Frequency Count (<code>count</code>):</strong></p>
+<ul>
+<li>Initialize a <code>count</code> dictionary (or hash map in some languages) to store the frequency of each character in the string <code>s</code>.</li>
+</ul>
+</li>
+<li><p><strong>Character Presence Tracking (<code>present</code>):</strong></p>
+<ul>
+<li>Use a set <code>present</code> to keep track of the characters that have been added to the resultant string. This set prevents duplicate characters in the result.</li>
+</ul>
+</li>
+<li><p><strong>Building the Result (<code>result</code>):</strong></p>
+<ul>
+<li><p>Create a stack <code>result</code> to construct the final string.</p>
+</li>
+<li><p>For each character</p>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code> <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">c</span></span><br></pre></td></tr></table></figure>
+
+
+
+ in the string
+
+
+
+ <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">s</span></span><br></pre></td></tr></table></figure>
+
+ :
+
+ - If `c` is not in `present`, proceed to compare it with the top character of `result`.
+ - While `result` is not empty, and `c` is lexicographically smaller than the top character of `result`, and the frequency of the top character of `result` is more than 0 (indicating it appears again in the string), pop the top character from `result` and remove it from `present`.
+ - Push `c` onto `result` and add it to `present`.
+ - Decrement the frequency of `c` in `count`.
+</code></pre><ol>
+<li><p><strong>Result Construction:</strong></p>
+<ul>
+<li>The stack <code>result</code> now contains the characters of the final string in reverse order. Pop elements from <code>result</code> to construct the output string in the correct order, from left to right.</li>
+</ul>
+</li>
+</ol>
+<p>This approach works because it ensures that the smallest character is placed first, respecting the original order and removing duplicates. The frequency count ensures that characters are not wrongly discarded.</p>
+<p><strong>Algorithm Walkthrough:</strong></p>
+<p><strong>Input:</strong> “zabccde”</p>
+<ol>
+<li><strong>Initialization:</strong><ul>
+<li>Calculate the frequency of each character: <code>&#123;&#39;z&#39;: 1, &#39;a&#39;: 1, &#39;b&#39;: 1, &#39;c&#39;: 2, &#39;d&#39;: 1, &#39;e&#39;: 1&#125;</code>.</li>
+<li>Initialize an empty stack <code>result</code> and a set <code>present</code> to keep track of characters already in <code>result</code>.</li>
+</ul>
+</li>
+<li><strong>Iteration Over Characters:</strong><ul>
+<li><strong>‘z’:</strong> Not in <code>present</code>. Add ‘z’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘z’.</li>
+<li><strong>‘a’:</strong> Not in <code>present</code>. As ‘a’ is smaller than ‘z’, but ‘z’ won’t appear again (frequency is now 0), we keep ‘z’. Add ‘a’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘a’.</li>
+<li><strong>‘b’:</strong> Not in <code>present</code>. Add ‘b’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘b’.</li>
+<li><strong>First ‘c’:</strong> Not in <code>present</code>. Add ‘c’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘c’.</li>
+<li><strong>Second ‘c’:</strong> Already in <code>present</code>. Skip it.</li>
+<li><strong>‘d’:</strong> Not in <code>present</code>. Add ‘d’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘d’.</li>
+<li><strong>‘e’:</strong> Not in <code>present</code>. Add ‘e’ to <code>result</code>, add to <code>present</code>. Decrease frequency of ‘e’.</li>
+</ul>
+</li>
+<li><strong>Result Construction:</strong><ul>
+<li>The <code>result</code> stack now contains <code>[&#39;z&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;]</code>.</li>
+<li>Convert the stack to a string to get the final result: “zabcdef”.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Expected Output:</strong> “zabcdef”</p>
+<p><img src="/20-pattern-greedy-algorithms/index/4.png"></p>
+<p><img src="/20-pattern-greedy-algorithms/index/5.png"></p>
+<h3 id="Code-4"><a href="#Code-4" class="headerlink" title="Code"></a>Code</h3><p>Here is the code for this algorithm:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-3"><a href="#Complexity-Analysis-3" class="headerlink" title="Complexity Analysis:"></a>Complexity Analysis:</h3><ul>
+<li><strong>Time Complexity:</strong> O(N) where N is the length of the string. Each character is visited once.</li>
+<li><strong>Space Complexity:</strong> O(1) as the extra space used does not depend on the input size. The character count and the stack size are bounded by the character set size (constant).</li>
+</ul>
 
     </article>
     <!-- license -->
@@ -843,7 +954,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">https://hasuer.github.io/20-pattern-greedy-algorithms/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 3rd 2024, 9:58:48 am</a>
-            <p>Update date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 17th 2024, 12:25:36 am</a>
+            <p>Update date：<a href="https://hasuer.github.io/20-pattern-greedy-algorithms/index.html">May 17th 2024, 12:28:19 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -992,7 +1103,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Greedy-Algorithm"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Understanding-Greedy-Algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">Understanding Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Purpose-of-Greedy-Algorithm"><span class="toc-number">1.1.1.</span> <span class="toc-text">Purpose of Greedy Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-for-Greedy-Algorithm-Suitability"><span class="toc-number">1.1.2.</span> <span class="toc-text">Properties for Greedy Algorithm Suitability</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Characteristics-of-Greedy-Method"><span class="toc-number">1.1.3.</span> <span class="toc-text">Characteristics of Greedy Method</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Components-of-Greedy-Algorithm"><span class="toc-number">1.1.4.</span> <span class="toc-text">Components of Greedy Algorithm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simplified-Greedy-Algorithm-Process"><span class="toc-number">1.2.</span> <span class="toc-text">Simplified Greedy Algorithm Process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Statement-Boats-to-Save-People"><span class="toc-number">1.2.1.</span> <span class="toc-text">Problem Statement (Boats to Save People)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.2.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm"><span class="toc-number">1.2.3.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">1.2.4.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros-of-Greedy-Approach"><span class="toc-number">1.3.</span> <span class="toc-text">Pros of Greedy Approach</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cons-of-Greedy-Approach-with-Example"><span class="toc-number">1.4.</span> <span class="toc-text">Cons of Greedy Approach with Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Standard-Greedy-Algorithms"><span class="toc-number">1.5.</span> <span class="toc-text">Standard Greedy Algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Valid-Palindrome-II"><span class="toc-number">2.</span> <span class="toc-text">Valid Palindrome II</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maximum-Length-of-Pair-Chain"><span class="toc-number">3.</span> <span class="toc-text">Maximum Length of Pair Chain</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-2"><span class="toc-number">3.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">3.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">3.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Minimum-Add-to-Make-Parentheses-Valid"><span class="toc-number">4.</span> <span class="toc-text">Minimum Add to Make Parentheses Valid</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-3"><span class="toc-number">4.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-2"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Greedy-Algorithm"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Understanding-Greedy-Algorithm"><span class="toc-number">1.1.</span> <span class="toc-text">Understanding Greedy Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Purpose-of-Greedy-Algorithm"><span class="toc-number">1.1.1.</span> <span class="toc-text">Purpose of Greedy Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-for-Greedy-Algorithm-Suitability"><span class="toc-number">1.1.2.</span> <span class="toc-text">Properties for Greedy Algorithm Suitability</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Characteristics-of-Greedy-Method"><span class="toc-number">1.1.3.</span> <span class="toc-text">Characteristics of Greedy Method</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Components-of-Greedy-Algorithm"><span class="toc-number">1.1.4.</span> <span class="toc-text">Components of Greedy Algorithm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Simplified-Greedy-Algorithm-Process"><span class="toc-number">1.2.</span> <span class="toc-text">Simplified Greedy Algorithm Process</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Problem-Statement-Boats-to-Save-People"><span class="toc-number">1.2.1.</span> <span class="toc-text">Problem Statement (Boats to Save People)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">1.2.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm"><span class="toc-number">1.2.3.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">1.2.4.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros-of-Greedy-Approach"><span class="toc-number">1.3.</span> <span class="toc-text">Pros of Greedy Approach</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cons-of-Greedy-Approach-with-Example"><span class="toc-number">1.4.</span> <span class="toc-text">Cons of Greedy Approach with Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Standard-Greedy-Algorithms"><span class="toc-number">1.5.</span> <span class="toc-text">Standard Greedy Algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Valid-Palindrome-II"><span class="toc-number">2.</span> <span class="toc-text">Valid Palindrome II</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maximum-Length-of-Pair-Chain"><span class="toc-number">3.</span> <span class="toc-text">Maximum Length of Pair Chain</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-2"><span class="toc-number">3.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">3.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">3.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Minimum-Add-to-Make-Parentheses-Valid"><span class="toc-number">4.</span> <span class="toc-text">Minimum Add to Make Parentheses Valid</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-3"><span class="toc-number">4.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-2"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Remove-Duplicate-Letters"><span class="toc-number">5.</span> <span class="toc-text">Remove Duplicate Letters</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-4"><span class="toc-number">5.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-3"><span class="toc-number">5.4.</span> <span class="toc-text">Complexity Analysis:</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
