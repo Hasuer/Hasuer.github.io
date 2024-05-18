@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>29</title>
+      <link href="/29/index.html"/>
+      <url>/29/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>28. Miscellaneous</title>
       <link href="/28-miscellaneous/index.html"/>
       <url>/28-miscellaneous/index.html</url>
@@ -29,9 +42,9 @@
     
     
     <entry>
-      <title>27. Pattern Multi-thread</title>
-      <link href="/27-pattern-multi-thread/index.html"/>
-      <url>/27-pattern-multi-thread/index.html</url>
+      <title>28. Pattern Multi-thread</title>
+      <link href="/28-pattern-multi-thread/index.html"/>
+      <url>/28-pattern-multi-thread/index.html</url>
       
         <content type="html"><![CDATA[<p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a href="https://leetcode.com/problems/partition-equal-subset-sum/">416. Partition Equal Subset Sum</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>]]></content>
       
@@ -48,6 +61,19 @@
             <tag> Interview </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>27. Pattern Prefix Sum</title>
+      <link href="/27-pattern-prefix-sum/index.html"/>
+      <url>/27-pattern-prefix-sum/index.html</url>
+      
+        <content type="html"><![CDATA[<p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a href="https://leetcode.com/problems/partition-equal-subset-sum/">416. Partition Equal Subset Sum</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>]]></content>
+      
+      
       
     </entry>
     
