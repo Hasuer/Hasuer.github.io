@@ -19,18 +19,22 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="416. Partition Equal Subset Sum Design Gurus Educative.io">
+    <meta name="description" content="Introduction to TrieIntroduction to TrieA Trie, short for retrieval, is a specialized tree-based data structure primarily used for efficient storing, searching, and retrieval of strings over a given a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="23. Pattern Trie">
 <meta property="og:url" content="https://hasuer.github.io/23-pattern-trie/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="416. Partition Equal Subset Sum Design Gurus Educative.io">
+<meta property="og:description" content="Introduction to TrieIntroduction to TrieA Trie, short for retrieval, is a specialized tree-based data structure primarily used for efficient storing, searching, and retrieval of strings over a given a">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hasuer.github.io/23-pattern-trie/index/1.png">
+<meta property="og:image" content="https://hasuer.github.io/23-pattern-trie/index/2.png">
+<meta property="og:image" content="https://hasuer.github.io/23-pattern-trie/index/3.png">
 <meta property="article:published_time" content="2024-05-03T06:24:12.000Z">
-<meta property="article:modified_time" content="2024-05-03T06:26:34.519Z">
+<meta property="article:modified_time" content="2024-05-19T09:07:24.940Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hasuer.github.io/23-pattern-trie/index/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/old_profile.ico">
@@ -347,7 +351,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">9</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">6.4k</span>Reading time: <span class="post-count reading-time">39 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -508,7 +512,519 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/partition-equal-subset-sum/">416. Partition Equal Subset Sum</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+        <h2 id="Introduction-to-Trie"><a href="#Introduction-to-Trie" class="headerlink" title="Introduction to Trie"></a>Introduction to Trie</h2><h3 id="Introduction-to-Trie-1"><a href="#Introduction-to-Trie-1" class="headerlink" title="Introduction to Trie"></a>Introduction to Trie</h3><p>A Trie, short for retrieval, is a specialized tree-based data structure primarily used for efficient storing, searching, and retrieval of strings over a given alphabet. It excels in scenarios where a large collection of strings needs to be managed and pattern-matching operations need to be performed with optimal efficiency.</p>
+<h3 id="Defining-a-Trie"><a href="#Defining-a-Trie" class="headerlink" title="Defining a Trie"></a>Defining a Trie</h3><p>A Trie, often referred to as a prefix tree, is constructed to represent a set of strings where each node in the tree corresponds to a single character of a string. The path from the root node to a particular node represents the characters of a specific string. This structural characteristic allows Tries to effectively share common prefixes among strings, leading to efficient storage and retrieval.</p>
+<p>In the context of a Trie, the given strings are typically formed from a fixed alphabet. Each edge leading from a parent node to its child node corresponds to a character from the alphabet. By following the path of characters from the root to a specific node, we can reconstruct the string associated with that path.</p>
+<p>Let’s look at the below Trie diagram.</p>
+<p><img src="/23-pattern-trie/index/1.png"></p>
+<p>In the above Trie, <code>car</code> and <code>cat</code> shares the common prefix, and <code>apple</code> and <code>ant</code> shares the common prefix.</p>
+<h4 id="Need-for-Trie-Data-Structure"><a href="#Need-for-Trie-Data-Structure" class="headerlink" title="Need for Trie Data Structure?"></a>Need for Trie Data Structure?</h4><p>Tries are commonly employed in applications such as spell checking, autocomplete suggestions, and searching within dictionaries or databases. They excel at these tasks because they minimize the search complexity in proportion to the length of the target string, making them significantly more efficient than other data structures like binary search trees.</p>
+<h4 id="Advantages-of-Using-Tries"><a href="#Advantages-of-Using-Tries" class="headerlink" title="Advantages of Using Tries"></a>Advantages of Using Tries</h4><ul>
+<li><strong>Fast Pattern Matching:</strong> Tries provide rapid pattern matching queries, taking time proportional to the length of the pattern (or the string being searched).</li>
+<li><strong>Common Prefix Sharing:</strong> Strings with common prefixes share nodes in the Trie, leading to efficient memory utilization and reduced redundancy.</li>
+<li><strong>Efficient Insertion and Deletion:</strong> Tries are amenable to dynamic operations like insertion and deletion, while maintaining efficient search times. Alphabet Flexibility: Tries can handle various alphabets, making them versatile for a range of applications.</li>
+<li><strong>Word Frequency Counting:</strong> Tries can be extended to store additional information at nodes, such as the frequency of words or strings.</li>
+</ul>
+<p>In comparison to using a binary search tree, where a well-balanced tree would require time proportional to the product of the maximum string length and the logarithm of the number of keys, Tries offer the advantage of a search time linearly dependent on the length of the string being searched. This results in an optimization of search operations, especially when dealing with large datasets.</p>
+<p>In summary, a Trie is a powerful data structure that optimizes string-related operations by efficiently storing and retrieving strings with shared prefixes. Its unique structure and fast search capabilities make it an invaluable tool in various text-based applications.</p>
+<h4 id="Properties-of-the-Trie-Data-Structure"><a href="#Properties-of-the-Trie-Data-Structure" class="headerlink" title="Properties of the Trie Data Structure"></a>Properties of the Trie Data Structure</h4><p>Trie is a tree-like data structure. So, it’s important to know the properties of Trie.</p>
+<ol>
+<li><strong>Single Root Node:</strong> Every trie has one root node, serving as the starting point for all strings stored within.</li>
+<li><strong>Node as a String:</strong> In a trie, each node symbolizes a string, with the path from the root to that node representing the string in its entirety.</li>
+<li><strong>Edges as Characters:</strong> The edges connecting nodes in a trie represent individual characters. This means that traversing an edge essentially adds a character to the string.</li>
+<li><strong>Node Structure:</strong> Nodes in a trie typically contain either hashmaps or arrays of pointers. Each position in this array or hashmap corresponds to a character. Additionally, nodes have a flag to signify if a string concludes at that particular node.</li>
+<li><strong>Character Limitation:</strong> While tries can accommodate a vast range of characters, for the purpose of this discussion, we’re focusing on lowercase English alphabets (a-z). This means each node will have 26 pointers, with the 0th pointer representing ‘a’ and the 25th one representing ‘z’.</li>
+<li><strong>Path Equals Word:</strong> In a trie, any path you trace from the root node to another node symbolizes a word or a string. This makes it easy to identify and retrieve strings.</li>
+</ol>
+<p>These properties underline the essence of the trie data structure, emphasizing its efficiency and utility in managing strings, especially when dealing with large datasets.</p>
+<h3 id="Implementation-of-Tries"><a href="#Implementation-of-Tries" class="headerlink" title="Implementation of Tries"></a>Implementation of Tries</h3><p>Let’s start by understanding the basic implementation of a Trie. Each node in a Trie can have multiple children, each representing a character. To illustrate this, consider the following simple Trie structure:</p>
+<p><img src="/23-pattern-trie/index/2.png"></p>
+<p>Here’s a step-by-step guide to implement a Trie:</p>
+<ul>
+<li>The Trie starts from the root node.</li>
+<li>The path from the root to the node “c” represents the character “c.”</li>
+<li>The path from “c” to “a” represents the string “ca,” and from “a” to “r” represents the string “car.”</li>
+<li>The path from “c” to “a” represents the string “ca,” and from “a” to “t” represents the string “cat.”</li>
+</ul>
+<h4 id="Representation-of-Trie-Node"><a href="#Representation-of-Trie-Node" class="headerlink" title="Representation of Trie Node"></a>Representation of Trie Node</h4><p>The Trie node has an array or list of children nodes, typically of size 26 to represent the English lowercase alphabets (a-z). Additionally, there’s a boolean flag <code>isEndOfWord</code> to indicate whether the current node marks the end of a word in the Trie.</p>
+<p><img src="/23-pattern-trie/index/3.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = [<span class="literal">None</span>]*<span class="number">26</span></span><br><span class="line">        self.isEndOfWord = <span class="literal">False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Now, let’s look at the basic operations such as <code>insertion</code>, <code>searching</code>, and <code>deletion</code> on the Trie data structure.</p>
+<h4 id="Insertion-in-Trie-Data-Structure"><a href="#Insertion-in-Trie-Data-Structure" class="headerlink" title="Insertion in Trie Data Structure"></a>Insertion in Trie Data Structure</h4><p>Insertion in a Trie involves adding a string to the Trie, character by character, starting from the root. If the character already exists in the Trie, we move to the next node; otherwise, we create a new node for the character.</p>
+<h5 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h5><ol>
+<li>Start from the root node.</li>
+<li>For each character in the string:<ul>
+<li>Check if the character exists in the current node’s children.</li>
+<li>If it exists, move to the corresponding child node.</li>
+<li>If it doesn’t exist, create a new node for the character and link it to the current node.</li>
+<li>Move to the newly created node.</li>
+</ul>
+</li>
+<li>After processing all characters in the string, mark the current node as the end of the word.</li>
+</ol>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h5><p>Consider that we need to insert the ‘can’, ‘cat’, ‘cant’, and ‘apple’ into the trie. We insert them in the following order:</p>
+<ol>
+<li><strong>Initial Trie</strong>:</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Root</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>Insert ‘can’</strong>:</li>
+</ol>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Root</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> c</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> a</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> n</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>: Starting from the root, we add nodes for each character in “can”.</p>
+<ol>
+<li><strong>Insert ‘cat’</strong>:</li>
+</ol>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Root</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> c</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> a</span><br><span class="line"> <span class="string">| \</span></span><br><span class="line"> n   t</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>: “cat” shares the first two characters with “can”, so we just add a new branch for the ‘t’ after ‘a’.</p>
+<ol>
+<li><strong>Insert ‘cant’</strong>:</li>
+</ol>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Root</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> c</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> a</span><br><span class="line"> <span class="string">| \</span></span><br><span class="line"> n   t</span><br><span class="line"> <span class="string">|</span></span><br><span class="line"> t</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>: “cant” extends from the path of “can”, so we add a new node for ‘t’ after the existing ‘n’.</p>
+<ol>
+<li><strong>Insert ‘apple’</strong>:</li>
+</ol>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Root</span><br><span class="line"> |<span class="string">   \</span></span><br><span class="line"><span class="string"> c     a</span></span><br><span class="line"><span class="string"> </span>|<span class="string">     </span>|</span><br><span class="line"> a     p</span><br><span class="line"> |<span class="string"> \   </span>|</span><br><span class="line"> t   n p</span><br><span class="line"> |<span class="string">     </span>|</span><br><span class="line"> t     l</span><br><span class="line">       |<span class="string"></span></span><br><span class="line"><span class="string">       e</span></span><br></pre></td></tr></table></figure>
+<p><strong>Explanation</strong>: Starting from the root, we add nodes for each character in “apple” branching from the ‘a’ node.</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = [<span class="literal">None</span>] * <span class="number">26</span>  <span class="comment"># Assuming only lowercase English letters</span></span><br><span class="line">        self.isEndOfWord = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">charToIndex</span>(<span class="params">self, ch</span>):</span></span><br><span class="line">        <span class="comment"># Convert character to index (0-25)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">ord</span>(ch) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self, word</span>):</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">            index = self.charToIndex(char)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node.children[index]:</span><br><span class="line">                node.children[index] = TrieNode()</span><br><span class="line">            node = node.children[index]</span><br><span class="line">        node.isEndOfWord = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h5><p><strong>Time Complexity</strong>: O(n) - Where <code>n</code> is the length of the word. This is when the word doesn’t share any prefix with the words already in the Trie or is longer than any word in the Trie.</p>
+<p><strong>Space Complexity</strong>:</p>
+<ul>
+<li><strong>Best Case</strong>: O(1) - When the word is entirely a prefix of an existing word or shares a complete prefix with words in the Trie.</li>
+<li><strong>Worst Case</strong>: O(n) - When the word doesn’t share any characters with the words in the Trie.</li>
+</ul>
+<h4 id="Searching-in-Trie-Data-Structure"><a href="#Searching-in-Trie-Data-Structure" class="headerlink" title="Searching in Trie Data Structure"></a>Searching in Trie Data Structure</h4><p>Searching into Trie is similar to the insertion into the Trie. Let’s look at the below algorithm to search in the Trie data structure.</p>
+<h5 id="Algorithm-1"><a href="#Algorithm-1" class="headerlink" title="Algorithm"></a>Algorithm</h5><ol>
+<li>Start from the root node.</li>
+<li>For each character in the word: a. Calculate its index (e.g., ‘a’ is 0, ‘b’ is 1, …). b. Check if the corresponding child node exists. c. If it exists, move to the child node and continue. d. If it doesn’t exist, return false (word not found).</li>
+<li>After processing all characters, check the <code>isEndOfWord</code> flag of the current node. If it’s true, the word exists in the Trie; otherwise, it doesn’t.</li>
+</ol>
+<h5 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = [<span class="literal">None</span>] * <span class="number">26</span>  <span class="comment"># Children nodes</span></span><br><span class="line">        self.isEndOfWord = <span class="literal">False</span>  <span class="comment"># Flag to represent the end of a word</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Function to search a word in the Trie</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, word</span>):</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">            index = <span class="built_in">ord</span>(char) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node.children[index]:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># Word not found</span></span><br><span class="line">            node = node.children[index]</span><br><span class="line">        <span class="keyword">return</span> node.isEndOfWord  <span class="comment"># Return true if word exists, false otherwise</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis-1"><a href="#Complexity-Analysis-1" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h5><p><strong>Time Complexity</strong>: O(n) - Where <code>n</code> is the length of the word. This happens when you have to traverse the Trie to the deepest level.</p>
+<p><strong>Space Complexity</strong>: O(1) - Searching doesn’t require any additional space as it’s just about traversing the Trie.</p>
+<h4 id="Deletion-in-Trie-Data-Structure"><a href="#Deletion-in-Trie-Data-Structure" class="headerlink" title="Deletion in Trie Data Structure"></a>Deletion in Trie Data Structure</h4><p>When we delete a key in a Trie, there are three cases to consider:</p>
+<ol>
+<li><strong>Key is a leaf node</strong>: If the key is a leaf node, we can simply remove it from the Trie.</li>
+<li><strong>Key is a prefix of another key</strong>: If the key is a prefix of another key in the Trie, then we cannot remove it entirely. Instead, we just unmark the isEndOfWord flag.</li>
+<li><strong>Key has children</strong>: If the key has children, we need to recursively delete the child nodes. If a child node becomes a leaf node after the deletion of the key, we can remove the child node as well.</li>
+</ol>
+<h5 id="Algorithm-2"><a href="#Algorithm-2" class="headerlink" title="Algorithm"></a>Algorithm</h5><ol>
+<li><strong>Initialization</strong>:<ul>
+<li>Start from the root of the Trie.</li>
+<li>Begin with the first character of the word you want to delete.</li>
+</ul>
+</li>
+<li><strong>Base Case</strong>:<ul>
+<li>If you’ve reached the end of the word:<ul>
+<li>Check if the current node has the <code>isEndOfWord</code> flag set to true. If not, the word doesn’t exist in the Trie, so return false.</li>
+<li>If the flag is true, unset it. This means the word is no longer recognized as a word in the Trie.</li>
+<li>Check if the current node has any children. If it doesn’t, it means this node doesn’t contribute to any other word in the Trie, so it can be safely deleted. Return true to indicate to its parent that it can be removed.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Recursive Case</strong>:<ul>
+<li>For the current character in the word:<ul>
+<li>Calculate its index (e.g., ‘a’ is 0, ‘b’ is 1, …).</li>
+<li>Check if the corresponding child node exists. If it doesn’t, the word is not present in the Trie, so return false.</li>
+<li>If the child node exists, make a recursive call to the delete function with the child node and the next character in the word.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Post-Recursive Handling</strong>:<ul>
+<li>After the recursive call, check the return value:<ul>
+<li>If it’s true, it means the child node can be deleted. Remove the reference to the child node.</li>
+<li>Check the current node. If it doesn’t have any other children and its <code>isEndOfWord</code> flag is not set, it means this node doesn’t contribute to any word in the Trie. Return true to indicate to its parent that it can be removed.</li>
+<li>If the node has other children or its <code>isEndOfWord</code> flag is set, return false.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Completion</strong>:<ul>
+<li>Once all characters in the word have been processed, the word will either be deleted from the Trie (if it existed) or the Trie will remain unchanged (if the word didn’t exist).</li>
+</ul>
+</li>
+</ol>
+<h5 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = [<span class="literal">None</span>] * <span class="number">26</span>  <span class="comment"># Children nodes</span></span><br><span class="line">        self.isEndOfWord = <span class="literal">False</span>  <span class="comment"># Flag to represent the end of a word</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Recursive function to delete a key from the Trie</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_delete</span>(<span class="params">self, current, word, index</span>):</span></span><br><span class="line">        <span class="keyword">if</span> index == <span class="built_in">len</span>(word):</span><br><span class="line">            <span class="keyword">if</span> current.isEndOfWord:</span><br><span class="line">                current.isEndOfWord = <span class="literal">False</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">any</span>(current.children)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        ch = word[index]</span><br><span class="line">        node = current.children[<span class="built_in">ord</span>(ch) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)]</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        shouldDeleteChild = self._delete(node, word, index + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> shouldDeleteChild:</span><br><span class="line">            current.children[<span class="built_in">ord</span>(ch) - <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>)] = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">not</span> <span class="built_in">any</span>(current.children)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Function to delete a word from the Trie</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteWord</span>(<span class="params">self, word</span>):</span></span><br><span class="line">        self._delete(self.root, word, <span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis-2"><a href="#Complexity-Analysis-2" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h5><p><strong>Time Complexity</strong>: O(n) - Where <code>n</code> is the length of the word. This is when you have to traverse the Trie to the deepest level and potentially backtrack to delete nodes.</p>
+<p><strong>Space Complexity</strong>: O(1) - Deletion, like searching, doesn’t require any additional space.</p>
+<h2 id="Implement-Trie-Prefix-Tree"><a href="#Implement-Trie-Prefix-Tree" class="headerlink" title="Implement Trie (Prefix Tree)"></a>Implement Trie (Prefix Tree)</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Top Interview 150 | <a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-trie-prefix-tree/">208. Implement Trie (Prefix Tree)</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Design and implement a Trie (also known as a Prefix Tree). A trie is a tree-like data structure that stores a dynamic set of strings, and is particularly useful for searching for words with a given prefix.</p>
+<p>Implement the <code>Solution</code> class:</p>
+<ul>
+<li><code>Solution()</code> Initializes the object.</li>
+<li><code>void insert(word)</code> Inserts <code>word</code> into the trie, making it available for future searches.</li>
+<li><code>bool search(word)</code> Checks if the word exists in the trie.</li>
+<li><code>bool startsWith(word)</code> Checks if any word in the trie starts with the given prefix.</li>
+</ul>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1</strong>:<ul>
+<li>Input:<ul>
+<li>Trie operations: <code>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;startsWith&quot;]</code></li>
+<li>Arguments: <code>[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;]]</code></li>
+</ul>
+</li>
+<li><strong>Expected Output:</strong> <code>[-1, -1, 1, 1]</code></li>
+<li><strong>Justification:</strong> After inserting “apple”, “apple” exists in the Trie. There is also a word that starts with “app”, which is “apple”.</li>
+</ul>
+</li>
+<li><strong>Example 2</strong>:<ul>
+<li>Input:<ul>
+<li>Trie operations: <code>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;startsWith&quot;, &quot;search&quot;]</code></li>
+<li>Arguments: <code>[[], [&quot;banana&quot;], [&quot;apple&quot;], [&quot;ban&quot;], [&quot;banana&quot;]]</code></li>
+</ul>
+</li>
+<li><strong>Expected Output:</strong> <code>[-1, -1, 0, 1, 1]</code></li>
+<li><strong>Justification:</strong> After inserting “banana”, “apple” does not exist in the Trie but a word that starts with “ban”, which is “banana”, does exist.</li>
+</ul>
+</li>
+<li><strong>Example 3</strong>:<ul>
+<li>Input:<ul>
+<li>Trie operations: <code>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;search&quot;, &quot;startsWith&quot;]</code></li>
+<li>Arguments: <code>[[], [&quot;grape&quot;], [&quot;grape&quot;], [&quot;grap&quot;], [&quot;gr&quot;]]</code></li>
+</ul>
+</li>
+<li><strong>Expected Output:</strong> <code>[-1, -1, 1, 1, 1]</code></li>
+<li><strong>Justification:</strong> After inserting “grape”, “grape” exists in the Trie. There are words that start with “grap” and “gr”, which is “grape”.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code></li>
+<li><code>word</code> and p<code>refix</code> consist only of lowercase English letters.</li>
+<li>At most 3 * 104 calls in total will be made to insert, search, and startsWith.</li>
+</ul>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>The trie is represented as a tree, where each node contains an array of pointers (or references) to its children and a boolean flag indicating if the current node marks the end of a word. When inserting or searching for a word, we start at the root node and navigate through the tree character by character until we either finish the operation or determine the word doesn’t exist in the trie.</p>
+<p>Now, let’s break down the operations:</p>
+<ol>
+<li><strong>Insert</strong>:<ul>
+<li>We begin at the root node.</li>
+<li>For every character in the word, check if there’s a child node for it.</li>
+<li>If the child node doesn’t exist, we create it.</li>
+<li>Navigate to the child node and repeat the process for the next character.</li>
+<li>Once the end of the word is reached, mark the current node as an endpoint of a word.</li>
+</ul>
+</li>
+<li><strong>Search</strong>:<ul>
+<li>Starting at the root, traverse the trie character by character.</li>
+<li>For every character in the word, check if there’s a child node for it.</li>
+<li>If at any point there isn’t a child node for the character, the word doesn’t exist in the trie.</li>
+<li>If we can traverse the entire word and the last node is marked as an endpoint, the word exists in the trie.</li>
+</ul>
+</li>
+<li><strong>StartsWith</strong>:<ul>
+<li>The operation is similar to the search, but we don’t need the last node to be an endpoint.</li>
+<li>If we can traverse the prefix without any missing nodes, there exists a word in the trie that starts with the given prefix.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Algorithm-Walkthrough"><a href="#Algorithm-Walkthrough" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Using Example 1:</p>
+<ul>
+<li><code>[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;startsWith&quot;]</code></li>
+<li><code>[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;]]</code></li>
+</ul>
+<ol>
+<li>Create an empty Trie.</li>
+<li>Insert “apple”.<ul>
+<li>Start from the root. For ‘a’, move to the child node or create one if it doesn’t exist.</li>
+<li>Move to ‘p’, then the next ‘p’, followed by ‘l’ and finally ‘e’. Mark ‘e’ as the end of a word.</li>
+</ul>
+</li>
+<li>Search for “apple”.<ul>
+<li>Start from the root and traverse nodes ‘a’ -&gt; ‘p’ -&gt; ‘p’ -&gt; ‘l’ -&gt; ‘e’. Since ‘e’ is marked as the end of a word, return true.</li>
+</ul>
+</li>
+<li>Check if a word starts with “app”.<ul>
+<li>Traverse nodes for ‘a’ -&gt; ‘p’ -&gt; ‘p’. All nodes exist, so return true.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Code-3"><a href="#Code-3" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class TrieNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self):</span></span><br><span class="line"><span class="comment">#         self.children = &#123;&#125;  # Dictionary to store child nodes.</span></span><br><span class="line"><span class="comment">#         self.isEnd = False  # Flag to represent end of a word.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Inserts a word into the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self, word: <span class="built_in">str</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                node.children[char] = TrieNode()</span><br><span class="line">            node = node.children[char]</span><br><span class="line">        node.isEnd = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Returns if the word is in the trie.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, word: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            node = node.children[char]</span><br><span class="line">        <span class="keyword">return</span> node.isEnd</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Returns if there is any word in the trie that starts with the given prefix.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startsWith</span>(<span class="params">self, prefix: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> prefix:</span><br><span class="line">            <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            node = node.children[char]</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    trie = Solution()</span><br><span class="line">    trie.insert(<span class="string">&quot;apple&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(trie.search(<span class="string">&quot;apple&quot;</span>))  <span class="comment"># True</span></span><br><span class="line">    <span class="built_in">print</span>(trie.search(<span class="string">&quot;app&quot;</span>))  <span class="comment"># False</span></span><br><span class="line">    <span class="built_in">print</span>(trie.startsWith(<span class="string">&quot;app&quot;</span>))  <span class="comment"># True</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-3"><a href="#Complexity-Analysis-3" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li><strong>Time Complexity:</strong><ul>
+<li>Insert: (O(m)), where (m) is the key length.</li>
+<li>Search and StartsWith: (O(m)) in the worst case scenario.</li>
+</ul>
+</li>
+<li><strong>Space Complexity</strong>: (O(n \times m)), where (n) is the number of inserted keys and (m) is the average key length.</li>
+</ul>
+<h2 id="Index-Pairs-of-a-String"><a href="#Index-Pairs-of-a-String" class="headerlink" title="Index Pairs of a String"></a>Index Pairs of a String</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/index-pairs-of-a-string/description/">Leetcode 会员</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a string <code>text</code> and a list of strings <code>words</code>, identify all <code>[i, j]</code> index pairs such that the substring <code>text[i...j]</code> is in words.</p>
+<p>These index pairs should be returned in ascending order, first by the start index, then by the end index. Find every occurrence of each word within the <code>text</code>, ensuring that overlapping occurrences are also identified.</p>
+<h4 id="Examples-1"><a href="#Examples-1" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><ul>
+<li><strong>Input:</strong> text = <code>&quot;bluebirdskyscraper&quot;</code>, words = <code>[&quot;blue&quot;, &quot;bird&quot;, &quot;sky&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>[[0, 3], [4, 7], [8, 10]]</code></li>
+<li><strong>Justification:</strong> The word “blue” is found from index 0 to 3, “bird” from 4 to 7, and “sky” from 8 to 10 in the string.</li>
+</ul>
+</li>
+<li><ul>
+<li><strong>Input:</strong> text = <code>&quot;programmingisfun&quot;</code>, words = <code>[&quot;pro&quot;, &quot;is&quot;, &quot;fun&quot;, &quot;gram&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>[[0, 2], [3, 6], [11, 12], [13, 15]]</code></li>
+<li><strong>Justification:</strong> “pro” is found from 0 to 2, “gram” from 3 to 6, “is” from 11 to 12, and “fun” from 13 to 15.</li>
+</ul>
+</li>
+<li><ul>
+<li><strong>Input:</strong> text = <code>&quot;interstellar&quot;</code>, words = <code>[&quot;stellar&quot;, &quot;star&quot;, &quot;inter&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>[[0, 4], [5, 11]]</code></li>
+<li><strong>Justification:</strong> “inter” is found from 0 to 4, and “stellar” from 5 to 11. “star” is not found.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= text.length &lt;= 100</code></li>
+<li><code>1 &lt;= words.length &lt;= 20</code></li>
+<li><code>1 &lt;= words[i].length &lt;= 50</code></li>
+<li><code>text</code> and <code>words[i]</code> consist of lowercase English letters.</li>
+<li>All the strings of words are unique.</li>
+</ul>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, we will use a trie data structure, which is particularly efficient for managing a set of strings and performing quick searches for patterns within a text. A trie, also known as a prefix tree, allows us to efficiently store and retrieve strings with a common prefix, making it ideal for our purpose of identifying substrings within a given text.</p>
+<p>The approach involves two main phases: building the trie with the given list of words and then using it to find the index pairs in the text. The trie’s structure enables us to search for each word in the text in an optimized manner, significantly reducing the number of comparisons needed compared to brute force methods.</p>
+<h4 id="Step-by-Step-Algorithm"><a href="#Step-by-Step-Algorithm" class="headerlink" title="Step-by-Step Algorithm"></a>Step-by-Step Algorithm</h4><ol>
+<li><strong>Initialize the Trie:</strong><ul>
+<li>Create a trie and insert all the words from the given list into it. This is done in the first part of the code.</li>
+</ul>
+</li>
+<li><strong>Search and Record Index Pairs:</strong><ul>
+<li>Iterate over each character in the text. This character will act as the starting point for potential matches.</li>
+<li>For each starting character, initiate a pointer <code>p</code> at the root of the trie.</li>
+<li>Then, iterate over the text starting from the current starting point until the end of the text. In each iteration:<ul>
+<li>Check if the current character exists as a child of the current trie node pointed by <code>p</code>.</li>
+<li>If it does not exist, break out of the inner loop as no further matching is possible from this starting point.</li>
+<li>If it exists, move the pointer <code>p</code> to this child node.</li>
+<li>Check if the current node <code>p</code> is a leaf node (indicated by <code>p.isEnd</code> being <code>true</code>). If it is, it means a complete word from the list has been found.</li>
+<li>Record the start and end indices of this word. The start index is the position of the starting character, and the end index is the current position in the text.</li>
+</ul>
+</li>
+<li>Continue this process for each character in the text to ensure all occurrences, including overlapping ones, are found.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Algorithm-Walkthrough-1"><a href="#Algorithm-Walkthrough-1" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Using the input text = <code>&quot;programmingisfun&quot;</code>, words = <code>[&quot;pro&quot;, &quot;is&quot;, &quot;fun&quot;, &quot;gram&quot;]</code>:</p>
+<ol>
+<li><strong>Initialize the Trie with Words:</strong><ul>
+<li>“pro”, “is”, “fun”, and “gram” are inserted into the trie.</li>
+</ul>
+</li>
+<li><strong>Search and Record Index Pairs:</strong><ul>
+<li>Start at index 0 (<code>&#39;p&#39;</code> in <code>&quot;programmingisfun&quot;</code>):<ul>
+<li>Pointer <code>p</code> is at the root. Finds ‘p’, moves to ‘r’, then ‘o’. <code>p.isEnd</code> is <code>true</code> at ‘o’, so record [0, 2].</li>
+</ul>
+</li>
+<li>At index 1 (<code>&#39;r&#39;</code>), no match is found.</li>
+<li>similarly, At index 2 (<code>&#39;o&#39;</code>), no match is found.</li>
+<li>At index 3 ( <code>&#39;g&#39;</code> ):<ul>
+<li>Finds ‘g’, ‘r’, ‘a’, ‘m’. <code>p.isEnd</code> is <code>true</code> at ‘m’, so record [3, 6].</li>
+</ul>
+</li>
+<li>At index 11 ( <code>&#39;i&#39;</code> ):<ul>
+<li>Finds ‘i’, ‘s’. <code>p.isEnd</code> is <code>true</code> at ‘s’, so record [11, 12].</li>
+</ul>
+</li>
+<li>At index 13 ( <code>&#39;s&#39;</code> ):<ul>
+<li>Finds ‘f’, ‘u’, ‘n’. <code>p.isEnd</code> is <code>true</code> at ‘n’, so record [13, 15].</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Compile Results:</strong><ul>
+<li>The results [[0, 2], [3, 6], [11, 12], [13, 15]] are compiled into the 2D array <code>ans</code> and returned.</li>
+</ul>
+</li>
+</ol>
+<p>By following these steps, the algorithm efficiently locates all occurrences of the words in the text, including overlapping ones, using the trie structure for optimized searching.</p>
+<h3 id="Code-4"><a href="#Code-4" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = &#123;&#125;  <span class="comment"># Using a dictionary to hold child nodes for each letter</span></span><br><span class="line">        self.isEnd = <span class="literal">False</span>  <span class="comment"># Flag to mark the end of a word</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Inserts a word into the trie</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span>(<span class="params">self, word</span>):</span></span><br><span class="line">        cur = self.root</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> cur.children:</span><br><span class="line">                cur.children[c] = TrieNode()  <span class="comment"># Create a new node if not present</span></span><br><span class="line">            cur = cur.children[c]</span><br><span class="line">        cur.isEnd = <span class="literal">True</span>  <span class="comment"># Mark the end of a word</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">indexPairs</span>(<span class="params">self, text, words</span>):</span></span><br><span class="line">        trie = Trie()</span><br><span class="line">        <span class="comment"># Populate the trie with the list of words</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">            trie.insert(word)</span><br><span class="line"></span><br><span class="line">        result = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(text)):</span><br><span class="line">            p = trie.root</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, <span class="built_in">len</span>(text)):</span><br><span class="line">                currentChar = text[j]</span><br><span class="line">                <span class="keyword">if</span> currentChar <span class="keyword">not</span> <span class="keyword">in</span> p.children:</span><br><span class="line">                    <span class="keyword">break</span>  <span class="comment"># Break if the character is not in the trie</span></span><br><span class="line">                p = p.children[currentChar]</span><br><span class="line">                <span class="keyword">if</span> p.isEnd:</span><br><span class="line">                    result.append([i, j])  <span class="comment"># Add index pair if word found as a list</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result  <span class="comment"># Return a list of lists containing index pairs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example usage:</span></span><br><span class="line">solution = Solution()</span><br><span class="line">text1 = <span class="string">&quot;bluebirdskyscraper&quot;</span></span><br><span class="line">words1 = [<span class="string">&quot;blue&quot;</span>, <span class="string">&quot;bird&quot;</span>, <span class="string">&quot;sky&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(solution.indexPairs(text1, words1))</span><br><span class="line"></span><br><span class="line">text2 = <span class="string">&quot;programmingisfun&quot;</span></span><br><span class="line">words2 = [<span class="string">&quot;pro&quot;</span>, <span class="string">&quot;is&quot;</span>, <span class="string">&quot;fun&quot;</span>, <span class="string">&quot;gram&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(solution.indexPairs(text2, words2))</span><br><span class="line"></span><br><span class="line">text3 = <span class="string">&quot;interstellar&quot;</span></span><br><span class="line">words3 = [<span class="string">&quot;stellar&quot;</span>, <span class="string">&quot;star&quot;</span>, <span class="string">&quot;inter&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(solution.indexPairs(text3, words3))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-and-Space-Complexity-Analysis"><a href="#Time-and-Space-Complexity-Analysis" class="headerlink" title="Time and Space Complexity Analysis"></a>Time and Space Complexity Analysis</h3><p><strong>Time Complexity:</strong></p>
+<ul>
+<li><strong>Building the Trie:</strong> <strong><em>O(N \</em> L)*</strong>, where N is the number of words and L is the average length of these words.</li>
+<li><strong>Finding Index Pairs:</strong> <strong><em>O(T^2)</em></strong>, where T is the length of the text string.</li>
+<li><strong>Overall:</strong> <strong><em>O(N \</em> L + T^2)*</strong></li>
+</ul>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li><strong>Trie Storage:</strong> <strong><em>O(N </em> L)*</strong>, for storing N words each of average length L.</li>
+</ul>
+<h2 id="Design-Add-and-Search-Words-Data-Structure"><a href="#Design-Add-and-Search-Words-Data-Structure" class="headerlink" title="Design Add and Search Words Data Structure"></a>Design Add and Search Words Data Structure</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Top Interview 150 | <a target="_blank" rel="noopener" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Design a data structure that supports the addition of new words and the ability to check if a string matches any previously added word.</p>
+<p>Implement the <code>Solution</code> class:</p>
+<ul>
+<li><code>Solution()</code> Initializes the object.</li>
+<li><code>void addWord(word)</code> Inserts <code>word</code> into the data structure, making it available for future searches.</li>
+<li><code>bool search(word)</code> Checks if there is any word in the data structure that matches <code>word</code>. The method returns <code>true</code> if such a match exists, otherwise returns <code>false</code>.</li>
+</ul>
+<p><strong>Note:</strong> In the search query <code>word</code>, the character <code>&#39;.&#39;</code> can represent any single letter, effectively serving as a wildcard character.</p>
+<h4 id="Examples-2"><a href="#Examples-2" class="headerlink" title="Examples"></a>Examples</h4><p><strong>Example 1:</strong></p>
+<ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;Solution&quot;</span>, <span class="string">&quot;addWord&quot;</span>, <span class="string">&quot;addWord&quot;</span>, <span class="string">&quot;search&quot;</span>, <span class="string">&quot;search&quot;</span>]</span><br><span class="line">[[], [<span class="string">&quot;apple&quot;</span>], [<span class="string">&quot;banana&quot;</span>], [<span class="string">&quot;apple&quot;</span>], [<span class="string">&quot;.....&quot;</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Expected Output:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Justification: After adding the words “apple” and “banana”, searching for “apple” will return <code>true</code> since “apple” is in the data structure. Searching for “…..” will also return <code>true</code> as both “apple” and “banana” match the pattern.</p>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;Solution&quot;</span>, <span class="string">&quot;addWord&quot;</span>, <span class="string">&quot;addWord&quot;</span>, <span class="string">&quot;search&quot;</span>, <span class="string">&quot;search&quot;</span>]</span><br><span class="line">[[], [<span class="string">&quot;cat&quot;</span>], [<span class="string">&quot;dog&quot;</span>], [<span class="string">&quot;c.t&quot;</span>], [<span class="string">&quot;d..g&quot;</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Expected Output:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Justification:</strong> “c.t” matches “cat” and “d..g” doesn’t matches “dog”.</p>
+</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><p>Input:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;Solution&quot;</span>, <span class="string">&quot;addWord&quot;</span>, <span class="string">&quot;search&quot;</span>, <span class="string">&quot;search&quot;</span>]</span><br><span class="line">[[], [<span class="string">&quot;hello&quot;</span>], [<span class="string">&quot;h.llo&quot;</span>], [<span class="string">&quot;h...o&quot;</span>]]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Expected Output:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Justification:</strong> “h.llo” and “h…o” both match “hello”.</p>
+</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= word.length &lt;= 25</code></li>
+<li><code>word</code> in <code>addWord</code> consists of lowercase English letters.</li>
+<li><code>word</code> in <code>search</code> consist of ‘.’ or lowercase English letters.</li>
+<li>There will be at most 2 dots in word for search queries.</li>
+<li>At most 104 calls will be made to addWord and search.</li>
+</ul>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>The crux of the problem lies in efficiently inserting words and then searching for them, even if the query includes wildcards. To solve this, we utilize the trie (prefix tree) data structure. A trie is a tree-like structure that’s useful for storing a dynamic set of strings, especially when the dataset involves large numbers of queries on prefixes of strings. Each node of the trie can represent a character of a word, and the path from the root node to any node represents the word stored up to that point. The key operation for the wildcard is a recursive search, which allows us to explore multiple paths in the trie when we encounter the wildcard character.</p>
+<p><strong>1. Trie Data Structure:</strong> Every node of the trie contains multiple child nodes (one for each character of the alphabet). We start with a root node that represents an empty string. Each level of the trie represents the next character of a word.</p>
+<p><strong>2. Adding a Word:</strong> To insert a word into our trie, we begin at the root and traverse down the trie based on the characters in the word. If a particular character doesn’t have a corresponding child node in the current node, we create a new child node for that character. Once we’ve processed every character of the word, we mark the final node as the end of a valid word.</p>
+<p><strong>3. Searching:</strong> Searching for a word is similar to inserting, but with an additional consideration for the wildcard character (‘.’). If we encounter a ‘.’, we must consider all child nodes of the current node and recursively continue our search from each of them. If any of the paths result in a match, we return <code>true</code>. If we reach the end of a word without encountering any mismatches or premature ends, we’ve found a valid word in our trie.</p>
+<p>This trie-based approach ensures efficient operations for both inserting and searching for words. In cases without wildcards, the search operation can be performed in linear time relative to the word’s length. However, with wildcards, the time complexity might increase, but the trie structure still ensures that we do this efficiently.</p>
+<h4 id="Algorithm-Walkthrough-2"><a href="#Algorithm-Walkthrough-2" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Given the word “apple” to insert and then search for “…..”:</p>
+<ol>
+<li>Start at the root node.</li>
+<li>For inserting “apple”:<ul>
+<li>At ‘a’, move down or create a node if it doesn’t exist.</li>
+<li>At ‘p’, move down or create.</li>
+<li>Do the same for the next ‘p’, ‘l’, and ‘e’.</li>
+<li>Mark the last node (for ‘e’) as the end of a word.</li>
+</ul>
+</li>
+<li>For searching “…..”:<ul>
+<li>At the first ‘.’, check all child nodes and continue.</li>
+<li>Repeat for each ‘.’.</li>
+<li>If any path leads to a node that represents the end of a word, return <code>true</code>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Code-5"><a href="#Code-5" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class TrieNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self):</span></span><br><span class="line"><span class="comment">#         # Initialize children as a dictionary to represent all possible next characters.</span></span><br><span class="line"><span class="comment">#         self.children = &#123;&#125;  </span></span><br><span class="line"><span class="comment">#         # Flag to check if the current node marks the end of any word.</span></span><br><span class="line"><span class="comment">#         self.isEnd = False  </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># Initialize the root node.</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addWord</span>(<span class="params">self, word: <span class="built_in">str</span></span>):</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> word:</span><br><span class="line">            <span class="comment"># If current character isn&#x27;t already a child of the node, add it.</span></span><br><span class="line">            <span class="keyword">if</span> ch <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                node.children[ch] = TrieNode()</span><br><span class="line">            <span class="comment"># Move on to the next character/node.</span></span><br><span class="line">            node = node.children[ch]</span><br><span class="line">        <span class="comment"># After processing all characters of the word, mark the current node as end of a word.</span></span><br><span class="line">        node.isEnd = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span>(<span class="params">self, word: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.searchInNode(word, self.root)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searchInNode</span>(<span class="params">self, word: <span class="built_in">str</span>, node: TrieNode</span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">        <span class="keyword">for</span> i, ch <span class="keyword">in</span> <span class="built_in">enumerate</span>(word):</span><br><span class="line">            <span class="comment"># Check for wildcard character.</span></span><br><span class="line">            <span class="keyword">if</span> ch == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                <span class="comment"># Recursively search for all possible characters in place of the wildcard.</span></span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">any</span>(self.searchInNode(word[i + <span class="number">1</span>:], node.children[child]) <span class="keyword">for</span> child <span class="keyword">in</span> node.children <span class="keyword">if</span> child)</span><br><span class="line">            <span class="comment"># If character doesn&#x27;t exist in children, word can&#x27;t exist in the trie.</span></span><br><span class="line">            <span class="keyword">if</span> ch <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="comment"># Move to the next character/node.</span></span><br><span class="line">            node = node.children[ch]</span><br><span class="line">        <span class="comment"># After processing all characters of the word, return if it&#x27;s a valid word.</span></span><br><span class="line">        <span class="keyword">return</span> node.isEnd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test the algorithm</span></span><br><span class="line">obj = Solution()</span><br><span class="line">obj.addWord(<span class="string">&quot;apple&quot;</span>)</span><br><span class="line">obj.addWord(<span class="string">&quot;banana&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(obj.search(<span class="string">&quot;apple&quot;</span>))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(obj.search(<span class="string">&quot;.....&quot;</span>))  <span class="comment"># True</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-4"><a href="#Complexity-Analysis-4" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li>Time Complexity:<ul>
+<li><strong>Insertion (addWord)</strong>: O(n), where n is the length of the word. This is because each insertion operation runs in linear time with respect to the length of the word.</li>
+<li><strong>Search</strong>: O(n * m) in the worst case, where n is the length of the word and m is the total number of nodes in the Trie. This happens when the search word contains dots (‘.’). However, for words without dots, the search is O(n).</li>
+</ul>
+</li>
+<li><strong>Space Complexity:</strong> O(m <em> n), where m is the total number of Trie nodes and n is the average number of characters in the words. Each Trie node has up to 26 children (for each letter of the alphabet). In the worst case, when no nodes are shared, the space complexity is O(m </em> n).</li>
+</ul>
+<h2 id="Extra-Characters-in-a-String"><a href="#Extra-Characters-in-a-String" class="headerlink" title="# Extra Characters in a String"></a># Extra Characters in a String</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/extra-characters-in-a-string/">2707. Extra Characters in a String</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<p>没咋看懂</p>
+<h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a string <code>s</code> and an array of words <code>words</code>. Break string <code>s</code> into multiple non-overlapping substrings such that each substring should be part of the <code>words.</code> There are some characters left which are not part of any substring.</p>
+<p>Return the minimum number of remaining characters in <code>s</code>, which are not part of any substring after string break-up.</p>
+<h4 id="Examples-3"><a href="#Examples-3" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li><strong>Input:</strong> <code>s = &quot;amazingracecar&quot;</code>, <code>dictionary = [&quot;race&quot;, &quot;car&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>7</code></li>
+<li><strong>Justification:</strong> The string <code>s</code> can be rearranged to form “racecar”, leaving ‘a’, ‘m’, ‘a’, ‘z’, ‘i’, ‘n’, ‘g’ as extra.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li><strong>Input:</strong> <code>s = &quot;bookkeeperreading&quot;</code>, <code>dictionary = [&quot;keep&quot;, &quot;read&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>9</code></li>
+<li><strong>Justification:</strong> The words “keep” and “read” can be formed from <code>s</code>, but ‘b’, ‘o’, ‘o’, ‘k’, ‘e’, ‘r’, ‘i’, ‘n’, ‘g’ are extra.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li><strong>Input:</strong> <code>s = &quot;thedogbarksatnight&quot;</code>, <code>dictionary = [&quot;dog&quot;, &quot;bark&quot;, &quot;night&quot;]</code></li>
+<li><strong>Expected Output:</strong> <code>6</code></li>
+<li><strong>Justification:</strong> The words “dog”, “bark”, and “night” can be formed, leaving ‘t’, ‘h’, ‘e’, ‘s’, ‘a’, ‘t’ as extra characters.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= str.length &lt;= 50</code></li>
+<li><code>1 &lt;= dictionary.length &lt;= 50</code></li>
+<li><code>1 &lt;= dictionary[i].length &lt;= 50</code></li>
+<li><code>dictionary[i]</code> and <code>s</code> consists of only lowercase English letters</li>
+<li><code>dictionary</code> contains distinct words</li>
+</ul>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>The solution approach utilizes a dynamic programming strategy combined with a trie data structure. The dynamic programming aspect allows for efficiently keeping track of the minimum extra characters required at each position in the string <code>s</code>. This is achieved by building a bottom-up solution, where we start from the end of the string and work our way towards the beginning, calculating the minimum extra characters required for each substring.</p>
+<p>The trie data structure is used to efficiently find and match the words from the <code>dictionary</code> within the string <code>s</code>. The combination of these two methods ensures that the solution is both time-efficient and space-efficient, as it avoids redundant computations and efficiently manages the storage of the dictionary words.</p>
+<h4 id="Step-by-Step-Algorithm-1"><a href="#Step-by-Step-Algorithm-1" class="headerlink" title="Step-by-Step Algorithm"></a>Step-by-Step Algorithm</h4><ol>
+<li><strong>Initialize Trie:</strong><ul>
+<li>Construct a trie using the words from the <code>dictionary</code>. Each node in the trie represents a character, and a complete path from the root to a leaf node represents a word.</li>
+</ul>
+</li>
+<li><strong>Dynamic Programming Array:</strong><ul>
+<li>Initialize a dynamic programming (DP) array, <code>dp</code>, of length <code>n + 1</code>, where <code>n</code> is the length of the string <code>s</code>. <strong>This array will store the minimum number of extra characters required for the substring starting from each index.</strong></li>
+</ul>
+</li>
+<li><strong>DP Calculation:</strong><ul>
+<li>Iterate backwards through the string <code>s</code>:<ul>
+<li>Set <code>dp[start]</code> to <code>dp[start + 1] + 1</code> initially. This represents the case where the current character is considered an extra character.</li>
+<li>For each <code>start</code> position, iterate through the string to check if a word in the trie can be formed starting from this position.</li>
+<li>If the current substring matches a word in the trie (<code>node.isEnd</code> is true), update <code>dp[start]</code> to be the minimum of its current value and <code>dp[end + 1]</code>, where <code>end</code> is the end of the matched word. This step ensures that we consider removing the matched word and count the rest as extra characters.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Return Result:</strong><ul>
+<li>The value of <code>dp[0]</code> gives the minimum number of extra characters in the entire string <code>s</code>.</li>
+</ul>
+</li>
+</ol>
+<h4 id="Algorithm-Walkthrough-3"><a href="#Algorithm-Walkthrough-3" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Let’s consider the input s = <code>&quot;bookkeeperreading&quot;</code>, dictionary = <code>[&quot;keep&quot;, &quot;read&quot;]</code></p>
+<ol>
+<li><strong>Trie Construction:</strong><ul>
+<li>Build the trie with “keep” and “read”.</li>
+</ul>
+</li>
+<li><strong>DP Initialization:</strong><ul>
+<li>Initialize <code>dp</code> array of length 18 (since “bookkeeperreading” has 17 characters).</li>
+</ul>
+</li>
+<li><strong>DP Calculation:</strong><ul>
+<li>Start from index 16 (last character ‘g’):<ul>
+<li>For each index, try to form a word from the trie. For example, at index 12, the word “read” can be formed.</li>
+<li>Update <code>dp[12]</code> to be the minimum of <code>dp[12]</code> and <code>dp[16]</code> (which is the end of “read” + 1).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Iterate Backwards:</strong><ul>
+<li>Continue this process for each character in <code>s</code>. If a character does not form a word in the trie, <code>dp[start]</code> remains <code>dp[start + 1] + 1</code>.</li>
+</ul>
+</li>
+<li><strong>Final Result:</strong><ul>
+<li><code>dp[0]</code> will have the minimum extra characters after processing the entire string.</li>
+</ul>
+</li>
+</ol>
+<p>This approach systematically checks each substring of <code>s</code> against the trie, and the dynamic programming array efficiently keeps track of the minimum extra characters required. The use of a trie ensures that each substring check is done in an optimized manner, avoiding unnecessary recomputations.</p>
+<h3 id="Code-6"><a href="#Code-6" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.children = &#123;&#125;  <span class="comment"># Represents each character of the alphabet.</span></span><br><span class="line">        self.isEnd = <span class="literal">False</span>  <span class="comment"># To determine if the current TrieNode marks the end of a word.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minExtraChar</span>(<span class="params">self, s, dictionary</span>):</span></span><br><span class="line">        root = self.buildTrie(dictionary)  <span class="comment"># Building the trie from the dictionary.</span></span><br><span class="line">        n = <span class="built_in">len</span>(s)</span><br><span class="line">        dp = [<span class="number">0</span>] * (n + <span class="number">1</span>)  <span class="comment"># DP array to store minimum extra characters.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 从后往前是因为这样适合Trie的结构来进行search</span></span><br><span class="line">        <span class="keyword">for</span> start <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            dp[start] = dp[start + <span class="number">1</span>] + <span class="number">1</span>  <span class="comment"># Default case: considering current character as extra.</span></span><br><span class="line"></span><br><span class="line">            node = root</span><br><span class="line">            <span class="keyword">for</span> end <span class="keyword">in</span> <span class="built_in">range</span>(start, n):</span><br><span class="line">                <span class="keyword">if</span> s[end] <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                    <span class="keyword">break</span>  <span class="comment"># No further word can be formed.</span></span><br><span class="line">                node = node.children[s[end]]</span><br><span class="line">                <span class="keyword">if</span> node.isEnd:</span><br><span class="line">                    dp[start] = <span class="built_in">min</span>(dp[start], dp[end + <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>]  <span class="comment"># Minimum extra characters for the entire string.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">buildTrie</span>(<span class="params">self, dictionary</span>):</span></span><br><span class="line">        root = TrieNode()</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> dictionary:</span><br><span class="line">            node = root</span><br><span class="line">            <span class="keyword">for</span> char <span class="keyword">in</span> word:</span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;a&#x27;</span> &lt;= char &lt;= <span class="string">&#x27;z&#x27;</span>:  <span class="comment"># Ensure the character is a lowercase letter</span></span><br><span class="line">                    <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> node.children:</span><br><span class="line">                        node.children[char] = TrieNode()  <span class="comment"># Creating new node if not exists.</span></span><br><span class="line">                    node = node.children[char]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Invalid character <span class="subst">&#123;char&#125;</span> in dictionary word <span class="subst">&#123;word&#125;</span>&quot;</span>)</span><br><span class="line">            node.isEnd = <span class="literal">True</span>  <span class="comment"># Mark the end of a word.</span></span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    solution = Solution()</span><br><span class="line">    <span class="built_in">print</span>(solution.minExtraChar(<span class="string">&quot;amazingracecar&quot;</span>, [<span class="string">&quot;race&quot;</span>, <span class="string">&quot;car&quot;</span>]))  <span class="comment"># Output: 7</span></span><br><span class="line">    <span class="built_in">print</span>(solution.minExtraChar(<span class="string">&quot;bookkeeperreading&quot;</span>, [<span class="string">&quot;keep&quot;</span>, <span class="string">&quot;read&quot;</span>]))  <span class="comment"># Output: 9</span></span><br><span class="line">    <span class="built_in">print</span>(solution.minExtraChar(<span class="string">&quot;thedogbarksatnight&quot;</span>, [<span class="string">&quot;dog&quot;</span>, <span class="string">&quot;bark&quot;</span>, <span class="string">&quot;night&quot;</span>]))  <span class="comment"># Output: 6</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-and-Space-Complexity-Analysis-1"><a href="#Time-and-Space-Complexity-Analysis-1" class="headerlink" title="Time and Space Complexity Analysis"></a>Time and Space Complexity Analysis</h3><h4 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h4><ul>
+<li><strong>Trie Construction:</strong> (O(W * L)), where (W) is the number of words in the dictionary and (L) is the average length of these words.</li>
+<li><strong>Dynamic Programming Calculation:</strong> (O(n^2)), where (n) is the length of the input string <code>s</code>.</li>
+<li><strong>Total Time Complexity:</strong> (O(W * L + n^2)).</li>
+</ul>
+<h4 id="Space-Complexity"><a href="#Space-Complexity" class="headerlink" title="Space Complexity"></a>Space Complexity</h4><ul>
+<li><strong>Trie Storage:</strong> (O(W * L)), for storing the words in the trie.</li>
+<li><strong>Dynamic Programming Array:</strong> (O(n)), for the array used in dynamic programming.</li>
+<li><strong>Total Space Complexity:</strong> (O(W * L + n)).</li>
+</ul>
 
     </article>
     <!-- license -->
@@ -517,7 +1033,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/23-pattern-trie/index.html">https://hasuer.github.io/23-pattern-trie/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/23-pattern-trie/index.html">May 3rd 2024, 2:24:12 pm</a>
-            <p>Update date：<a href="https://hasuer.github.io/23-pattern-trie/index.html">May 3rd 2024, 2:26:34 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/23-pattern-trie/index.html">May 19th 2024, 5:07:24 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -666,7 +1182,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Trie"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Trie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-to-Trie-1"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction to Trie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Defining-a-Trie"><span class="toc-number">1.2.</span> <span class="toc-text">Defining a Trie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Need-for-Trie-Data-Structure"><span class="toc-number">1.2.1.</span> <span class="toc-text">Need for Trie Data Structure?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Advantages-of-Using-Tries"><span class="toc-number">1.2.2.</span> <span class="toc-text">Advantages of Using Tries</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Properties-of-the-Trie-Data-Structure"><span class="toc-number">1.2.3.</span> <span class="toc-text">Properties of the Trie Data Structure</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation-of-Tries"><span class="toc-number">1.3.</span> <span class="toc-text">Implementation of Tries</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Representation-of-Trie-Node"><span class="toc-number">1.3.1.</span> <span class="toc-text">Representation of Trie Node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Insertion-in-Trie-Data-Structure"><span class="toc-number">1.3.2.</span> <span class="toc-text">Insertion in Trie Data Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Algorithm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Example"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Code"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Searching-in-Trie-Data-Structure"><span class="toc-number">1.3.3.</span> <span class="toc-text">Searching in Trie Data Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm-1"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Algorithm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Code-1"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Deletion-in-Trie-Data-Structure"><span class="toc-number">1.3.4.</span> <span class="toc-text">Deletion in Trie Data Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Algorithm-2"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">Algorithm</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Code-2"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Complexity-Analysis-2"><span class="toc-number">1.3.4.3.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Implement-Trie-Prefix-Tree"><span class="toc-number">2.</span> <span class="toc-text">Implement Trie (Prefix Tree)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-3"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Index-Pairs-of-a-String"><span class="toc-number">3.</span> <span class="toc-text">Index Pairs of a String</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-Step-Algorithm"><span class="toc-number">3.2.1.</span> <span class="toc-text">Step-by-Step Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-4"><span class="toc-number">3.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis"><span class="toc-number">3.4.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Design-Add-and-Search-Words-Data-Structure"><span class="toc-number">4.</span> <span class="toc-text">Design Add and Search Words Data Structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-2"><span class="toc-number">4.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-5"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-4"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extra-Characters-in-a-String"><span class="toc-number">5.</span> <span class="toc-text"># Extra Characters in a String</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-3"><span class="toc-number">5.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-Step-Algorithm-1"><span class="toc-number">5.2.1.</span> <span class="toc-text">Step-by-Step Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-3"><span class="toc-number">5.2.2.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-6"><span class="toc-number">5.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis-1"><span class="toc-number">5.4.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Time-Complexity"><span class="toc-number">5.4.1.</span> <span class="toc-text">Time Complexity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Space-Complexity"><span class="toc-number">5.4.2.</span> <span class="toc-text">Space Complexity</span></a></li></ol></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
