@@ -44,8 +44,11 @@
 <meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/16.png">
 <meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/17.png">
 <meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/18.png">
+<meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/19.png">
+<meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/20.png">
+<meta property="og:image" content="https://hasuer.github.io/25-pattern-union-find/index/21.png">
 <meta property="article:published_time" content="2024-05-03T06:26:45.000Z">
-<meta property="article:modified_time" content="2024-05-22T12:36:34.170Z">
+<meta property="article:modified_time" content="2024-05-22T16:31:22.002Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
@@ -366,7 +369,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">3.5k</span>Reading time: <span class="post-count reading-time">21 min</span></span>
+                        <span>Word count: <span class="post-count word-count">5.9k</span>Reading time: <span class="post-count reading-time">36 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -696,7 +699,10 @@
 <li><strong>Time Complexity:</strong> The time complexity is O(N log N), where N is the number of nodes, due to the Union-Find operations with path compression over all edges.).</li>
 <li><strong>Space Complexity:</strong> The space complexity is (O(N)), since we maintain a parent array of size (N) where (N) is the number of vertices.</li>
 </ul>
-<h2 id="Number-of-Provinces"><a href="#Number-of-Provinces" class="headerlink" title="Number of Provinces"></a>Number of Provinces</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/redundant-connection/">684. Redundant Connection</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> 和Pattern Island中的Number of Islands 类似。这道题的matrix表示的是邻接矩阵，可以使用并查集。Number of Islands表示的是陆地和海洋，适合使用DFS.</p>
+<h2 id="Number-of-Provinces"><a href="#Number-of-Provinces" class="headerlink" title="Number of Provinces"></a>Number of Provinces</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-provinces/">547. Number of Provinces</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> </p>
+<p>和Pattern Island中的Number of Islands 类似。这道题的matrix表示的是邻接矩阵，可以使用并查集。</p>
+<p>同时这道题在Pattern Graph中也出现了，也可以使用DFS。</p>
+<p>Number of Islands表示的是陆地和海洋，适合使用DFS.</p>
 <h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>There are <code>n</code> cities. Some of them are connected in a network. If City <code>A</code> is directly connected to City <code>B</code>, and City <code>B</code> is directly connected to City <code>C</code>, city <code>A</code> is directly connected to City <code>C</code>.</p>
 <p>If a group of cities are connected directly or indirectly, they form a <strong>province</strong>.</p>
 <p>You are given a square matrix of size <code>n x n</code>, where each cell’s value indicates whether a direct connection between cities exists (1 for connected and 0 for not connected).</p>
@@ -768,6 +774,222 @@
 <h3 id="Complexity-Analysis-1"><a href="#Complexity-Analysis-1" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><p><strong>Time Complexity:</strong> The time complexity is O(n^3) in the worst case, where n is the number of nodes. This is because the union and find operations can take O(n) time without optimizations and we perform up to O(n^2) comparisons.</p>
 <p>However, with path compression and union by rank, the amortized time complexity of each union-find operation can be reduced to nearly O(1), making the algorithm run in nearly O(n^2) time.</p>
 <p><strong>Space complexity:</strong> The space complexity is O(n) for storing the parent array.</p>
+<h2 id="Is-Graph-Bipartite"><a href="#Is-Graph-Bipartite" class="headerlink" title="Is Graph Bipartite?"></a>Is Graph Bipartite?</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/is-graph-bipartite/">785. Is Graph Bipartite?</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> </p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a 2D array <code>graph[][]</code>, representing the undirected graph, where <code>graph[u]</code> is an array of nodes that are connected with node <code>u</code>.</p>
+<p>Determine whether a given undirected graph is a bipartite graph.</p>
+<p>The graph is a bipartite graph, if we can split the set of nodes into two distinct subsets such that no two nodes within the same subset are adjacent (i.e., no edge exists between any two nodes within a single subset).</p>
+<h4 id="Examples-2"><a href="#Examples-2" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li>Example 1:<ul>
+<li><strong>Input:</strong> <code>[[1,3], [0,2], [1,3], [0,2]]</code></li>
+</ul>
+</li>
+</ol>
+<p><img src="/25-pattern-union-find/index/19.png"></p>
+<ul>
+<li><strong>Expected Output:</strong> <code>true</code></li>
+<li><strong>Justification:</strong> The nodes can be divided into two groups: {0, 2} and {1, 3}. No two nodes within each group are adjacent, thus the graph is bipartite.</li>
+</ul>
+<ol>
+<li>Example 2:<ul>
+<li><strong>Input:</strong> <code>[[1], [0], [3], [2]]</code></li>
+</ul>
+</li>
+</ol>
+<p><img src="/25-pattern-union-find/index/20.png"></p>
+<ul>
+<li><strong>Expected Output:</strong> <code>true</code></li>
+<li><strong>Justification:</strong> The graph is a simple chain of 4 nodes. It’s clearly bipartite as we can have {0, 2} and {1, 3} as the two subsets.</li>
+</ul>
+<ol>
+<li>Example 3:<ul>
+<li><strong>Input:</strong> <code>[[1,2,3],[0,2],[0,1,3],[0,2]]</code></li>
+</ul>
+</li>
+</ol>
+<p><img src="/25-pattern-union-find/index/21.png"></p>
+<ul>
+<li><strong>Expected Output:</strong> <code>false</code></li>
+<li><strong>Justification:</strong> We found that edges (1, 2), (1, 3), and (2, 3) connect nodes within the same set, which violates the condition for a bipartite graph where each edge must connect nodes in different subsets. Thus, there’s no way to divide this graph into two subsets that satisfy the bipartite condition.</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>graph.length == n</code></li>
+<li><code>1 &lt;= n &lt;= 100</code></li>
+<li><code>0 &lt;= graph[u].length &lt; n</code></li>
+<li><code>0 &lt;= graph[u][i] &lt;= n - 1</code></li>
+<li><code>graph[u]</code> does not contain u.</li>
+<li>All the values of graph[u] are unique.</li>
+<li>If <code>graph[u]</code> contains v, then <code>graph[v]</code> contains u.</li>
+</ul>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>To check if a graph can be bipartitioned, we employ the Union Find strategy. Initially, each node is treated as a distinct set, signifying that every node is in its own group. As we progress, each edge in the graph is examined. The pivotal aspect here is to determine whether the nodes connected by an edge are in different sets. If they are in the same set, it indicates a violation of the bipartition condition. For edges connecting nodes in separate sets, we perform a union operation, merging these sets. This step is crucial as it helps in grouping the nodes in a manner that allows for a potential bipartition.</p>
+<p>Throughout this process, path compression flattens the structure of the sets, speeding up subsequent operations. The graph can be considered bipartite if, after evaluating all edges, no adjacent nodes are found in the same set. However, if any adjacent nodes are in the same set, the graph fails the bipartition test. This method effectively uses the concept of disjoint sets to determine if a given graph can be split into two groups without any overlapping edges.</p>
+<h4 id="Step-by-step-algorithm"><a href="#Step-by-step-algorithm" class="headerlink" title="Step-by-step algorithm"></a>Step-by-step algorithm</h4><p>要看能不能分为两个部分，并且每一个部分中的任何两个节点都有相连，那就是说如果我们遍历和一个节点<code>i</code>相邻的所有节点的时候，这些和节点<code>i</code>相邻的节点应该划分为同一个簇，因为他们都不能和节点<code>i</code>在以一个group里，所以只能在<code>i</code>的对立。在遍历的过程中如果发现一个edge连接的两个点已经在一个group了，那就应该return false.</p>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isBipartite</span>(<span class="params">self, graph</span>):</span></span><br><span class="line">        <span class="comment"># Initialize parent list, initially each node is its own parent</span></span><br><span class="line">        parent = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(graph))]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Define a function to find the parent of a node using path compression</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find</span>(<span class="params">node</span>):</span></span><br><span class="line">            <span class="keyword">if</span> parent[node] != node:</span><br><span class="line">                parent[node] = find(parent[node])  <span class="comment"># Path compression</span></span><br><span class="line">            <span class="keyword">return</span> parent[node]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Define a function to perform union of two nodes by updating their parents</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">union</span>(<span class="params">node1, node2</span>):</span></span><br><span class="line">            parent[find(node1)] = find(node2)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Iterate through each node in the graph</span></span><br><span class="line">        <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(graph)):</span><br><span class="line">            <span class="keyword">if</span> graph[u]:</span><br><span class="line">                parentU = find(u)  <span class="comment"># Find the parent of the current node</span></span><br><span class="line">                firstNeighbor = graph[u][<span class="number">0</span>]  <span class="comment"># Get the first neighbor of the current node</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># Iterate through neighbors of the current node</span></span><br><span class="line">                <span class="keyword">for</span> v <span class="keyword">in</span> graph[u]:</span><br><span class="line">                    <span class="keyword">if</span> find(v) == parentU:  <span class="comment"># Check for a conflict in the same partition</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># If conflict is detected, the graph is not bipartite</span></span><br><span class="line">                    union(firstNeighbor, v)  <span class="comment"># Union the first neighbor with the current neighbor</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example usage</span></span><br><span class="line">sol = Solution()</span><br><span class="line"><span class="built_in">print</span>(sol.isBipartite([[<span class="number">1</span>, <span class="number">3</span>], [<span class="number">0</span>, <span class="number">2</span>], [<span class="number">1</span>, <span class="number">3</span>], [<span class="number">0</span>, <span class="number">2</span>]]))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(sol.isBipartite([[<span class="number">1</span>], [<span class="number">0</span>], [<span class="number">3</span>], [<span class="number">2</span>]]))  <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(sol.isBipartite([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">0</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>], [<span class="number">0</span>, <span class="number">2</span>]]))  <span class="comment"># False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-2"><a href="#Complexity-Analysis-2" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><p><strong>Time complexity:</strong></p>
+<ul>
+<li>Each <code>union</code> and <code>find</code> operation can be considered almost O(1) due to path compression.</li>
+<li>The main loop processes each edge once, and there are E edges in the graph.</li>
+<li>Hence, the time complexity is O(E), where E is the number of edges in the graph.</li>
+</ul>
+<p><strong>Space complexity:</strong></p>
+<ul>
+<li>We use an array to represent the union-find structure. This array has a size equal to the number of vertices V.</li>
+<li>Hence, the space complexity is O(V), where V is the number of vertices in the graph.</li>
+</ul>
+<h2 id="Path-With-Minimum-Effort"><a href="#Path-With-Minimum-Effort" class="headerlink" title="Path With Minimum Effort"></a>Path With Minimum Effort</h2><h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a 2D array <code>heights[][]</code> of size <code>n x m</code>, where <code>heights[n][m]</code> represents the height of the cell <code>(n, m)</code>.</p>
+<p>Find a path from the top-left corner to the bottom-right corner that minimizes the effort required to travel between consecutive points, where effort is defined as the absolute difference in height between two points. In a single step, you can either move <code>up</code>, <code>down</code>, <code>left</code> or <code>right</code>.</p>
+<p>Determine the minimum effort required for any path from the first point to the last.</p>
+<h4 id="Example-Generation"><a href="#Example-Generation" class="headerlink" title="Example Generation"></a>Example Generation</h4><p><strong>Example 1:</strong></p>
+<ul>
+<li>Input: <code>[[1,2,3],[3,8,4],[5,3,5]]</code></li>
+<li>Expected Output: <code>1</code></li>
+<li>Justification: The path with the minimum effort is along the edges of the grid (right, right, down, down) which requires an effort of 1 between each pair of points.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li>Input: <code>[[1,2,2],[3,3,3],[5,3,1]]</code></li>
+<li>Expected Output: <code>2</code></li>
+<li>Justification: The path that minimizes the maximum effort goes through (1,2,2,3,1), which has a maximum effort of 2 (from 3 to 1).</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li>Input: <code>[[1,1,1],[1,1,1],[1,1,1]]</code></li>
+<li>Expected Output: <code>0</code></li>
+<li>Justification: The path that minimizes the maximum effort goes through (1,1,1,1,1), which has a maximum effort of 0.</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>rows == heights.length</code></li>
+<li><code>columns == heights[i].length</code></li>
+<li><code>1 &lt;= rows, columns &lt;= 100</code></li>
+<li>1 &lt;= heights[i][j] &lt;= 106</li>
+</ul>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, we’ll employ the Union Find algorithm. The core idea here is to sort all the edges (the differences in elevation between adjacent cells) in ascending order. Then, starting from the smallest edge, we’ll progressively unite adjacent cells in the grid. The process of uniting cells involves linking together cells that can be reached with the current maximum effort level. This step is crucial because it helps to build a path incrementally while ensuring that we keep the effort as low as possible.</p>
+<p>We continue this process of uniting cells until the top-left cell and the bottom-right cell are connected. At this point, the current maximum effort level represents the minimum effort needed to traverse from the start to the end. This method efficiently finds the path with the least resistance while considering all possible paths and their associated efforts.</p>
+<p>The algorithm involves the following steps:</p>
+<p><strong>Step 1: Initialization</strong></p>
+<ol>
+<li>Create a <code>UnionFind</code> instance for a 3x3 grid, resulting in 9 elements (0 to 8).</li>
+<li>Initialize an empty list to store edges.</li>
+</ol>
+<p><strong>Step 2: Building Edges</strong></p>
+<ol>
+<li>Iterate over each cell in the grid.</li>
+<li>For each cell, calculate the absolute difference in elevation with its right and bottom neighbors (if they exist).</li>
+</ol>
+<p><strong>Step 3: Sorting Edges</strong></p>
+<ol>
+<li>Sort the edges by their elevation difference in ascending order.</li>
+</ol>
+<p><strong>Step 4: Perform Union-Find Operations</strong></p>
+<ol>
+<li>For each edge in the sorted list, perform the following:<ul>
+<li>Extract the two cells (cell1 and cell2) and their elevation difference from the edge.</li>
+<li>Perform the <code>union</code> operation on cell1 and cell2.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Step 5: Union Operation</strong></p>
+<ol>
+<li>In the <code>union</code> function, find the roots of both cell1 and cell2 using the <code>find</code> method.</li>
+<li>If the roots are different, join the two sets. If one set has a higher rank (depth), make it the parent of the other.</li>
+<li>If both sets have equal rank, make one the parent of the other and increase the rank of the parent.</li>
+</ol>
+<p><strong>Step 6: Find Operation</strong></p>
+<ol>
+<li>In the <code>find</code> method, for a given cell, find the root of the set to which it belongs.</li>
+<li>Implement path compression: Set each cell along the way to point directly to the root. This optimizes future <code>find</code> operations.</li>
+</ol>
+<p><strong>Step 7: Check for Connection</strong></p>
+<ol>
+<li>After each union operation, check if the start cell (0,0) and the end cell (2,2) are connected.</li>
+<li>This is done by checking if the roots of cell 0 and cell 8 (in the UnionFind structure) are the same.</li>
+<li>If they are connected, stop the process.</li>
+</ol>
+<p><strong>Step 8: Result</strong></p>
+<ol>
+<li>The elevation difference of the last processed edge that connected the start and end cells is the minimum effort required.</li>
+</ol>
+<h4 id="Algorithm-Walkthrough-2"><a href="#Algorithm-Walkthrough-2" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p><strong>Step 1: Initialization</strong></p>
+<ul>
+<li>Initialize a UnionFind instance for a 3x3 grid, resulting in 9 elements.</li>
+<li>Create an empty list to store the edges.</li>
+</ul>
+<p><strong>Step 2: Building Edges</strong></p>
+<ul>
+<li>Iterate through each cell in the grid and calculate the absolute differences with its right and bottom neighbors (if they exist).</li>
+<li>For the input <code>[[1,2,3],[3,8,4],[5,3,5]]</code>, create edges with their differences:<ul>
+<li>Between (0,0) and (0,1): |1-2| = 1</li>
+<li>Between (0,1) and (0,2): |2-3| = 1</li>
+<li>Between (0,0) and (1,0): |1-3| = 2</li>
+<li>Between (1,0) and (2,0): |3-5| = 2</li>
+<li>Between (1,0) and (1,1): |3-8| = 5</li>
+<li>Between (1,1) and (1,2): |8-4| = 4</li>
+<li>Between (0,1) and (1,1): |2-8| = 6</li>
+<li>Between (1,1) and (2,1): |8-3| = 5</li>
+<li>Between (0,2) and (1,2): |3-4| = 1</li>
+<li>Between (1,2) and (2,2): |4-5| = 1</li>
+<li>Between (2,0) and (2,1): |5-3| = 2</li>
+<li>Between (2,1) and (2,2): |3-5| = 2</li>
+</ul>
+</li>
+</ul>
+<p><strong>Step 3: Union-Find Operations</strong></p>
+<p>First, we sort the edges by their differences:</p>
+<ol>
+<li>Edges with Difference = 1:<ul>
+<li>(0,0) and (0,1): Difference = 1</li>
+<li>(0,1) and (0,2): Difference = 1</li>
+<li>(0,2) and (1,2): Difference = 1</li>
+<li>(1,2) and (2,2): Difference = 1</li>
+</ul>
+</li>
+<li>Edges with Difference = 2:<ul>
+<li>(0,0) and (1,0): Difference = 2</li>
+<li>(1,0) and (2,0): Difference = 2</li>
+<li>(2,0) and (2,1): Difference = 2</li>
+<li>(2,1) and (2,2): Difference = 2</li>
+</ul>
+</li>
+<li>Edges with Higher Differences (not initially relevant for the desired path).</li>
+</ol>
+<p>Now, let’s perform the Union-Find operations:</p>
+<p><strong>Processing Edges with Difference = 1</strong></p>
+<ol>
+<li>Union (0,0) and (0,1):<ul>
+<li>Connects cells 0 and 1. Parents: <code>[0, 0, 2, 3, 4, 5, 6, 7, 8]</code>.</li>
+</ul>
+</li>
+<li>Union (0,1) and (0,2):<ul>
+<li>Connects cells 1 and 2 (and hence 0 with 2). Parents: <code>[0, 0, 0, 3, 4, 5, 6, 7, 8]</code>.</li>
+</ul>
+</li>
+<li>Union (0,2) and (1,2):<ul>
+<li>Connects cells 2 and 5. Parents: <code>[0, 0, 0, 3, 4, 0, 6, 7, 8]</code>.</li>
+</ul>
+</li>
+<li>Union (1,2) and (2,2):<ul>
+<li>Connects cells 5 and 8. Parents: <code>[0, 0, 0, 3, 4, 0, 6, 7, 0]</code>.</li>
+<li>At this step, cells 0 and 8 are connected.</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>The last edge difference is <code>1</code>.</li>
+</ul>
+<h2 id="Code-3"><a href="#Code-3" class="headerlink" title="Code"></a>Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, size</span>):</span></span><br><span class="line">        self.parent = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(size)]  <span class="comment"># Initialize parent array</span></span><br><span class="line">        self.rank = [<span class="number">0</span>] * size  <span class="comment"># Initialize rank array</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.parent[x] != x:  <span class="comment"># Path compression: If x is not its own parent, find its root parent.</span></span><br><span class="line">            self.parent[x] = self.find(self.parent[x])</span><br><span class="line">        <span class="keyword">return</span> self.parent[x]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">union</span>(<span class="params">self, x, y</span>):</span></span><br><span class="line">        rootX = self.find(x)  <span class="comment"># Find root parent of x</span></span><br><span class="line">        rootY = self.find(y)  <span class="comment"># Find root parent of y</span></span><br><span class="line">        <span class="keyword">if</span> rootX != rootY:  <span class="comment"># Union the sets if they have different root parents</span></span><br><span class="line">            <span class="keyword">if</span> self.rank[rootX] &gt; self.rank[rootY]:  <span class="comment"># Union by rank: Attach the shorter tree to the taller one</span></span><br><span class="line">                self.parent[rootY] = rootX</span><br><span class="line">            <span class="keyword">elif</span> self.rank[rootX] &lt; self.rank[rootY]:</span><br><span class="line">                self.parent[rootX] = rootY</span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># If ranks are equal, choose any root to be the new parent and increase rank</span></span><br><span class="line">                self.parent[rootY] = rootX</span><br><span class="line">                self.rank[rootX] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minimumEffortPath</span>(<span class="params">self, heights</span>):</span></span><br><span class="line">        row, col = <span class="built_in">len</span>(heights), <span class="built_in">len</span>(heights[<span class="number">0</span>])</span><br><span class="line">        uf = UnionFind(row * col)  <span class="comment"># Initialize Union-Find data structure</span></span><br><span class="line">        edges = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(row):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(col):</span><br><span class="line">                <span class="keyword">if</span> i &gt; <span class="number">0</span>:  <span class="comment"># Add edge to the cell above (if it exists)</span></span><br><span class="line">                    edges.append((i * col + j, (i - <span class="number">1</span>) * col + j, <span class="built_in">abs</span>(heights[i][j] - heights[i - <span class="number">1</span>][j])))</span><br><span class="line">                <span class="keyword">if</span> j &gt; <span class="number">0</span>:  <span class="comment"># Add edge to the cell on the left (if it exists)</span></span><br><span class="line">                    edges.append((i * col + j, i * col + (j - <span class="number">1</span>), <span class="built_in">abs</span>(heights[i][j] - heights[i][j - <span class="number">1</span>])))</span><br><span class="line"></span><br><span class="line">        edges.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">2</span>])  <span class="comment"># Sort edges by the difference in heights</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> x, y, diff <span class="keyword">in</span> edges:  <span class="comment"># Iterate through sorted edges</span></span><br><span class="line">            uf.union(x, y)  <span class="comment"># Union the cells connected by the edge</span></span><br><span class="line">            <span class="keyword">if</span> uf.find(<span class="number">0</span>) == uf.find(</span><br><span class="line">                    row * col - <span class="number">1</span>):  <span class="comment"># If the source and destination cells are connected, return the effort</span></span><br><span class="line">                <span class="keyword">return</span> diff</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Examples</span></span><br><span class="line">sol = Solution()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Example 1:&quot;</span>, sol.minimumEffortPath([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">8</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">3</span>, <span class="number">5</span>]]))  <span class="comment"># Expected Output: 1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Example 2:&quot;</span>, sol.minimumEffortPath([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>]]))  <span class="comment"># Expected Output: 2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Example 3:&quot;</span>, sol.minimumEffortPath([[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]]))  <span class="comment"># Expected Output: 0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Complexity-Analysis-3"><a href="#Complexity-Analysis-3" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h2><p><strong>Time Complexity:</strong></p>
+<ul>
+<li>The time complexity of this algorithm is primarily dictated by the sorting of the edges.</li>
+<li>If there are <code>n</code> cells, we can have at most <code>2n</code> edges (since each cell can have at most 2 outgoing edges to its right and bottom neighbors).</li>
+<li>Sorting <code>2n</code> edges takes <code>O(2n log(2n))</code>, which simplifies to <code>O(n log n)</code>.</li>
+<li>The union-find operations (find and union) take <code>O(n)</code> time each.</li>
+<li>Hence, the overall time complexity is <code>O(n log n)</code>.</li>
+</ul>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li>The space complexity is <code>O(n)</code> for storing the parents and ranks in the union-find data structure and the edge list.</li>
+</ul>
 
     </article>
     <!-- license -->
@@ -776,7 +998,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/25-pattern-union-find/index.html">https://hasuer.github.io/25-pattern-union-find/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/25-pattern-union-find/index.html">May 3rd 2024, 2:26:45 pm</a>
-            <p>Update date：<a href="https://hasuer.github.io/25-pattern-union-find/index.html">May 22nd 2024, 8:36:34 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/25-pattern-union-find/index.html">May 23rd 2024, 12:31:22 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -925,7 +1147,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Union-Find-Pattern"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Union Find Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Operations-of-Union-Find-Disjoint-Set-Union-DSU"><span class="toc-number">1.1.</span> <span class="toc-text">Core Operations of Union-Find (Disjoint Set Union - DSU):</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Union-Find-A-Story-of-Connections"><span class="toc-number">1.2.</span> <span class="toc-text">Union-Find: A Story of Connections</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-DSU-Work"><span class="toc-number">1.2.1.</span> <span class="toc-text">How DSU Work?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#How-DSU-is-Implemented"><span class="toc-number">1.2.2.</span> <span class="toc-text">How DSU is Implemented?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operations-on-Disjoint-Set-Data-Structures"><span class="toc-number">1.3.</span> <span class="toc-text">Operations on Disjoint Set Data Structures</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Creating-Disjoint-Sets"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. Creating Disjoint Sets:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Find-Operation"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. Find Operation:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Union-Operation"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. Union Operation:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimizations"><span class="toc-number">1.4.</span> <span class="toc-text">Optimizations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Path-Compression"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. Path Compression:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Union-by-Rank"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. Union by Rank:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Union-by-Size"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. Union by Size:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.5.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros-and-Cons-of-DSU"><span class="toc-number">1.6.</span> <span class="toc-text">Pros and Cons of DSU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-Choose-Union-Find-Over-BFS-DFS"><span class="toc-number">1.7.</span> <span class="toc-text">Why Choose Union-Find Over BFS&#x2F;DFS?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redundant-Connection"><span class="toc-number">2.</span> <span class="toc-text">Redundant Connection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number-of-Provinces"><span class="toc-number">3.</span> <span class="toc-text">Number of Provinces</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">3.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Union-Find-Pattern"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Union Find Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Operations-of-Union-Find-Disjoint-Set-Union-DSU"><span class="toc-number">1.1.</span> <span class="toc-text">Core Operations of Union-Find (Disjoint Set Union - DSU):</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Union-Find-A-Story-of-Connections"><span class="toc-number">1.2.</span> <span class="toc-text">Union-Find: A Story of Connections</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#How-DSU-Work"><span class="toc-number">1.2.1.</span> <span class="toc-text">How DSU Work?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#How-DSU-is-Implemented"><span class="toc-number">1.2.2.</span> <span class="toc-text">How DSU is Implemented?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operations-on-Disjoint-Set-Data-Structures"><span class="toc-number">1.3.</span> <span class="toc-text">Operations on Disjoint Set Data Structures</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Creating-Disjoint-Sets"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. Creating Disjoint Sets:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Find-Operation"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. Find Operation:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Union-Operation"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. Union Operation:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimizations"><span class="toc-number">1.4.</span> <span class="toc-text">Optimizations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Path-Compression"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. Path Compression:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Union-by-Rank"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. Union by Rank:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Union-by-Size"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. Union by Size:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">1.5.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pros-and-Cons-of-DSU"><span class="toc-number">1.6.</span> <span class="toc-text">Pros and Cons of DSU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-Choose-Union-Find-Over-BFS-DFS"><span class="toc-number">1.7.</span> <span class="toc-text">Why Choose Union-Find Over BFS&#x2F;DFS?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redundant-Connection"><span class="toc-number">2.</span> <span class="toc-text">Redundant Connection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">2.2.1.</span> <span class="toc-text">Algorithm Walkthrough:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">Complexity Analysis:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Number-of-Provinces"><span class="toc-number">3.</span> <span class="toc-text">Number of Provinces</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">3.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Is-Graph-Bipartite"><span class="toc-number">4.</span> <span class="toc-text">Is Graph Bipartite?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-step-algorithm"><span class="toc-number">4.2.1.</span> <span class="toc-text">Step-by-step algorithm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-2"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-With-Minimum-Effort"><span class="toc-number">5.</span> <span class="toc-text">Path With Minimum Effort</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-Generation"><span class="toc-number">5.1.1.</span> <span class="toc-text">Example Generation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-2"><span class="toc-number">5.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-3"><span class="toc-number">6.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Complexity-Analysis-3"><span class="toc-number">7.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol>
             </div>
         
         <!-- sidebar -->
