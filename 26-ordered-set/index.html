@@ -19,15 +19,15 @@
         <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="416. Partition Equal Subset Sum Design Gurus Educative.io">
+    <meta name="description" content="Introduction to Ordered Set PatternWhat is an Ordered Set?Ordered Set is an extension of the Set data structure. An Ordered Set is a powerful data structure that blends the uniqueness of a set with th">
 <meta property="og:type" content="article">
 <meta property="og:title" content="26. Ordered Set">
 <meta property="og:url" content="https://hasuer.github.io/26-ordered-set/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
-<meta property="og:description" content="416. Partition Equal Subset Sum Design Gurus Educative.io">
+<meta property="og:description" content="Introduction to Ordered Set PatternWhat is an Ordered Set?Ordered Set is an extension of the Set data structure. An Ordered Set is a powerful data structure that blends the uniqueness of a set with th">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-03T06:27:51.000Z">
-<meta property="article:modified_time" content="2024-05-03T06:36:00.825Z">
+<meta property="article:modified_time" content="2024-05-25T15:21:51.796Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
@@ -347,7 +347,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">9</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">3.6k</span>Reading time: <span class="post-count reading-time">22 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -508,7 +508,270 @@
             <div class="container container-unloaded">
                 <main class="main post-page">
     <article class="article-entry">
-        <p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/partition-equal-subset-sum/">416. Partition Equal Subset Sum</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #FF6347; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Educative.io</span></p>
+        <h2 id="Introduction-to-Ordered-Set-Pattern"><a href="#Introduction-to-Ordered-Set-Pattern" class="headerlink" title="Introduction to Ordered Set Pattern"></a><strong>Introduction to Ordered Set Pattern</strong></h2><h3 id="What-is-an-Ordered-Set"><a href="#What-is-an-Ordered-Set" class="headerlink" title="What is an Ordered Set?"></a>What is an Ordered Set?</h3><p>Ordered Set is an extension of the <a target="_blank" rel="noopener" href="https://www.designgurus.io/course-play/grokking-data-structures-for-coding-interviews/doc/650eaa5f84abd2ec3012b8ce">Set</a> data structure.</p>
+<p>An <strong>Ordered Set</strong> is a powerful data structure that blends the uniqueness of a set with the ordered sequence of a list. Unlike traditional sets, where the elements are unsorted, an ordered set maintains the sequence of its elements, making it a versatile choice for many applications.</p>
+<p>The primary purpose of using an ordered set is to have a collection that not only avoids duplicate elements but also preserves their order. This ordering can be either the natural ordering of the elements or defined by a custom comparator. The ordered set is particularly useful when the sequence in which data is processed or retrieved is crucial.</p>
+<h3 id="Ordered-Set-vs-Set-The-Difference"><a href="#Ordered-Set-vs-Set-The-Difference" class="headerlink" title="Ordered Set vs. Set: The Difference"></a>Ordered Set vs. Set: The Difference</h3><p>The primary difference between a standard set and an ordered set is the element ordering. In a regular set, elements are stored with no particular order, and iterating over a set does not guarantee the order in which elements are returned. In contrast, an ordered set maintains its elements in a sorted order, whether it’s natural ordering or a specified one.</p>
+<p>The ordered set can perform all operations performed by the set data structure. Additionally, it can perform below two operations in <strong><em>O(logN)</em></strong> time.</p>
+<ol>
+<li><strong>find_by_order(k)</strong>: It efficiently retrieves the kth element in the set, measured from zero, in <strong><em>O(logN)</em></strong> time. It’s a game-changer for direct access based on element order. For example, in a set <code>&#123;1, 5, 6, 17, 88&#125;</code>:<ul>
+<li><code>find_by_order(2)</code> fetches the 3rd element in the set, which is 6.</li>
+<li><code>find_by_order(4)</code> accesses the 5th element in the set, i.e., 88.</li>
+</ul>
+</li>
+<li><strong>order_of_key(k)</strong>: This operation determines the number of elements in the set that are strictly smaller than the specified element k, also in O(log n) time. It’s a quick way to gauge the position of an element in the sorted order. Considering the same set <code>&#123;1, 5, 6, 17, 88&#125;</code>:<ul>
+<li><code>order_of_key(6)</code> reveals that 2 elements are smaller than 6.</li>
+<li><code>order_of_key(25)</code> shows that 4 elements are smaller than 25.</li>
+</ul>
+</li>
+</ol>
+<p>These advanced functions extend the capabilities of ordered sets, making them a more robust and versatile choice compared to traditional sets, especially in scenarios requiring both order-sensitive and unique data management.</p>
+<h3 id="Practical-Applications-of-Ordered-Set-with-Examples"><a href="#Practical-Applications-of-Ordered-Set-with-Examples" class="headerlink" title="Practical Applications of Ordered Set with Examples"></a>Practical Applications of Ordered Set with Examples</h3><p>Ordered sets can be used in scenarios where data is constantly updated and specific range-based queries are required. Let’s explore some examples to demonstrate the utility of ordered sets in managing dynamic data sets and executing range queries effectively.</p>
+<h4 id="Example-1-Managing-and-Querying-a-Dynamically-Updated-Array"><a href="#Example-1-Managing-and-Querying-a-Dynamically-Updated-Array" class="headerlink" title="Example 1: Managing and Querying a Dynamically Updated Array"></a>Example 1: Managing and Querying a Dynamically Updated Array</h4><p>Imagine a system where data elements are continuously added to an array. After each new addition, a query is made to find out how many elements within the array fall between a specified range ([l, r]). Initially, the array is empty.</p>
+<h5 id="Role-of-an-Ordered-Set"><a href="#Role-of-an-Ordered-Set" class="headerlink" title="Role of an Ordered Set"></a>Role of an Ordered Set</h5><p>In such a situation, an ordered set is invaluable. It can keep the elements in a sorted sequence as they are added, facilitating quick and accurate range queries.</p>
+<p>To illustrate, let’s look at the below example:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: <span class="number">5</span></span><br><span class="line"><span class="string">       [1, 2]</span></span><br><span class="line">       <span class="number">1</span></span><br><span class="line"><span class="string">       [2, 5]</span></span><br><span class="line">       <span class="number">2</span></span><br><span class="line"><span class="string">       [1, 5]</span></span><br><span class="line"></span><br><span class="line">Output: <span class="number">0</span></span><br><span class="line">        <span class="number">1</span></span><br><span class="line">        <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>The array starts off as empty.</li>
+<li>Post inserting <code>5</code>, the query for range <code>[1, 2]</code> yields no matching elements.</li>
+<li>On adding <code>1</code>, within the range <code>[2, 5]</code>, the element <code>5</code> meets the criteria.</li>
+<li>With <code>2</code> added, all elements (<code>1, 2, 5</code>) fall within the queried range <code>[1, 5]</code>.</li>
+</ul>
+<p>Through this example, the ordered set’s ability to manage and query data in a dynamic environment is evident. Its ordered nature allows for efficient calculation of element counts within specific ranges, showcasing its practicality in scenarios with frequent data updates and the need for immediate, accurate range-based information.</p>
+<h4 id="Example-2-User-Activity-Logs"><a href="#Example-2-User-Activity-Logs" class="headerlink" title="Example 2: User Activity Logs"></a>Example 2: User Activity Logs</h4><p>Imagine an application that maintains a log of user activities. An ordered set can be used to keep these logs in a chronological sequence without any duplicates, ensuring efficient data retrieval in the exact order of occurrence.</p>
+<h3 id="Implementing-Ordered-Set"><a href="#Implementing-Ordered-Set" class="headerlink" title="Implementing Ordered Set"></a>Implementing Ordered Set</h3><p>Here’s a basic implementation of an ordered set:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderedSetPython</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.<span class="built_in">set</span> = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params">self, element</span>):</span></span><br><span class="line">        <span class="keyword">if</span> element <span class="keyword">not</span> <span class="keyword">in</span> self.<span class="built_in">set</span>:</span><br><span class="line">            self.<span class="built_in">set</span>.append(element)</span><br><span class="line">            self.<span class="built_in">set</span>.sort(reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find_by_order</span>(<span class="params">self, k</span>):</span></span><br><span class="line">        <span class="keyword">if</span> k &lt; <span class="number">0</span> <span class="keyword">or</span> k &gt;= <span class="built_in">len</span>(self.<span class="built_in">set</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> self.<span class="built_in">set</span>[k]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">order_of_key</span>(<span class="params">self, element</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(<span class="number">1</span> <span class="keyword">for</span> x <span class="keyword">in</span> self.<span class="built_in">set</span> <span class="keyword">if</span> x &gt; element)</span><br><span class="line"></span><br><span class="line">orderedSet = OrderedSetPython()</span><br><span class="line">orderedSet.add(<span class="number">5</span>)</span><br><span class="line">orderedSet.add(<span class="number">1</span>)</span><br><span class="line">orderedSet.add(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(orderedSet.find_by_order(<span class="number">1</span>))  <span class="comment"># Find 2nd element in descending order</span></span><br><span class="line"><span class="built_in">print</span>(orderedSet.order_of_key(<span class="number">3</span>))   <span class="comment"># Elements greater than 3 in descending order</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-and-Space-Complexity-Analysis"><a href="#Time-and-Space-Complexity-Analysis" class="headerlink" title="Time and Space Complexity Analysis"></a>Time and Space Complexity Analysis</h3><ul>
+<li><strong>Time complexity:</strong> The time complexity for common operations like addition, removal, and searching in a <code>TreeSet</code> is O(log n), where n is the number of elements in the set. This is because <code>TreeSet</code> is typically implemented using a tree structure.</li>
+<li><strong>Space complexity:</strong> The space complexity is O(n), as it needs to store each unique element.</li>
+</ul>
+<p>Let’s jump onto our first problem and apply the <strong>Ordered set</strong> pattern.</p>
+<h2 id="Merge-Similar-Items"><a href="#Merge-Similar-Items" class="headerlink" title="Merge Similar Items"></a>Merge Similar Items</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/merge-similar-items/">2363. Merge Similar Items</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given two 2D arrays of item-value pairs, named <code>items1</code> and <code>items2</code>.</p>
+<ul>
+<li><strong>item[i] = [valuei, weighti]</strong>, where each valuei in these arrays is unique within its own array and is paired with a weighti.</li>
+</ul>
+<p>Combine these arrays such that if an item appears in both, its values are summed up. The final merged array should be sorted based on the valuei.</p>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li><strong>Input:</strong> <code>items1 = [[1,2],[4,3]]</code>, <code>items2 = [[2,1],[4,3],[3,4]]</code></li>
+<li><strong>Expected Output:</strong> <code>[[1,2],[2,1],[3,4],[4,6]]</code></li>
+<li><strong>Justification:</strong> Item 1 has value 2 in <code>items1</code> and doesn’t exist in <code>items2</code>, item 2 has value 1 in <code>items2</code>, item 4 is summed up.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li><strong>Input:</strong> <code>items1 = [[5,5]]</code>, <code>items2 = [[5,10]]</code></li>
+<li><strong>Expected Output:</strong> <code>[[5,15]]</code></li>
+<li><strong>Justification:</strong> Item 5 exists in both arrays, so their values are summed.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li><strong>Input:</strong> <code>items1 = [[1,1],[2,2]]</code>, <code>items2 = [[3,3]]</code></li>
+<li><strong>Expected Output:</strong> <code>[[1,1],[2,2],[3,3]]</code></li>
+<li><strong>Justification:</strong> All items are unique across <code>items1</code> and <code>items2</code>, so they remain unchanged.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= items1.length, items2.length &lt;= 1000</code></li>
+<li><code>items1[i].length == items2[i].length == 2</code></li>
+<li>1 &lt;= valuei, weighti &lt;= 1000</li>
+<li>Each valuei in items1 is unique.</li>
+<li>Each valuei in items2 is unique.</li>
+</ul>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, the approach involves creating a map (or dictionary) to efficiently track and combine the quantities of items. Start by iterating through each list. For each pair in these lists, check if the item (the first element of the pair) already exists in the map. If it does, update its quantity by adding the new quantity. If it doesn’t exist, add the item and its quantity to the map. Once both lists are processed, you will have a map with each item and its total quantity. Finally, convert this map into a list of pairs, sorted by the item numbers. This list represents the merged and sorted items with their cumulative quantities.</p>
+<h4 id="Step-by-step-algorithm"><a href="#Step-by-step-algorithm" class="headerlink" title="Step-by-step algorithm"></a>Step-by-step algorithm</h4><ol>
+<li><strong>Merging Lists</strong>: Start by merging both lists into a single list. This step doesn’t combine the values of similar items yet; it just creates a single list containing all item-value pairs.</li>
+<li><strong>Using an Ordered Set</strong>: Create an ordered set (like TreeSet or TreeMap in Java or std::set in C++) to store the final item-value pairs. The key of the set will be the item identifier, and the value will be the sum of values for that item.</li>
+<li><strong>Populating the Set</strong>: Iterate through the merged list. For each item-value pair, check if the item is already in the set. If it is, update the value by adding the new value to the existing one. If it’s not, insert the new item-value pair into the set.</li>
+<li><strong>Creating the Result List</strong>: Finally, iterate through the ordered set and construct the result list from the elements of the set.</li>
+</ol>
+<p>This approach ensures that each item is processed only once, making it efficient. The use of an ordered set guarantees that the final list is sorted by the item identifiers, as required.</p>
+<h4 id="Algorithm-Walkthrough-for-Example-1"><a href="#Algorithm-Walkthrough-for-Example-1" class="headerlink" title="Algorithm Walkthrough for Example 1"></a>Algorithm Walkthrough for Example 1</h4><p>Let’s walk through the algorithm using Example 1, where <code>items1 = [[1,2],[4,3]]</code> and <code>items2 = [[2,1],[4,3],[3,4]]</code>.</p>
+<ol>
+<li><strong>Initialization</strong>: Create an empty map (TreeMap in Java) to store the sum of values for each item. This map will help in merging and summing the item values.</li>
+<li><strong>Processing <code>items1</code></strong>:<ul>
+<li>Process item <code>[1,2]</code>: Since item <code>1</code> is not in the map, add it with the value <code>2</code>.</li>
+<li>Process item <code>[4,3]</code>: Since item <code>4</code> is not in the map, add it with the value <code>3</code>.</li>
+<li>After processing <code>items1</code>, the map looks like <code>&#123;1=2, 4=3&#125;</code>.</li>
+</ul>
+</li>
+<li><strong>Processing <code>items2</code></strong>:<ul>
+<li>Process item <code>[2,1]</code>: Since item <code>2</code> is not in the map, add it with the value <code>1</code>.</li>
+<li>Process item <code>[4,3]</code>: Item <code>4</code> already exists in the map with value <code>3</code>, so update it to <code>3 + 3 = 6</code>.</li>
+<li>Process item <code>[3,4]</code>: Since item <code>3</code> is not in the map, add it with the value <code>4</code>.</li>
+<li>After processing <code>items2</code>, the map looks like <code>&#123;1=2, 2=1, 3=4, 4=6&#125;</code>.</li>
+</ul>
+</li>
+<li><strong>Creating Sorted Result</strong>:<ul>
+<li>Convert the map entries into a list. The TreeMap ensures that entries are sorted based on the item identifiers.</li>
+<li>The resulting list from the map entries is <code>[[1,2], [2,1], [3,4], [4,6]]</code>.</li>
+</ul>
+</li>
+<li><strong>Final Output</strong>:<ul>
+<li>Return the sorted list <code>[[1,2], [2,1], [3,4], [4,6]]</code>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeSimilarItems</span>(<span class="params">self, items1, items2</span>):</span></span><br><span class="line">        <span class="comment"># Using defaultdict to automatically handle non-existing keys</span></span><br><span class="line">        merged_items = defaultdict(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Process items from the first list</span></span><br><span class="line">        <span class="keyword">for</span> item, value <span class="keyword">in</span> items1:</span><br><span class="line">            merged_items[item] += value</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Process items from the second list</span></span><br><span class="line">        <span class="keyword">for</span> item, value <span class="keyword">in</span> items2:</span><br><span class="line">            merged_items[item] += value</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Sort and return the result based on item ID</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sorted</span>([[item, value] <span class="keyword">for</span> item, value <span class="keyword">in</span> merged_items.items()], key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    solution = Solution()</span><br><span class="line">    <span class="comment"># Example inputs</span></span><br><span class="line">    <span class="built_in">print</span>(solution.mergeSimilarItems([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">4</span>, <span class="number">3</span>]], [[<span class="number">2</span>, <span class="number">1</span>], [<span class="number">4</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">4</span>]]))</span><br><span class="line">    <span class="built_in">print</span>(solution.mergeSimilarItems([[<span class="number">5</span>, <span class="number">5</span>]], [[<span class="number">5</span>, <span class="number">10</span>]]))</span><br><span class="line">    <span class="built_in">print</span>(solution.mergeSimilarItems([[<span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>]], [[<span class="number">3</span>, <span class="number">3</span>]]))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Time-and-Space-Complexity-Analysis-1"><a href="#Time-and-Space-Complexity-Analysis-1" class="headerlink" title="Time and Space Complexity Analysis"></a>Time and Space Complexity Analysis</h3><ul>
+<li><strong>Time Complexity:</strong> O(N log N), where N is the total number of item-value pairs. This accounts for the merging and sorting operations.</li>
+<li><strong>Space Complexity:</strong> O(N), for storing the merged items and the result array.</li>
+</ul>
+<h2 id="132-Pattern"><a href="#132-Pattern" class="headerlink" title="132 Pattern"></a>132 Pattern</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/132-pattern/">456. 132 Pattern</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement-1"><a href="#Problem-Statement-1" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given an array <code>nums</code>, containing <code>N</code> integers.</p>
+<p>A <code>132 pattern</code> consists of three numbers, say x, y, and z, where <code>x &lt; z</code> and <code>z &lt; y</code>. This is often referred to as a ‘132’ pattern because if we represent x, y, and z as 1, 3, and 2, respectively, it mimics the positional pattern in ‘132’.</p>
+<p>Return <code>true</code> if such a pattern exists within a given sequence of numbers. Otherwise, return <code>false</code>.</p>
+<h4 id="Examples-1"><a href="#Examples-1" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li>Input: nums = [3, 5, 0, 3, 4]</li>
+<li>Expected Output: True</li>
+<li>Justification: Here, 3 &lt; 4 and 4 &lt; 5, forming a ‘132’ pattern with the numbers 3, 5, and 4.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li>Input: nums = [1, 2, 3, 4]</li>
+<li>Expected Output: False</li>
+<li>Justification: The sequence is in ascending order, and no ‘132’ pattern is present.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li>Input: nums = [9, 11, 8, 9, 10, 7, 9]</li>
+<li>Expected Output: True</li>
+<li>Justification: The pattern is formed with 9 &lt; 10 and 10 &lt; 11.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>n == nums.length</code></li>
+<li>1 &lt;= n &lt;= 2 * 10^5</li>
+<li>-10^9 &lt;= nums[i] &lt;= 10^9</li>
+</ul>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>The approach for identifying the “132” pattern is centered on efficiently scanning the array to detect the specific sequence. This involves maintaining a variable for the potential third element of the pattern, which is initially set very low. The key is to iterate through the array in reverse. During this traversal, if an element is found that is smaller than this potential third element, the variable is updated. This strategy focuses on capturing the smallest possible candidate for the third element as the array is scanned. When an element larger than this updated variable is encountered, it indicates the presence of a valid “132” pattern, as it suggests a sequence where a smaller third element was found previously.</p>
+<p>The steps are as follows:</p>
+<ol>
+<li><strong>Initialization:</strong><ul>
+<li>A variable, <code>z</code>, is initialized with the smallest possible value. This variable is used to keep track of the potential ‘z’ value in our ‘132’ pattern.</li>
+<li>An ordered set (like a TreeSet in Java) is initialized to store and efficiently search for numbers.</li>
+</ul>
+</li>
+<li><strong>Iterating Backwards:</strong><ul>
+<li>We iterate through the array from the last element to the first. This reverse order is crucial for the logic of the algorithm.</li>
+</ul>
+</li>
+<li><strong>Updating ‘z’:</strong><ul>
+<li>For each element (let’s call it <code>current</code>), we check if it is smaller than <code>z</code>. If it is, it means we have found a valid ‘132’ pattern, and the function returns <code>true</code>.</li>
+<li>If <code>current</code> is not smaller than <code>z</code>, we search the ordered set for the largest number that is smaller than <code>current</code>. This number, if it exists, becomes the new <code>z</code>. This step ensures that <code>z</code> is always the best candidate for the middle element of our pattern.</li>
+</ul>
+</li>
+<li><strong>Maintaining the Ordered Set:</strong><ul>
+<li>The <code>current</code> element is then added to the ordered set. This set holds all the elements we have seen so far (in reverse order), allowing us to efficiently update <code>z</code> and check for the pattern.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Example-Walkthrough"><a href="#Example-Walkthrough" class="headerlink" title="Example Walkthrough"></a>Example Walkthrough</h3><p>Consider the example input: <code>[9, 11, 8, 9, 10, 7, 9]</code>. Let’s walk through the algorithm with this input:</p>
+<ol>
+<li>Initialize <code>z</code> to the smallest integer value. Initialize an empty ordered set.</li>
+<li>Start iterating from the end of the array:<ul>
+<li>First element (from the end) is 9. It’s not smaller than <code>z</code>, and there’s no element in the set smaller than 9. Add 9 to the set.</li>
+<li>Next element is 7. It’s not smaller than <code>z</code>, and there’s no element in the set smaller than 7. Add 7 to the set.</li>
+<li>Next is 10. It’s not smaller than <code>z</code>, but 9 is in the set and is smaller than 10, so update <code>z</code> to 9. Add 10 to the set.</li>
+<li>Next is 9. It’s not smaller than <code>z</code>, and there’s no element in the set smaller than 9. Add 9 to the set.</li>
+<li>Next is 8. It’s smaller than <code>z</code> (which is 9), so we’ve found a ‘132’ pattern. Return <code>true</code>.</li>
+</ul>
+</li>
+</ol>
+<p>In this example, when we reach the number 8, we already have 9 as our <code>z</code>, and since 8 is smaller than 9, it confirms the existence of the ‘132’ pattern in the array.</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find132pattern</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        z = <span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>)  <span class="comment"># Initialize z to the smallest possible value</span></span><br><span class="line">        <span class="comment"># 其实是一个单调栈，是一个非严格decreasing stack，上面的元素一定是&lt;=下面的元素，并且栈里的元素都比z大</span></span><br><span class="line">        set_nums = []  <span class="comment"># Use a list to simulate an ordered set</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">reversed</span>(nums):  <span class="comment"># Iterate backwards through the list</span></span><br><span class="line">            <span class="keyword">if</span> num &lt; z: <span class="comment"># z其实是132pattern中的“2”</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span>  <span class="comment"># A &#x27;132&#x27; pattern is found</span></span><br><span class="line">            <span class="keyword">while</span> set_nums <span class="keyword">and</span> set_nums[-<span class="number">1</span>] &lt; num:</span><br><span class="line">                z = set_nums.pop()  <span class="comment"># Update z to the largest smaller element</span></span><br><span class="line">            set_nums.append(num)  <span class="comment"># Add the current number to the set</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Testing the solution</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    solution = Solution()</span><br><span class="line">    <span class="built_in">print</span>(solution.find132pattern([<span class="number">3</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>]))  <span class="comment"># True</span></span><br><span class="line">    <span class="built_in">print</span>(solution.find132pattern([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]))  <span class="comment"># False</span></span><br><span class="line">    <span class="built_in">print</span>(solution.find132pattern([<span class="number">9</span>, <span class="number">11</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">9</span>]))  <span class="comment"># True</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li><strong>Time Complexity:</strong> O(n log n) as we iterate over all elements (O(n)) and each insertion or search in the ordered set/tree (or stack operations for some implementations) costs O(log n).</li>
+<li><strong>Space Complexity:</strong> O(n), as we use an ordered set or stack to store elements.</li>
+</ul>
+<h2 id="My-Calendar-I"><a href="#My-Calendar-I" class="headerlink" title="My Calendar I"></a>My Calendar I</h2><p><span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #97c50f; border-radius: 0.25rem; text-align: center; vertical-align: baseline;"><a target="_blank" rel="noopener" href="https://leetcode.com/problems/my-calendar-i/">729. My Calendar I</a></span> <span style="display: inline-block; padding: 0.25em 0.6em; font-size: 75%; font-weight: 700; line-height: 1; color: #ffffff; background-color: #1183c4; border-radius: 0.25rem; text-align: center; vertical-align: baseline;">Design Gurus</span></p>
+<h3 id="Problem-Statement-2"><a href="#Problem-Statement-2" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given a 2D array <code>nums</code> of size <code>N x 2</code>.</p>
+<ul>
+<li><strong>nums[i] = [starti, endi]</strong>, where starti is the starting time of the event and endi is the ending time of the event.</li>
+</ul>
+<p>For each <code>nums[i]</code>, determine if a requested booking time conflicts with any existing bookings.</p>
+<p>Return a boolean array of size <code>N</code>, representing whether the booking can be done in the given time interval.</p>
+<h4 id="Examples-2"><a href="#Examples-2" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li>Input: nums = [[10, 20], [15, 25], [20, 30]]</li>
+<li>Expected Output: <code>[true, false, true]</code></li>
+<li>Justification: The first event is booked successfully. The second event overlaps with the first one and is rejected. The third event starts when the first event ends, so it’s booked successfully.</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li>Input: [[5, 10], [10, 15], [5, 15]]</li>
+<li>Expected Output: <code>[true, true, false]</code></li>
+<li>Justification: The first and second events are booked without overlap. The third event overlaps with both the first and second, so it’s rejected.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li>Input: [[8, 13],[13, 17], [17, 20]]</li>
+<li>Expected Output: <code>[true, true, true]</code></li>
+<li>Justification: All events are booked without any overlap, as each event starts exactly when the previous one ends.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>0 &lt;= start &lt; end &lt;= 10^9</li>
+<li>At most 1000 calls will be made to book.</li>
+</ul>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, we manage event scheduling in a personal calendar using a TreeSet, a sorted data structure, to store events in order of their start times. The core of the solution involves processing an array of events, where each event is checked for potential overlaps with already scheduled events. This is done by comparing each new event with its closest neighbors in the TreeSet – the nearest events before and after it. If the new event doesn’t overlap with these neighbors (i.e., it starts after the preceding event ends and ends before the subsequent event begins), it’s added to the TreeSet. Otherwise, it’s rejected. This approach efficiently handles multiple event bookings in one operation, ensuring that no two events overlap in the calendar.</p>
+<ol>
+<li><strong>Initialization</strong>:<ul>
+<li>Create a data structure (<code>SortedSet</code> in C#, <code>TreeSet</code> in Java, <code>set</code> in C++, and a list in Python and JavaScript) to store the booked intervals. This data structure will help maintain the intervals in a sorted order based on their start times.</li>
+</ul>
+</li>
+<li><strong>Booking Process</strong>:<ul>
+<li>When a new booking request comes in (represented by a start and end time), we need to determine if it overlaps with any existing bookings.</li>
+<li>Check for two conditions:<ul>
+<li>The new booking starts after or exactly when the previous booking ends.</li>
+<li>The new booking ends on or before the next booking starts.</li>
+</ul>
+</li>
+<li>If both conditions are met, the booking does not overlap with existing bookings, and we can add it to our data structure.</li>
+</ul>
+</li>
+<li><strong>Insertion</strong>:<ul>
+<li>If the booking is successful (i.e., no overlap), add the new interval to the data structure.</li>
+</ul>
+</li>
+<li><strong>Returning Results</strong>:<ul>
+<li>The function should return a boolean value indicating whether the booking was successful (<code>true</code>) or not (<code>false</code>).</li>
+</ul>
+</li>
+</ol>
+<h4 id="Example-Walkthrough-1"><a href="#Example-Walkthrough-1" class="headerlink" title="Example Walkthrough"></a>Example Walkthrough</h4><p>Let’s consider the example where we have the following booking requests: [[10, 20], [15, 25], [20, 30]].</p>
+<ol>
+<li><strong>Booking <code>[10, 20]</code></strong>:<ul>
+<li>The booking list is empty, so this interval is added without any overlap. The list now contains <code>[10, 20]</code>.</li>
+<li><strong>Result</strong>: <code>true</code></li>
+</ul>
+</li>
+<li><strong>Booking <code>[15, 25]</code></strong>:<ul>
+<li>We check this against the existing booking <code>[10, 20]</code>. The new booking starts before the existing one ends (15 &lt; 20), so this is an overlap.</li>
+<li><strong>Result</strong>: <code>false</code></li>
+</ul>
+</li>
+<li><strong>Booking <code>[20, 30]</code></strong>:<ul>
+<li>We check this against the existing booking <code>[10, 20]</code>. The new booking starts exactly when the existing one ends (20 == 20), so there is no overlap.</li>
+<li>The booking <code>[20, 30]</code> is added to the list. The list now contains <code>[10, 20]</code> and <code>[20, 30]</code>.</li>
+<li><strong>Result</strong>: <code>true</code></li>
+</ul>
+</li>
+</ol>
+<p>So, the final results of these booking attempts are <code>[true, false, true]</code>.</p>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我写的我可以理解的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">book</span>(<span class="params">nums</span>):</span></span><br><span class="line">        bookings = []  <span class="comment"># Static list to store bookings</span></span><br><span class="line">        results = []  <span class="comment"># List to store the results of booking attempts</span></span><br><span class="line">        <span class="keyword">for</span> start, end <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="comment"># Check for overlap with existing bookings</span></span><br><span class="line">            <span class="keyword">for</span> s, e <span class="keyword">in</span> bookings:</span><br><span class="line">                a_overlaps_b = s &gt; start <span class="keyword">and</span> s &lt; end</span><br><span class="line">                b_overlaps_a = start &gt; s <span class="keyword">and</span> start &lt; e</span><br><span class="line">                <span class="keyword">if</span> a_overlaps_b <span class="keyword">or</span> b_overlaps_a:</span><br><span class="line">                    results.append(<span class="literal">False</span>)  <span class="comment"># Overlap found, booking fails</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                bookings.append((start, end))  <span class="comment"># No overlap, add booking</span></span><br><span class="line">                results.append(<span class="literal">True</span>)  <span class="comment"># Booking successful</span></span><br><span class="line">        <span class="keyword">return</span> results  <span class="comment"># Return the list of results</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    nums = [(<span class="number">10</span>, <span class="number">20</span>), (<span class="number">15</span>, <span class="number">25</span>), (<span class="number">20</span>, <span class="number">30</span>)]</span><br><span class="line">    <span class="built_in">print</span>(Solution.book(nums))  <span class="comment"># Print results of all bookings</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 原版的答案</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    bookings = [] <span class="comment"># Static list to store bookings</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">book</span>(<span class="params">nums</span>):</span></span><br><span class="line">        results = [] <span class="comment"># List to store the results of booking attempts</span></span><br><span class="line">        <span class="keyword">for</span> start, end <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="comment"># Check for overlap with existing bookings</span></span><br><span class="line">            <span class="keyword">for</span> s, e <span class="keyword">in</span> Solution.bookings:</span><br><span class="line">                <span class="keyword">if</span> s &lt; end <span class="keyword">and</span> start &lt; e:</span><br><span class="line">                    results.append(<span class="literal">False</span>) <span class="comment"># Overlap found, booking fails</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                Solution.bookings.append((start, end)) <span class="comment"># No overlap, add booking</span></span><br><span class="line">                results.append(<span class="literal">True</span>) <span class="comment"># Booking successful</span></span><br><span class="line">        <span class="keyword">return</span> results <span class="comment"># Return the list of results</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    nums = [(<span class="number">10</span>, <span class="number">20</span>), (<span class="number">15</span>, <span class="number">25</span>), (<span class="number">20</span>, <span class="number">30</span>)]</span><br><span class="line">    <span class="built_in">print</span>(Solution.book(nums)) <span class="comment"># Print results of all bookings</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-1"><a href="#Complexity-Analysis-1" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li><strong>Time Complexity</strong>: The primary operations are searching and inserting in the ordered set. Both operations have an average time complexity of O(log n), where n is the number of events in the set.</li>
+<li><strong>Space Complexity</strong>: The space complexity is O(n), as we need to store each event in the set.</li>
+</ul>
 
     </article>
     <!-- license -->
@@ -517,7 +780,7 @@
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
             <p>Link：<a href="https://hasuer.github.io/26-ordered-set/index.html">https://hasuer.github.io/26-ordered-set/index.html</a>
             <p>Publish date：<a href="https://hasuer.github.io/26-ordered-set/index.html">May 3rd 2024, 2:27:51 pm</a>
-            <p>Update date：<a href="https://hasuer.github.io/26-ordered-set/index.html">May 3rd 2024, 2:36:00 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/26-ordered-set/index.html">May 25th 2024, 11:21:51 pm</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -666,7 +929,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Ordered-Set-Pattern"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Ordered Set Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-an-Ordered-Set"><span class="toc-number">1.1.</span> <span class="toc-text">What is an Ordered Set?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ordered-Set-vs-Set-The-Difference"><span class="toc-number">1.2.</span> <span class="toc-text">Ordered Set vs. Set: The Difference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Applications-of-Ordered-Set-with-Examples"><span class="toc-number">1.3.</span> <span class="toc-text">Practical Applications of Ordered Set with Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1-Managing-and-Querying-a-Dynamically-Updated-Array"><span class="toc-number">1.3.1.</span> <span class="toc-text">Example 1: Managing and Querying a Dynamically Updated Array</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Role-of-an-Ordered-Set"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Role of an Ordered Set</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2-User-Activity-Logs"><span class="toc-number">1.3.2.</span> <span class="toc-text">Example 2: User Activity Logs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-Ordered-Set"><span class="toc-number">1.4.</span> <span class="toc-text">Implementing Ordered Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis"><span class="toc-number">1.5.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-Similar-Items"><span class="toc-number">2.</span> <span class="toc-text">Merge Similar Items</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-step-algorithm"><span class="toc-number">2.2.1.</span> <span class="toc-text">Step-by-step algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-for-Example-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">Algorithm Walkthrough for Example 1</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis-1"><span class="toc-number">2.4.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#132-Pattern"><span class="toc-number">3.</span> <span class="toc-text">132 Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Walkthrough"><span class="toc-number">3.3.</span> <span class="toc-text">Example Walkthrough</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">3.5.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Calendar-I"><span class="toc-number">4.</span> <span class="toc-text">My Calendar I</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-Walkthrough-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Example Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
