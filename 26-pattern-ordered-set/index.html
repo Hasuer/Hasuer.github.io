@@ -21,13 +21,13 @@
     <meta name="description" content="">
     <meta name="description" content="Introduction to Ordered Set PatternWhat is an Ordered Set?Ordered Set is an extension of the Set data structure. An Ordered Set is a powerful data structure that blends the uniqueness of a set with th">
 <meta property="og:type" content="article">
-<meta property="og:title" content="26. Ordered Set">
-<meta property="og:url" content="https://hasuer.github.io/26-ordered-set/index.html">
+<meta property="og:title" content="26. Pattern Ordered Set">
+<meta property="og:url" content="https://hasuer.github.io/26-pattern-ordered-set/index.html">
 <meta property="og:site_name" content="Hasuer&#39;s Studio.">
 <meta property="og:description" content="Introduction to Ordered Set PatternWhat is an Ordered Set?Ordered Set is an extension of the Set data structure. An Ordered Set is a powerful data structure that blends the uniqueness of a set with th">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-03T06:27:51.000Z">
-<meta property="article:modified_time" content="2024-05-25T15:21:51.796Z">
+<meta property="article:modified_time" content="2024-05-27T03:56:03.712Z">
 <meta property="article:author" content="Hasuer">
 <meta property="article:tag" content="Interview">
 <meta name="twitter:card" content="summary">
@@ -35,7 +35,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="/assets/old_profile.ico">
     
-    <title>26. Ordered Set · Hasuer&#39;s Studio</title>
+    <title>26. Pattern Ordered Set · Hasuer&#39;s Studio</title>
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -262,7 +262,7 @@
                 <a href="/">Hasuer&#39;s Studio.</a>
             </div>
             <div class="post-title header-element">
-                <a href="#" class="post-name">26. Ordered Set</a>
+                <a href="#" class="post-name">26. Pattern Ordered Set</a>
             </div>
         </div>
     
@@ -308,7 +308,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-                26. Ordered Set
+                26. Pattern Ordered Set
             <!-- 404 -->
             
         </h1>
@@ -347,7 +347,7 @@
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">3.6k</span>Reading time: <span class="post-count reading-time">22 min</span></span>
+                        <span>Word count: <span class="post-count word-count">4.6k</span>Reading time: <span class="post-count reading-time">28 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -772,15 +772,106 @@
 <li><strong>Time Complexity</strong>: The primary operations are searching and inserting in the ordered set. Both operations have an average time complexity of O(log n), where n is the number of events in the set.</li>
 <li><strong>Space Complexity</strong>: The space complexity is O(n), as we need to store each event in the set.</li>
 </ul>
+<h2 id="Longest-Continuous-Subarray"><a href="#Longest-Continuous-Subarray" class="headerlink" title="Longest Continuous Subarray"></a><strong>Longest Continuous Subarray</strong></h2><p>还没做</p>
+<h3 id="Problem-Statement-3"><a href="#Problem-Statement-3" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>Given an array of integers <code>nums</code> and an integer <code>limit</code>, find the length of the longest contiguous <code>non-empty</code> subarray within<code>nums</code>, where the absolute difference between any two elements in this subarray does not exceed a specified <code>limit</code>.</p>
+<h4 id="Examples-3"><a href="#Examples-3" class="headerlink" title="Examples"></a>Examples</h4><ol>
+<li><strong>Example 1:</strong><ul>
+<li><strong>Input:</strong> Array = [10, 1, 2, 4, 7], Limit = 5</li>
+<li><strong>Expected Output:</strong> 3</li>
+<li><strong>Justification:</strong> The longest subarray where the absolute difference between any two numbers is at most 5 is [1, 2, 4].</li>
+</ul>
+</li>
+<li><strong>Example 2:</strong><ul>
+<li><strong>Input:</strong> Array = [4, 8, 5, 1, 7, 9], Limit = 3</li>
+<li><strong>Expected Output:</strong> 2</li>
+<li><strong>Justification:</strong> One possible longest subarray is [7, 9] where the difference between 7 and 9 is within the limit of 3.</li>
+</ul>
+</li>
+<li><strong>Example 3:</strong><ul>
+<li><strong>Input:</strong> Array = [3, 3, 3, 3, 3], Limit = 0</li>
+<li><strong>Expected Output:</strong> 5</li>
+<li><strong>Justification:</strong> Since all elements are the same, the entire array is the longest subarray with differences of 0.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>1 &lt;= nums.length &lt;= 10^5</li>
+<li>1 &lt;= nums[i] &lt;= 10^9</li>
+<li>0 &lt;= limit &lt;= 10^9</li>
+</ul>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>To solve this problem, we use a TreeMap to manage the elements of the current subarray as we iterate through the given array. The TreeMap helps in maintaining the order of elements and allows us to quickly access the smallest and largest elements.</p>
+<p>As we traverse the array, we dynamically adjust the size of a sliding window. We add elements to the window and check if the absolute difference between the minimum and maximum elements within the window stays within the given limit. If the condition is violated, we shrink the window from the left side until the condition is met again. Throughout this process, we keep track of the length of the longest subarray found that satisfies the condition. The final result is the maximum length of such a subarray. This approach ensures that we examine each element of the array only once, making the solution efficient and effective for finding the longest subarray within the specified limit.</p>
+<p>The algorithm can be described as follows:</p>
+<ol>
+<li><strong>Initialization:</strong> Start with two pointers (or indices) at the beginning of the array. Initialize an ordered set to keep track of the elements within the current window (subarray).</li>
+<li><strong>Window Expansion:</strong> Move the right pointer to expand the window until the difference between the maximum and minimum values in the ordered set exceeds the limit.</li>
+<li><strong>Window Contraction:</strong> Once the limit is exceeded, move the left pointer to shrink the window until the condition is satisfied again. During this process, update the ordered set accordingly.</li>
+<li><strong>Result Update:</strong> After each expansion, update the result with the maximum length of the window (subarray) found so far.</li>
+</ol>
+<p>This approach ensures that at every stage, we maintain a subarray where the absolute difference condition is met, and we efficiently find the longest such subarray. The use of an ordered set is crucial for fast access to the minimum and maximum elements, which are the bottleneck operations in this problem.</p>
+<h4 id="Algorithm-Walkthrough"><a href="#Algorithm-Walkthrough" class="headerlink" title="Algorithm Walkthrough"></a>Algorithm Walkthrough</h4><p>Let’s walk through the first example step-by-step to understand how the algorithm works. The input for this example is an array <code>[10, 1, 2, 4, 7]</code> with a limit of <code>5</code>.</p>
+<ol>
+<li><strong>Initialization:</strong><ul>
+<li>Start with two pointers, <code>left</code> and <code>right</code>, both at index <code>0</code>. Initialize an empty TreeMap (in Java) or equivalent ordered set/map.</li>
+</ul>
+</li>
+<li><strong>First Iteration (right = 0):</strong><ul>
+<li>Add <code>10</code> to the TreeMap.</li>
+<li>Current TreeMap: <code>&#123;10: 1&#125;</code></li>
+<li>The condition (max - min &lt;= limit) is satisfied (<code>10 - 10 = 0 &lt;= 5</code>).</li>
+<li>Current longest subarray length = <code>1</code> (<code>[10]</code>).</li>
+</ul>
+</li>
+<li><strong>Second Iteration (right = 1):</strong><ul>
+<li>Add <code>1</code> to the TreeMap.</li>
+<li>Current TreeMap: <code>&#123;1: 1, 10: 1&#125;</code></li>
+<li>The condition is not satisfied (<code>10 - 1 = 9 &gt; 5</code>).</li>
+<li>Move <code>left</code> pointer right by one (remove <code>10</code> from TreeMap).</li>
+<li>Current TreeMap after adjustment: <code>&#123;1: 1&#125;</code></li>
+<li>Current longest subarray length = <code>1</code> (reduced to <code>[1]</code>).</li>
+</ul>
+</li>
+<li><strong>Third Iteration (right = 2):</strong><ul>
+<li>Add <code>2</code> to the TreeMap.</li>
+<li>Current TreeMap: <code>&#123;1: 1, 2: 1&#125;</code></li>
+<li>The condition is satisfied (<code>2 - 1 = 1 &lt;= 5</code>).</li>
+<li>Current longest subarray length = <code>2</code> (<code>[1, 2]</code>).</li>
+</ul>
+</li>
+<li><strong>Fourth Iteration (right = 3):</strong><ul>
+<li>Add <code>4</code> to the TreeMap.</li>
+<li>Current TreeMap: <code>&#123;1: 1, 2: 1, 4: 1&#125;</code></li>
+<li>The condition is satisfied (<code>4 - 1 = 3 &lt;= 5</code>).</li>
+<li>Current longest subarray length = <code>3</code> (<code>[1, 2, 4]</code>).</li>
+</ul>
+</li>
+<li><strong>Fifth Iteration (right = 4):</strong><ul>
+<li>Add <code>7</code> to the TreeMap.</li>
+<li>Current TreeMap: <code>&#123;1: 1, 2: 1, 4: 1, 7: 1&#125;</code></li>
+<li>The condition is satisfied (<code>7 - 1 = 6 &gt; 5</code>).</li>
+<li>Move <code>left</code> pointer right by one (remove <code>1</code> from TreeMap).</li>
+<li>Current TreeMap after adjustment: <code>&#123;2: 1, 4: 1, 7: 1&#125;</code></li>
+<li>The condition is now satisfied (<code>7 - 2 = 5 &lt;= 5</code>).</li>
+<li>Current longest subarray length = <code>3</code> (<code>[2, 4, 7]</code>).</li>
+</ul>
+</li>
+</ol>
+<p>The algorithm ends here as we have reached the end of the array. The maximum length of the subarray found that satisfies the condition is <code>3</code>, which is the expected output for this example.</p>
+<h3 id="Code-3"><a href="#Code-3" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestSubarray</span>(<span class="params">nums, limit</span>):</span></span><br><span class="line">        <span class="comment"># Using a map to keep track of the frequency of elements</span></span><br><span class="line">        <span class="built_in">map</span> = defaultdict(<span class="built_in">int</span>)</span><br><span class="line">        left = maxLength = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Iterate through the array to find the longest subarray</span></span><br><span class="line">        <span class="keyword">for</span> right, value <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="built_in">map</span>[value] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># Shrink the window if the condition is violated</span></span><br><span class="line">            <span class="keyword">while</span> <span class="built_in">max</span>(<span class="built_in">map</span>.keys()) - <span class="built_in">min</span>(<span class="built_in">map</span>.keys()) &gt; limit:</span><br><span class="line">                <span class="built_in">map</span>[nums[left]] -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">map</span>[nums[left]] == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">del</span> <span class="built_in">map</span>[nums[left]]</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># Update the maximum length found</span></span><br><span class="line">            maxLength = <span class="built_in">max</span>(maxLength, right - left + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxLength</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test the function with example inputs</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(Solution.longestSubarray([<span class="number">10</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">7</span>], <span class="number">5</span>))  <span class="comment"># Expected Output: 3</span></span><br><span class="line">    <span class="built_in">print</span>(Solution.longestSubarray([<span class="number">4</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">9</span>], <span class="number">3</span>))  <span class="comment"># Expected Output: 2</span></span><br><span class="line">    <span class="built_in">print</span>(Solution.longestSubarray([<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], <span class="number">0</span>))  <span class="comment"># Expected Output: 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="Complexity-Analysis-2"><a href="#Complexity-Analysis-2" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h3><ul>
+<li><strong>Time Complexity:</strong> The time complexity of this algorithm is O(N log N), where N is the number of elements in the array. This is due to the operations performed on the ordered set (or map in some implementations), like insertion, deletion, and finding the max/min elements, each taking O(log N) time.</li>
+<li><strong>Space Complexity:</strong> The space complexity is O(N) due to the additional data structure (ordered set or map) used to store the elements of the current window.</li>
+</ul>
 
     </article>
     <!-- license -->
     
         <div class="license-wrapper">
             <p>Author：<a href="https://hasuer.github.io">Hasuer</a>
-            <p>Link：<a href="https://hasuer.github.io/26-ordered-set/index.html">https://hasuer.github.io/26-ordered-set/index.html</a>
-            <p>Publish date：<a href="https://hasuer.github.io/26-ordered-set/index.html">May 3rd 2024, 2:27:51 pm</a>
-            <p>Update date：<a href="https://hasuer.github.io/26-ordered-set/index.html">May 25th 2024, 11:21:51 pm</a>
+            <p>Link：<a href="https://hasuer.github.io/26-pattern-ordered-set/index.html">https://hasuer.github.io/26-pattern-ordered-set/index.html</a>
+            <p>Publish date：<a href="https://hasuer.github.io/26-pattern-ordered-set/index.html">May 3rd 2024, 2:27:51 pm</a>
+            <p>Update date：<a href="https://hasuer.github.io/26-pattern-ordered-set/index.html">May 27th 2024, 11:56:03 am</a>
             <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -929,7 +1020,7 @@
                 <div class="toc-catalog">
                     <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
                 </div>
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Ordered-Set-Pattern"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Ordered Set Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-an-Ordered-Set"><span class="toc-number">1.1.</span> <span class="toc-text">What is an Ordered Set?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ordered-Set-vs-Set-The-Difference"><span class="toc-number">1.2.</span> <span class="toc-text">Ordered Set vs. Set: The Difference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Applications-of-Ordered-Set-with-Examples"><span class="toc-number">1.3.</span> <span class="toc-text">Practical Applications of Ordered Set with Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1-Managing-and-Querying-a-Dynamically-Updated-Array"><span class="toc-number">1.3.1.</span> <span class="toc-text">Example 1: Managing and Querying a Dynamically Updated Array</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Role-of-an-Ordered-Set"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Role of an Ordered Set</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2-User-Activity-Logs"><span class="toc-number">1.3.2.</span> <span class="toc-text">Example 2: User Activity Logs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-Ordered-Set"><span class="toc-number">1.4.</span> <span class="toc-text">Implementing Ordered Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis"><span class="toc-number">1.5.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-Similar-Items"><span class="toc-number">2.</span> <span class="toc-text">Merge Similar Items</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-step-algorithm"><span class="toc-number">2.2.1.</span> <span class="toc-text">Step-by-step algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-for-Example-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">Algorithm Walkthrough for Example 1</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis-1"><span class="toc-number">2.4.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#132-Pattern"><span class="toc-number">3.</span> <span class="toc-text">132 Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Walkthrough"><span class="toc-number">3.3.</span> <span class="toc-text">Example Walkthrough</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">3.5.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Calendar-I"><span class="toc-number">4.</span> <span class="toc-text">My Calendar I</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-Walkthrough-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Example Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-Ordered-Set-Pattern"><span class="toc-number">1.</span> <span class="toc-text">Introduction to Ordered Set Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-an-Ordered-Set"><span class="toc-number">1.1.</span> <span class="toc-text">What is an Ordered Set?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ordered-Set-vs-Set-The-Difference"><span class="toc-number">1.2.</span> <span class="toc-text">Ordered Set vs. Set: The Difference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Applications-of-Ordered-Set-with-Examples"><span class="toc-number">1.3.</span> <span class="toc-text">Practical Applications of Ordered Set with Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-1-Managing-and-Querying-a-Dynamically-Updated-Array"><span class="toc-number">1.3.1.</span> <span class="toc-text">Example 1: Managing and Querying a Dynamically Updated Array</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Role-of-an-Ordered-Set"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Role of an Ordered Set</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-2-User-Activity-Logs"><span class="toc-number">1.3.2.</span> <span class="toc-text">Example 2: User Activity Logs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementing-Ordered-Set"><span class="toc-number">1.4.</span> <span class="toc-text">Implementing Ordered Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis"><span class="toc-number">1.5.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-Similar-Items"><span class="toc-number">2.</span> <span class="toc-text">Merge Similar Items</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement"><span class="toc-number">2.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples"><span class="toc-number">2.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-by-step-algorithm"><span class="toc-number">2.2.1.</span> <span class="toc-text">Step-by-step algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough-for-Example-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">Algorithm Walkthrough for Example 1</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-and-Space-Complexity-Analysis-1"><span class="toc-number">2.4.</span> <span class="toc-text">Time and Space Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#132-Pattern"><span class="toc-number">3.</span> <span class="toc-text">132 Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-1"><span class="toc-number">3.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">3.2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Walkthrough"><span class="toc-number">3.3.</span> <span class="toc-text">Example Walkthrough</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">3.4.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">3.5.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Calendar-I"><span class="toc-number">4.</span> <span class="toc-text">My Calendar I</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-2"><span class="toc-number">4.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">4.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-Walkthrough-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Example Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-2"><span class="toc-number">4.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-1"><span class="toc-number">4.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Longest-Continuous-Subarray"><span class="toc-number">5.</span> <span class="toc-text">Longest Continuous Subarray</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Statement-3"><span class="toc-number">5.1.</span> <span class="toc-text">Problem Statement</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-3"><span class="toc-number">5.1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">5.2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Algorithm-Walkthrough"><span class="toc-number">5.2.1.</span> <span class="toc-text">Algorithm Walkthrough</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-3"><span class="toc-number">5.3.</span> <span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complexity-Analysis-2"><span class="toc-number">5.4.</span> <span class="toc-text">Complexity Analysis</span></a></li></ol></li></ol>
             </div>
         
         <!-- sidebar -->
@@ -2133,6 +2224,30 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
@@ -2168,12 +2283,6 @@
         
         <li class="archive-post-item">
             <span class="archive-post-date">05/03</span>
-            <a class="archive-post-title" href="/26-ordered-set/index.html">26. Ordered Set</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span>
             <a class="archive-post-title" href="/23-pattern-trie/index.html">23. Pattern Trie</a>
         </li>
     
@@ -2199,6 +2308,12 @@
         <li class="archive-post-item">
             <span class="archive-post-date">05/03</span>
             <a class="archive-post-title" href="/29-miscellaneous/index.html">29. Miscellaneous</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/26-pattern-ordered-set/index.html">26. Pattern Ordered Set</a>
         </li>
     
         
